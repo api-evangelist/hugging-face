@@ -1,0 +1,85 @@
+name: Hugging Face
+description: The AI community building the future with open-source machine learning models, datasets, and applications
+image: https://huggingface.co/front/assets/huggingface_logo.svg
+url: https://huggingface.co
+created: '2024'
+modified: '2024'
+specificationVersion: '0.18'
+apis:
+- name: Hugging Face Inference API
+  description: Run inference on 200,000+ machine learning models with a simple HTTP request
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Machine Learning
+  - Inference
+  - AI
+  - Models
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: OpenAPI
+    url: https://huggingface.co/api-inference/openapi.json
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+- name: Hugging Face Hub API
+  description: Programmatically interact with the Hugging Face Hub - manage models, datasets, and spaces
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/hub/api
+  baseURL: https://huggingface.co/api
+  tags:
+  - Hub
+  - Models
+  - Datasets
+  - Repository Management
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: Python Client
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+- name: Hugging Face Inference Endpoints API
+  description: Deploy and scale machine learning models with dedicated, secure infrastructure
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/inference-endpoints/index
+  baseURL: https://api.endpoints.huggingface.cloud
+  tags:
+  - Deployment
+  - Enterprise
+  - Inference
+  - Managed Service
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+common:
+- type: Terms of Service
+  url: https://huggingface.co/terms-of-service
+- type: Privacy Policy
+  url: https://huggingface.co/privacy
+- type: Blog
+  url: https://huggingface.co/blog
+- type: GitHub
+  url: https://github.com/huggingface
+- type: Twitter
+  url: https://twitter.com/huggingface
+- type: Discord
+  url: https://huggingface.co/join/discord
+- type: Status
+  url: https://status.huggingface.co
+maintainers:
+- name: Hugging Face Team
+  email: api@huggingface.co
+  url: https://huggingface.co
