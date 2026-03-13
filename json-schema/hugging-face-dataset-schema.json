@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huggingface.co/schemas/dataset.json",
+  "title": "Hugging Face Dataset",
+  "description": "Schema for a dataset hosted on the Hugging Face Hub, including metadata, structure, splits, and repository information.",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Internal unique identifier for the dataset"
+    },
+    "id": {
+      "type": "string",
+      "description": "Dataset repository ID in the format author/dataset-name or dataset-name",
+      "examples": [
+        "squad",
+        "glue",
+        "mozilla-foundation/common_voice_17_0",
+        "tatsu-lab/alpaca"
+      ]
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or organization that owns the dataset"
+    },
+    "sha": {
+      "type": "string",
+      "description": "Latest Git commit SHA of the dataset repository",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last modification"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the dataset was created"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the dataset is private",
+      "default": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the dataset has been disabled",
+      "default": false
+    },
+    "gated": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "auto",
+            "manual"
+          ]
+        }
+      ],
+      "description": "Access gating configuration"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags associated with the dataset"
+    },
+    "downloads": {
+      "type": "integer",
+      "description": "Number of downloads in the last 30 days",
+      "minimum": 0
+    },
+    "likes": {
+      "type": "integer",
+      "description": "Number of likes/favorites",
+      "minimum": 0
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of the dataset"
+    },
+    "citation": {
+      "type": "string",
+      "description": "Citation text for the dataset (BibTeX format)"
+    },
+    "siblings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rfilename": {
+            "type": "string",
+            "description": "Relative file path within the repository"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes"
+          },
+          "blobId": {
+            "type": "string",
+            "description": "Git blob ID"
+          },
+          "lfs": {
+            "type": "object",
+            "properties": {
+              "sha256": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "pointerSize": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "description": "Files in the dataset repository"
+    },
+    "cardData": {
+      "type": "object",
+      "description": "Parsed metadata from the dataset card YAML front matter",
+      "properties": {
+        "language": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "Language(s) of the dataset"
+        },
+        "license": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "License identifier(s)",
+          "examples": [
+            "apache-2.0",
+            "mit",
+            "cc-by-4.0",
+            "cc-by-sa-4.0"
+          ]
+        },
+        "multilinguality": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "monolingual",
+              "multilingual",
+              "translation",
+              "other"
+            ]
+          }
+        },
+        "size_categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "n<1K",
+              "1K<n<10K",
+              "10K<n<100K",
+              "100K<n<1M",
+              "1M<n<10M",
+              "10M<n<100M",
+              "100M<n<1B",
+              "1B<n<10B",
+              "n>10B"
+            ]
+          },
+          "description": "Size category of the dataset"
+        },
+        "task_categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Task categories the dataset supports",
+          "examples": [
+            [
+              "text-classification",
+              "question-answering",
+              "summarization",
+              "translation",
+              "text-generation"
+            ]
+          ]
+        },
+        "task_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specific task IDs (more granular than task_categories)"
+        },
+        "paperswithcode_id": {
+          "type": "string",
+          "description": "Papers With Code dataset identifier"
+        },
+        "pretty_name": {
+          "type": "string",
+          "description": "Human-readable display name"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "config_name": {
+                "type": "string",
+                "description": "Configuration/subset name"
+              },
+              "data_files": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "split": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ],
+                "description": "Data file locations for this config"
+              },
+              "default": {
+                "type": "boolean",
+                "description": "Whether this is the default configuration"
+              }
+            }
+          },
+          "description": "Dataset loading configurations"
+        },
+        "dataset_info": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/DatasetInfoEntry"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/DatasetInfoEntry"
+              }
+            }
+          ],
+          "description": "Detailed structural information about the dataset"
+        },
+        "train-eval-index": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "config": {
+                "type": "string"
+              },
+              "task": {
+                "type": "string"
+              },
+              "task_id": {
+                "type": "string"
+              },
+              "splits": {
+                "type": "object"
+              },
+              "col_mapping": {
+                "type": "object"
+              },
+              "metrics": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "description": "AutoTrain evaluation configuration"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "DatasetInfoEntry": {
+      "type": "object",
+      "properties": {
+        "config_name": {
+          "type": "string",
+          "description": "Configuration name"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Feature"
+          },
+          "description": "Dataset feature (column) definitions"
+        },
+        "splits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Split name (e.g., train, test, validation)"
+              },
+              "num_bytes": {
+                "type": "integer",
+                "description": "Size of the split in bytes"
+              },
+              "num_examples": {
+                "type": "integer",
+                "description": "Number of examples in the split"
+              }
+            }
+          },
+          "description": "Data splits"
+        },
+        "download_size": {
+          "type": "integer",
+          "description": "Total download size in bytes"
+        },
+        "dataset_size": {
+          "type": "integer",
+          "description": "Total dataset size in bytes (uncompressed)"
+        }
+      }
+    },
+    "Feature": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Feature/column name"
+        },
+        "dtype": {
+          "type": "string",
+          "description": "Data type (e.g., string, int32, float64, bool)",
+          "examples": [
+            "string",
+            "int32",
+            "int64",
+            "float32",
+            "float64",
+            "bool"
+          ]
+        },
+        "struct": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Feature"
+          },
+          "description": "Nested struct fields"
+        },
+        "sequence": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/Feature"
+            }
+          ],
+          "description": "Sequence element type"
+        },
+        "class_label": {
+          "type": "object",
+          "properties": {
+            "names": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              },
+              "description": "Mapping from integer labels to string names"
+            }
+          },
+          "description": "Class label metadata"
+        },
+        "_type": {
+          "type": "string",
+          "description": "Internal type identifier",
+          "enum": [
+            "Value",
+            "ClassLabel",
+            "Sequence",
+            "Image",
+            "Audio",
+            "Translation",
+            "TranslationVariableLanguages",
+            "Array2D",
+            "Array3D",
+            "Array4D",
+            "Array5D"
+          ]
+        }
+      }
+    }
+  }
+}

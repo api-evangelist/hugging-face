@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huggingface.co/schemas/user.json",
+  "title": "Hugging Face User",
+  "description": "Schema for a Hugging Face user account including profile information, organizations, and subscription details.",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Account type",
+      "enum": [
+        "user",
+        "org"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Username (handle)",
+      "examples": [
+        "julien-c",
+        "lysandre"
+      ]
+    },
+    "fullname": {
+      "type": "string",
+      "description": "Full display name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address"
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "description": "Whether the email has been verified"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Subscription plan",
+      "enum": [
+        "free",
+        "pro",
+        "enterprise"
+      ]
+    },
+    "isPro": {
+      "type": "boolean",
+      "description": "Whether the user is on a Pro plan"
+    },
+    "canPay": {
+      "type": "boolean",
+      "description": "Whether the user has a payment method configured"
+    },
+    "avatarUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the user's avatar image"
+    },
+    "orgs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Organization username"
+          },
+          "fullname": {
+            "type": "string",
+            "description": "Organization display name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "plan": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "isEnterprise": {
+            "type": "boolean",
+            "description": "Whether this is an Enterprise organization"
+          },
+          "periodEnd": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Subscription period end date"
+          },
+          "role": {
+            "type": "string",
+            "description": "User's role in this organization",
+            "enum": [
+              "admin",
+              "write",
+              "read",
+              "contributor"
+            ]
+          }
+        }
+      },
+      "description": "Organizations the user belongs to"
+    },
+    "auth": {
+      "type": "object",
+      "description": "Authentication information",
+      "properties": {
+        "accessToken": {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string",
+              "description": "Token display name"
+            },
+            "role": {
+              "type": "string",
+              "description": "Token role/permissions"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  }
+}

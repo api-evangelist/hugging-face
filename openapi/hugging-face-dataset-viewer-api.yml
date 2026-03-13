@@ -1,0 +1,818 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer API
+  description: >-
+    Query and visualize datasets stored on the Hugging Face Hub through a
+    lightweight REST API. Get dataset splits, preview rows, search and filter
+    data, access Parquet files, retrieve size statistics, and obtain Croissant
+    metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://datasets-server.huggingface.co
+    description: Hugging Face Dataset Viewer production server
+security:
+  - {}
+  - bearerAuth: []
+tags:
+  - name: Dataset Info
+    description: Dataset validity and structure endpoints
+  - name: Data Access
+    description: Row-level data access and preview endpoints
+  - name: Search & Filter
+    description: Search and filter dataset contents
+  - name: Files & Metadata
+    description: Parquet files, size, statistics, and metadata
+paths:
+  /is-valid:
+    get:
+      summary: Check dataset validity
+      description: >-
+        Check whether a specific dataset is valid and processed by the Dataset
+        Viewer. Returns availability status for preview, viewer, search, filter,
+        and statistics features.
+      operationId: isValid
+      tags:
+        - Dataset Info
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID on the Hugging Face Hub
+          schema:
+            type: string
+          example: cornell-movie-review-data/rotten_tomatoes
+      responses:
+        '200':
+          description: Dataset validity status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidityResponse'
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /splits:
+    get:
+      summary: Get dataset splits
+      description: >-
+        Get the list of subsets (configurations) and splits for a dataset. A
+        dataset can have multiple subsets, each with different splits (e.g.,
+        train, test, validation).
+      operationId: getSplits
+      tags:
+        - Dataset Info
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID on the Hugging Face Hub
+          schema:
+            type: string
+          example: squad
+      responses:
+        '200':
+          description: List of subsets and splits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitsResponse'
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Processing error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /first-rows:
+    get:
+      summary: Get first rows of a split
+      description: >-
+        Get the first 100 rows of a dataset split. Useful for previewing data
+        structure and content.
+      operationId: getFirstRows
+      tags:
+        - Data Access
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+          example: squad
+        - name: config
+          in: query
+          required: true
+          description: The subset (configuration) name
+          schema:
+            type: string
+          example: plain_text
+        - name: split
+          in: query
+          required: true
+          description: The split name
+          schema:
+            type: string
+          example: train
+      responses:
+        '200':
+          description: First rows of the dataset split
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RowsResponse'
+        '400':
+          description: Bad request - missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Dataset, config, or split not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /rows:
+    get:
+      summary: Get a slice of rows
+      description: >-
+        Get a slice of rows from a dataset split with pagination support. Returns
+        up to 100 rows per request.
+      operationId: getRows
+      tags:
+        - Data Access
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+          example: squad
+        - name: config
+          in: query
+          required: true
+          description: The subset (configuration) name
+          schema:
+            type: string
+          example: plain_text
+        - name: split
+          in: query
+          required: true
+          description: The split name
+          schema:
+            type: string
+          example: train
+        - name: offset
+          in: query
+          required: false
+          description: Row offset to start from
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+        - name: length
+          in: query
+          required: false
+          description: Number of rows to return (max 100)
+          schema:
+            type: integer
+            default: 100
+            maximum: 100
+            minimum: 1
+      responses:
+        '200':
+          description: Slice of rows from the dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RowsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /search:
+    get:
+      summary: Search text in a split
+      description: >-
+        Full-text search within a dataset split. Searches across all text
+        columns and returns matching rows.
+      operationId: searchRows
+      tags:
+        - Search & Filter
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+        - name: config
+          in: query
+          required: true
+          description: The subset (configuration) name
+          schema:
+            type: string
+        - name: split
+          in: query
+          required: true
+          description: The split name
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: true
+          description: Search query string
+          schema:
+            type: string
+          example: machine learning
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: length
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+            maximum: 100
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /filter:
+    get:
+      summary: Filter rows in a split
+      description: >-
+        Filter rows in a dataset split using SQL-like WHERE and ORDER BY
+        clauses. Supports comparison operators and logical operations.
+      operationId: filterRows
+      tags:
+        - Search & Filter
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+        - name: config
+          in: query
+          required: true
+          description: The subset (configuration) name
+          schema:
+            type: string
+        - name: split
+          in: query
+          required: true
+          description: The split name
+          schema:
+            type: string
+        - name: where
+          in: query
+          required: false
+          description: >-
+            SQL-like WHERE clause for filtering (e.g., "label = 1" or
+            "score > 0.5")
+          schema:
+            type: string
+          example: label = 1
+        - name: orderby
+          in: query
+          required: false
+          description: SQL-like ORDER BY clause for sorting
+          schema:
+            type: string
+          example: score DESC
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: length
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 100
+            maximum: 100
+      responses:
+        '200':
+          description: Filtered rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RowsResponse'
+        '400':
+          description: Bad request or invalid filter expression
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /parquet:
+    get:
+      summary: List Parquet files
+      description: >-
+        Get the list of a dataset's files converted to Parquet format. Datasets
+        are auto-converted to Parquet on the Hub for efficient data access.
+      operationId: getParquetFiles
+      tags:
+        - Files & Metadata
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+          example: squad
+      responses:
+        '200':
+          description: List of Parquet files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParquetResponse'
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /size:
+    get:
+      summary: Get dataset size
+      description: >-
+        Get size information for a dataset including the number of rows and
+        size in bytes for the full dataset and for each subset and split.
+      operationId: getDatasetSize
+      tags:
+        - Files & Metadata
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+          example: squad
+      responses:
+        '200':
+          description: Dataset size information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SizeResponse'
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /statistics:
+    get:
+      summary: Get dataset statistics
+      description: >-
+        Get descriptive statistics for columns in a dataset split including
+        distributions, counts, means, and other summary metrics.
+      operationId: getStatistics
+      tags:
+        - Files & Metadata
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+        - name: config
+          in: query
+          required: true
+          description: The subset (configuration) name
+          schema:
+            type: string
+        - name: split
+          in: query
+          required: true
+          description: The split name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Column statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /croissant:
+    get:
+      summary: Get Croissant metadata
+      description: >-
+        Get Croissant (schema.org/Dataset compatible) metadata for a dataset.
+        Croissant is a metadata format for ML datasets based on schema.org.
+      operationId: getCroissantMetadata
+      tags:
+        - Files & Metadata
+      parameters:
+        - name: dataset
+          in: query
+          required: true
+          description: The dataset ID
+          schema:
+            type: string
+          example: squad
+      responses:
+        '200':
+          description: Croissant metadata in JSON-LD format
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Croissant metadata following schema.org/Dataset vocabulary
+                properties:
+                  '@context':
+                    type: object
+                  '@type':
+                    type: string
+                    const: sc:Dataset
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+                  distribution:
+                    type: array
+                    items:
+                      type: object
+                  recordSet:
+                    type: array
+                    items:
+                      type: object
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: >-
+        Optional Hugging Face API token. Required for private and gated
+        datasets.
+  schemas:
+    ValidityResponse:
+      type: object
+      properties:
+        preview:
+          type: boolean
+          description: Whether preview (first rows) is available
+        viewer:
+          type: boolean
+          description: Whether the full viewer is available
+        search:
+          type: boolean
+          description: Whether full-text search is available
+        filter:
+          type: boolean
+          description: Whether filtering is available
+        statistics:
+          type: boolean
+          description: Whether statistics are available
+    SplitsResponse:
+      type: object
+      properties:
+        splits:
+          type: array
+          items:
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset (configuration) name
+              split:
+                type: string
+                description: Split name
+                example: train
+        pending:
+          type: array
+          items:
+            type: object
+        failed:
+          type: array
+          items:
+            type: object
+    RowsResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+                description: Feature index
+              name:
+                type: string
+                description: Column name
+              type:
+                type: object
+                description: Column data type information
+                properties:
+                  dtype:
+                    type: string
+                  _type:
+                    type: string
+          description: Column definitions and types
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+                description: Row index in the split
+              row:
+                type: object
+                additionalProperties: true
+                description: Row data as key-value pairs
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+                description: List of cell names that were truncated
+          description: Row data
+        num_rows_total:
+          type: integer
+          description: Total number of rows in the split
+        num_rows_per_page:
+          type: integer
+          description: Number of rows per page
+        partial:
+          type: boolean
+          description: Whether this is a partial result
+    SearchResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+              name:
+                type: string
+              type:
+                type: object
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+              row:
+                type: object
+                additionalProperties: true
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+        num_rows_total:
+          type: integer
+          description: Total number of matching rows
+        num_rows_per_page:
+          type: integer
+        partial:
+          type: boolean
+    ParquetResponse:
+      type: object
+      properties:
+        parquet_files:
+          type: array
+          items:
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset name
+              split:
+                type: string
+                description: Split name
+              url:
+                type: string
+                format: uri
+                description: Direct download URL for the Parquet file
+              filename:
+                type: string
+                description: Parquet file name
+              size:
+                type: integer
+                description: File size in bytes
+        partial:
+          type: boolean
+          description: Whether only partial data was converted
+    SizeResponse:
+      type: object
+      properties:
+        size:
+          type: object
+          properties:
+            dataset:
+              type: object
+              properties:
+                dataset:
+                  type: string
+                num_bytes_original_files:
+                  type: integer
+                  description: Original files size in bytes
+                num_bytes_parquet_files:
+                  type: integer
+                  description: Parquet files size in bytes
+                num_bytes_memory:
+                  type: integer
+                  description: Estimated in-memory size in bytes
+                num_rows:
+                  type: integer
+                  description: Total number of rows
+            configs:
+              type: array
+              items:
+                type: object
+                properties:
+                  dataset:
+                    type: string
+                  config:
+                    type: string
+                  num_bytes_original_files:
+                    type: integer
+                  num_bytes_parquet_files:
+                    type: integer
+                  num_bytes_memory:
+                    type: integer
+                  num_rows:
+                    type: integer
+                  num_columns:
+                    type: integer
+            splits:
+              type: array
+              items:
+                type: object
+                properties:
+                  dataset:
+                    type: string
+                  config:
+                    type: string
+                  split:
+                    type: string
+                  num_bytes_parquet_files:
+                    type: integer
+                  num_bytes_memory:
+                    type: integer
+                  num_rows:
+                    type: integer
+                  num_columns:
+                    type: integer
+        partial:
+          type: boolean
+    StatisticsResponse:
+      type: object
+      properties:
+        num_examples:
+          type: integer
+          description: Total number of examples analyzed
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              column_name:
+                type: string
+                description: Name of the column
+              column_type:
+                type: string
+                description: Data type of the column
+              column_statistics:
+                type: object
+                description: Statistics for the column
+                properties:
+                  nan_count:
+                    type: integer
+                  nan_proportion:
+                    type: number
+                    format: float
+                  min:
+                    oneOf:
+                      - type: number
+                      - type: string
+                  max:
+                    oneOf:
+                      - type: number
+                      - type: string
+                  mean:
+                    type: number
+                    format: float
+                  median:
+                    type: number
+                    format: float
+                  std:
+                    type: number
+                    format: float
+                  histogram:
+                    type: object
+                    properties:
+                      hist:
+                        type: array
+                        items:
+                          type: integer
+                      bin_edges:
+                        type: array
+                        items:
+                          type: number
+                  frequencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                        count:
+                          type: integer
+                        proportion:
+                          type: number
+                          format: float
+        partial:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        cause_exception:
+          type: string
+          description: Underlying exception type
+        cause_message:
+          type: string
+          description: Underlying exception message
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)

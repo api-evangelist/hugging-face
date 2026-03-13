@@ -1,0 +1,361 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huggingface.co/schemas/model.json",
+  "title": "Hugging Face Model",
+  "description": "Schema for a machine learning model hosted on the Hugging Face Hub, including metadata, configuration, and repository information.",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Internal unique identifier for the model"
+    },
+    "id": {
+      "type": "string",
+      "description": "Model repository ID in the format author/model-name or model-name",
+      "examples": [
+        "bert-base-uncased",
+        "meta-llama/Llama-3-70b-chat-hf",
+        "openai/whisper-large-v3"
+      ]
+    },
+    "modelId": {
+      "type": "string",
+      "description": "Alias for the model repository ID"
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or organization that owns the model",
+      "examples": [
+        "meta-llama",
+        "google",
+        "microsoft"
+      ]
+    },
+    "sha": {
+      "type": "string",
+      "description": "Latest Git commit SHA of the model repository",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last modification to the repository"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the model repository was created"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the model repository is private",
+      "default": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the model has been disabled",
+      "default": false
+    },
+    "gated": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "auto",
+            "manual"
+          ]
+        }
+      ],
+      "description": "Access gating configuration. False means no gating, 'auto' or 'manual' indicates gated access."
+    },
+    "pipeline_tag": {
+      "type": "string",
+      "description": "The primary task/pipeline this model is designed for",
+      "enum": [
+        "text-generation",
+        "text-classification",
+        "token-classification",
+        "question-answering",
+        "summarization",
+        "translation",
+        "fill-mask",
+        "text2text-generation",
+        "feature-extraction",
+        "sentence-similarity",
+        "zero-shot-classification",
+        "table-question-answering",
+        "conversational",
+        "image-classification",
+        "object-detection",
+        "image-segmentation",
+        "image-to-text",
+        "text-to-image",
+        "text-to-video",
+        "text-to-speech",
+        "text-to-audio",
+        "automatic-speech-recognition",
+        "audio-classification",
+        "image-text-to-text",
+        "visual-question-answering",
+        "document-question-answering",
+        "depth-estimation",
+        "image-to-image",
+        "reinforcement-learning",
+        "robotics",
+        "video-classification"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags associated with the model including library, language, license, and custom tags",
+      "examples": [
+        [
+          "transformers",
+          "pytorch",
+          "en",
+          "text-generation",
+          "license:apache-2.0"
+        ]
+      ]
+    },
+    "library_name": {
+      "type": "string",
+      "description": "Primary ML library used by the model",
+      "enum": [
+        "transformers",
+        "diffusers",
+        "timm",
+        "sentence-transformers",
+        "spacy",
+        "allennlp",
+        "flair",
+        "asteroid",
+        "espnet",
+        "speechbrain",
+        "adapter-transformers",
+        "fastai",
+        "stable-baselines3",
+        "ml-agents",
+        "open_clip",
+        "peft",
+        "setfit",
+        "span-marker",
+        "keras",
+        "sklearn",
+        "onnx",
+        "safetensors",
+        "tensorboard"
+      ]
+    },
+    "downloads": {
+      "type": "integer",
+      "description": "Total number of downloads in the last 30 days",
+      "minimum": 0
+    },
+    "downloadsAllTime": {
+      "type": "integer",
+      "description": "Total number of all-time downloads",
+      "minimum": 0
+    },
+    "likes": {
+      "type": "integer",
+      "description": "Total number of likes/favorites",
+      "minimum": 0
+    },
+    "siblings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rfilename": {
+            "type": "string",
+            "description": "Relative file path within the repository"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes"
+          },
+          "blobId": {
+            "type": "string",
+            "description": "Git blob ID"
+          },
+          "lfs": {
+            "type": "object",
+            "description": "Git LFS metadata",
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "description": "SHA-256 hash of the LFS file"
+              },
+              "size": {
+                "type": "integer",
+                "description": "Actual file size in bytes"
+              },
+              "pointerSize": {
+                "type": "integer",
+                "description": "Size of the LFS pointer file"
+              }
+            }
+          }
+        }
+      },
+      "description": "List of files in the model repository"
+    },
+    "spaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of Space IDs that use this model"
+    },
+    "safetensors": {
+      "type": "object",
+      "description": "Safetensors metadata including parameter counts",
+      "properties": {
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "description": "Parameter counts by dtype (e.g., F16, BF16, F32)"
+        },
+        "total": {
+          "type": "integer",
+          "description": "Total parameter count"
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "description": "Model configuration from config.json",
+      "properties": {
+        "architectures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Model architecture classes"
+        },
+        "model_type": {
+          "type": "string",
+          "description": "Model type identifier (e.g., bert, gpt2, llama)"
+        },
+        "tokenizer_config": {
+          "type": "object",
+          "description": "Tokenizer configuration"
+        }
+      }
+    },
+    "cardData": {
+      "type": "object",
+      "description": "Parsed metadata from the model card (README.md YAML front matter)",
+      "properties": {
+        "language": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "Language(s) supported by the model"
+        },
+        "license": {
+          "type": "string",
+          "description": "License identifier",
+          "examples": [
+            "apache-2.0",
+            "mit",
+            "cc-by-4.0",
+            "llama3"
+          ]
+        },
+        "library_name": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Datasets used for training"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Evaluation metrics reported"
+        },
+        "base_model": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "description": "Base model(s) this model is derived from"
+        },
+        "pipeline_tag": {
+          "type": "string"
+        },
+        "model-index": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Evaluation results in model index format"
+        }
+      }
+    },
+    "transformersInfo": {
+      "type": "object",
+      "description": "Transformers library-specific information",
+      "properties": {
+        "auto_model": {
+          "type": "string",
+          "description": "AutoModel class to use (e.g., AutoModelForCausalLM)"
+        },
+        "pipeline_tag": {
+          "type": "string",
+          "description": "Pipeline tag inferred by transformers"
+        },
+        "processor": {
+          "type": "string",
+          "description": "Processor class to use"
+        }
+      }
+    },
+    "widgetData": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Widget example data for the model card inference widget"
+    }
+  }
+}

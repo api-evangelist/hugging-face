@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huggingface.co/schemas/space.json",
+  "title": "Hugging Face Space",
+  "description": "Schema for a Space (interactive ML application) hosted on the Hugging Face Hub, including runtime configuration, SDK, hardware, and repository metadata.",
+  "type": "object",
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Internal unique identifier for the Space"
+    },
+    "id": {
+      "type": "string",
+      "description": "Space repository ID in the format author/space-name",
+      "examples": [
+        "stabilityai/stable-diffusion",
+        "huggingface/chat-ui",
+        "gradio/hello-world"
+      ]
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or organization that owns the Space"
+    },
+    "sha": {
+      "type": "string",
+      "description": "Latest Git commit SHA",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last modification"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the Space was created"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the Space is private",
+      "default": false
+    },
+    "disabled": {
+      "type": "boolean",
+      "description": "Whether the Space has been disabled",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags associated with the Space"
+    },
+    "likes": {
+      "type": "integer",
+      "description": "Number of likes/favorites",
+      "minimum": 0
+    },
+    "sdk": {
+      "type": "string",
+      "description": "SDK framework used to build the Space",
+      "enum": [
+        "gradio",
+        "streamlit",
+        "docker",
+        "static"
+      ]
+    },
+    "sdk_version": {
+      "type": "string",
+      "description": "Version of the SDK"
+    },
+    "python_version": {
+      "type": "string",
+      "description": "Python version used"
+    },
+    "app_file": {
+      "type": "string",
+      "description": "Main application file (e.g., app.py)",
+      "default": "app.py"
+    },
+    "app_port": {
+      "type": "integer",
+      "description": "Port the application listens on (for Docker Spaces)"
+    },
+    "emoji": {
+      "type": "string",
+      "description": "Emoji displayed next to the Space name"
+    },
+    "colorFrom": {
+      "type": "string",
+      "description": "Gradient start color for the Space card",
+      "pattern": "^#[0-9a-fA-F]{6}$|^[a-z]+$"
+    },
+    "colorTo": {
+      "type": "string",
+      "description": "Gradient end color for the Space card",
+      "pattern": "^#[0-9a-fA-F]{6}$|^[a-z]+$"
+    },
+    "pinned": {
+      "type": "boolean",
+      "description": "Whether the Space is pinned on the author's profile",
+      "default": false
+    },
+    "license": {
+      "type": "string",
+      "description": "License identifier"
+    },
+    "short_description": {
+      "type": "string",
+      "description": "Brief description shown on the Space card"
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Model IDs used by this Space"
+    },
+    "datasets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dataset IDs used by this Space"
+    },
+    "runtime": {
+      "type": "object",
+      "description": "Runtime status and configuration",
+      "properties": {
+        "stage": {
+          "type": "string",
+          "description": "Current runtime stage",
+          "enum": [
+            "RUNNING",
+            "STOPPED",
+            "BUILDING",
+            "BUILD_ERROR",
+            "RUNTIME_ERROR",
+            "PAUSED",
+            "SLEEPING",
+            "DELETING",
+            "NO_APP_FILE",
+            "CONFIG_ERROR"
+          ]
+        },
+        "hardware": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "string",
+              "description": "Currently assigned hardware",
+              "enum": [
+                "cpu-basic",
+                "cpu-upgrade",
+                "t4-small",
+                "t4-medium",
+                "a10g-small",
+                "a10g-large",
+                "a10g-largex2",
+                "a10g-largex4",
+                "a100-large",
+                "zero-a10g",
+                "zero-gpu"
+              ]
+            },
+            "requested": {
+              "type": "string",
+              "description": "Requested hardware (may differ during scaling)"
+            }
+          }
+        },
+        "storage": {
+          "type": "string",
+          "description": "Persistent storage tier",
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        "gcTimeout": {
+          "type": "integer",
+          "description": "Garbage collection timeout in seconds"
+        },
+        "replicas": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "integer"
+            },
+            "requested": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "siblings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rfilename": {
+            "type": "string",
+            "description": "Relative file path"
+          },
+          "size": {
+            "type": "integer",
+            "description": "File size in bytes"
+          }
+        }
+      },
+      "description": "Files in the Space repository"
+    },
+    "cardData": {
+      "type": "object",
+      "description": "Parsed metadata from the Space card YAML front matter",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "emoji": {
+          "type": "string"
+        },
+        "colorFrom": {
+          "type": "string"
+        },
+        "colorTo": {
+          "type": "string"
+        },
+        "sdk": {
+          "type": "string"
+        },
+        "sdk_version": {
+          "type": "string"
+        },
+        "app_file": {
+          "type": "string"
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "license": {
+          "type": "string"
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "duplicated_from": {
+          "type": "string",
+          "description": "Space this was duplicated from"
+        },
+        "hf_oauth": {
+          "type": "boolean",
+          "description": "Whether HF OAuth is enabled"
+        },
+        "hf_oauth_scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "OAuth scopes requested"
+        }
+      }
+    }
+  }
+}

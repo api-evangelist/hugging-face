@@ -1,0 +1,974 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Inference Providers API
+  description: >-
+    Unified proxy layer providing access to 15+ inference partners through a
+    single OpenAI-compatible endpoint. Route requests to providers like AWS,
+    Google, Azure, Together, Fireworks, and more through a consistent API with
+    automatic model routing and provider selection.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://router.huggingface.co
+    description: Hugging Face Inference Providers router
+security:
+  - bearerAuth: []
+tags:
+  - name: Chat Completions
+    description: OpenAI-compatible chat completion endpoints
+  - name: Text Generation
+    description: Text generation endpoints
+  - name: Embeddings
+    description: Text embedding endpoints
+  - name: Image Generation
+    description: Text-to-image generation
+  - name: Audio
+    description: Speech-to-text and text-to-speech
+  - name: Models
+    description: Model listing and information
+paths:
+  /v1/chat/completions:
+    post:
+      summary: Create chat completion
+      description: >-
+        Create a chat completion using an OpenAI-compatible API. Supports
+        conversational LLMs and Vision-Language Models (VLMs). Requests are
+        routed to the optimal inference provider automatically.
+      operationId: createChatCompletion
+      tags:
+        - Chat Completions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: Chat completion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionStreamResponse'
+        '400':
+          description: Bad request - invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized - invalid or missing API token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Model not found or not available through any provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '502':
+          description: Provider error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/completions:
+    post:
+      summary: Create text completion
+      description: >-
+        Create a text completion for a given prompt. Supports standard
+        completion parameters compatible with the OpenAI API format.
+      operationId: createCompletion
+      tags:
+        - Text Generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompletionRequest'
+      responses:
+        '200':
+          description: Text completion response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletionResponse'
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/CompletionStreamResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/embeddings:
+    post:
+      summary: Create embeddings
+      description: >-
+        Create embedding vectors for input text. Returns dense vector
+        representations useful for semantic search, clustering, and
+        classification tasks.
+      operationId: createEmbeddings
+      tags:
+        - Embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+      responses:
+        '200':
+          description: Embedding response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/images/generations:
+    post:
+      summary: Generate images
+      description: >-
+        Generate images from text prompts using diffusion models available
+        through inference providers.
+      operationId: createImageGeneration
+      tags:
+        - Image Generation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageGenerationRequest'
+      responses:
+        '200':
+          description: Generated images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageGenerationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/audio/transcriptions:
+    post:
+      summary: Transcribe audio
+      description: >-
+        Transcribe audio to text using automatic speech recognition models.
+      operationId: createTranscription
+      tags:
+        - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - model
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Audio file to transcribe
+                model:
+                  type: string
+                  description: Model ID to use for transcription
+                  example: openai/whisper-large-v3
+                language:
+                  type: string
+                  description: Language of the audio in ISO 639-1 format
+                prompt:
+                  type: string
+                  description: Optional text to guide transcription
+                response_format:
+                  type: string
+                  enum:
+                    - json
+                    - text
+                    - srt
+                    - verbose_json
+                    - vtt
+                  default: json
+                temperature:
+                  type: number
+                  format: float
+      responses:
+        '200':
+          description: Transcription result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    description: Transcribed text
+  /v1/audio/speech:
+    post:
+      summary: Generate speech
+      description: Generate audio speech from text input.
+      operationId: createSpeech
+      tags:
+        - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - model
+                - input
+              properties:
+                model:
+                  type: string
+                  description: Model ID for speech generation
+                input:
+                  type: string
+                  description: Text to generate audio for
+                  maxLength: 4096
+                voice:
+                  type: string
+                  description: Voice to use for generation
+                response_format:
+                  type: string
+                  enum:
+                    - mp3
+                    - opus
+                    - aac
+                    - flac
+                    - wav
+                  default: mp3
+                speed:
+                  type: number
+                  format: float
+                  minimum: 0.25
+                  maximum: 4.0
+                  default: 1.0
+      responses:
+        '200':
+          description: Generated audio
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+  /v1/models:
+    get:
+      summary: List available models
+      description: >-
+        List models available through inference providers. Returns model IDs
+        and basic metadata.
+      operationId: listModels
+      tags:
+        - Models
+      responses:
+        '200':
+          description: List of available models
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    const: list
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Model ID
+                        object:
+                          type: string
+                          const: model
+                        created:
+                          type: integer
+                          description: Unix timestamp of creation
+                        owned_by:
+                          type: string
+                          description: Model owner
+  /v1/models/{model_id}:
+    get:
+      summary: Get model information
+      description: Get information about a specific model available through inference providers.
+      operationId: getModel
+      tags:
+        - Models
+      parameters:
+        - name: model_id
+          in: path
+          required: true
+          description: The model ID
+          schema:
+            type: string
+          example: meta-llama/Llama-3-70b-chat-hf
+      responses:
+        '200':
+          description: Model information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  object:
+                    type: string
+                    const: model
+                  created:
+                    type: integer
+                  owned_by:
+                    type: string
+        '404':
+          description: Model not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: >-
+        Hugging Face API token with Inference Providers permission. Generate
+        from https://huggingface.co/settings/tokens
+  schemas:
+    ChatCompletionRequest:
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          description: >-
+            Model ID to use. Can be a Hugging Face model ID (e.g.,
+            meta-llama/Llama-3-70b-chat-hf) or a provider-specific identifier.
+          example: meta-llama/Llama-3-70b-chat-hf
+        messages:
+          type: array
+          description: List of messages comprising the conversation
+          items:
+            type: object
+            required:
+              - role
+            properties:
+              role:
+                type: string
+                enum:
+                  - system
+                  - user
+                  - assistant
+                  - tool
+                description: The role of the message author
+              content:
+                oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      oneOf:
+                        - type: object
+                          required:
+                            - type
+                            - text
+                          properties:
+                            type:
+                              type: string
+                              const: text
+                            text:
+                              type: string
+                        - type: object
+                          required:
+                            - type
+                            - image_url
+                          properties:
+                            type:
+                              type: string
+                              const: image_url
+                            image_url:
+                              type: object
+                              required:
+                                - url
+                              properties:
+                                url:
+                                  type: string
+                description: Message content (string or array for multimodal)
+              name:
+                type: string
+                description: Optional name for the participant
+              tool_calls:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - type
+                    - function
+                  properties:
+                    id:
+                      type: string
+                    type:
+                      type: string
+                    function:
+                      type: object
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                        arguments:
+                          type: string
+                        description:
+                          type: string
+              tool_call_id:
+                type: string
+                description: Tool call ID for tool responses
+        frequency_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          default: 0
+          description: Penalize tokens based on frequency in text so far
+        logprobs:
+          type: boolean
+          default: false
+          description: Whether to return log probabilities
+        max_tokens:
+          type: integer
+          description: Maximum number of tokens to generate
+        presence_penalty:
+          type: number
+          minimum: -2.0
+          maximum: 2.0
+          default: 0
+          description: Penalize tokens based on presence in text so far
+        reasoning_effort:
+          type: string
+          description: >-
+            Constrains effort on reasoning for models that support it. Common
+            values are none, minimal, low, medium, high, xhigh.
+        response_format:
+          oneOf:
+            - type: object
+              properties:
+                type:
+                  type: string
+                  const: text
+            - type: object
+              required:
+                - type
+                - json_schema
+              properties:
+                type:
+                  type: string
+                  const: json_schema
+                json_schema:
+                  type: object
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    schema:
+                      type: object
+                    strict:
+                      type: boolean
+            - type: object
+              properties:
+                type:
+                  type: string
+                  const: json_object
+        seed:
+          type: integer
+          description: Random seed for reproducibility
+        stop:
+          type: array
+          items:
+            type: string
+          maxItems: 4
+          description: Up to 4 sequences where generation will stop
+        stream:
+          type: boolean
+          default: false
+          description: Whether to stream partial responses using SSE
+        stream_options:
+          type: object
+          properties:
+            include_usage:
+              type: boolean
+              description: Include usage statistics in stream
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 1.0
+          description: Sampling temperature
+        tool_choice:
+          oneOf:
+            - type: string
+              enum:
+                - auto
+                - none
+                - required
+            - type: object
+              required:
+                - function
+              properties:
+                function:
+                  type: object
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+          description: Controls tool usage
+        tool_prompt:
+          type: string
+          description: Prompt prepended before tools
+        tools:
+          type: array
+          items:
+            type: object
+            required:
+              - type
+              - function
+            properties:
+              type:
+                type: string
+              function:
+                type: object
+                required:
+                  - name
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  parameters:
+                    type: object
+          description: List of tools the model may call
+        top_logprobs:
+          type: integer
+          minimum: 0
+          maximum: 5
+          description: Number of most likely tokens to return per position
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1.0
+          description: Nucleus sampling parameter
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique completion identifier
+        object:
+          type: string
+          const: chat.completion
+        created:
+          type: integer
+          description: Unix timestamp
+        model:
+          type: string
+          description: Model used
+        system_fingerprint:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+                  tool_calls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        function:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            arguments:
+                              type: string
+              finish_reason:
+                type: string
+                enum:
+                  - stop
+                  - length
+                  - tool_calls
+                  - content_filter
+              logprobs:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+                        logprob:
+                          type: number
+                        top_logprobs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              token:
+                                type: string
+                              logprob:
+                                type: number
+        usage:
+          $ref: '#/components/schemas/Usage'
+    ChatCompletionStreamResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          const: chat.completion.chunk
+        created:
+          type: integer
+        model:
+          type: string
+        system_fingerprint:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              delta:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+                  tool_calls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        index:
+                          type: integer
+                        type:
+                          type: string
+                        function:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            arguments:
+                              type: string
+              finish_reason:
+                type: string
+              logprobs:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+                        logprob:
+                          type: number
+                        top_logprobs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              token:
+                                type: string
+                              logprob:
+                                type: number
+        usage:
+          $ref: '#/components/schemas/Usage'
+    CompletionRequest:
+      type: object
+      required:
+        - model
+        - prompt
+      properties:
+        model:
+          type: string
+          description: Model ID to use
+        prompt:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Prompt(s) to generate completions for
+        max_tokens:
+          type: integer
+          default: 16
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 1.0
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1.0
+        stop:
+          type: array
+          items:
+            type: string
+          maxItems: 4
+        stream:
+          type: boolean
+          default: false
+        seed:
+          type: integer
+    CompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          const: text_completion
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              index:
+                type: integer
+              finish_reason:
+                type: string
+        usage:
+          $ref: '#/components/schemas/Usage'
+    CompletionStreamResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          const: text_completion
+        created:
+          type: integer
+        model:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              index:
+                type: integer
+              finish_reason:
+                type: string
+    EmbeddingRequest:
+      type: object
+      required:
+        - model
+        - input
+      properties:
+        model:
+          type: string
+          description: Embedding model ID
+          example: sentence-transformers/all-MiniLM-L6-v2
+        input:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Text input(s) to embed
+        encoding_format:
+          type: string
+          enum:
+            - float
+            - base64
+          default: float
+    EmbeddingResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          const: list
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              object:
+                type: string
+                const: embedding
+              index:
+                type: integer
+              embedding:
+                type: array
+                items:
+                  type: number
+                  format: float
+        model:
+          type: string
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+    ImageGenerationRequest:
+      type: object
+      required:
+        - model
+        - prompt
+      properties:
+        model:
+          type: string
+          description: Image generation model ID
+          example: stabilityai/stable-diffusion-xl-base-1.0
+        prompt:
+          type: string
+          description: Text prompt describing the image to generate
+        n:
+          type: integer
+          minimum: 1
+          maximum: 4
+          default: 1
+          description: Number of images to generate
+        size:
+          type: string
+          description: Image dimensions
+          enum:
+            - 256x256
+            - 512x512
+            - 1024x1024
+          default: 1024x1024
+        response_format:
+          type: string
+          enum:
+            - url
+            - b64_json
+          default: url
+        negative_prompt:
+          type: string
+          description: Negative prompt to guide generation
+        num_inference_steps:
+          type: integer
+          description: Number of diffusion steps
+        guidance_scale:
+          type: number
+          format: float
+          description: Classifier-free guidance scale
+    ImageGenerationResponse:
+      type: object
+      properties:
+        created:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                description: URL of the generated image
+              b64_json:
+                type: string
+                description: Base64-encoded image data
+              revised_prompt:
+                type: string
+                description: Revised prompt used for generation
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt
+        completion_tokens:
+          type: integer
+          description: Number of tokens in the completion
+        total_tokens:
+          type: integer
+          description: Total tokens used
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code

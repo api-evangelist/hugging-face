@@ -3,7 +3,7 @@ description: The AI community building the future with open-source machine learn
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
-modified: '2024'
+modified: '2026-03-03'
 specificationVersion: '0.18'
 apis:
 - name: Hugging Face Inference API
@@ -21,8 +21,16 @@ apis:
     url: https://huggingface.co/docs/api-inference/index
   - type: OpenAPI
     url: https://huggingface.co/api-inference/openapi.json
+  - type: OpenAPI
+    url: openapi/hugging-face-inference-api.yml
   - type: Authentication
     url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: Getting Started
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: Rate Limits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
   contact:
   - type: Support
     url: https://huggingface.co/support
@@ -39,10 +47,18 @@ apis:
   properties:
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
+  - type: OpenAPI
+    url: https://huggingface.co/.well-known/openapi.json
+  - type: OpenAPI
+    url: openapi/hugging-face-hub-api.yml
   - type: Python Client
     url: https://huggingface.co/docs/huggingface_hub/index
+  - type: JavaScript Client
+    url: https://huggingface.co/docs/huggingface.js/hub/README
   - type: Authentication
     url: https://huggingface.co/docs/hub/security-tokens
+  - type: Rate Limits
+    url: https://huggingface.co/docs/hub/en/rate-limits
   contact:
   - type: Support
     url: https://huggingface.co/support
@@ -59,27 +75,149 @@ apis:
   properties:
   - type: Documentation
     url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: OpenAPI
+    url: openapi/hugging-face-inference-endpoints-api.yml
+  - type: Getting Started
+    url: https://huggingface.co/docs/inference-endpoints/index
   - type: Pricing
     url: https://huggingface.co/pricing#inference-endpoints
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+- name: Hugging Face Inference Providers API
+  description: Unified proxy layer providing access to 15+ inference partners through a single OpenAI-compatible endpoint
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/inference-providers/en/index
+  baseURL: https://router.huggingface.co/v1
+  tags:
+  - Inference
+  - Providers
+  - OpenAI Compatible
+  - AI
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: OpenAPI
+    url: openapi/hugging-face-inference-providers-api.yml
+  - type: API Reference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: Getting Started
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Supported Models
+    url: https://huggingface.co/inference/models
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+- name: Hugging Face Dataset Viewer API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/dataset-viewer/index
+  baseURL: https://datasets-server.huggingface.co
+  tags:
+  - Datasets
+  - Data
+  - Viewer
+  - API
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: OpenAPI
+    url: https://datasets-server.huggingface.co/openapi.json
+  - type: OpenAPI
+    url: openapi/hugging-face-dataset-viewer-api.yml
+  - type: Getting Started
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHub
+    url: https://github.com/huggingface/dataset-viewer
+  contact:
+  - type: Support
+    url: https://huggingface.co/support
+- name: Hugging Face Text Generation Inference API
+  description: High-performance toolkit for deploying and serving large language models with optimized inference
+  image: https://huggingface.co/front/assets/huggingface_logo.svg
+  humanURL: https://huggingface.co/docs/text-generation-inference/en/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Text Generation
+  - LLM
+  - Inference
+  - AI
+  properties:
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: OpenAPI
+    url: openapi/hugging-face-text-generation-inference-api.yml
+  - type: API Reference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: Getting Started
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Messages API
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHub
+    url: https://github.com/huggingface/text-generation-inference
   contact:
   - type: Support
     url: https://huggingface.co/support
 common:
-- type: Terms of Service
-  url: https://huggingface.co/terms-of-service
-- type: Privacy Policy
-  url: https://huggingface.co/privacy
+- type: Portal
+  url: https://huggingface.co
+- type: Documentation
+  url: https://huggingface.co/docs
+- type: Getting Started
+  url: https://huggingface.co/inference/get-started
+- type: Pricing
+  url: https://huggingface.co/pricing
 - type: Blog
   url: https://huggingface.co/blog
+- type: Change Log
+  url: https://huggingface.co/changelog
+- type: Sign Up
+  url: https://huggingface.co/signup
+- type: Login
+  url: https://huggingface.co/login
+- type: Support
+  url: https://huggingface.co/support
+- type: Contact
+  url: https://huggingface.co/contact/sales
+- type: Forum
+  url: https://discuss.huggingface.co
 - type: GitHub
   url: https://github.com/huggingface
 - type: Twitter
   url: https://twitter.com/huggingface
+- type: LinkedIn
+  url: https://www.linkedin.com/company/huggingface
 - type: Discord
   url: https://huggingface.co/join/discord
+- type: YouTube
+  url: https://www.youtube.com/@HuggingFace
 - type: Status
   url: https://status.huggingface.co
+- type: Terms of Service
+  url: https://huggingface.co/terms-of-service
+- type: Privacy Policy
+  url: https://huggingface.co/privacy
+- type: Python SDK
+  url: https://huggingface.co/docs/huggingface_hub/index
+- type: JavaScript SDK
+  url: https://huggingface.co/docs/huggingface.js/en/index
+- type: JSON Schema
+  url: json-schema/hugging-face-model-schema.json
+- type: JSON Schema
+  url: json-schema/hugging-face-dataset-schema.json
+- type: JSON Schema
+  url: json-schema/hugging-face-space-schema.json
+- type: JSON Schema
+  url: json-schema/hugging-face-inference-endpoint-schema.json
+- type: JSON Schema
+  url: json-schema/hugging-face-user-schema.json
+- type: JSON-LD Context
+  url: json-ld/hugging-face-context.jsonld
 maintainers:
-- name: Hugging Face Team
-  email: api@huggingface.co
-  url: https://huggingface.co
+- name: Kin Lane
+  email: kin@apievangelist.com
+  url: https://apievangelist.com

@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://huggingface.co/schemas/inference-endpoint.json",
+  "title": "Hugging Face Inference Endpoint",
+  "description": "Schema for a dedicated Inference Endpoint deployment on the Hugging Face platform, including model configuration, compute resources, scaling settings, and runtime status.",
+  "type": "object",
+  "required": [
+    "name",
+    "type",
+    "provider",
+    "compute",
+    "model"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique name of the Inference Endpoint",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,30}[a-z0-9]$",
+      "examples": [
+        "my-text-gen-endpoint",
+        "prod-llama-chat",
+        "staging-bert-classifier"
+      ]
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Account or organization ID that owns the endpoint"
+    },
+    "type": {
+      "type": "string",
+      "description": "Security type controlling endpoint access",
+      "enum": [
+        "public",
+        "protected",
+        "private"
+      ],
+      "default": "protected"
+    },
+    "provider": {
+      "type": "object",
+      "description": "Cloud provider configuration",
+      "required": [
+        "vendor",
+        "region"
+      ],
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "description": "Cloud provider vendor",
+          "enum": [
+            "aws",
+            "azure",
+            "gcp"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Cloud region for deployment",
+          "examples": [
+            "us-east-1",
+            "eu-west-1",
+            "us-west-2",
+            "ap-southeast-1"
+          ]
+        }
+      }
+    },
+    "compute": {
+      "type": "object",
+      "description": "Compute resources configuration",
+      "required": [
+        "accelerator",
+        "instanceType",
+        "instanceSize",
+        "scaling"
+      ],
+      "properties": {
+        "accelerator": {
+          "type": "string",
+          "description": "Type of compute accelerator",
+          "enum": [
+            "cpu",
+            "gpu"
+          ]
+        },
+        "instanceType": {
+          "type": "string",
+          "description": "GPU or instance type",
+          "examples": [
+            "nvidia-a10g",
+            "nvidia-t4",
+            "nvidia-a100",
+            "nvidia-l4",
+            "nvidia-h100",
+            "intel-icl",
+            "intel-spr",
+            "aws-inf2"
+          ]
+        },
+        "instanceSize": {
+          "type": "string",
+          "description": "Instance size determining memory and compute",
+          "examples": [
+            "x1",
+            "x2",
+            "x4",
+            "x8"
+          ]
+        },
+        "scaling": {
+          "type": "object",
+          "description": "Autoscaling configuration",
+          "required": [
+            "minReplica",
+            "maxReplica"
+          ],
+          "properties": {
+            "minReplica": {
+              "type": "integer",
+              "description": "Minimum number of replicas (0 enables scale-to-zero)",
+              "minimum": 0,
+              "default": 0
+            },
+            "maxReplica": {
+              "type": "integer",
+              "description": "Maximum number of replicas",
+              "minimum": 1,
+              "default": 1
+            },
+            "scaleToZeroTimeout": {
+              "type": "integer",
+              "description": "Minutes of inactivity before scaling to zero",
+              "minimum": 1,
+              "default": 15
+            }
+          }
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "description": "Model deployment configuration",
+      "required": [
+        "repository",
+        "task"
+      ],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Hugging Face model repository ID",
+          "examples": [
+            "meta-llama/Llama-3-70b-chat-hf",
+            "mistralai/Mistral-7B-Instruct-v0.3",
+            "sentence-transformers/all-MiniLM-L6-v2"
+          ]
+        },
+        "revision": {
+          "type": "string",
+          "description": "Git revision (branch, tag, or commit SHA)",
+          "default": "main"
+        },
+        "task": {
+          "type": "string",
+          "description": "Inference task type",
+          "enum": [
+            "text-generation",
+            "text-classification",
+            "token-classification",
+            "question-answering",
+            "summarization",
+            "translation",
+            "fill-mask",
+            "feature-extraction",
+            "sentence-similarity",
+            "image-classification",
+            "object-detection",
+            "automatic-speech-recognition",
+            "text-to-image",
+            "custom"
+          ]
+        },
+        "framework": {
+          "type": "string",
+          "description": "Serving framework",
+          "enum": [
+            "pytorch",
+            "custom"
+          ],
+          "default": "pytorch"
+        },
+        "image": {
+          "type": "object",
+          "description": "Container image configuration",
+          "properties": {
+            "huggingface": {
+              "type": "object",
+              "description": "Hugging Face optimized container settings"
+            },
+            "custom": {
+              "type": "object",
+              "description": "Custom container settings",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Custom container image URL"
+                },
+                "health_route": {
+                  "type": "string",
+                  "description": "Health check endpoint path"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "Container port"
+                },
+                "env": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "Environment variables for the container"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Current status of the endpoint",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Current operational state",
+          "enum": [
+            "pending",
+            "initializing",
+            "running",
+            "updating",
+            "paused",
+            "scaledToZero",
+            "failed"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable status message"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the endpoint was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the endpoint was last updated"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Inference URL when the endpoint is running"
+        },
+        "readyReplica": {
+          "type": "integer",
+          "description": "Number of replicas currently ready"
+        },
+        "targetReplica": {
+          "type": "integer",
+          "description": "Target number of replicas"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": "Error message if the endpoint is in a failed state"
+        }
+      }
+    }
+  }
+}

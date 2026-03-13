@@ -1,0 +1,732 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Inference Endpoints API
+  description: >-
+    Deploy and scale machine learning models with dedicated, secure
+    infrastructure. Manage Inference Endpoints programmatically - create,
+    update, scale, pause, resume, and delete dedicated endpoints for serving ML
+    models with autoscaling and custom hardware configurations.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://api.endpoints.huggingface.cloud/v2
+    description: Hugging Face Inference Endpoints management API
+security:
+  - bearerAuth: []
+tags:
+  - name: Endpoints
+    description: Manage dedicated inference endpoints
+  - name: Providers
+    description: Available cloud providers and hardware
+paths:
+  /endpoint/{namespace}:
+    get:
+      summary: List all endpoints
+      description: >-
+        List all Inference Endpoints for a given namespace (user or
+        organization).
+      operationId: listEndpoints
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          description: User or organization namespace
+          schema:
+            type: string
+          example: my-organization
+      responses:
+        '200':
+          description: List of endpoints
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Endpoint'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new endpoint
+      description: >-
+        Create a new Inference Endpoint with the specified model, hardware, and
+        configuration.
+      operationId: createEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          description: User or organization namespace
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEndpointRequest'
+      responses:
+        '201':
+          description: Endpoint created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '400':
+          description: Bad request - invalid configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Endpoint name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}:
+    get:
+      summary: Get endpoint details
+      description: Get detailed information about a specific Inference Endpoint.
+      operationId: getEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          description: Name of the endpoint
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update an endpoint
+      description: >-
+        Update the configuration of an existing Inference Endpoint including
+        model, hardware, and scaling settings.
+      operationId: updateEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEndpointRequest'
+      responses:
+        '200':
+          description: Endpoint updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete an endpoint
+      description: >-
+        Permanently delete an Inference Endpoint and all associated resources.
+      operationId: deleteEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint deleted successfully
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}/pause:
+    post:
+      summary: Pause an endpoint
+      description: >-
+        Pause an Inference Endpoint to stop incurring compute costs while
+        preserving the configuration. The endpoint can be resumed later.
+      operationId: pauseEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint paused successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}/resume:
+    post:
+      summary: Resume an endpoint
+      description: Resume a previously paused Inference Endpoint.
+      operationId: resumeEndpoint
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint resumed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}/scale-to-zero:
+    post:
+      summary: Scale endpoint to zero
+      description: >-
+        Scale the endpoint to zero replicas. The endpoint will automatically
+        scale up when it receives traffic (if autoscaling is configured).
+      operationId: scaleToZero
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint scaled to zero
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}/logs:
+    get:
+      summary: Get endpoint logs
+      description: Retrieve the runtime logs for an Inference Endpoint.
+      operationId: getEndpointLogs
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint logs
+          content:
+            text/plain:
+              schema:
+                type: string
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /endpoint/{namespace}/{endpoint_name}/metrics:
+    get:
+      summary: Get endpoint metrics
+      description: >-
+        Retrieve performance metrics for an Inference Endpoint including request
+        counts, latencies, and error rates.
+      operationId: getEndpointMetrics
+      tags:
+        - Endpoints
+      parameters:
+        - name: namespace
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: endpoint_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Endpoint metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointMetrics'
+  /provider:
+    get:
+      summary: List available providers
+      description: >-
+        List available cloud providers and their regions for deploying Inference
+        Endpoints.
+      operationId: listProviders
+      tags:
+        - Providers
+      responses:
+        '200':
+          description: Available cloud providers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Provider'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: >-
+        Hugging Face user access token with Inference Endpoints permissions.
+  schemas:
+    Endpoint:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Endpoint name
+          example: my-text-gen-endpoint
+        type:
+          type: string
+          description: Endpoint type
+          enum:
+            - public
+            - protected
+            - private
+        accountId:
+          type: string
+        provider:
+          type: object
+          properties:
+            vendor:
+              type: string
+              description: Cloud vendor
+              enum:
+                - aws
+                - azure
+                - gcp
+            region:
+              type: string
+              description: Cloud region
+              example: us-east-1
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+              description: GPU or accelerator type
+              example: gpu
+            instanceType:
+              type: string
+              description: Instance type identifier
+              example: nvidia-a10g
+            instanceSize:
+              type: string
+              description: Instance size
+              example: x1
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                  description: Minimum number of replicas
+                  example: 0
+                maxReplica:
+                  type: integer
+                  description: Maximum number of replicas
+                  example: 2
+                scaleToZeroTimeout:
+                  type: integer
+                  description: Minutes of inactivity before scaling to zero
+                  example: 15
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+              description: Model repository ID on the Hub
+              example: meta-llama/Llama-2-7b-chat-hf
+            revision:
+              type: string
+              description: Model revision or branch
+              example: main
+            task:
+              type: string
+              description: Inference task
+              example: text-generation
+            framework:
+              type: string
+              description: Serving framework
+              enum:
+                - pytorch
+                - custom
+            image:
+              type: object
+              properties:
+                huggingface:
+                  type: object
+                  description: Hugging Face optimized container settings
+                custom:
+                  type: object
+                  description: Custom container settings
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                    port:
+                      type: integer
+        status:
+          type: object
+          properties:
+            state:
+              type: string
+              description: Current endpoint state
+              enum:
+                - pending
+                - initializing
+                - running
+                - updating
+                - paused
+                - scaledToZero
+                - failed
+            message:
+              type: string
+              description: Human-readable status message
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            url:
+              type: string
+              format: uri
+              description: Inference URL for the running endpoint
+        url:
+          type: string
+          format: uri
+          description: Inference URL for the endpoint
+    CreateEndpointRequest:
+      type: object
+      required:
+        - name
+        - type
+        - provider
+        - compute
+        - model
+      properties:
+        name:
+          type: string
+          description: Unique endpoint name
+          example: my-text-gen-endpoint
+          pattern: ^[a-z0-9][a-z0-9-]{0,30}[a-z0-9]$
+        type:
+          type: string
+          description: Endpoint security type
+          enum:
+            - public
+            - protected
+            - private
+          default: protected
+        provider:
+          type: object
+          required:
+            - vendor
+            - region
+          properties:
+            vendor:
+              type: string
+              enum:
+                - aws
+                - azure
+                - gcp
+            region:
+              type: string
+              example: us-east-1
+        compute:
+          type: object
+          required:
+            - accelerator
+            - instanceType
+            - instanceSize
+            - scaling
+          properties:
+            accelerator:
+              type: string
+              enum:
+                - cpu
+                - gpu
+            instanceType:
+              type: string
+              example: nvidia-a10g
+            instanceSize:
+              type: string
+              example: x1
+            scaling:
+              type: object
+              required:
+                - minReplica
+                - maxReplica
+              properties:
+                minReplica:
+                  type: integer
+                  minimum: 0
+                  example: 0
+                maxReplica:
+                  type: integer
+                  minimum: 1
+                  example: 2
+                scaleToZeroTimeout:
+                  type: integer
+                  description: Minutes of inactivity before scaling to zero
+                  example: 15
+        model:
+          type: object
+          required:
+            - repository
+            - task
+          properties:
+            repository:
+              type: string
+              description: Hugging Face model repository ID
+              example: meta-llama/Llama-2-7b-chat-hf
+            revision:
+              type: string
+              description: Git revision to deploy
+              default: main
+            task:
+              type: string
+              description: Task type for the endpoint
+              example: text-generation
+            framework:
+              type: string
+              enum:
+                - pytorch
+                - custom
+              default: pytorch
+            image:
+              type: object
+              properties:
+                huggingface:
+                  type: object
+                custom:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                    health_route:
+                      type: string
+                    env:
+                      type: object
+                      additionalProperties:
+                        type: string
+    UpdateEndpointRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - public
+            - protected
+            - private
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+            instanceType:
+              type: string
+            instanceSize:
+              type: string
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                maxReplica:
+                  type: integer
+                scaleToZeroTimeout:
+                  type: integer
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+            revision:
+              type: string
+            task:
+              type: string
+    EndpointMetrics:
+      type: object
+      properties:
+        request_count:
+          type: integer
+        request_duration_ms:
+          type: object
+          properties:
+            p50:
+              type: number
+            p90:
+              type: number
+            p99:
+              type: number
+        error_rate:
+          type: number
+          format: float
+        tokens_per_second:
+          type: number
+          format: float
+    Provider:
+      type: object
+      properties:
+        vendor:
+          type: string
+          enum:
+            - aws
+            - azure
+            - gcp
+        region:
+          type: string
+        status:
+          type: string
+          enum:
+            - available
+            - unavailable
+        accelerators:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              instanceType:
+                type: string
+              instanceSizes:
+                type: array
+                items:
+                  type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code

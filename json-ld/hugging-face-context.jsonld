@@ -1,0 +1,401 @@
+{
+  "@context": {
+    "@version": 1.1,
+
+    "hf": "https://huggingface.co/ns/",
+    "schema": "https://schema.org/",
+    "ml": "http://ml-schema.org/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+
+    "Model": {
+      "@id": "hf:Model",
+      "@context": {
+        "modelId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "author": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "license": {
+          "@id": "schema:license",
+          "@type": "xsd:string"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "pipeline_tag": {
+          "@id": "hf:pipelineTag",
+          "@type": "xsd:string"
+        },
+        "library_name": {
+          "@id": "hf:libraryName",
+          "@type": "xsd:string"
+        },
+        "downloads": {
+          "@id": "hf:downloadCount",
+          "@type": "xsd:integer"
+        },
+        "likes": {
+          "@id": "hf:likeCount",
+          "@type": "xsd:integer"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "lastModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "private": {
+          "@id": "hf:isPrivate",
+          "@type": "xsd:boolean"
+        },
+        "gated": {
+          "@id": "hf:isGated"
+        },
+        "sha": {
+          "@id": "hf:commitSha",
+          "@type": "xsd:string"
+        },
+        "safetensors": {
+          "@id": "hf:safetensorsInfo",
+          "@type": "@id"
+        },
+        "config": {
+          "@id": "hf:modelConfig",
+          "@type": "@id"
+        },
+        "spaces": {
+          "@id": "hf:usedInSpace",
+          "@container": "@set"
+        },
+        "base_model": {
+          "@id": "hf:baseModel",
+          "@type": "xsd:string"
+        },
+        "datasets": {
+          "@id": "hf:trainedOnDataset",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Dataset": {
+      "@id": "hf:Dataset",
+      "@context": {
+        "datasetId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "author": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "license": {
+          "@id": "schema:license",
+          "@type": "xsd:string"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "task_categories": {
+          "@id": "hf:taskCategory",
+          "@container": "@set"
+        },
+        "size_categories": {
+          "@id": "hf:sizeCategory",
+          "@container": "@set"
+        },
+        "language": {
+          "@id": "schema:inLanguage",
+          "@container": "@set"
+        },
+        "downloads": {
+          "@id": "hf:downloadCount",
+          "@type": "xsd:integer"
+        },
+        "likes": {
+          "@id": "hf:likeCount",
+          "@type": "xsd:integer"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "lastModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "private": {
+          "@id": "hf:isPrivate",
+          "@type": "xsd:boolean"
+        },
+        "gated": {
+          "@id": "hf:isGated"
+        },
+        "splits": {
+          "@id": "hf:split",
+          "@container": "@set"
+        },
+        "features": {
+          "@id": "hf:feature",
+          "@container": "@set"
+        },
+        "citation": {
+          "@id": "schema:citation",
+          "@type": "xsd:string"
+        },
+        "num_rows": {
+          "@id": "hf:numberOfRows",
+          "@type": "xsd:integer"
+        }
+      }
+    },
+
+    "Space": {
+      "@id": "hf:Space",
+      "@context": {
+        "spaceId": {
+          "@id": "schema:identifier",
+          "@type": "xsd:string"
+        },
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "description": {
+          "@id": "schema:description",
+          "@type": "xsd:string"
+        },
+        "author": {
+          "@id": "schema:author",
+          "@type": "@id"
+        },
+        "sdk": {
+          "@id": "hf:sdk",
+          "@type": "xsd:string"
+        },
+        "sdk_version": {
+          "@id": "hf:sdkVersion",
+          "@type": "xsd:string"
+        },
+        "likes": {
+          "@id": "hf:likeCount",
+          "@type": "xsd:integer"
+        },
+        "tags": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "models": {
+          "@id": "hf:usesModel",
+          "@container": "@set"
+        },
+        "datasets": {
+          "@id": "hf:usesDataset",
+          "@container": "@set"
+        },
+        "runtime": {
+          "@id": "hf:runtimeStatus",
+          "@type": "@id"
+        },
+        "hardware": {
+          "@id": "hf:hardware",
+          "@type": "xsd:string"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        },
+        "lastModified": {
+          "@id": "schema:dateModified",
+          "@type": "xsd:dateTime"
+        },
+        "private": {
+          "@id": "hf:isPrivate",
+          "@type": "xsd:boolean"
+        },
+        "license": {
+          "@id": "schema:license",
+          "@type": "xsd:string"
+        },
+        "duplicated_from": {
+          "@id": "hf:duplicatedFrom",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "InferenceEndpoint": {
+      "@id": "hf:InferenceEndpoint",
+      "@context": {
+        "endpointName": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "model": {
+          "@id": "hf:deployedModel",
+          "@type": "@id"
+        },
+        "provider": {
+          "@id": "hf:cloudProvider",
+          "@type": "@id"
+        },
+        "region": {
+          "@id": "hf:cloudRegion",
+          "@type": "xsd:string"
+        },
+        "accelerator": {
+          "@id": "hf:acceleratorType",
+          "@type": "xsd:string"
+        },
+        "instanceType": {
+          "@id": "hf:instanceType",
+          "@type": "xsd:string"
+        },
+        "state": {
+          "@id": "hf:endpointState",
+          "@type": "xsd:string"
+        },
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "securityType": {
+          "@id": "hf:securityType",
+          "@type": "xsd:string"
+        },
+        "minReplica": {
+          "@id": "hf:minReplica",
+          "@type": "xsd:integer"
+        },
+        "maxReplica": {
+          "@id": "hf:maxReplica",
+          "@type": "xsd:integer"
+        },
+        "createdAt": {
+          "@id": "schema:dateCreated",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "hf:User",
+      "@context": {
+        "username": {
+          "@id": "schema:alternateName",
+          "@type": "xsd:string"
+        },
+        "fullname": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "email": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "avatarUrl": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "plan": {
+          "@id": "hf:subscriptionPlan",
+          "@type": "xsd:string"
+        },
+        "organizations": {
+          "@id": "schema:memberOf",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Organization": {
+      "@id": "hf:Organization",
+      "@context": {
+        "name": {
+          "@id": "schema:name",
+          "@type": "xsd:string"
+        },
+        "fullname": {
+          "@id": "schema:legalName",
+          "@type": "xsd:string"
+        },
+        "isEnterprise": {
+          "@id": "hf:isEnterprise",
+          "@type": "xsd:boolean"
+        },
+        "plan": {
+          "@id": "hf:subscriptionPlan",
+          "@type": "xsd:string"
+        }
+      }
+    },
+
+    "id": "@id",
+    "type": "@type",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "dateCreated": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "dateModified": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "author": {
+      "@id": "schema:author",
+      "@type": "@id"
+    },
+    "license": {
+      "@id": "schema:license"
+    },
+    "keywords": {
+      "@id": "schema:keywords",
+      "@container": "@set"
+    },
+    "identifier": {
+      "@id": "schema:identifier"
+    },
+    "image": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    }
+  }
+}

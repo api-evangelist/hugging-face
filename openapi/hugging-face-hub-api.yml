@@ -1,0 +1,995 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Hub API
+  description: >-
+    Programmatically interact with the Hugging Face Hub to manage models,
+    datasets, spaces, and repositories. Provides endpoints for listing,
+    searching, creating, and managing resources on the Hub.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  - url: https://huggingface.co/api
+    description: Hugging Face Hub API production server
+security:
+  - bearerAuth: []
+tags:
+  - name: Models
+    description: Operations for managing and querying models on the Hub
+  - name: Datasets
+    description: Operations for managing and querying datasets on the Hub
+  - name: Spaces
+    description: Operations for managing and querying Spaces on the Hub
+  - name: Repos
+    description: General repository management operations
+  - name: Users
+    description: User account and organization management
+paths:
+  /models:
+    get:
+      summary: List models on the Hub
+      description: >-
+        List and search models hosted on the Hugging Face Hub. Supports
+        filtering by author, task, library, tags, and full-text search.
+      operationId: listModels
+      tags:
+        - Models
+      security: []
+      parameters:
+        - name: search
+          in: query
+          description: Full-text search query to filter models
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Filter by model author or organization
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filter by tags (comma-separated)
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Property to sort results by
+          schema:
+            type: string
+            enum:
+              - lastModified
+              - downloads
+              - likes
+              - createdAt
+        - name: direction
+          in: query
+          description: Sort direction
+          schema:
+            type: string
+            enum:
+              - '-1'
+              - '1'
+        - name: limit
+          in: query
+          description: Number of results to return (max 1000)
+          schema:
+            type: integer
+            default: 30
+            maximum: 1000
+        - name: full
+          in: query
+          description: Whether to return full model information including card data
+          schema:
+            type: boolean
+            default: false
+        - name: config
+          in: query
+          description: Whether to return the model config
+          schema:
+            type: boolean
+            default: false
+        - name: pipeline_tag
+          in: query
+          description: Filter by pipeline task type
+          schema:
+            type: string
+            enum:
+              - text-generation
+              - text-classification
+              - token-classification
+              - question-answering
+              - summarization
+              - translation
+              - fill-mask
+              - image-classification
+              - object-detection
+              - automatic-speech-recognition
+              - text-to-image
+              - feature-extraction
+        - name: library
+          in: query
+          description: Filter by ML library
+          schema:
+            type: string
+            enum:
+              - transformers
+              - pytorch
+              - tensorflow
+              - jax
+              - diffusers
+              - onnx
+              - safetensors
+      responses:
+        '200':
+          description: List of models matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModelSummary'
+  /models/{repo_id}:
+    get:
+      summary: Get model information
+      description: Get detailed information about a specific model by its repository ID.
+      operationId: getModel
+      tags:
+        - Models
+      security: []
+      parameters:
+        - name: repo_id
+          in: path
+          required: true
+          description: The model repository ID (e.g., bert-base-uncased or organization/model-name)
+          schema:
+            type: string
+          example: bert-base-uncased
+      responses:
+        '200':
+          description: Detailed model information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelInfo'
+        '401':
+          description: Unauthorized - token required for private models
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Model not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /models/{repo_id}/revision/{revision}:
+    get:
+      summary: Get model information at a specific revision
+      description: >-
+        Get detailed information about a model at a specific Git revision
+        (branch, tag, or commit SHA).
+      operationId: getModelRevision
+      tags:
+        - Models
+      parameters:
+        - name: repo_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: revision
+          in: path
+          required: true
+          description: Git revision (branch name, tag, or commit SHA)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Model information at the specified revision
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelInfo'
+  /datasets:
+    get:
+      summary: List datasets on the Hub
+      description: >-
+        List and search datasets hosted on the Hugging Face Hub. Supports
+        filtering by author, tags, and full-text search.
+      operationId: listDatasets
+      tags:
+        - Datasets
+      security: []
+      parameters:
+        - name: search
+          in: query
+          description: Full-text search query to filter datasets
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Filter by dataset author or organization
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filter by tags (comma-separated)
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Property to sort results by
+          schema:
+            type: string
+            enum:
+              - lastModified
+              - downloads
+              - likes
+              - createdAt
+        - name: direction
+          in: query
+          description: Sort direction
+          schema:
+            type: string
+            enum:
+              - '-1'
+              - '1'
+        - name: limit
+          in: query
+          description: Number of results to return
+          schema:
+            type: integer
+            default: 30
+            maximum: 1000
+        - name: full
+          in: query
+          description: Whether to return full dataset information
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: List of datasets matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetSummary'
+  /datasets/{repo_id}:
+    get:
+      summary: Get dataset information
+      description: Get detailed information about a specific dataset.
+      operationId: getDataset
+      tags:
+        - Datasets
+      security: []
+      parameters:
+        - name: repo_id
+          in: path
+          required: true
+          description: The dataset repository ID
+          schema:
+            type: string
+          example: squad
+      responses:
+        '200':
+          description: Detailed dataset information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInfo'
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /datasets/{repo_id}/parquet:
+    get:
+      summary: Get dataset parquet files
+      description: Get the list of auto-converted Parquet files for a dataset.
+      operationId: getDatasetParquet
+      tags:
+        - Datasets
+      security: []
+      parameters:
+        - name: repo_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of Parquet file URLs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parquet_files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dataset:
+                          type: string
+                        config:
+                          type: string
+                        split:
+                          type: string
+                        url:
+                          type: string
+                          format: uri
+                        filename:
+                          type: string
+                        size:
+                          type: integer
+  /spaces:
+    get:
+      summary: List Spaces on the Hub
+      description: >-
+        List and search Spaces hosted on the Hugging Face Hub. Supports
+        filtering by author, SDK, and full-text search.
+      operationId: listSpaces
+      tags:
+        - Spaces
+      security: []
+      parameters:
+        - name: search
+          in: query
+          description: Full-text search query
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Filter by Space author or organization
+          schema:
+            type: string
+        - name: filter
+          in: query
+          description: Filter by tags
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Property to sort results by
+          schema:
+            type: string
+            enum:
+              - lastModified
+              - likes
+              - createdAt
+        - name: direction
+          in: query
+          description: Sort direction
+          schema:
+            type: string
+            enum:
+              - '-1'
+              - '1'
+        - name: limit
+          in: query
+          description: Number of results to return
+          schema:
+            type: integer
+            default: 30
+            maximum: 1000
+      responses:
+        '200':
+          description: List of Spaces matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpaceSummary'
+  /spaces/{repo_id}:
+    get:
+      summary: Get Space information
+      description: Get detailed information about a specific Space.
+      operationId: getSpace
+      tags:
+        - Spaces
+      security: []
+      parameters:
+        - name: repo_id
+          in: path
+          required: true
+          description: The Space repository ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed Space information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpaceInfo'
+        '404':
+          description: Space not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /repos/create:
+    post:
+      summary: Create a new repository
+      description: >-
+        Create a new model, dataset, or Space repository on the Hugging Face
+        Hub.
+      operationId: createRepo
+      tags:
+        - Repos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRepoRequest'
+      responses:
+        '200':
+          description: Repository created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoUrl'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Repository already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /repos/delete:
+    delete:
+      summary: Delete a repository
+      description: Delete a model, dataset, or Space repository from the Hub.
+      operationId: deleteRepo
+      tags:
+        - Repos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+              properties:
+                name:
+                  type: string
+                  description: Full repository name (e.g., username/repo-name)
+                type:
+                  type: string
+                  enum:
+                    - model
+                    - dataset
+                    - space
+                organization:
+                  type: string
+                  description: Organization name if applicable
+      responses:
+        '200':
+          description: Repository deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /repos/{repo_type}/{repo_id}/settings:
+    put:
+      summary: Update repository settings
+      description: Update the settings (visibility, etc.) for a repository.
+      operationId: updateRepoSettings
+      tags:
+        - Repos
+      parameters:
+        - name: repo_type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - models
+              - datasets
+              - spaces
+        - name: repo_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                private:
+                  type: boolean
+                  description: Whether the repository should be private
+                gated:
+                  type: string
+                  enum:
+                    - auto
+                    - manual
+                    - 'false'
+                  description: Access gating configuration
+      responses:
+        '200':
+          description: Settings updated successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /whoami-v2:
+    get:
+      summary: Get current user information
+      description: >-
+        Get information about the authenticated user, including their
+        organizations and access tokens.
+      operationId: whoami
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Current user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '401':
+          description: Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /metrics:
+    get:
+      summary: List available metrics
+      description: Get the list of available evaluation metrics on the Hub.
+      operationId: listMetrics
+      tags:
+        - Models
+      security: []
+      responses:
+        '200':
+          description: List of available metrics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    description:
+                      type: string
+  /models-tags-by-type:
+    get:
+      summary: List model tags grouped by type
+      description: >-
+        Get all available model tags organized by type (pipeline_tag, library,
+        language, license, etc.).
+      operationId: listModelTags
+      tags:
+        - Models
+      security: []
+      responses:
+        '200':
+          description: Tags grouped by type
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      label:
+                        type: string
+                      subType:
+                        type: string
+  /datasets-tags-by-type:
+    get:
+      summary: List dataset tags grouped by type
+      description: >-
+        Get all available dataset tags organized by type (task_categories,
+        language, size_categories, etc.).
+      operationId: listDatasetTags
+      tags:
+        - Datasets
+      security: []
+      responses:
+        '200':
+          description: Tags grouped by type
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      label:
+                        type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: >-
+        Hugging Face user access token. Generate from
+        https://huggingface.co/settings/tokens
+  schemas:
+    ModelSummary:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique model identifier
+        id:
+          type: string
+          description: Model repository ID (e.g., bert-base-uncased)
+        modelId:
+          type: string
+          description: Alias for id
+        author:
+          type: string
+          description: Model author or organization
+        sha:
+          type: string
+          description: Latest commit SHA
+        lastModified:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        private:
+          type: boolean
+          description: Whether the model is private
+        disabled:
+          type: boolean
+        gated:
+          type: boolean
+          description: Whether access is gated
+        pipeline_tag:
+          type: string
+          description: Pipeline task tag
+        tags:
+          type: array
+          items:
+            type: string
+        downloads:
+          type: integer
+          description: Total download count
+        likes:
+          type: integer
+          description: Total like count
+        library_name:
+          type: string
+          description: Primary ML library
+        createdAt:
+          type: string
+          format: date-time
+    ModelInfo:
+      allOf:
+        - $ref: '#/components/schemas/ModelSummary'
+        - type: object
+          properties:
+            siblings:
+              type: array
+              items:
+                type: object
+                properties:
+                  rfilename:
+                    type: string
+                  size:
+                    type: integer
+                  lfs:
+                    type: object
+                    properties:
+                      sha256:
+                        type: string
+                      size:
+                        type: integer
+                      pointerSize:
+                        type: integer
+              description: Files in the repository
+            spaces:
+              type: array
+              items:
+                type: string
+              description: Spaces using this model
+            safetensors:
+              type: object
+              properties:
+                parameters:
+                  type: object
+                  additionalProperties:
+                    type: integer
+                total:
+                  type: integer
+              description: Safetensors parameter information
+            config:
+              type: object
+              description: Model configuration
+            cardData:
+              type: object
+              description: Parsed model card metadata
+            transformersInfo:
+              type: object
+              properties:
+                auto_model:
+                  type: string
+                pipeline_tag:
+                  type: string
+                processor:
+                  type: string
+    DatasetSummary:
+      type: object
+      properties:
+        _id:
+          type: string
+        id:
+          type: string
+          description: Dataset repository ID
+        author:
+          type: string
+        sha:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+        private:
+          type: boolean
+        gated:
+          type: boolean
+        disabled:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        downloads:
+          type: integer
+        likes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        description:
+          type: string
+    DatasetInfo:
+      allOf:
+        - $ref: '#/components/schemas/DatasetSummary'
+        - type: object
+          properties:
+            siblings:
+              type: array
+              items:
+                type: object
+                properties:
+                  rfilename:
+                    type: string
+                  size:
+                    type: integer
+            cardData:
+              type: object
+              description: Parsed dataset card metadata
+              properties:
+                language:
+                  type: array
+                  items:
+                    type: string
+                license:
+                  type: string
+                task_categories:
+                  type: array
+                  items:
+                    type: string
+                size_categories:
+                  type: array
+                  items:
+                    type: string
+    SpaceSummary:
+      type: object
+      properties:
+        _id:
+          type: string
+        id:
+          type: string
+          description: Space repository ID
+        author:
+          type: string
+        sha:
+          type: string
+        lastModified:
+          type: string
+          format: date-time
+        private:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        likes:
+          type: integer
+        sdk:
+          type: string
+          description: SDK used by the Space
+          enum:
+            - gradio
+            - streamlit
+            - docker
+            - static
+        runtime:
+          type: object
+          properties:
+            stage:
+              type: string
+              enum:
+                - RUNNING
+                - STOPPED
+                - BUILDING
+                - PAUSED
+                - ERROR
+            hardware:
+              type: object
+              properties:
+                current:
+                  type: string
+                requested:
+                  type: string
+        createdAt:
+          type: string
+          format: date-time
+    SpaceInfo:
+      allOf:
+        - $ref: '#/components/schemas/SpaceSummary'
+        - type: object
+          properties:
+            siblings:
+              type: array
+              items:
+                type: object
+                properties:
+                  rfilename:
+                    type: string
+                  size:
+                    type: integer
+            cardData:
+              type: object
+              description: Parsed Space card metadata
+    CreateRepoRequest:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: Repository name
+          example: my-awesome-model
+        type:
+          type: string
+          description: Repository type
+          enum:
+            - model
+            - dataset
+            - space
+        organization:
+          type: string
+          description: Organization to create the repo under
+        private:
+          type: boolean
+          description: Whether the repo should be private
+          default: false
+        sdk:
+          type: string
+          description: SDK for Spaces (required when type is space)
+          enum:
+            - gradio
+            - streamlit
+            - docker
+            - static
+    RepoUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Full URL of the created repository
+    UserInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Account type (user or organization)
+        id:
+          type: string
+        name:
+          type: string
+          description: Username
+        fullname:
+          type: string
+          description: Full display name
+        email:
+          type: string
+          format: email
+        emailVerified:
+          type: boolean
+        plan:
+          type: string
+          description: Subscription plan
+        canPay:
+          type: boolean
+        avatarUrl:
+          type: string
+          format: uri
+        orgs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              fullname:
+                type: string
+              email:
+                type: string
+              plan:
+                type: string
+              avatarUrl:
+                type: string
+                format: uri
+              isEnterprise:
+                type: boolean
+        auth:
+          type: object
+          properties:
+            accessToken:
+              type: object
+              properties:
+                displayName:
+                  type: string
+                role:
+                  type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        statusCode:
+          type: integer
+          description: HTTP status code
