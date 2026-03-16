@@ -3,7 +3,7 @@ description: The AI community building the future with open-source machine learn
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
-modified: '2026-03-03'
+modified: '2026-03-16'
 specificationVersion: '0.18'
 apis:
 - name: Hugging Face Inference API
