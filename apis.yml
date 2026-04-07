@@ -15,9 +15,9 @@ apis:
     humanURL: https://huggingface.co/docs/api-inference/index
     baseURL: https://api-inference.huggingface.co
     tags:
-      - Machine Learning
-      - Inference
       - AI
+      - Inference
+      - Machine Learning
       - Models
     properties:
       - type: Documentation
@@ -45,9 +45,9 @@ apis:
     humanURL: https://huggingface.co/docs/hub/api
     baseURL: https://huggingface.co/api
     tags:
+      - Datasets
       - Hub
       - Models
-      - Datasets
       - Repository Management
     properties:
       - type: Documentation
@@ -100,10 +100,10 @@ apis:
     humanURL: https://huggingface.co/docs/inference-providers/en/index
     baseURL: https://router.huggingface.co/v1
     tags:
-      - Inference
-      - Providers
-      - OpenAI Compatible
       - AI
+      - Inference
+      - OpenAI Compatible
+      - Providers
     properties:
       - type: Documentation
         url: https://huggingface.co/docs/inference-providers/en/index
@@ -112,8 +112,7 @@ apis:
       - type: API Reference
         url: https://huggingface.co/docs/inference-providers/en/tasks/index
       - type: Getting Started
-        url: 
-          https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+        url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
       - type: Pricing
         url: https://huggingface.co/docs/inference-providers/pricing
       - type: Supported Models
@@ -129,10 +128,9 @@ apis:
     humanURL: https://huggingface.co/docs/dataset-viewer/index
     baseURL: https://datasets-server.huggingface.co
     tags:
-      - Datasets
       - Data
+      - Datasets
       - Viewer
-      - API
     properties:
       - type: Documentation
         url: https://huggingface.co/docs/dataset-viewer/index
@@ -155,23 +153,21 @@ apis:
     humanURL: https://huggingface.co/docs/text-generation-inference/en/index
     baseURL: https://api-inference.huggingface.co
     tags:
-      - Text Generation
-      - LLM
-      - Inference
       - AI
+      - Inference
+      - LLM
+      - Text Generation
     properties:
       - type: Documentation
         url: https://huggingface.co/docs/text-generation-inference/en/index
       - type: OpenAPI
         url: openapi/hugging-face-text-generation-inference-api.yml
       - type: API Reference
-        url: 
-          https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+        url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
       - type: Getting Started
         url: https://huggingface.co/docs/text-generation-inference/quicktour
       - type: Messages API
-        url: 
-          https://huggingface.co/docs/text-generation-inference/en/messages_api
+        url: https://huggingface.co/docs/text-generation-inference/en/messages_api
       - type: GitHub
         url: https://github.com/huggingface/text-generation-inference
     contact:
