@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StreamResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "object"
+    },
+    "generated_text": {
+      "type": "string",
+      "description": "Full generated text (only in the last event)"
+    },
+    "details": {
+      "type": "object",
+      "description": "Generation details (only in the last event)"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "_id": "500123",
+  "id": "abc123",
+  "modelId": "500123",
+  "author": "example_value",
+  "sha": "example_value",
+  "lastModified": "example_value",
+  "private": true,
+  "disabled": true,
+  "gated": true,
+  "pipeline_tag": "example_value",
+  "tags": [],
+  "downloads": 10,
+  "likes": 10,
+  "library_name": "example_value",
+  "createdAt": "example_value"
+}

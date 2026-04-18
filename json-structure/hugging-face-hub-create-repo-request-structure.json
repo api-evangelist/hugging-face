@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "CreateRepoRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "organization": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "sdk": {
+      "type": "string"
+    }
+  }
+}

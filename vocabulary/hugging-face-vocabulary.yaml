@@ -1,0 +1,28 @@
+name: hugging-face API Vocabulary
+provider: hugging-face
+created: '2026-04-18'
+modified: '2026-04-18'
+operations: 68
+schemas: 71
+tags:
+- Audio
+- Chat
+- Chat Completions
+- Computer Vision
+- Data Access
+- Dataset Info
+- Datasets
+- Embeddings
+- Endpoints
+- Files & Metadata
+- Image Generation
+- Info
+- Models
+- Multimodal
+- Natural Language Processing
+- Providers
+- Repos
+- Search & Filter
+- Spaces
+- Text Generation
+- Users

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StatisticsResponse",
+  "type": "object",
+  "properties": {
+    "num_examples": {
+      "type": "integer",
+      "description": "Total number of examples analyzed"
+    },
+    "statistics": {
+      "type": "array"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

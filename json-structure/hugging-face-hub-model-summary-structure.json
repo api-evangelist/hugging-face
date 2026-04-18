@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ModelSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "modelId": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "gated": {
+      "type": "boolean"
+    },
+    "pipeline_tag": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "downloads": {
+      "type": "integer"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "library_name": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  }
+}

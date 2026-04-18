@@ -14,43 +14,53 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://api-inference.huggingface.co
-    description: Hugging Face Inference API production server
+- url: https://api-inference.huggingface.co
+  description: Hugging Face Inference API production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Natural Language Processing
-    description: NLP tasks including text generation, classification, and translation
-  - name: Computer Vision
-    description: Image classification, object detection, and segmentation tasks
-  - name: Audio
-    description: Speech recognition, audio classification, and text-to-speech tasks
-  - name: Multimodal
-    description: Tasks involving multiple modalities
+- name: Natural Language Processing
+  description: NLP tasks including text generation, classification, and translation
+- name: Computer Vision
+  description: Image classification, object detection, and segmentation tasks
+- name: Audio
+  description: Speech recognition, audio classification, and text-to-speech tasks
+- name: Multimodal
+  description: Tasks involving multiple modalities
 paths:
   /models/{model_id}:
     post:
-      summary: Run inference on a model
+      summary: Run Inference on a Model
       description: >-
         Run inference on any model hosted on the Hugging Face Hub. The request
         and response format depends on the model's pipeline task.
       operationId: runInference
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          description: The model ID on the Hugging Face Hub (e.g., gpt2, bert-base-uncased)
-          schema:
-            type: string
-          example: gpt2
+      - name: model_id
+        in: path
+        required: true
+        description: The model ID on the Hugging Face Hub (e.g., gpt2, bert-base-uncased)
+        schema:
+          type: string
+        example: gpt2
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InferenceRequest'
+            examples:
+              RuninferenceRequestExample:
+                summary: Default runInference request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters: example_value
+                  options:
+                    use_cache: true
+                    wait_for_model: true
       responses:
         '200':
           description: Successful inference result
@@ -58,88 +68,149 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InferenceResponse'
+              examples:
+                Runinference200Example:
+                  summary: Default runInference 200 response
+                  x-microcks-default: true
+                  value: {}
         '400':
           description: Bad request - invalid input parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runinference400Example:
+                  summary: Default runInference 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '401':
           description: Unauthorized - invalid or missing API token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runinference401Example:
+                  summary: Default runInference 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '403':
           description: Forbidden - insufficient permissions for this model
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runinference403Example:
+                  summary: Default runInference 403 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '404':
           description: Model not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runinference404Example:
+                  summary: Default runInference 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '429':
           description: Rate limit exceeded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runinference429Example:
+                  summary: Default runInference 429 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '503':
           description: Model is loading or unavailable
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModelLoadingResponse'
+              examples:
+                Runinference503Example:
+                  summary: Default runInference 503 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /pipeline/{task}:
     post:
-      summary: Run inference by task pipeline
+      summary: Run Inference by Task Pipeline
       description: >-
         Run inference using a recommended model for a specific task pipeline.
         Hugging Face selects the best available model for the given task.
       operationId: runPipelineInference
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: task
-          in: path
-          required: true
-          description: >-
-            The pipeline task type (e.g., text-generation,
-            text-classification, summarization)
-          schema:
-            type: string
-            enum:
-              - text-generation
-              - text-classification
-              - token-classification
-              - question-answering
-              - summarization
-              - translation
-              - fill-mask
-              - text2text-generation
-              - feature-extraction
-              - sentence-similarity
-              - zero-shot-classification
-              - table-question-answering
-              - conversational
-              - image-classification
-              - object-detection
-              - image-segmentation
-              - image-to-text
-              - text-to-image
-              - automatic-speech-recognition
-              - audio-classification
-              - text-to-speech
+      - name: task
+        in: path
+        required: true
+        description: >-
+          The pipeline task type (e.g., text-generation,
+          text-classification, summarization)
+        schema:
+          type: string
+          enum:
+          - text-generation
+          - text-classification
+          - token-classification
+          - question-answering
+          - summarization
+          - translation
+          - fill-mask
+          - text2text-generation
+          - feature-extraction
+          - sentence-similarity
+          - zero-shot-classification
+          - table-question-answering
+          - conversational
+          - image-classification
+          - object-detection
+          - image-segmentation
+          - image-to-text
+          - text-to-image
+          - automatic-speech-recognition
+          - audio-classification
+          - text-to-speech
+        example: text-generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/InferenceRequest'
+            examples:
+              RunpipelineinferenceRequestExample:
+                summary: Default runPipelineInference request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters: example_value
+                  options:
+                    use_cache: true
+                    wait_for_model: true
       responses:
         '200':
           description: Successful inference result
@@ -147,40 +218,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InferenceResponse'
+              examples:
+                Runpipelineinference200Example:
+                  summary: Default runPipelineInference 200 response
+                  x-microcks-default: true
+                  value: {}
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runpipelineinference400Example:
+                  summary: Default runPipelineInference 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '429':
           description: Rate limit exceeded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Runpipelineinference429Example:
+                  summary: Default runPipelineInference 429 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/text-generation:
     post:
-      summary: Text generation inference
+      summary: Text Generation Inference
       description: >-
         Generate text using a language model. Supports parameters like
         temperature, top_p, max_new_tokens, and repetition_penalty.
       operationId: textGeneration
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: gpt2
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: gpt2
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TextGenerationRequest'
+            examples:
+              TextgenerationRequestExample:
+                summary: Default textGeneration request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    max_new_tokens: 10
+                    temperature: 42.5
+                    top_p: 42.5
+                    top_k: 10
+                    repetition_penalty: 42.5
+                    do_sample: true
+                    return_full_text: true
+                    stop:
+                    - example_value
+                  options:
+                    use_cache: true
+                    wait_for_model: true
       responses:
         '200':
           description: Generated text response
@@ -190,40 +302,69 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TextGenerationResponse'
+              examples:
+                Textgeneration200Example:
+                  summary: Default textGeneration 200 response
+                  x-microcks-default: true
+                  value:
+                  - generated_text: example_value
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Textgeneration400Example:
+                  summary: Default textGeneration 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
         '503':
           description: Model is loading
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModelLoadingResponse'
+              examples:
+                Textgeneration503Example:
+                  summary: Default textGeneration 503 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    estimated_time: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/text-classification:
     post:
-      summary: Text classification inference
+      summary: Text Classification Inference
       description: >-
         Classify text into predefined categories using a text classification
         model such as sentiment analysis.
       operationId: textClassification
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: distilbert-base-uncased-finetuned-sst-2-english
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: distilbert-base-uncased-finetuned-sst-2-english
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TextClassificationRequest'
+            examples:
+              TextclassificationRequestExample:
+                summary: Default textClassification request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
       responses:
         '200':
           description: Classification results
@@ -235,27 +376,45 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/ClassificationResult'
+              examples:
+                Textclassification200Example:
+                  summary: Default textClassification 200 response
+                  x-microcks-default: true
+                  value:
+                  - - label: Example Title
+                      score: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/question-answering:
     post:
-      summary: Question answering inference
+      summary: Question Answering Inference
       description: >-
         Extract answers from a given context using a question answering model.
       operationId: questionAnswering
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: deepset/roberta-base-squad2
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: deepset/roberta-base-squad2
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/QuestionAnsweringRequest'
+            examples:
+              QuestionansweringRequestExample:
+                summary: Default questionAnswering request
+                x-microcks-default: true
+                value:
+                  inputs:
+                    question: example_value
+                    context: example_value
       responses:
         '200':
           description: Answer extracted from context
@@ -263,26 +422,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/QuestionAnsweringResponse'
+              examples:
+                Questionanswering200Example:
+                  summary: Default questionAnswering 200 response
+                  x-microcks-default: true
+                  value:
+                    answer: example_value
+                    score: 42.5
+                    start: 10
+                    end: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/summarization:
     post:
-      summary: Text summarization inference
+      summary: Text Summarization Inference
       description: Summarize a long text into a shorter version.
       operationId: summarization
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: facebook/bart-large-cnn
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: facebook/bart-large-cnn
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/SummarizationRequest'
+            examples:
+              SummarizationRequestExample:
+                summary: Default summarization request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    min_length: 10
+                    max_length: 10
       responses:
         '200':
           description: Summarized text
@@ -292,26 +472,41 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SummarizationResponse'
+              examples:
+                Summarization200Example:
+                  summary: Default summarization 200 response
+                  x-microcks-default: true
+                  value:
+                  - summary_text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/translation:
     post:
-      summary: Translation inference
+      summary: Translation Inference
       description: Translate text from one language to another.
       operationId: translation
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: Helsinki-NLP/opus-mt-en-fr
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: Helsinki-NLP/opus-mt-en-fr
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TranslationRequest'
+            examples:
+              TranslationRequestExample:
+                summary: Default translation request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
       responses:
         '200':
           description: Translated text
@@ -321,27 +516,42 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/TranslationResponse'
+              examples:
+                Translation200Example:
+                  summary: Default translation 200 response
+                  x-microcks-default: true
+                  value:
+                  - translation_text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/fill-mask:
     post:
-      summary: Fill mask inference
+      summary: Fill Mask Inference
       description: >-
         Fill in a masked token in a sentence using a masked language model.
       operationId: fillMask
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: bert-base-uncased
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: bert-base-uncased
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/FillMaskRequest'
+            examples:
+              FillmaskRequestExample:
+                summary: Default fillMask request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
       responses:
         '200':
           description: Predicted tokens for the mask
@@ -351,27 +561,45 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/FillMaskResponse'
+              examples:
+                Fillmask200Example:
+                  summary: Default fillMask 200 response
+                  x-microcks-default: true
+                  value:
+                  - sequence: example_value
+                    score: 42.5
+                    token: 10
+                    token_str: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/feature-extraction:
     post:
-      summary: Feature extraction inference
+      summary: Feature Extraction Inference
       description: >-
         Extract dense vector representations (embeddings) from text input.
       operationId: featureExtraction
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: sentence-transformers/all-MiniLM-L6-v2
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: sentence-transformers/all-MiniLM-L6-v2
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/FeatureExtractionRequest'
+            examples:
+              FeatureextractionRequestExample:
+                summary: Default featureExtraction request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
       responses:
         '200':
           description: Extracted feature vectors
@@ -383,20 +611,29 @@ paths:
                   type: array
                   items:
                     type: number
+              examples:
+                Featureextraction200Example:
+                  summary: Default featureExtraction 200 response
+                  x-microcks-default: true
+                  value:
+                  - - 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/image-classification:
     post:
-      summary: Image classification inference
+      summary: Image Classification Inference
       description: Classify an image into predefined categories.
       operationId: imageClassification
       tags:
-        - Computer Vision
+      - Computer Vision
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: google/vit-base-patch16-224
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: google/vit-base-patch16-224
       requestBody:
         required: true
         content:
@@ -404,6 +641,11 @@ paths:
             schema:
               type: string
               format: binary
+            examples:
+              ImageclassificationRequestExample:
+                summary: Default imageClassification request
+                x-microcks-default: true
+                value: example_value
           application/json:
             schema:
               type: object
@@ -411,6 +653,12 @@ paths:
                 inputs:
                   type: string
                   description: URL of the image to classify
+            examples:
+              ImageclassificationRequestExample:
+                summary: Default imageClassification request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
       responses:
         '200':
           description: Classification results
@@ -420,20 +668,30 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ClassificationResult'
+              examples:
+                Imageclassification200Example:
+                  summary: Default imageClassification 200 response
+                  x-microcks-default: true
+                  value:
+                  - label: Example Title
+                    score: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/object-detection:
     post:
-      summary: Object detection inference
+      summary: Object Detection Inference
       description: Detect objects in an image and return bounding boxes with labels.
       operationId: objectDetection
       tags:
-        - Computer Vision
+      - Computer Vision
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: facebook/detr-resnet-50
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: facebook/detr-resnet-50
       requestBody:
         required: true
         content:
@@ -441,6 +699,11 @@ paths:
             schema:
               type: string
               format: binary
+            examples:
+              ObjectdetectionRequestExample:
+                summary: Default objectDetection request
+                x-microcks-default: true
+                value: example_value
       responses:
         '200':
           description: Detected objects with bounding boxes
@@ -450,20 +713,35 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ObjectDetectionResult'
+              examples:
+                Objectdetection200Example:
+                  summary: Default objectDetection 200 response
+                  x-microcks-default: true
+                  value:
+                  - label: Example Title
+                    score: 42.5
+                    box:
+                      xmin: 10
+                      ymin: 10
+                      xmax: 10
+                      ymax: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/automatic-speech-recognition:
     post:
-      summary: Automatic speech recognition inference
+      summary: Automatic Speech Recognition Inference
       description: Transcribe audio to text using a speech recognition model.
       operationId: automaticSpeechRecognition
       tags:
-        - Audio
+      - Audio
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: openai/whisper-large-v3
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: openai/whisper-large-v3
       requestBody:
         required: true
         content:
@@ -471,14 +749,29 @@ paths:
             schema:
               type: string
               format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
           audio/wav:
             schema:
               type: string
               format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
           audio/mp3:
             schema:
               type: string
               format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
       responses:
         '200':
           description: Transcribed text
@@ -486,26 +779,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpeechRecognitionResponse'
+              examples:
+                Automaticspeechrecognition200Example:
+                  summary: Default automaticSpeechRecognition 200 response
+                  x-microcks-default: true
+                  value:
+                    text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/text-to-image:
     post:
-      summary: Text to image generation
+      summary: Text to Image Generation
       description: Generate an image from a text prompt using a diffusion model.
       operationId: textToImage
       tags:
-        - Multimodal
+      - Multimodal
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: stabilityai/stable-diffusion-xl-base-1.0
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: stabilityai/stable-diffusion-xl-base-1.0
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TextToImageRequest'
+            examples:
+              TexttoimageRequestExample:
+                summary: Default textToImage request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    negative_prompt: example_value
+                    height: 10
+                    width: 10
+                    num_inference_steps: 10
+                    guidance_scale: 42.5
       responses:
         '200':
           description: Generated image
@@ -514,28 +828,46 @@ paths:
               schema:
                 type: string
                 format: binary
+              examples:
+                Texttoimage200Example:
+                  summary: Default textToImage 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/zero-shot-classification:
     post:
-      summary: Zero-shot classification inference
+      summary: Zero-shot Classification Inference
       description: >-
         Classify text into categories that the model has not been explicitly
         trained on using natural language inference.
       operationId: zeroShotClassification
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: facebook/bart-large-mnli
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: facebook/bart-large-mnli
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ZeroShotClassificationRequest'
+            examples:
+              ZeroshotclassificationRequestExample:
+                summary: Default zeroShotClassification request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    candidate_labels:
+                    - example_value
+                    multi_label: true
       responses:
         '200':
           description: Classification scores for each candidate label
@@ -543,26 +875,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroShotClassificationResponse'
+              examples:
+                Zeroshotclassification200Example:
+                  summary: Default zeroShotClassification 200 response
+                  x-microcks-default: true
+                  value:
+                    sequence: example_value
+                    labels:
+                    - example_value
+                    scores:
+                    - 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{model_id}/sentence-similarity:
     post:
-      summary: Sentence similarity inference
+      summary: Sentence Similarity Inference
       description: Compute similarity scores between a source sentence and target sentences.
       operationId: sentenceSimilarity
       tags:
-        - Natural Language Processing
+      - Natural Language Processing
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          schema:
-            type: string
-          example: sentence-transformers/all-MiniLM-L6-v2
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: sentence-transformers/all-MiniLM-L6-v2
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/SentenceSimilarityRequest'
+            examples:
+              SentencesimilarityRequestExample:
+                summary: Default sentenceSimilarity request
+                x-microcks-default: true
+                value:
+                  inputs:
+                    source_sentence: example_value
+                    sentences:
+                    - example_value
       responses:
         '200':
           description: Similarity scores
@@ -573,6 +927,15 @@ paths:
                 items:
                   type: number
                   format: float
+              examples:
+                Sentencesimilarity200Example:
+                  summary: Default sentenceSimilarity 200 response
+                  x-microcks-default: true
+                  value:
+                  - 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -586,18 +949,20 @@ components:
     InferenceRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          - type: string
+          - type: array
+            items:
+              type: string
           description: The input data for inference
+          example: example_value
         parameters:
           type: object
           description: Task-specific parameters
+          example: example_value
         options:
           type: object
           properties:
@@ -609,18 +974,19 @@ components:
               type: boolean
               default: false
               description: Wait for the model to load instead of returning 503
+          example: example_value
     InferenceResponse:
       oneOf:
-        - type: array
-          items:
-            type: object
-        - type: object
-        - type: string
+      - type: array
+        items:
+          type: object
+      - type: object
+      - type: string
       description: The inference result - format depends on the task
     TextGenerationRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -665,6 +1031,7 @@ components:
               items:
                 type: string
               description: Stop sequences to halt generation
+          example: example_value
         options:
           type: object
           properties:
@@ -674,16 +1041,18 @@ components:
             wait_for_model:
               type: boolean
               default: false
+          example: example_value
     TextGenerationResponse:
       type: object
       properties:
         generated_text:
           type: string
           description: The generated text
+          example: example_value
     TextClassificationRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -704,13 +1073,13 @@ components:
     QuestionAnsweringRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: object
           required:
-            - question
-            - context
+          - question
+          - context
           properties:
             question:
               type: string
@@ -720,6 +1089,7 @@ components:
               type: string
               description: The context containing the answer
               example: France is a country in Europe. Its capital is Paris.
+          example: example_value
     QuestionAnsweringResponse:
       type: object
       properties:
@@ -731,20 +1101,24 @@ components:
           type: number
           format: float
           description: Confidence score
+          example: 42.5
         start:
           type: integer
           description: Start character position in context
+          example: 10
         end:
           type: integer
           description: End character position in context
+          example: 10
     SummarizationRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
           description: The text to summarize
+          example: example_value
         parameters:
           type: object
           properties:
@@ -754,16 +1128,18 @@ components:
             max_length:
               type: integer
               description: Maximum length of the summary
+          example: example_value
     SummarizationResponse:
       type: object
       properties:
         summary_text:
           type: string
           description: The summarized text
+          example: example_value
     TranslationRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -775,10 +1151,11 @@ components:
         translation_text:
           type: string
           description: The translated text
+          example: example_value
     FillMaskRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -790,32 +1167,37 @@ components:
         sequence:
           type: string
           description: The complete text with filled mask
+          example: example_value
         score:
           type: number
           format: float
           description: Confidence score for the prediction
+          example: 42.5
         token:
           type: integer
           description: Token ID of the predicted word
+          example: 10
         token_str:
           type: string
           description: The predicted word
+          example: example_value
     FeatureExtractionRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          - type: string
+          - type: array
+            items:
+              type: string
           description: The text input(s) for embedding extraction
+          example: example_value
     TextToImageRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -840,19 +1222,21 @@ components:
               type: number
               format: float
               description: Classifier-free guidance scale
+          example: example_value
     ZeroShotClassificationRequest:
       type: object
       required:
-        - inputs
-        - parameters
+      - inputs
+      - parameters
       properties:
         inputs:
           type: string
           description: The text to classify
+          example: example_value
         parameters:
           type: object
           required:
-            - candidate_labels
+          - candidate_labels
           properties:
             candidate_labels:
               type: array
@@ -863,30 +1247,34 @@ components:
               type: boolean
               default: false
               description: Whether multiple labels can be true
+          example: example_value
     ZeroShotClassificationResponse:
       type: object
       properties:
         sequence:
           type: string
+          example: example_value
         labels:
           type: array
           items:
             type: string
+          example: []
         scores:
           type: array
           items:
             type: number
             format: float
+          example: []
     SentenceSimilarityRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: object
           required:
-            - source_sentence
-            - sentences
+          - source_sentence
+          - sentences
           properties:
             source_sentence:
               type: string
@@ -896,16 +1284,19 @@ components:
               items:
                 type: string
               description: Target sentences to compare with
+          example: example_value
     ObjectDetectionResult:
       type: object
       properties:
         label:
           type: string
           description: Detected object label
+          example: Example Title
         score:
           type: number
           format: float
           description: Detection confidence score
+          example: 42.5
         box:
           type: object
           properties:
@@ -917,12 +1308,14 @@ components:
               type: integer
             ymax:
               type: integer
+          example: example_value
     SpeechRecognitionResponse:
       type: object
       properties:
         text:
           type: string
           description: The transcribed text
+          example: example_value
     ModelLoadingResponse:
       type: object
       properties:
@@ -934,13 +1327,16 @@ components:
           type: number
           format: float
           description: Estimated time in seconds until the model is ready
+          example: 42.5
     Error:
       type: object
       properties:
         error:
           type: string
           description: Error message
+          example: example_value
         estimated_time:
           type: number
           format: float
           description: Estimated time until availability (for loading errors)
+          example: 42.5

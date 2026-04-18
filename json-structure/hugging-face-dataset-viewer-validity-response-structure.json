@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ValidityResponse",
+  "type": "object",
+  "properties": {
+    "preview": {
+      "type": "boolean"
+    },
+    "viewer": {
+      "type": "boolean"
+    },
+    "search": {
+      "type": "boolean"
+    },
+    "filter": {
+      "type": "boolean"
+    },
+    "statistics": {
+      "type": "boolean"
+    }
+  }
+}

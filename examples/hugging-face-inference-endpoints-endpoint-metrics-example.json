@@ -1,0 +1,6 @@
+{
+  "request_count": 10,
+  "request_duration_ms": "example_value",
+  "error_rate": 42.5,
+  "tokens_per_second": 42.5
+}

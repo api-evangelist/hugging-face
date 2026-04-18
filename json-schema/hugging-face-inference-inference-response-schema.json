@@ -1,0 +1,6 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "InferenceResponse",
+  "type": "object",
+  "description": "The inference result - format depends on the task"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SearchResponse",
+  "type": "object",
+  "properties": {
+    "features": {
+      "type": "array"
+    },
+    "rows": {
+      "type": "array"
+    },
+    "num_rows_total": {
+      "type": "integer",
+      "description": "Total number of matching rows"
+    },
+    "num_rows_per_page": {
+      "type": "integer"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

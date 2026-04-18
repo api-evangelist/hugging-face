@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SpaceSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "description": "Space repository ID"
+    },
+    "author": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "sdk": {
+      "type": "string",
+      "description": "SDK used by the Space"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  }
+}

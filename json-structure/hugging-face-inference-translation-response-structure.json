@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "TranslationResponse",
+  "type": "object",
+  "properties": {
+    "translation_text": {
+      "type": "string"
+    }
+  }
+}

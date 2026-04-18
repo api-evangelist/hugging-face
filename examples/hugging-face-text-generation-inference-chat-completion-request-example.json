@@ -1,0 +1,19 @@
+{
+  "model": "example_value",
+  "messages": [],
+  "frequency_penalty": 42.5,
+  "logprobs": true,
+  "max_tokens": 10,
+  "presence_penalty": 42.5,
+  "response_format": "example_value",
+  "seed": 10,
+  "stop": [],
+  "stream": true,
+  "stream_options": "example_value",
+  "temperature": 42.5,
+  "tool_choice": "example_value",
+  "tool_prompt": "example_value",
+  "tools": [],
+  "top_logprobs": 10,
+  "top_p": 42.5
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ChatCompletionRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model ID to use. Can be a Hugging Face model ID (e.g., meta-llama/Llama-3-70b-chat-hf) or a provider-specific identifier."
+    },
+    "messages": {
+      "type": "array",
+      "description": "List of messages comprising the conversation"
+    },
+    "frequency_penalty": {
+      "type": "number",
+      "description": "Penalize tokens based on frequency in text so far"
+    },
+    "logprobs": {
+      "type": "boolean",
+      "description": "Whether to return log probabilities"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "description": "Maximum number of tokens to generate"
+    },
+    "presence_penalty": {
+      "type": "number",
+      "description": "Penalize tokens based on presence in text so far"
+    },
+    "reasoning_effort": {
+      "type": "string",
+      "description": "Constrains effort on reasoning for models that support it. Common values are none, minimal, low, medium, high, xhigh."
+    },
+    "response_format": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Random seed for reproducibility"
+    },
+    "stop": {
+      "type": "array",
+      "description": "Up to 4 sequences where generation will stop"
+    },
+    "stream": {
+      "type": "boolean",
+      "description": "Whether to stream partial responses using SSE"
+    },
+    "stream_options": {
+      "type": "object"
+    },
+    "temperature": {
+      "type": "number",
+      "description": "Sampling temperature"
+    },
+    "tool_choice": {
+      "type": "string",
+      "description": "Controls tool usage"
+    },
+    "tool_prompt": {
+      "type": "string",
+      "description": "Prompt prepended before tools"
+    },
+    "tools": {
+      "type": "array",
+      "description": "List of tools the model may call"
+    },
+    "top_logprobs": {
+      "type": "integer",
+      "description": "Number of most likely tokens to return per position"
+    },
+    "top_p": {
+      "type": "number",
+      "description": "Nucleus sampling parameter"
+    }
+  }
+}

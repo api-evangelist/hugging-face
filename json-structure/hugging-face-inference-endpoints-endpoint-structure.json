@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Endpoint",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "accountId": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "object"
+    },
+    "compute": {
+      "type": "object"
+    },
+    "model": {
+      "type": "object"
+    },
+    "status": {
+      "type": "object"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

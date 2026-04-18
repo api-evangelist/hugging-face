@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "EmbeddingRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "input": {
+      "type": "string"
+    },
+    "encoding_format": {
+      "type": "string"
+    }
+  }
+}

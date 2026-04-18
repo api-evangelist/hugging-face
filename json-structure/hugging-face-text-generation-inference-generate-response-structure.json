@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "GenerateResponse",
+  "type": "object",
+  "properties": {
+    "generated_text": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object"
+    }
+  }
+}

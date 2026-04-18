@@ -1,0 +1,440 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Hugging Face Hub and Data Management"
+  description: "Unified workflow for managing models, datasets, and spaces on the Hugging Face Hub, and exploring dataset contents via the Dataset Viewer. Used by ML engineers, data scientists, and platform administrators for model discovery, dataset curation, and repository management."
+  tags:
+    - Hugging Face
+    - Hub
+    - Models
+    - Datasets
+    - Data Management
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      HF_API_TOKEN: HF_API_TOKEN
+
+capability:
+  consumes:
+    - import: hf-hub
+      location: ./shared/hub.yaml
+    - import: hf-dataset-viewer
+      location: ./shared/dataset-viewer.yaml
+
+  exposes:
+    - type: rest
+      port: 8081
+      namespace: hf-hub-data-api
+      description: "Unified REST API for Hugging Face Hub resource management and dataset exploration."
+      resources:
+        - path: /v1/models
+          name: models
+          description: "Manage models on the Hub"
+          operations:
+            - method: GET
+              name: list-models
+              description: "List and search models"
+              call: "hf-hub.list-models"
+              with:
+                search: "rest.search"
+                author: "rest.author"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/models/{repo_id}
+          name: model-details
+          description: "Get model details"
+          operations:
+            - method: GET
+              name: get-model
+              description: "Get model information"
+              call: "hf-hub.get-model"
+              with:
+                repo_id: "rest.repo_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/datasets
+          name: datasets
+          description: "Manage datasets on the Hub"
+          operations:
+            - method: GET
+              name: list-datasets
+              description: "List and search datasets"
+              call: "hf-hub.list-datasets"
+              with:
+                search: "rest.search"
+                author: "rest.author"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/datasets/{repo_id}
+          name: dataset-details
+          description: "Get dataset details"
+          operations:
+            - method: GET
+              name: get-dataset
+              description: "Get dataset information"
+              call: "hf-hub.get-dataset"
+              with:
+                repo_id: "rest.repo_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/datasets/{dataset}/rows
+          name: dataset-rows
+          description: "Get dataset rows"
+          operations:
+            - method: GET
+              name: get-rows
+              description: "Get rows from a dataset"
+              call: "hf-dataset-viewer.get-rows"
+              with:
+                dataset: "rest.dataset"
+                config: "rest.config"
+                split: "rest.split"
+                offset: "rest.offset"
+                length: "rest.length"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/datasets/{dataset}/search
+          name: dataset-search
+          description: "Search dataset rows"
+          operations:
+            - method: GET
+              name: search-rows
+              description: "Search rows in a dataset"
+              call: "hf-dataset-viewer.search-rows"
+              with:
+                dataset: "rest.dataset"
+                config: "rest.config"
+                split: "rest.split"
+                query: "rest.query"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/spaces
+          name: spaces
+          description: "Manage Spaces on the Hub"
+          operations:
+            - method: GET
+              name: list-spaces
+              description: "List and search Spaces"
+              call: "hf-hub.list-spaces"
+              with:
+                search: "rest.search"
+                author: "rest.author"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/repos
+          name: repos
+          description: "Create repositories"
+          operations:
+            - method: POST
+              name: create-repo
+              description: "Create a new repository"
+              call: "hf-hub.create-repo"
+              with:
+                type: "rest.type"
+                name: "rest.name"
+                organization: "rest.organization"
+                private: "rest.private"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/user
+          name: user
+          description: "User information"
+          operations:
+            - method: GET
+              name: whoami
+              description: "Get authenticated user info"
+              call: "hf-hub.whoami"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9091
+      namespace: hf-hub-data-mcp
+      transport: http
+      description: "MCP server for AI-assisted Hugging Face Hub management and dataset exploration."
+      tools:
+        - name: list-models
+          description: "List and search ML models on the Hugging Face Hub."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.list-models"
+          with:
+            search: "tools.search"
+            author: "tools.author"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-model
+          description: "Get detailed information about a specific model."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.get-model"
+          with:
+            repo_id: "tools.repo_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-model-revision
+          description: "Get model information at a specific revision or branch."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.get-model-revision"
+          with:
+            repo_id: "tools.repo_id"
+            revision: "tools.revision"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-datasets
+          description: "List and search datasets on the Hub."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.list-datasets"
+          with:
+            search: "tools.search"
+            author: "tools.author"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset
+          description: "Get detailed information about a specific dataset."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.get-dataset"
+          with:
+            repo_id: "tools.repo_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset-parquet
+          description: "Get parquet file URLs for a dataset."
+          hints:
+            readOnly: true
+          call: "hf-hub.get-dataset-parquet"
+          with:
+            repo_id: "tools.repo_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-spaces
+          description: "List and search Spaces on the Hub."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.list-spaces"
+          with:
+            search: "tools.search"
+            author: "tools.author"
+            sort: "tools.sort"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-space
+          description: "Get detailed information about a specific Space."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-hub.get-space"
+          with:
+            repo_id: "tools.repo_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-repo
+          description: "Create a new model, dataset, or Space repository on the Hub."
+          hints:
+            readOnly: false
+          call: "hf-hub.create-repo"
+          with:
+            type: "tools.type"
+            name: "tools.name"
+            organization: "tools.organization"
+            private: "tools.private"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-repo
+          description: "Delete a repository from the Hub."
+          hints:
+            readOnly: false
+            destructive: true
+          call: "hf-hub.delete-repo"
+          with:
+            type: "tools.type"
+            name: "tools.name"
+            organization: "tools.organization"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-repo-settings
+          description: "Update settings for a repository."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "hf-hub.update-repo-settings"
+          with:
+            repo_type: "tools.repo_type"
+            repo_id: "tools.repo_id"
+            private: "tools.private"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: whoami
+          description: "Get information about the authenticated user."
+          hints:
+            readOnly: true
+          call: "hf-hub.whoami"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-model-tags
+          description: "List all available model tags grouped by type."
+          hints:
+            readOnly: true
+          call: "hf-hub.list-model-tags"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-dataset-tags
+          description: "List all available dataset tags grouped by type."
+          hints:
+            readOnly: true
+          call: "hf-hub.list-dataset-tags"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-dataset-validity
+          description: "Check if a dataset is valid and available on the Hub."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.is-valid"
+          with:
+            dataset: "tools.dataset"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset-splits
+          description: "Get the list of splits for a dataset."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-splits"
+          with:
+            dataset: "tools.dataset"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: preview-dataset-rows
+          description: "Get the first rows of a dataset split for preview."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-first-rows"
+          with:
+            dataset: "tools.dataset"
+            config: "tools.config"
+            split: "tools.split"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset-rows
+          description: "Get rows from a dataset split with pagination."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-rows"
+          with:
+            dataset: "tools.dataset"
+            config: "tools.config"
+            split: "tools.split"
+            offset: "tools.offset"
+            length: "tools.length"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-dataset
+          description: "Search for rows matching a query in a dataset."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.search-rows"
+          with:
+            dataset: "tools.dataset"
+            config: "tools.config"
+            split: "tools.split"
+            query: "tools.query"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: filter-dataset
+          description: "Filter dataset rows using a condition."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.filter-rows"
+          with:
+            dataset: "tools.dataset"
+            config: "tools.config"
+            split: "tools.split"
+            where: "tools.where"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset-size
+          description: "Get size information for a dataset."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-dataset-size"
+          with:
+            dataset: "tools.dataset"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-dataset-statistics
+          description: "Get statistical information about a dataset split."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-statistics"
+          with:
+            dataset: "tools.dataset"
+            config: "tools.config"
+            split: "tools.split"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-croissant-metadata
+          description: "Get Croissant metadata for a dataset."
+          hints:
+            readOnly: true
+          call: "hf-dataset-viewer.get-croissant-metadata"
+          with:
+            dataset: "tools.dataset"
+          outputParameters:
+            - type: object
+              mapping: "$."

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ChatCompletionResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique completion identifier"
+    },
+    "object": {
+      "type": "string"
+    },
+    "created": {
+      "type": "integer",
+      "description": "Unix timestamp"
+    },
+    "model": {
+      "type": "string",
+      "description": "Model used"
+    },
+    "system_fingerprint": {
+      "type": "string"
+    },
+    "choices": {
+      "type": "array"
+    }
+  }
+}

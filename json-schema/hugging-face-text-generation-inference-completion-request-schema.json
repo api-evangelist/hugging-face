@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompletionRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "top_p": {
+      "type": "number"
+    },
+    "stop": {
+      "type": "array"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "suffix": {
+      "type": "string",
+      "description": "Suffix to append after generated text"
+    }
+  }
+}

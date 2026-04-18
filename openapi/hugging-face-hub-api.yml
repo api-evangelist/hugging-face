@@ -14,116 +14,126 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://huggingface.co/api
-    description: Hugging Face Hub API production server
+- url: https://huggingface.co/api
+  description: Hugging Face Hub API production server
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Models
-    description: Operations for managing and querying models on the Hub
-  - name: Datasets
-    description: Operations for managing and querying datasets on the Hub
-  - name: Spaces
-    description: Operations for managing and querying Spaces on the Hub
-  - name: Repos
-    description: General repository management operations
-  - name: Users
-    description: User account and organization management
+- name: Models
+  description: Operations for managing and querying models on the Hub
+- name: Datasets
+  description: Operations for managing and querying datasets on the Hub
+- name: Spaces
+  description: Operations for managing and querying Spaces on the Hub
+- name: Repos
+  description: General repository management operations
+- name: Users
+  description: User account and organization management
 paths:
   /models:
     get:
-      summary: List models on the Hub
+      summary: List Models on the Hub
       description: >-
         List and search models hosted on the Hugging Face Hub. Supports
         filtering by author, task, library, tags, and full-text search.
       operationId: listModels
       tags:
-        - Models
+      - Models
       security: []
       parameters:
-        - name: search
-          in: query
-          description: Full-text search query to filter models
-          schema:
-            type: string
-        - name: author
-          in: query
-          description: Filter by model author or organization
-          schema:
-            type: string
-        - name: filter
-          in: query
-          description: Filter by tags (comma-separated)
-          schema:
-            type: string
-        - name: sort
-          in: query
-          description: Property to sort results by
-          schema:
-            type: string
-            enum:
-              - lastModified
-              - downloads
-              - likes
-              - createdAt
-        - name: direction
-          in: query
-          description: Sort direction
-          schema:
-            type: string
-            enum:
-              - '-1'
-              - '1'
-        - name: limit
-          in: query
-          description: Number of results to return (max 1000)
-          schema:
-            type: integer
-            default: 30
-            maximum: 1000
-        - name: full
-          in: query
-          description: Whether to return full model information including card data
-          schema:
-            type: boolean
-            default: false
-        - name: config
-          in: query
-          description: Whether to return the model config
-          schema:
-            type: boolean
-            default: false
-        - name: pipeline_tag
-          in: query
-          description: Filter by pipeline task type
-          schema:
-            type: string
-            enum:
-              - text-generation
-              - text-classification
-              - token-classification
-              - question-answering
-              - summarization
-              - translation
-              - fill-mask
-              - image-classification
-              - object-detection
-              - automatic-speech-recognition
-              - text-to-image
-              - feature-extraction
-        - name: library
-          in: query
-          description: Filter by ML library
-          schema:
-            type: string
-            enum:
-              - transformers
-              - pytorch
-              - tensorflow
-              - jax
-              - diffusers
-              - onnx
-              - safetensors
+      - name: search
+        in: query
+        description: Full-text search query to filter models
+        schema:
+          type: string
+        example: example_value
+      - name: author
+        in: query
+        description: Filter by model author or organization
+        schema:
+          type: string
+        example: example_value
+      - name: filter
+        in: query
+        description: Filter by tags (comma-separated)
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: Property to sort results by
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - downloads
+          - likes
+          - createdAt
+        example: lastModified
+      - name: direction
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+          enum:
+          - '-1'
+          - '1'
+        example: '-1'
+      - name: limit
+        in: query
+        description: Number of results to return (max 1000)
+        schema:
+          type: integer
+          default: 30
+          maximum: 1000
+        example: 10
+      - name: full
+        in: query
+        description: Whether to return full model information including card data
+        schema:
+          type: boolean
+          default: false
+        example: true
+      - name: config
+        in: query
+        description: Whether to return the model config
+        schema:
+          type: boolean
+          default: false
+        example: true
+      - name: pipeline_tag
+        in: query
+        description: Filter by pipeline task type
+        schema:
+          type: string
+          enum:
+          - text-generation
+          - text-classification
+          - token-classification
+          - question-answering
+          - summarization
+          - translation
+          - fill-mask
+          - image-classification
+          - object-detection
+          - automatic-speech-recognition
+          - text-to-image
+          - feature-extraction
+        example: text-generation
+      - name: library
+        in: query
+        description: Filter by ML library
+        schema:
+          type: string
+          enum:
+          - transformers
+          - pytorch
+          - tensorflow
+          - jax
+          - diffusers
+          - onnx
+          - safetensors
+        example: transformers
       responses:
         '200':
           description: List of models matching the query
@@ -133,22 +143,46 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ModelSummary'
+              examples:
+                Listmodels200Example:
+                  summary: Default listModels 200 response
+                  x-microcks-default: true
+                  value:
+                  - _id: '500123'
+                    id: abc123
+                    modelId: '500123'
+                    author: example_value
+                    sha: example_value
+                    lastModified: '2026-01-15T10:30:00Z'
+                    private: true
+                    disabled: true
+                    gated: true
+                    pipeline_tag: example_value
+                    tags:
+                    - example_value
+                    downloads: 10
+                    likes: 10
+                    library_name: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{repo_id}:
     get:
-      summary: Get model information
+      summary: Get Model Information
       description: Get detailed information about a specific model by its repository ID.
       operationId: getModel
       tags:
-        - Models
+      - Models
       security: []
       parameters:
-        - name: repo_id
-          in: path
-          required: true
-          description: The model repository ID (e.g., bert-base-uncased or organization/model-name)
-          schema:
-            type: string
-          example: bert-base-uncased
+      - name: repo_id
+        in: path
+        required: true
+        description: The model repository ID (e.g., bert-base-uncased or organization/model-name)
+        schema:
+          type: string
+        example: bert-base-uncased
       responses:
         '200':
           description: Detailed model information
@@ -156,39 +190,63 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModelInfo'
+              examples:
+                Getmodel200Example:
+                  summary: Default getModel 200 response
+                  x-microcks-default: true
+                  value: {}
         '401':
           description: Unauthorized - token required for private models
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getmodel401Example:
+                  summary: Default getModel 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
         '404':
           description: Model not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getmodel404Example:
+                  summary: Default getModel 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models/{repo_id}/revision/{revision}:
     get:
-      summary: Get model information at a specific revision
+      summary: Get Model Information at a Specific Revision
       description: >-
         Get detailed information about a model at a specific Git revision
         (branch, tag, or commit SHA).
       operationId: getModelRevision
       tags:
-        - Models
+      - Models
       parameters:
-        - name: repo_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: revision
-          in: path
-          required: true
-          description: Git revision (branch name, tag, or commit SHA)
-          schema:
-            type: string
+      - name: repo_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      - name: revision
+        in: path
+        required: true
+        description: Git revision (branch name, tag, or commit SHA)
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Model information at the specified revision
@@ -196,63 +254,78 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ModelInfo'
+              examples:
+                Getmodelrevision200Example:
+                  summary: Default getModelRevision 200 response
+                  x-microcks-default: true
+                  value: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /datasets:
     get:
-      summary: List datasets on the Hub
+      summary: List Datasets on the Hub
       description: >-
         List and search datasets hosted on the Hugging Face Hub. Supports
         filtering by author, tags, and full-text search.
       operationId: listDatasets
       tags:
-        - Datasets
+      - Datasets
       security: []
       parameters:
-        - name: search
-          in: query
-          description: Full-text search query to filter datasets
-          schema:
-            type: string
-        - name: author
-          in: query
-          description: Filter by dataset author or organization
-          schema:
-            type: string
-        - name: filter
-          in: query
-          description: Filter by tags (comma-separated)
-          schema:
-            type: string
-        - name: sort
-          in: query
-          description: Property to sort results by
-          schema:
-            type: string
-            enum:
-              - lastModified
-              - downloads
-              - likes
-              - createdAt
-        - name: direction
-          in: query
-          description: Sort direction
-          schema:
-            type: string
-            enum:
-              - '-1'
-              - '1'
-        - name: limit
-          in: query
-          description: Number of results to return
-          schema:
-            type: integer
-            default: 30
-            maximum: 1000
-        - name: full
-          in: query
-          description: Whether to return full dataset information
-          schema:
-            type: boolean
-            default: false
+      - name: search
+        in: query
+        description: Full-text search query to filter datasets
+        schema:
+          type: string
+        example: example_value
+      - name: author
+        in: query
+        description: Filter by dataset author or organization
+        schema:
+          type: string
+        example: example_value
+      - name: filter
+        in: query
+        description: Filter by tags (comma-separated)
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: Property to sort results by
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - downloads
+          - likes
+          - createdAt
+        example: lastModified
+      - name: direction
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+          enum:
+          - '-1'
+          - '1'
+        example: '-1'
+      - name: limit
+        in: query
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 30
+          maximum: 1000
+        example: 10
+      - name: full
+        in: query
+        description: Whether to return full dataset information
+        schema:
+          type: boolean
+          default: false
+        example: true
       responses:
         '200':
           description: List of datasets matching the query
@@ -262,22 +335,44 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DatasetSummary'
+              examples:
+                Listdatasets200Example:
+                  summary: Default listDatasets 200 response
+                  x-microcks-default: true
+                  value:
+                  - _id: '500123'
+                    id: abc123
+                    author: example_value
+                    sha: example_value
+                    lastModified: '2026-01-15T10:30:00Z'
+                    private: true
+                    gated: true
+                    disabled: true
+                    tags:
+                    - example_value
+                    downloads: 10
+                    likes: 10
+                    createdAt: '2026-01-15T10:30:00Z'
+                    description: A sample description.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /datasets/{repo_id}:
     get:
-      summary: Get dataset information
+      summary: Get Dataset Information
       description: Get detailed information about a specific dataset.
       operationId: getDataset
       tags:
-        - Datasets
+      - Datasets
       security: []
       parameters:
-        - name: repo_id
-          in: path
-          required: true
-          description: The dataset repository ID
-          schema:
-            type: string
-          example: squad
+      - name: repo_id
+        in: path
+        required: true
+        description: The dataset repository ID
+        schema:
+          type: string
+        example: squad
       responses:
         '200':
           description: Detailed dataset information
@@ -285,26 +380,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DatasetInfo'
+              examples:
+                Getdataset200Example:
+                  summary: Default getDataset 200 response
+                  x-microcks-default: true
+                  value: {}
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getdataset404Example:
+                  summary: Default getDataset 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /datasets/{repo_id}/parquet:
     get:
-      summary: Get dataset parquet files
+      summary: Get Dataset Parquet Files
       description: Get the list of auto-converted Parquet files for a dataset.
       operationId: getDatasetParquet
       tags:
-        - Datasets
+      - Datasets
       security: []
       parameters:
-        - name: repo_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: repo_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
       responses:
         '200':
           description: List of Parquet file URLs
@@ -331,6 +442,21 @@ paths:
                           type: string
                         size:
                           type: integer
+              examples:
+                Getdatasetparquet200Example:
+                  summary: Default getDatasetParquet 200 response
+                  x-microcks-default: true
+                  value:
+                    parquet_files:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                      url: https://www.example.com
+                      filename: example_value
+                      size: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /spaces:
     get:
       summary: List Spaces on the Hub
@@ -339,48 +465,54 @@ paths:
         filtering by author, SDK, and full-text search.
       operationId: listSpaces
       tags:
-        - Spaces
+      - Spaces
       security: []
       parameters:
-        - name: search
-          in: query
-          description: Full-text search query
-          schema:
-            type: string
-        - name: author
-          in: query
-          description: Filter by Space author or organization
-          schema:
-            type: string
-        - name: filter
-          in: query
-          description: Filter by tags
-          schema:
-            type: string
-        - name: sort
-          in: query
-          description: Property to sort results by
-          schema:
-            type: string
-            enum:
-              - lastModified
-              - likes
-              - createdAt
-        - name: direction
-          in: query
-          description: Sort direction
-          schema:
-            type: string
-            enum:
-              - '-1'
-              - '1'
-        - name: limit
-          in: query
-          description: Number of results to return
-          schema:
-            type: integer
-            default: 30
-            maximum: 1000
+      - name: search
+        in: query
+        description: Full-text search query
+        schema:
+          type: string
+        example: example_value
+      - name: author
+        in: query
+        description: Filter by Space author or organization
+        schema:
+          type: string
+        example: example_value
+      - name: filter
+        in: query
+        description: Filter by tags
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: Property to sort results by
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - likes
+          - createdAt
+        example: lastModified
+      - name: direction
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+          enum:
+          - '-1'
+          - '1'
+        example: '-1'
+      - name: limit
+        in: query
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 30
+          maximum: 1000
+        example: 10
       responses:
         '200':
           description: List of Spaces matching the query
@@ -390,21 +522,46 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/SpaceSummary'
+              examples:
+                Listspaces200Example:
+                  summary: Default listSpaces 200 response
+                  x-microcks-default: true
+                  value:
+                  - _id: '500123'
+                    id: abc123
+                    author: example_value
+                    sha: example_value
+                    lastModified: '2026-01-15T10:30:00Z'
+                    private: true
+                    tags:
+                    - example_value
+                    likes: 10
+                    sdk: gradio
+                    runtime:
+                      stage: RUNNING
+                      hardware:
+                        current: example_value
+                        requested: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /spaces/{repo_id}:
     get:
-      summary: Get Space information
+      summary: Get Space Information
       description: Get detailed information about a specific Space.
       operationId: getSpace
       tags:
-        - Spaces
+      - Spaces
       security: []
       parameters:
-        - name: repo_id
-          in: path
-          required: true
-          description: The Space repository ID
-          schema:
-            type: string
+      - name: repo_id
+        in: path
+        required: true
+        description: The Space repository ID
+        schema:
+          type: string
+        example: '500123'
       responses:
         '200':
           description: Detailed Space information
@@ -412,27 +569,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SpaceInfo'
+              examples:
+                Getspace200Example:
+                  summary: Default getSpace 200 response
+                  x-microcks-default: true
+                  value: {}
         '404':
           description: Space not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getspace404Example:
+                  summary: Default getSpace 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /repos/create:
     post:
-      summary: Create a new repository
+      summary: Create a New Repository
       description: >-
         Create a new model, dataset, or Space repository on the Hugging Face
         Hub.
       operationId: createRepo
       tags:
-        - Repos
+      - Repos
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CreateRepoRequest'
+            examples:
+              CreaterepoRequestExample:
+                summary: Default createRepo request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: model
+                  organization: example_value
+                  private: true
+                  sdk: gradio
       responses:
         '200':
           description: Repository created successfully
@@ -440,25 +622,48 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RepoUrl'
+              examples:
+                Createrepo200Example:
+                  summary: Default createRepo 200 response
+                  x-microcks-default: true
+                  value:
+                    url: https://www.example.com
         '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createrepo401Example:
+                  summary: Default createRepo 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
         '409':
           description: Repository already exists
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createrepo409Example:
+                  summary: Default createRepo 409 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /repos/delete:
     delete:
-      summary: Delete a repository
+      summary: Delete a Repository
       description: Delete a model, dataset, or Space repository from the Hub.
       operationId: deleteRepo
       tags:
-        - Repos
+      - Repos
       requestBody:
         required: true
         content:
@@ -466,8 +671,8 @@ paths:
             schema:
               type: object
               required:
-                - name
-                - type
+              - name
+              - type
               properties:
                 name:
                   type: string
@@ -475,12 +680,20 @@ paths:
                 type:
                   type: string
                   enum:
-                    - model
-                    - dataset
-                    - space
+                  - model
+                  - dataset
+                  - space
                 organization:
                   type: string
                   description: Organization name if applicable
+            examples:
+              DeleterepoRequestExample:
+                summary: Default deleteRepo request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: model
+                  organization: example_value
       responses:
         '200':
           description: Repository deleted successfully
@@ -490,34 +703,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Deleterepo401Example:
+                  summary: Default deleteRepo 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
         '403':
           description: Forbidden - insufficient permissions
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Deleterepo403Example:
+                  summary: Default deleteRepo 403 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /repos/{repo_type}/{repo_id}/settings:
     put:
-      summary: Update repository settings
+      summary: Update Repository Settings
       description: Update the settings (visibility, etc.) for a repository.
       operationId: updateRepoSettings
       tags:
-        - Repos
+      - Repos
       parameters:
-        - name: repo_type
-          in: path
-          required: true
-          schema:
-            type: string
-            enum:
-              - models
-              - datasets
-              - spaces
-        - name: repo_id
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: repo_type
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - models
+          - datasets
+          - spaces
+        example: models
+      - name: repo_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
       requestBody:
         required: true
         content:
@@ -531,10 +763,17 @@ paths:
                 gated:
                   type: string
                   enum:
-                    - auto
-                    - manual
-                    - 'false'
+                  - auto
+                  - manual
+                  - 'false'
                   description: Access gating configuration
+            examples:
+              UpdatereposettingsRequestExample:
+                summary: Default updateRepoSettings request
+                x-microcks-default: true
+                value:
+                  private: true
+                  gated: auto
       responses:
         '200':
           description: Settings updated successfully
@@ -544,15 +783,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Updatereposettings401Example:
+                  summary: Default updateRepoSettings 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /whoami-v2:
     get:
-      summary: Get current user information
+      summary: Get Current User Information
       description: >-
         Get information about the authenticated user, including their
         organizations and access tokens.
       operationId: whoami
       tags:
-        - Users
+      - Users
       responses:
         '200':
           description: Current user information
@@ -560,19 +809,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserInfo'
+              examples:
+                Whoami200Example:
+                  summary: Default whoami 200 response
+                  x-microcks-default: true
+                  value:
+                    type: example_value
+                    id: abc123
+                    name: Example Title
+                    fullname: example_value
+                    email: user@example.com
+                    emailVerified: user@example.com
+                    plan: example_value
+                    canPay: true
+                    avatarUrl: https://www.example.com
+                    orgs:
+                    - name: Example Title
+                      fullname: example_value
+                      email: user@example.com
+                      plan: example_value
+                      avatarUrl: https://www.example.com
+                      isEnterprise: true
+                    auth:
+                      accessToken:
+                        displayName: example_value
+                        role: example_value
         '401':
           description: Invalid or missing authentication token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Whoami401Example:
+                  summary: Default whoami 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /metrics:
     get:
-      summary: List available metrics
+      summary: List Available Metrics
       description: Get the list of available evaluation metrics on the Hub.
       operationId: listMetrics
       tags:
-        - Models
+      - Models
       security: []
       responses:
         '200':
@@ -588,15 +872,25 @@ paths:
                       type: string
                     description:
                       type: string
+              examples:
+                Listmetrics200Example:
+                  summary: Default listMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: abc123
+                    description: A sample description.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /models-tags-by-type:
     get:
-      summary: List model tags grouped by type
+      summary: List Model Tags Grouped by Type
       description: >-
         Get all available model tags organized by type (pipeline_tag, library,
         language, license, etc.).
       operationId: listModelTags
       tags:
-        - Models
+      - Models
       security: []
       responses:
         '200':
@@ -616,15 +910,23 @@ paths:
                         type: string
                       subType:
                         type: string
+              examples:
+                Listmodeltags200Example:
+                  summary: Default listModelTags 200 response
+                  x-microcks-default: true
+                  value: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /datasets-tags-by-type:
     get:
-      summary: List dataset tags grouped by type
+      summary: List Dataset Tags Grouped by Type
       description: >-
         Get all available dataset tags organized by type (task_categories,
         language, size_categories, etc.).
       operationId: listDatasetTags
       tags:
-        - Datasets
+      - Datasets
       security: []
       responses:
         '200':
@@ -642,6 +944,14 @@ paths:
                         type: string
                       label:
                         type: string
+              examples:
+                Listdatasettags200Example:
+                  summary: Default listDatasetTags 200 response
+                  x-microcks-default: true
+                  value: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -658,211 +968,248 @@ components:
         _id:
           type: string
           description: Unique model identifier
+          example: '500123'
         id:
           type: string
           description: Model repository ID (e.g., bert-base-uncased)
+          example: abc123
         modelId:
           type: string
           description: Alias for id
+          example: '500123'
         author:
           type: string
           description: Model author or organization
+          example: example_value
         sha:
           type: string
           description: Latest commit SHA
+          example: example_value
         lastModified:
           type: string
           format: date-time
           description: Last modification timestamp
+          example: '2026-01-15T10:30:00Z'
         private:
           type: boolean
           description: Whether the model is private
+          example: true
         disabled:
           type: boolean
+          example: true
         gated:
           type: boolean
           description: Whether access is gated
+          example: true
         pipeline_tag:
           type: string
           description: Pipeline task tag
+          example: example_value
         tags:
           type: array
           items:
             type: string
+          example: []
         downloads:
           type: integer
           description: Total download count
+          example: 10
         likes:
           type: integer
           description: Total like count
+          example: 10
         library_name:
           type: string
           description: Primary ML library
+          example: example_value
         createdAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     ModelInfo:
       allOf:
-        - $ref: '#/components/schemas/ModelSummary'
-        - type: object
-          properties:
-            siblings:
-              type: array
-              items:
-                type: object
-                properties:
-                  rfilename:
-                    type: string
-                  size:
-                    type: integer
-                  lfs:
-                    type: object
-                    properties:
-                      sha256:
-                        type: string
-                      size:
-                        type: integer
-                      pointerSize:
-                        type: integer
-              description: Files in the repository
-            spaces:
-              type: array
-              items:
-                type: string
-              description: Spaces using this model
-            safetensors:
+      - $ref: '#/components/schemas/ModelSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
               type: object
               properties:
-                parameters:
-                  type: object
-                  additionalProperties:
-                    type: integer
-                total:
+                rfilename:
+                  type: string
+                size:
                   type: integer
-              description: Safetensors parameter information
-            config:
-              type: object
-              description: Model configuration
-            cardData:
-              type: object
-              description: Parsed model card metadata
-            transformersInfo:
-              type: object
-              properties:
-                auto_model:
-                  type: string
-                pipeline_tag:
-                  type: string
-                processor:
-                  type: string
+                lfs:
+                  type: object
+                  properties:
+                    sha256:
+                      type: string
+                    size:
+                      type: integer
+                    pointerSize:
+                      type: integer
+            description: Files in the repository
+          spaces:
+            type: array
+            items:
+              type: string
+            description: Spaces using this model
+          safetensors:
+            type: object
+            properties:
+              parameters:
+                type: object
+                additionalProperties:
+                  type: integer
+              total:
+                type: integer
+            description: Safetensors parameter information
+          config:
+            type: object
+            description: Model configuration
+          cardData:
+            type: object
+            description: Parsed model card metadata
+          transformersInfo:
+            type: object
+            properties:
+              auto_model:
+                type: string
+              pipeline_tag:
+                type: string
+              processor:
+                type: string
     DatasetSummary:
       type: object
       properties:
         _id:
           type: string
+          example: '500123'
         id:
           type: string
           description: Dataset repository ID
+          example: abc123
         author:
           type: string
+          example: example_value
         sha:
           type: string
+          example: example_value
         lastModified:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         private:
           type: boolean
+          example: true
         gated:
           type: boolean
+          example: true
         disabled:
           type: boolean
+          example: true
         tags:
           type: array
           items:
             type: string
+          example: []
         downloads:
           type: integer
+          example: 10
         likes:
           type: integer
+          example: 10
         createdAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         description:
           type: string
+          example: A sample description.
     DatasetInfo:
       allOf:
-        - $ref: '#/components/schemas/DatasetSummary'
-        - type: object
-          properties:
-            siblings:
-              type: array
-              items:
-                type: object
-                properties:
-                  rfilename:
-                    type: string
-                  size:
-                    type: integer
-            cardData:
+      - $ref: '#/components/schemas/DatasetSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
               type: object
-              description: Parsed dataset card metadata
               properties:
-                language:
-                  type: array
-                  items:
-                    type: string
-                license:
+                rfilename:
                   type: string
-                task_categories:
-                  type: array
-                  items:
-                    type: string
-                size_categories:
-                  type: array
-                  items:
-                    type: string
+                size:
+                  type: integer
+          cardData:
+            type: object
+            description: Parsed dataset card metadata
+            properties:
+              language:
+                type: array
+                items:
+                  type: string
+              license:
+                type: string
+              task_categories:
+                type: array
+                items:
+                  type: string
+              size_categories:
+                type: array
+                items:
+                  type: string
     SpaceSummary:
       type: object
       properties:
         _id:
           type: string
+          example: '500123'
         id:
           type: string
           description: Space repository ID
+          example: abc123
         author:
           type: string
+          example: example_value
         sha:
           type: string
+          example: example_value
         lastModified:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
         private:
           type: boolean
+          example: true
         tags:
           type: array
           items:
             type: string
+          example: []
         likes:
           type: integer
+          example: 10
         sdk:
           type: string
           description: SDK used by the Space
           enum:
-            - gradio
-            - streamlit
-            - docker
-            - static
+          - gradio
+          - streamlit
+          - docker
+          - static
+          example: gradio
         runtime:
           type: object
           properties:
             stage:
               type: string
               enum:
-                - RUNNING
-                - STOPPED
-                - BUILDING
-                - PAUSED
-                - ERROR
+              - RUNNING
+              - STOPPED
+              - BUILDING
+              - PAUSED
+              - ERROR
             hardware:
               type: object
               properties:
@@ -870,31 +1217,33 @@ components:
                   type: string
                 requested:
                   type: string
+          example: example_value
         createdAt:
           type: string
           format: date-time
+          example: '2026-01-15T10:30:00Z'
     SpaceInfo:
       allOf:
-        - $ref: '#/components/schemas/SpaceSummary'
-        - type: object
-          properties:
-            siblings:
-              type: array
-              items:
-                type: object
-                properties:
-                  rfilename:
-                    type: string
-                  size:
-                    type: integer
-            cardData:
+      - $ref: '#/components/schemas/SpaceSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
               type: object
-              description: Parsed Space card metadata
+              properties:
+                rfilename:
+                  type: string
+                size:
+                  type: integer
+          cardData:
+            type: object
+            description: Parsed Space card metadata
     CreateRepoRequest:
       type: object
       required:
-        - name
-        - type
+      - name
+      - type
       properties:
         name:
           type: string
@@ -904,24 +1253,28 @@ components:
           type: string
           description: Repository type
           enum:
-            - model
-            - dataset
-            - space
+          - model
+          - dataset
+          - space
+          example: model
         organization:
           type: string
           description: Organization to create the repo under
+          example: example_value
         private:
           type: boolean
           description: Whether the repo should be private
           default: false
+          example: true
         sdk:
           type: string
           description: SDK for Spaces (required when type is space)
           enum:
-            - gradio
-            - streamlit
-            - docker
-            - static
+          - gradio
+          - streamlit
+          - docker
+          - static
+          example: gradio
     RepoUrl:
       type: object
       properties:
@@ -929,33 +1282,43 @@ components:
           type: string
           format: uri
           description: Full URL of the created repository
+          example: https://www.example.com
     UserInfo:
       type: object
       properties:
         type:
           type: string
           description: Account type (user or organization)
+          example: example_value
         id:
           type: string
+          example: abc123
         name:
           type: string
           description: Username
+          example: Example Title
         fullname:
           type: string
           description: Full display name
+          example: example_value
         email:
           type: string
           format: email
+          example: user@example.com
         emailVerified:
           type: boolean
+          example: user@example.com
         plan:
           type: string
           description: Subscription plan
+          example: example_value
         canPay:
           type: boolean
+          example: true
         avatarUrl:
           type: string
           format: uri
+          example: https://www.example.com
         orgs:
           type: array
           items:
@@ -974,6 +1337,7 @@ components:
                 format: uri
               isEnterprise:
                 type: boolean
+          example: []
         auth:
           type: object
           properties:
@@ -984,12 +1348,15 @@ components:
                   type: string
                 role:
                   type: string
+          example: example_value
     Error:
       type: object
       properties:
         error:
           type: string
           description: Error message
+          example: example_value
         statusCode:
           type: integer
           description: HTTP status code
+          example: 10

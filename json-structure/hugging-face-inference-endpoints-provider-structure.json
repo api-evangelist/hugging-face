@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Provider",
+  "type": "object",
+  "properties": {
+    "vendor": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "accelerators": {
+      "type": "array"
+    }
+  }
+}

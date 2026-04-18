@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreateEndpointRequest",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique endpoint name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Endpoint security type"
+    },
+    "provider": {
+      "type": "object"
+    },
+    "compute": {
+      "type": "object"
+    },
+    "model": {
+      "type": "object"
+    }
+  }
+}

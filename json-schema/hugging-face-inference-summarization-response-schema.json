@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SummarizationResponse",
+  "type": "object",
+  "properties": {
+    "summary_text": {
+      "type": "string",
+      "description": "The summarized text"
+    }
+  }
+}

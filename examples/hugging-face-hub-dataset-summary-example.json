@@ -1,0 +1,15 @@
+{
+  "_id": "500123",
+  "id": "abc123",
+  "author": "example_value",
+  "sha": "example_value",
+  "lastModified": "example_value",
+  "private": true,
+  "gated": true,
+  "disabled": true,
+  "tags": [],
+  "downloads": 10,
+  "likes": 10,
+  "createdAt": "example_value",
+  "description": "A sample description."
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TranslationRequest",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text to translate"
+    }
+  }
+}

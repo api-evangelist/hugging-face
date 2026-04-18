@@ -1,0 +1,342 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Hugging Face Deployment and Operations"
+  description: "Unified workflow for deploying, scaling, and operating ML model inference endpoints on dedicated infrastructure. Combines Inference Endpoints management with TGI server monitoring. Used by ML platform engineers and DevOps teams."
+  tags:
+    - Hugging Face
+    - Deployment
+    - Operations
+    - Infrastructure
+    - MLOps
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      HF_API_TOKEN: HF_API_TOKEN
+
+capability:
+  consumes:
+    - import: hf-endpoints
+      location: ./shared/inference-endpoints.yaml
+    - import: hf-tgi
+      location: ./shared/text-generation-inference.yaml
+
+  exposes:
+    - type: rest
+      port: 8082
+      namespace: hf-deployment-api
+      description: "Unified REST API for ML deployment and operations management."
+      resources:
+        - path: /v1/endpoints/{namespace}
+          name: endpoints
+          description: "Manage inference endpoints"
+          operations:
+            - method: GET
+              name: list-endpoints
+              description: "List all endpoints"
+              call: "hf-endpoints.list-endpoints"
+              with:
+                namespace: "rest.namespace"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-endpoint
+              description: "Create a new endpoint"
+              call: "hf-endpoints.create-endpoint"
+              with:
+                namespace: "rest.namespace"
+                name: "rest.name"
+                model: "rest.model"
+                provider: "rest.provider"
+                region: "rest.region"
+                type: "rest.type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints/{namespace}/{endpoint_name}
+          name: endpoint-details
+          description: "Individual endpoint operations"
+          operations:
+            - method: GET
+              name: get-endpoint
+              description: "Get endpoint details"
+              call: "hf-endpoints.get-endpoint"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: PUT
+              name: update-endpoint
+              description: "Update endpoint configuration"
+              call: "hf-endpoints.update-endpoint"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+                model: "rest.model"
+                type: "rest.type"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: DELETE
+              name: delete-endpoint
+              description: "Delete an endpoint"
+              call: "hf-endpoints.delete-endpoint"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints/{namespace}/{endpoint_name}/pause
+          name: endpoint-pause
+          description: "Pause an endpoint"
+          operations:
+            - method: POST
+              name: pause-endpoint
+              description: "Pause a running endpoint"
+              call: "hf-endpoints.pause-endpoint"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints/{namespace}/{endpoint_name}/resume
+          name: endpoint-resume
+          description: "Resume an endpoint"
+          operations:
+            - method: POST
+              name: resume-endpoint
+              description: "Resume a paused endpoint"
+              call: "hf-endpoints.resume-endpoint"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints/{namespace}/{endpoint_name}/logs
+          name: endpoint-logs
+          description: "Get endpoint logs"
+          operations:
+            - method: GET
+              name: get-logs
+              description: "Get endpoint logs"
+              call: "hf-endpoints.get-endpoint-logs"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/endpoints/{namespace}/{endpoint_name}/metrics
+          name: endpoint-metrics
+          description: "Get endpoint metrics"
+          operations:
+            - method: GET
+              name: get-metrics
+              description: "Get endpoint metrics"
+              call: "hf-endpoints.get-endpoint-metrics"
+              with:
+                namespace: "rest.namespace"
+                endpoint_name: "rest.endpoint_name"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/server/health
+          name: server-health
+          description: "TGI server health"
+          operations:
+            - method: GET
+              name: health-check
+              description: "Check TGI server health"
+              call: "hf-tgi.health-check"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/server/info
+          name: server-info
+          description: "TGI server info"
+          operations:
+            - method: GET
+              name: get-info
+              description: "Get TGI server info"
+              call: "hf-tgi.get-info"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/providers
+          name: providers
+          description: "Cloud providers"
+          operations:
+            - method: GET
+              name: list-providers
+              description: "List available cloud providers"
+              call: "hf-endpoints.list-providers"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9092
+      namespace: hf-deployment-mcp
+      transport: http
+      description: "MCP server for AI-assisted ML deployment and operations management."
+      tools:
+        - name: list-endpoints
+          description: "List all dedicated inference endpoints for a namespace."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-endpoints.list-endpoints"
+          with:
+            namespace: "tools.namespace"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-endpoint
+          description: "Create a new dedicated inference endpoint."
+          hints:
+            readOnly: false
+          call: "hf-endpoints.create-endpoint"
+          with:
+            namespace: "tools.namespace"
+            name: "tools.name"
+            model: "tools.model"
+            provider: "tools.provider"
+            region: "tools.region"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-endpoint
+          description: "Get details of a specific endpoint."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-endpoints.get-endpoint"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: update-endpoint
+          description: "Update an existing endpoint configuration."
+          hints:
+            readOnly: false
+            idempotent: true
+          call: "hf-endpoints.update-endpoint"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+            model: "tools.model"
+            type: "tools.type"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: delete-endpoint
+          description: "Delete a dedicated inference endpoint."
+          hints:
+            readOnly: false
+            destructive: true
+          call: "hf-endpoints.delete-endpoint"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: pause-endpoint
+          description: "Pause a running endpoint to stop billing."
+          hints:
+            readOnly: false
+          call: "hf-endpoints.pause-endpoint"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: resume-endpoint
+          description: "Resume a paused endpoint."
+          hints:
+            readOnly: false
+          call: "hf-endpoints.resume-endpoint"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: scale-to-zero
+          description: "Scale an endpoint to zero replicas."
+          hints:
+            readOnly: false
+          call: "hf-endpoints.scale-to-zero"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-endpoint-logs
+          description: "Get logs for an endpoint."
+          hints:
+            readOnly: true
+          call: "hf-endpoints.get-endpoint-logs"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-endpoint-metrics
+          description: "Get metrics for an endpoint."
+          hints:
+            readOnly: true
+          call: "hf-endpoints.get-endpoint-metrics"
+          with:
+            namespace: "tools.namespace"
+            endpoint_name: "tools.endpoint_name"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-providers
+          description: "List available cloud providers and hardware options."
+          hints:
+            readOnly: true
+          call: "hf-endpoints.list-providers"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-health-check
+          description: "Check if the TGI server is healthy and responding."
+          hints:
+            readOnly: true
+          call: "hf-tgi.health-check"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-server-info
+          description: "Get information about the deployed model and TGI server."
+          hints:
+            readOnly: true
+          call: "hf-tgi.get-info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-metrics
+          description: "Get Prometheus metrics from the TGI server."
+          hints:
+            readOnly: true
+          call: "hf-tgi.get-metrics"
+          outputParameters:
+            - type: object
+              mapping: "$."

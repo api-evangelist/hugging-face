@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TextToImageRequest",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text prompt to generate an image from"
+    },
+    "parameters": {
+      "type": "object"
+    }
+  }
+}

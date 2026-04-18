@@ -15,40 +15,76 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://router.huggingface.co
-    description: Hugging Face Inference Providers router
+- url: https://router.huggingface.co
+  description: Hugging Face Inference Providers router
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Chat Completions
-    description: OpenAI-compatible chat completion endpoints
-  - name: Text Generation
-    description: Text generation endpoints
-  - name: Embeddings
-    description: Text embedding endpoints
-  - name: Image Generation
-    description: Text-to-image generation
-  - name: Audio
-    description: Speech-to-text and text-to-speech
-  - name: Models
-    description: Model listing and information
+- name: Chat Completions
+  description: OpenAI-compatible chat completion endpoints
+- name: Text Generation
+  description: Text generation endpoints
+- name: Embeddings
+  description: Text embedding endpoints
+- name: Image Generation
+  description: Text-to-image generation
+- name: Audio
+  description: Speech-to-text and text-to-speech
+- name: Models
+  description: Model listing and information
 paths:
   /v1/chat/completions:
     post:
-      summary: Create chat completion
+      summary: Create Chat Completion
       description: >-
         Create a chat completion using an OpenAI-compatible API. Supports
         conversational LLMs and Vision-Language Models (VLMs). Requests are
         routed to the optimal inference provider automatically.
       operationId: createChatCompletion
       tags:
-        - Chat Completions
+      - Chat Completions
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChatCompletionRequest'
+            examples:
+              CreatechatcompletionRequestExample:
+                summary: Default createChatCompletion request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  messages:
+                  - role: system
+                    content: example_value
+                    name: Example Title
+                    tool_calls:
+                    - {}
+                    tool_call_id: '500123'
+                  frequency_penalty: 42.5
+                  logprobs: true
+                  max_tokens: 10
+                  presence_penalty: 42.5
+                  reasoning_effort: example_value
+                  response_format: example_value
+                  seed: 10
+                  stop:
+                  - example_value
+                  stream: true
+                  stream_options:
+                    include_usage: true
+                  temperature: 42.5
+                  tool_choice: example_value
+                  tool_prompt: example_value
+                  tools:
+                  - type: example_value
+                    function:
+                      name: Example Title
+                      description: A sample description.
+                      parameters: example_value
+                  top_logprobs: 10
+                  top_p: 42.5
       responses:
         '200':
           description: Chat completion response
@@ -56,54 +92,162 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChatCompletionResponse'
+              examples:
+                Createchatcompletion200Example:
+                  summary: Default createChatCompletion 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    system_fingerprint: example_value
+                    choices:
+                    - index: 10
+                      message:
+                        role: example_value
+                        content: example_value
+                        tool_calls: {}
+                      finish_reason: stop
+                      logprobs:
+                        content: {}
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/ChatCompletionStreamResponse'
+              examples:
+                Createchatcompletion200Example:
+                  summary: Default createChatCompletion 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    system_fingerprint: example_value
+                    choices:
+                    - index: 10
+                      delta:
+                        role: example_value
+                        content: example_value
+                        tool_calls: {}
+                      finish_reason: example_value
+                      logprobs:
+                        content: {}
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
         '400':
           description: Bad request - invalid parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createchatcompletion400Example:
+                  summary: Default createChatCompletion 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
         '401':
           description: Unauthorized - invalid or missing API token
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createchatcompletion401Example:
+                  summary: Default createChatCompletion 401 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
         '404':
           description: Model not found or not available through any provider
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createchatcompletion404Example:
+                  summary: Default createChatCompletion 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
         '429':
           description: Rate limit exceeded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createchatcompletion429Example:
+                  summary: Default createChatCompletion 429 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
         '502':
           description: Provider error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createchatcompletion502Example:
+                  summary: Default createChatCompletion 502 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/completions:
     post:
-      summary: Create text completion
+      summary: Create Text Completion
       description: >-
         Create a text completion for a given prompt. Supports standard
         completion parameters compatible with the OpenAI API format.
       operationId: createCompletion
       tags:
-        - Text Generation
+      - Text Generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CompletionRequest'
+            examples:
+              CreatecompletionRequestExample:
+                summary: Default createCompletion request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  prompt: example_value
+                  max_tokens: 10
+                  temperature: 42.5
+                  top_p: 42.5
+                  stop:
+                  - example_value
+                  stream: true
+                  seed: 10
       responses:
         '200':
           description: Text completion response
@@ -111,31 +255,81 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompletionResponse'
+              examples:
+                Createcompletion200Example:
+                  summary: Default createCompletion 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    choices:
+                    - text: example_value
+                      index: 10
+                      finish_reason: example_value
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/CompletionStreamResponse'
+              examples:
+                Createcompletion200Example:
+                  summary: Default createCompletion 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    choices:
+                    - text: example_value
+                      index: 10
+                      finish_reason: example_value
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createcompletion400Example:
+                  summary: Default createCompletion 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/embeddings:
     post:
-      summary: Create embeddings
+      summary: Create Embeddings
       description: >-
         Create embedding vectors for input text. Returns dense vector
         representations useful for semantic search, clustering, and
         classification tasks.
       operationId: createEmbeddings
       tags:
-        - Embeddings
+      - Embeddings
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/EmbeddingRequest'
+            examples:
+              CreateembeddingsRequestExample:
+                summary: Default createEmbeddings request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  input: example_value
+                  encoding_format: float
       responses:
         '200':
           description: Embedding response
@@ -143,27 +337,67 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmbeddingResponse'
+              examples:
+                Createembeddings200Example:
+                  summary: Default createEmbeddings 200 response
+                  x-microcks-default: true
+                  value:
+                    object: example_value
+                    data:
+                    - object: example_value
+                      index: 10
+                      embedding:
+                      - {}
+                    model: example_value
+                    usage:
+                      prompt_tokens: 10
+                      total_tokens: 10
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createembeddings400Example:
+                  summary: Default createEmbeddings 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/images/generations:
     post:
-      summary: Generate images
+      summary: Generate Images
       description: >-
         Generate images from text prompts using diffusion models available
         through inference providers.
       operationId: createImageGeneration
       tags:
-        - Image Generation
+      - Image Generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ImageGenerationRequest'
+            examples:
+              CreateimagegenerationRequestExample:
+                summary: Default createImageGeneration request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  prompt: example_value
+                  n: 10
+                  size: 256x256
+                  response_format: url
+                  negative_prompt: example_value
+                  num_inference_steps: 10
+                  guidance_scale: 42.5
       responses:
         '200':
           description: Generated images
@@ -171,20 +405,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImageGenerationResponse'
+              examples:
+                Createimagegeneration200Example:
+                  summary: Default createImageGeneration 200 response
+                  x-microcks-default: true
+                  value:
+                    created: 10
+                    data:
+                    - url: https://www.example.com
+                      b64_json: example_value
+                      revised_prompt: example_value
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Createimagegeneration400Example:
+                  summary: Default createImageGeneration 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/audio/transcriptions:
     post:
-      summary: Transcribe audio
+      summary: Transcribe Audio
       description: >-
         Transcribe audio to text using automatic speech recognition models.
       operationId: createTranscription
       tags:
-        - Audio
+      - Audio
       requestBody:
         required: true
         content:
@@ -192,8 +448,8 @@ paths:
             schema:
               type: object
               required:
-                - file
-                - model
+              - file
+              - model
               properties:
                 file:
                   type: string
@@ -212,15 +468,26 @@ paths:
                 response_format:
                   type: string
                   enum:
-                    - json
-                    - text
-                    - srt
-                    - verbose_json
-                    - vtt
+                  - json
+                  - text
+                  - srt
+                  - verbose_json
+                  - vtt
                   default: json
                 temperature:
                   type: number
                   format: float
+            examples:
+              CreatetranscriptionRequestExample:
+                summary: Default createTranscription request
+                x-microcks-default: true
+                value:
+                  file: example_value
+                  model: example_value
+                  language: example_value
+                  prompt: example_value
+                  response_format: json
+                  temperature: 42.5
       responses:
         '200':
           description: Transcription result
@@ -232,13 +499,22 @@ paths:
                   text:
                     type: string
                     description: Transcribed text
+              examples:
+                Createtranscription200Example:
+                  summary: Default createTranscription 200 response
+                  x-microcks-default: true
+                  value:
+                    text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/audio/speech:
     post:
-      summary: Generate speech
+      summary: Generate Speech
       description: Generate audio speech from text input.
       operationId: createSpeech
       tags:
-        - Audio
+      - Audio
       requestBody:
         required: true
         content:
@@ -246,8 +522,8 @@ paths:
             schema:
               type: object
               required:
-                - model
-                - input
+              - model
+              - input
               properties:
                 model:
                   type: string
@@ -262,11 +538,11 @@ paths:
                 response_format:
                   type: string
                   enum:
-                    - mp3
-                    - opus
-                    - aac
-                    - flac
-                    - wav
+                  - mp3
+                  - opus
+                  - aac
+                  - flac
+                  - wav
                   default: mp3
                 speed:
                   type: number
@@ -274,6 +550,16 @@ paths:
                   minimum: 0.25
                   maximum: 4.0
                   default: 1.0
+            examples:
+              CreatespeechRequestExample:
+                summary: Default createSpeech request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  input: example_value
+                  voice: example_value
+                  response_format: mp3
+                  speed: 42.5
       responses:
         '200':
           description: Generated audio
@@ -282,15 +568,23 @@ paths:
               schema:
                 type: string
                 format: binary
+              examples:
+                Createspeech200Example:
+                  summary: Default createSpeech 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/models:
     get:
-      summary: List available models
+      summary: List Available Models
       description: >-
         List models available through inference providers. Returns model IDs
         and basic metadata.
       operationId: listModels
       tags:
-        - Models
+      - Models
       responses:
         '200':
           description: List of available models
@@ -319,21 +613,35 @@ paths:
                         owned_by:
                           type: string
                           description: Model owner
+              examples:
+                Listmodels200Example:
+                  summary: Default listModels 200 response
+                  x-microcks-default: true
+                  value:
+                    object: example_value
+                    data:
+                    - id: abc123
+                      object: example_value
+                      created: 10
+                      owned_by: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/models/{model_id}:
     get:
-      summary: Get model information
+      summary: Get Model Information
       description: Get information about a specific model available through inference providers.
       operationId: getModel
       tags:
-        - Models
+      - Models
       parameters:
-        - name: model_id
-          in: path
-          required: true
-          description: The model ID
-          schema:
-            type: string
-          example: meta-llama/Llama-3-70b-chat-hf
+      - name: model_id
+        in: path
+        required: true
+        description: The model ID
+        schema:
+          type: string
+        example: meta-llama/Llama-3-70b-chat-hf
       responses:
         '200':
           description: Model information
@@ -351,12 +659,33 @@ paths:
                     type: integer
                   owned_by:
                     type: string
+              examples:
+                Getmodel200Example:
+                  summary: Default getModel 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    owned_by: example_value
         '404':
           description: Model not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getmodel404Example:
+                  summary: Default getModel 404 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -370,8 +699,8 @@ components:
     ChatCompletionRequest:
       type: object
       required:
-        - model
-        - messages
+      - model
+      - messages
       properties:
         model:
           type: string
@@ -385,47 +714,47 @@ components:
           items:
             type: object
             required:
-              - role
+            - role
             properties:
               role:
                 type: string
                 enum:
-                  - system
-                  - user
-                  - assistant
-                  - tool
+                - system
+                - user
+                - assistant
+                - tool
                 description: The role of the message author
               content:
                 oneOf:
-                  - type: string
-                  - type: array
-                    items:
-                      oneOf:
-                        - type: object
+                - type: string
+                - type: array
+                  items:
+                    oneOf:
+                    - type: object
+                      required:
+                      - type
+                      - text
+                      properties:
+                        type:
+                          type: string
+                          const: text
+                        text:
+                          type: string
+                    - type: object
+                      required:
+                      - type
+                      - image_url
+                      properties:
+                        type:
+                          type: string
+                          const: image_url
+                        image_url:
+                          type: object
                           required:
-                            - type
-                            - text
+                          - url
                           properties:
-                            type:
+                            url:
                               type: string
-                              const: text
-                            text:
-                              type: string
-                        - type: object
-                          required:
-                            - type
-                            - image_url
-                          properties:
-                            type:
-                              type: string
-                              const: image_url
-                            image_url:
-                              type: object
-                              required:
-                                - url
-                              properties:
-                                url:
-                                  type: string
                 description: Message content (string or array for multimodal)
               name:
                 type: string
@@ -435,9 +764,9 @@ components:
                 items:
                   type: object
                   required:
-                    - id
-                    - type
-                    - function
+                  - id
+                  - type
+                  - function
                   properties:
                     id:
                       type: string
@@ -446,7 +775,7 @@ components:
                     function:
                       type: object
                       required:
-                        - name
+                      - name
                       properties:
                         name:
                           type: string
@@ -457,124 +786,138 @@ components:
               tool_call_id:
                 type: string
                 description: Tool call ID for tool responses
+          example: []
         frequency_penalty:
           type: number
           minimum: -2.0
           maximum: 2.0
           default: 0
           description: Penalize tokens based on frequency in text so far
+          example: 42.5
         logprobs:
           type: boolean
           default: false
           description: Whether to return log probabilities
+          example: true
         max_tokens:
           type: integer
           description: Maximum number of tokens to generate
+          example: 10
         presence_penalty:
           type: number
           minimum: -2.0
           maximum: 2.0
           default: 0
           description: Penalize tokens based on presence in text so far
+          example: 42.5
         reasoning_effort:
           type: string
           description: >-
             Constrains effort on reasoning for models that support it. Common
             values are none, minimal, low, medium, high, xhigh.
+          example: example_value
         response_format:
           oneOf:
-            - type: object
-              properties:
-                type:
-                  type: string
-                  const: text
-            - type: object
-              required:
-                - type
-                - json_schema
-              properties:
-                type:
-                  type: string
-                  const: json_schema
-                json_schema:
-                  type: object
-                  required:
-                    - name
-                  properties:
-                    name:
-                      type: string
-                    description:
-                      type: string
-                    schema:
-                      type: object
-                    strict:
-                      type: boolean
-            - type: object
-              properties:
-                type:
-                  type: string
-                  const: json_object
+          - type: object
+            properties:
+              type:
+                type: string
+                const: text
+          - type: object
+            required:
+            - type
+            - json_schema
+            properties:
+              type:
+                type: string
+                const: json_schema
+              json_schema:
+                type: object
+                required:
+                - name
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  schema:
+                    type: object
+                  strict:
+                    type: boolean
+          - type: object
+            properties:
+              type:
+                type: string
+                const: json_object
+          example: example_value
         seed:
           type: integer
           description: Random seed for reproducibility
+          example: 10
         stop:
           type: array
           items:
             type: string
           maxItems: 4
           description: Up to 4 sequences where generation will stop
+          example: []
         stream:
           type: boolean
           default: false
           description: Whether to stream partial responses using SSE
+          example: true
         stream_options:
           type: object
           properties:
             include_usage:
               type: boolean
               description: Include usage statistics in stream
+          example: example_value
         temperature:
           type: number
           minimum: 0
           maximum: 2
           default: 1.0
           description: Sampling temperature
+          example: 42.5
         tool_choice:
           oneOf:
-            - type: string
-              enum:
-                - auto
-                - none
-                - required
-            - type: object
-              required:
-                - function
-              properties:
-                function:
-                  type: object
-                  required:
-                    - name
-                  properties:
-                    name:
-                      type: string
+          - type: string
+            enum:
+            - auto
+            - none
+            - required
+          - type: object
+            required:
+            - function
+            properties:
+              function:
+                type: object
+                required:
+                - name
+                properties:
+                  name:
+                    type: string
           description: Controls tool usage
+          example: example_value
         tool_prompt:
           type: string
           description: Prompt prepended before tools
+          example: example_value
         tools:
           type: array
           items:
             type: object
             required:
-              - type
-              - function
+            - type
+            - function
             properties:
               type:
                 type: string
               function:
                 type: object
                 required:
-                  - name
+                - name
                 properties:
                   name:
                     type: string
@@ -583,34 +926,42 @@ components:
                   parameters:
                     type: object
           description: List of tools the model may call
+          example: []
         top_logprobs:
           type: integer
           minimum: 0
           maximum: 5
           description: Number of most likely tokens to return per position
+          example: 10
         top_p:
           type: number
           minimum: 0
           maximum: 1
           default: 1.0
           description: Nucleus sampling parameter
+          example: 42.5
     ChatCompletionResponse:
       type: object
       properties:
         id:
           type: string
           description: Unique completion identifier
+          example: abc123
         object:
           type: string
           const: chat.completion
+          example: example_value
         created:
           type: integer
           description: Unix timestamp
+          example: 10
         model:
           type: string
           description: Model used
+          example: example_value
         system_fingerprint:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -644,10 +995,10 @@ components:
               finish_reason:
                 type: string
                 enum:
-                  - stop
-                  - length
-                  - tool_calls
-                  - content_filter
+                - stop
+                - length
+                - tool_calls
+                - content_filter
               logprobs:
                 type: object
                 properties:
@@ -669,6 +1020,7 @@ components:
                                 type: string
                               logprob:
                                 type: number
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     ChatCompletionStreamResponse:
@@ -676,15 +1028,20 @@ components:
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: chat.completion.chunk
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         system_fingerprint:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -740,59 +1097,72 @@ components:
                                 type: string
                               logprob:
                                 type: number
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     CompletionRequest:
       type: object
       required:
-        - model
-        - prompt
+      - model
+      - prompt
       properties:
         model:
           type: string
           description: Model ID to use
+          example: example_value
         prompt:
           oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          - type: string
+          - type: array
+            items:
+              type: string
           description: Prompt(s) to generate completions for
+          example: example_value
         max_tokens:
           type: integer
           default: 16
+          example: 10
         temperature:
           type: number
           minimum: 0
           maximum: 2
           default: 1.0
+          example: 42.5
         top_p:
           type: number
           minimum: 0
           maximum: 1
           default: 1.0
+          example: 42.5
         stop:
           type: array
           items:
             type: string
           maxItems: 4
+          example: []
         stream:
           type: boolean
           default: false
+          example: true
         seed:
           type: integer
+          example: 10
     CompletionResponse:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: text_completion
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -804,6 +1174,7 @@ components:
                 type: integer
               finish_reason:
                 type: string
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     CompletionStreamResponse:
@@ -811,13 +1182,17 @@ components:
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: text_completion
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -829,11 +1204,12 @@ components:
                 type: integer
               finish_reason:
                 type: string
+          example: []
     EmbeddingRequest:
       type: object
       required:
-        - model
-        - input
+      - model
+      - input
       properties:
         model:
           type: string
@@ -841,23 +1217,26 @@ components:
           example: sentence-transformers/all-MiniLM-L6-v2
         input:
           oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          - type: string
+          - type: array
+            items:
+              type: string
           description: Text input(s) to embed
+          example: example_value
         encoding_format:
           type: string
           enum:
-            - float
-            - base64
+          - float
+          - base64
           default: float
+          example: float
     EmbeddingResponse:
       type: object
       properties:
         object:
           type: string
           const: list
+          example: example_value
         data:
           type: array
           items:
@@ -873,8 +1252,10 @@ components:
                 items:
                   type: number
                   format: float
+          example: []
         model:
           type: string
+          example: example_value
         usage:
           type: object
           properties:
@@ -882,11 +1263,12 @@ components:
               type: integer
             total_tokens:
               type: integer
+          example: example_value
     ImageGenerationRequest:
       type: object
       required:
-        - model
-        - prompt
+      - model
+      - prompt
       properties:
         model:
           type: string
@@ -895,41 +1277,49 @@ components:
         prompt:
           type: string
           description: Text prompt describing the image to generate
+          example: example_value
         n:
           type: integer
           minimum: 1
           maximum: 4
           default: 1
           description: Number of images to generate
+          example: 10
         size:
           type: string
           description: Image dimensions
           enum:
-            - 256x256
-            - 512x512
-            - 1024x1024
+          - 256x256
+          - 512x512
+          - 1024x1024
           default: 1024x1024
+          example: 256x256
         response_format:
           type: string
           enum:
-            - url
-            - b64_json
+          - url
+          - b64_json
           default: url
+          example: url
         negative_prompt:
           type: string
           description: Negative prompt to guide generation
+          example: example_value
         num_inference_steps:
           type: integer
           description: Number of diffusion steps
+          example: 10
         guidance_scale:
           type: number
           format: float
           description: Classifier-free guidance scale
+          example: 42.5
     ImageGenerationResponse:
       type: object
       properties:
         created:
           type: integer
+          example: 10
         data:
           type: array
           items:
@@ -945,18 +1335,22 @@ components:
               revised_prompt:
                 type: string
                 description: Revised prompt used for generation
+          example: []
     Usage:
       type: object
       properties:
         prompt_tokens:
           type: integer
           description: Number of tokens in the prompt
+          example: 10
         completion_tokens:
           type: integer
           description: Number of tokens in the completion
+          example: 10
         total_tokens:
           type: integer
           description: Total tokens used
+          example: 10
     Error:
       type: object
       properties:
@@ -972,3 +1366,4 @@ components:
             code:
               type: string
               description: Error code
+          example: example_value

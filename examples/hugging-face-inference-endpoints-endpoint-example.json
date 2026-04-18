@@ -1,0 +1,10 @@
+{
+  "name": "Example Title",
+  "type": "example_value",
+  "accountId": "500123",
+  "provider": "example_value",
+  "compute": "example_value",
+  "model": "example_value",
+  "status": "example_value",
+  "url": "https://www.example.com"
+}

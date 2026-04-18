@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Unique model identifier"
+    },
+    "id": {
+      "type": "string",
+      "description": "Model repository ID (e.g., bert-base-uncased)"
+    },
+    "modelId": {
+      "type": "string",
+      "description": "Alias for id"
+    },
+    "author": {
+      "type": "string",
+      "description": "Model author or organization"
+    },
+    "sha": {
+      "type": "string",
+      "description": "Latest commit SHA"
+    },
+    "lastModified": {
+      "type": "string",
+      "description": "Last modification timestamp"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the model is private"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "gated": {
+      "type": "boolean",
+      "description": "Whether access is gated"
+    },
+    "pipeline_tag": {
+      "type": "string",
+      "description": "Pipeline task tag"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "downloads": {
+      "type": "integer",
+      "description": "Total download count"
+    },
+    "likes": {
+      "type": "integer",
+      "description": "Total like count"
+    },
+    "library_name": {
+      "type": "string",
+      "description": "Primary ML library"
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  }
+}

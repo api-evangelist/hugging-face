@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "QuestionAnsweringResponse",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number"
+    },
+    "start": {
+      "type": "integer"
+    },
+    "end": {
+      "type": "integer"
+    }
+  }
+}

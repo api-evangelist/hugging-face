@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ImageGenerationRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Image generation model ID"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Text prompt describing the image to generate"
+    },
+    "n": {
+      "type": "integer",
+      "description": "Number of images to generate"
+    },
+    "size": {
+      "type": "string",
+      "description": "Image dimensions"
+    },
+    "response_format": {
+      "type": "string"
+    },
+    "negative_prompt": {
+      "type": "string",
+      "description": "Negative prompt to guide generation"
+    },
+    "num_inference_steps": {
+      "type": "integer",
+      "description": "Number of diffusion steps"
+    },
+    "guidance_scale": {
+      "type": "number",
+      "description": "Classifier-free guidance scale"
+    }
+  }
+}

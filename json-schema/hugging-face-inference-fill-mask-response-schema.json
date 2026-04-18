@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FillMaskResponse",
+  "type": "object",
+  "properties": {
+    "sequence": {
+      "type": "string",
+      "description": "The complete text with filled mask"
+    },
+    "score": {
+      "type": "number",
+      "description": "Confidence score for the prediction"
+    },
+    "token": {
+      "type": "integer",
+      "description": "Token ID of the predicted word"
+    },
+    "token_str": {
+      "type": "string",
+      "description": "The predicted word"
+    }
+  }
+}

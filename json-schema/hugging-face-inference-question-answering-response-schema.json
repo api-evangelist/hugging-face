@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuestionAnsweringResponse",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string",
+      "description": "The extracted answer"
+    },
+    "score": {
+      "type": "number",
+      "description": "Confidence score"
+    },
+    "start": {
+      "type": "integer",
+      "description": "Start character position in context"
+    },
+    "end": {
+      "type": "integer",
+      "description": "End character position in context"
+    }
+  }
+}

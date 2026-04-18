@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "DatasetSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "gated": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "downloads": {
+      "type": "integer"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

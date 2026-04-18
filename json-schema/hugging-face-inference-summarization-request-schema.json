@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SummarizationRequest",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text to summarize"
+    },
+    "parameters": {
+      "type": "object"
+    }
+  }
+}

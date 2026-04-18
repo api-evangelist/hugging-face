@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Info",
+  "type": "object",
+  "properties": {
+    "model_id": {
+      "type": "string"
+    },
+    "model_sha": {
+      "type": "string"
+    },
+    "model_dtype": {
+      "type": "string"
+    },
+    "model_device_type": {
+      "type": "string"
+    },
+    "model_pipeline_tag": {
+      "type": "string"
+    },
+    "max_concurrent_requests": {
+      "type": "integer"
+    },
+    "max_best_of": {
+      "type": "integer"
+    },
+    "max_stop_sequences": {
+      "type": "integer"
+    },
+    "max_input_length": {
+      "type": "integer"
+    },
+    "max_total_tokens": {
+      "type": "integer"
+    },
+    "waiting_served_ratio": {
+      "type": "number"
+    },
+    "max_batch_total_tokens": {
+      "type": "integer"
+    },
+    "max_waiting_tokens": {
+      "type": "integer"
+    },
+    "validation_workers": {
+      "type": "integer"
+    },
+    "max_client_batch_size": {
+      "type": "integer"
+    },
+    "version": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "docker_label": {
+      "type": "string"
+    }
+  }
+}

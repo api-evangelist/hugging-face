@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "StreamResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "object"
+    },
+    "generated_text": {
+      "type": "string"
+    },
+    "details": {
+      "type": "object"
+    }
+  }
+}

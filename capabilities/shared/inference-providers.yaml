@@ -1,0 +1,291 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Hugging Face Inference Providers API"
+  description: "Unified proxy layer providing access to 15+ inference partners through a single OpenAI-compatible endpoint."
+  tags:
+    - Hugging Face
+    - Inference
+    - OpenAI Compatible
+    - Providers
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      HF_API_TOKEN: HF_API_TOKEN
+
+capability:
+  consumes:
+    - type: http
+      namespace: hf-providers
+      baseUri: https://router.huggingface.co
+      description: "Unified inference proxy routing to 15+ providers via OpenAI-compatible endpoints."
+      authentication:
+        type: bearer
+        token: "{{HF_API_TOKEN}}"
+      resources:
+        - name: chat-completions
+          path: /v1/chat/completions
+          description: "Chat completion endpoint"
+          operations:
+            - name: create-chat-completion
+              method: POST
+              description: "Create a chat completion using an OpenAI-compatible API."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  messages: "{{tools.messages}}"
+                  max_tokens: "{{tools.max_tokens}}"
+                  temperature: "{{tools.temperature}}"
+                  stream: "{{tools.stream}}"
+        - name: completions
+          path: /v1/completions
+          description: "Text completion endpoint"
+          operations:
+            - name: create-completion
+              method: POST
+              description: "Create a text completion."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  prompt: "{{tools.prompt}}"
+                  max_tokens: "{{tools.max_tokens}}"
+                  temperature: "{{tools.temperature}}"
+        - name: embeddings
+          path: /v1/embeddings
+          description: "Text embedding endpoint"
+          operations:
+            - name: create-embeddings
+              method: POST
+              description: "Create text embeddings."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  input: "{{tools.input}}"
+        - name: image-generation
+          path: /v1/images/generations
+          description: "Image generation endpoint"
+          operations:
+            - name: create-image-generation
+              method: POST
+              description: "Generate images from text prompts."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  prompt: "{{tools.prompt}}"
+                  n: "{{tools.n}}"
+                  size: "{{tools.size}}"
+        - name: transcription
+          path: /v1/audio/transcriptions
+          description: "Audio transcription endpoint"
+          operations:
+            - name: create-transcription
+              method: POST
+              description: "Transcribe audio to text."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  file: "{{tools.file}}"
+        - name: speech
+          path: /v1/audio/speech
+          description: "Text-to-speech endpoint"
+          operations:
+            - name: create-speech
+              method: POST
+              description: "Convert text to speech audio."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  model: "{{tools.model}}"
+                  input: "{{tools.input}}"
+                  voice: "{{tools.voice}}"
+        - name: models
+          path: /v1/models
+          description: "List available models"
+          operations:
+            - name: list-models
+              method: GET
+              description: "List available models from all providers."
+              inputParameters: []
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: model-by-id
+          path: /v1/models/{model_id}
+          description: "Get model details"
+          operations:
+            - name: get-model
+              method: GET
+              description: "Get details about a specific model."
+              inputParameters:
+                - name: model_id
+                  in: path
+                  type: string
+                  required: true
+                  description: "The model ID"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+
+  exposes:
+    - type: rest
+      port: 8103
+      namespace: hf-providers-api
+      resources:
+        - path: /v1/chat/completions
+          name: chat-completions
+          description: "Chat completions"
+          operations:
+            - method: POST
+              name: create-chat-completion
+              description: "Create a chat completion"
+              call: "hf-providers.create-chat-completion"
+              with:
+                model: "rest.model"
+                messages: "rest.messages"
+                max_tokens: "rest.max_tokens"
+                temperature: "rest.temperature"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9103
+      namespace: hf-providers-mcp
+      transport: http
+      tools:
+        - name: chat-completion
+          description: "Create a chat completion via OpenAI-compatible API with multi-provider routing."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-chat-completion"
+          with:
+            model: "tools.model"
+            messages: "tools.messages"
+            max_tokens: "tools.max_tokens"
+            temperature: "tools.temperature"
+            stream: "tools.stream"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: text-completion
+          description: "Create a text completion."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-completion"
+          with:
+            model: "tools.model"
+            prompt: "tools.prompt"
+            max_tokens: "tools.max_tokens"
+            temperature: "tools.temperature"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-embeddings
+          description: "Create text embeddings for semantic search and similarity."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-embeddings"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: generate-image
+          description: "Generate images from text prompts."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-image-generation"
+          with:
+            model: "tools.model"
+            prompt: "tools.prompt"
+            n: "tools.n"
+            size: "tools.size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: transcribe-audio
+          description: "Transcribe audio to text."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-transcription"
+          with:
+            model: "tools.model"
+            file: "tools.file"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: text-to-speech
+          description: "Convert text to speech audio."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-speech"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+            voice: "tools.voice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-provider-models
+          description: "List models available across all inference providers."
+          hints:
+            readOnly: true
+          call: "hf-providers.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."

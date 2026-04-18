@@ -1,0 +1,10 @@
+{
+  "model": "example_value",
+  "prompt": "example_value",
+  "n": 10,
+  "size": "example_value",
+  "response_format": "example_value",
+  "negative_prompt": "example_value",
+  "num_inference_steps": 10,
+  "guidance_scale": 42.5
+}

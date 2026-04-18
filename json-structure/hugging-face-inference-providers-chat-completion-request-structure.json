@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ChatCompletionRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "messages": {
+      "type": "array"
+    },
+    "frequency_penalty": {
+      "type": "number"
+    },
+    "logprobs": {
+      "type": "boolean"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "presence_penalty": {
+      "type": "number"
+    },
+    "reasoning_effort": {
+      "type": "string"
+    },
+    "response_format": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "stop": {
+      "type": "array"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "stream_options": {
+      "type": "object"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "tool_choice": {
+      "type": "string"
+    },
+    "tool_prompt": {
+      "type": "string"
+    },
+    "tools": {
+      "type": "array"
+    },
+    "top_logprobs": {
+      "type": "integer"
+    },
+    "top_p": {
+      "type": "number"
+    }
+  }
+}

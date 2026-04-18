@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "cause_exception": {
+      "type": "string",
+      "description": "Underlying exception type"
+    },
+    "cause_message": {
+      "type": "string",
+      "description": "Underlying exception message"
+    },
+    "cause_traceback": {
+      "type": "array",
+      "description": "Stack trace (only in development)"
+    }
+  }
+}

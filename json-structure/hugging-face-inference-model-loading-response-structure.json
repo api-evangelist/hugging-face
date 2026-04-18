@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ModelLoadingResponse",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string"
+    },
+    "estimated_time": {
+      "type": "number"
+    }
+  }
+}

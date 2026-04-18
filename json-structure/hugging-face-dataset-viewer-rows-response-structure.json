@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "RowsResponse",
+  "type": "object",
+  "properties": {
+    "features": {
+      "type": "array"
+    },
+    "rows": {
+      "type": "array"
+    },
+    "num_rows_total": {
+      "type": "integer"
+    },
+    "num_rows_per_page": {
+      "type": "integer"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

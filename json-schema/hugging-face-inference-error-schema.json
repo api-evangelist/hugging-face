@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message"
+    },
+    "estimated_time": {
+      "type": "number",
+      "description": "Estimated time until availability (for loading errors)"
+    }
+  }
+}

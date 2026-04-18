@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ParquetResponse",
+  "type": "object",
+  "properties": {
+    "parquet_files": {
+      "type": "array"
+    },
+    "partial": {
+      "type": "boolean",
+      "description": "Whether only partial data was converted"
+    }
+  }
+}

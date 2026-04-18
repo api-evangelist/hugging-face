@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "FillMaskResponse",
+  "type": "object",
+  "properties": {
+    "sequence": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number"
+    },
+    "token": {
+      "type": "integer"
+    },
+    "token_str": {
+      "type": "string"
+    }
+  }
+}

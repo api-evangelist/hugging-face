@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "StatisticsResponse",
+  "type": "object",
+  "properties": {
+    "num_examples": {
+      "type": "integer"
+    },
+    "statistics": {
+      "type": "array"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

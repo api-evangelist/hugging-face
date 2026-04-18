@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DatasetSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "description": "Dataset repository ID"
+    },
+    "author": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "gated": {
+      "type": "boolean"
+    },
+    "disabled": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "downloads": {
+      "type": "integer"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

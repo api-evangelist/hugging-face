@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompletionRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model ID to use"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "Prompt(s) to generate completions for"
+    },
+    "max_tokens": {
+      "type": "integer"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "top_p": {
+      "type": "number"
+    },
+    "stop": {
+      "type": "array"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "seed": {
+      "type": "integer"
+    }
+  }
+}

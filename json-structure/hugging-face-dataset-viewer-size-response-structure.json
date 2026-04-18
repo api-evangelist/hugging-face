@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SizeResponse",
+  "type": "object",
+  "properties": {
+    "size": {
+      "type": "object"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

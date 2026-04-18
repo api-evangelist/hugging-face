@@ -1,0 +1,10 @@
+{
+  "model": "example_value",
+  "prompt": "example_value",
+  "max_tokens": 10,
+  "temperature": 42.5,
+  "top_p": 42.5,
+  "stop": [],
+  "stream": true,
+  "seed": 10
+}

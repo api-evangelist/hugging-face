@@ -15,39 +15,39 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://datasets-server.huggingface.co
-    description: Hugging Face Dataset Viewer production server
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
 security:
-  - {}
-  - bearerAuth: []
+- {}
+- bearerAuth: []
 tags:
-  - name: Dataset Info
-    description: Dataset validity and structure endpoints
-  - name: Data Access
-    description: Row-level data access and preview endpoints
-  - name: Search & Filter
-    description: Search and filter dataset contents
-  - name: Files & Metadata
-    description: Parquet files, size, statistics, and metadata
+- name: Dataset Info
+  description: Dataset validity and structure endpoints
+- name: Data Access
+  description: Row-level data access and preview endpoints
+- name: Search & Filter
+  description: Search and filter dataset contents
+- name: Files & Metadata
+  description: Parquet files, size, statistics, and metadata
 paths:
   /is-valid:
     get:
-      summary: Check dataset validity
+      summary: Check Dataset Validity
       description: >-
         Check whether a specific dataset is valid and processed by the Dataset
         Viewer. Returns availability status for preview, viewer, search, filter,
         and statistics features.
       operationId: isValid
       tags:
-        - Dataset Info
+      - Dataset Info
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID on the Hugging Face Hub
-          schema:
-            type: string
-          example: cornell-movie-review-data/rotten_tomatoes
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID on the Hugging Face Hub
+        schema:
+          type: string
+        example: cornell-movie-review-data/rotten_tomatoes
       responses:
         '200':
           description: Dataset validity status
@@ -55,36 +55,69 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ValidityResponse'
+              examples:
+                Isvalid200Example:
+                  summary: Default isValid 200 response
+                  x-microcks-default: true
+                  value:
+                    preview: true
+                    viewer: true
+                    search: true
+                    filter: true
+                    statistics: true
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Isvalid404Example:
+                  summary: Default isValid 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
         '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Isvalid500Example:
+                  summary: Default isValid 500 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /splits:
     get:
-      summary: Get dataset splits
+      summary: Get Dataset Splits
       description: >-
         Get the list of subsets (configurations) and splits for a dataset. A
         dataset can have multiple subsets, each with different splits (e.g.,
         train, test, validation).
       operationId: getSplits
       tags:
-        - Dataset Info
+      - Dataset Info
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID on the Hugging Face Hub
-          schema:
-            type: string
-          example: squad
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID on the Hugging Face Hub
+        schema:
+          type: string
+        example: squad
       responses:
         '200':
           description: List of subsets and splits
@@ -92,49 +125,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SplitsResponse'
+              examples:
+                Getsplits200Example:
+                  summary: Default getSplits 200 response
+                  x-microcks-default: true
+                  value:
+                    splits:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                    pending:
+                    - {}
+                    failed:
+                    - {}
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getsplits404Example:
+                  summary: Default getSplits 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
         '500':
           description: Processing error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getsplits500Example:
+                  summary: Default getSplits 500 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /first-rows:
     get:
-      summary: Get first rows of a split
+      summary: Get First Rows of a Split
       description: >-
         Get the first 100 rows of a dataset split. Useful for previewing data
         structure and content.
       operationId: getFirstRows
       tags:
-        - Data Access
+      - Data Access
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-          example: squad
-        - name: config
-          in: query
-          required: true
-          description: The subset (configuration) name
-          schema:
-            type: string
-          example: plain_text
-        - name: split
-          in: query
-          required: true
-          description: The split name
-          schema:
-            type: string
-          example: train
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: plain_text
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: train
       responses:
         '200':
           description: First rows of the dataset split
@@ -142,66 +211,110 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RowsResponse'
+              examples:
+                Getfirstrows200Example:
+                  summary: Default getFirstRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type:
+                        dtype: example_value
+                        _type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
         '400':
           description: Bad request - missing or invalid parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getfirstrows400Example:
+                  summary: Default getFirstRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
         '404':
           description: Dataset, config, or split not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getfirstrows404Example:
+                  summary: Default getFirstRows 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /rows:
     get:
-      summary: Get a slice of rows
+      summary: Get a Slice of Rows
       description: >-
         Get a slice of rows from a dataset split with pagination support. Returns
         up to 100 rows per request.
       operationId: getRows
       tags:
-        - Data Access
+      - Data Access
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-          example: squad
-        - name: config
-          in: query
-          required: true
-          description: The subset (configuration) name
-          schema:
-            type: string
-          example: plain_text
-        - name: split
-          in: query
-          required: true
-          description: The split name
-          schema:
-            type: string
-          example: train
-        - name: offset
-          in: query
-          required: false
-          description: Row offset to start from
-          schema:
-            type: integer
-            default: 0
-            minimum: 0
-        - name: length
-          in: query
-          required: false
-          description: Number of rows to return (max 100)
-          schema:
-            type: integer
-            default: 100
-            maximum: 100
-            minimum: 1
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: plain_text
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: train
+      - name: offset
+        in: query
+        required: false
+        description: Row offset to start from
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+        example: 10
+      - name: length
+        in: query
+        required: false
+        description: Number of rows to return (max 100)
+        schema:
+          type: integer
+          default: 100
+          maximum: 100
+          minimum: 1
+        example: 10
       responses:
         '200':
           description: Slice of rows from the dataset
@@ -209,60 +322,97 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RowsResponse'
+              examples:
+                Getrows200Example:
+                  summary: Default getRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type:
+                        dtype: example_value
+                        _type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getrows400Example:
+                  summary: Default getRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /search:
     get:
-      summary: Search text in a split
+      summary: Search Text in a Split
       description: >-
         Full-text search within a dataset split. Searches across all text
         columns and returns matching rows.
       operationId: searchRows
       tags:
-        - Search & Filter
+      - Search & Filter
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-        - name: config
-          in: query
-          required: true
-          description: The subset (configuration) name
-          schema:
-            type: string
-        - name: split
-          in: query
-          required: true
-          description: The split name
-          schema:
-            type: string
-        - name: query
-          in: query
-          required: true
-          description: Search query string
-          schema:
-            type: string
-          example: machine learning
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: length
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 100
-            maximum: 100
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
+      - name: query
+        in: query
+        required: true
+        description: Search query string
+        schema:
+          type: string
+        example: machine learning
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        example: 10
+      - name: length
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          maximum: 100
+        example: 10
       responses:
         '200':
           description: Search results
@@ -270,69 +420,104 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchResponse'
+              examples:
+                Searchrows200Example:
+                  summary: Default searchRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Searchrows400Example:
+                  summary: Default searchRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /filter:
     get:
-      summary: Filter rows in a split
+      summary: Filter Rows in a Split
       description: >-
         Filter rows in a dataset split using SQL-like WHERE and ORDER BY
         clauses. Supports comparison operators and logical operations.
       operationId: filterRows
       tags:
-        - Search & Filter
+      - Search & Filter
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-        - name: config
-          in: query
-          required: true
-          description: The subset (configuration) name
-          schema:
-            type: string
-        - name: split
-          in: query
-          required: true
-          description: The split name
-          schema:
-            type: string
-        - name: where
-          in: query
-          required: false
-          description: >-
-            SQL-like WHERE clause for filtering (e.g., "label = 1" or
-            "score > 0.5")
-          schema:
-            type: string
-          example: label = 1
-        - name: orderby
-          in: query
-          required: false
-          description: SQL-like ORDER BY clause for sorting
-          schema:
-            type: string
-          example: score DESC
-        - name: offset
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 0
-        - name: length
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 100
-            maximum: 100
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
+      - name: where
+        in: query
+        required: false
+        description: >-
+          SQL-like WHERE clause for filtering (e.g., "label = 1" or
+          "score > 0.5")
+        schema:
+          type: string
+        example: label = 1
+      - name: orderby
+        in: query
+        required: false
+        description: SQL-like ORDER BY clause for sorting
+        schema:
+          type: string
+        example: score DESC
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        example: 10
+      - name: length
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          maximum: 100
+        example: 10
       responses:
         '200':
           description: Filtered rows
@@ -340,29 +525,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RowsResponse'
+              examples:
+                Filterrows200Example:
+                  summary: Default filterRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type:
+                        dtype: example_value
+                        _type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
         '400':
           description: Bad request or invalid filter expression
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Filterrows400Example:
+                  summary: Default filterRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /parquet:
     get:
-      summary: List Parquet files
+      summary: List Parquet Files
       description: >-
         Get the list of a dataset's files converted to Parquet format. Datasets
         are auto-converted to Parquet on the Hub for efficient data access.
       operationId: getParquetFiles
       tags:
-        - Files & Metadata
+      - Files & Metadata
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-          example: squad
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
       responses:
         '200':
           description: List of Parquet files
@@ -370,29 +587,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ParquetResponse'
+              examples:
+                Getparquetfiles200Example:
+                  summary: Default getParquetFiles 200 response
+                  x-microcks-default: true
+                  value:
+                    parquet_files:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                      url: https://www.example.com
+                      filename: example_value
+                      size: 10
+                    partial: true
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getparquetfiles404Example:
+                  summary: Default getParquetFiles 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /size:
     get:
-      summary: Get dataset size
+      summary: Get Dataset Size
       description: >-
         Get size information for a dataset including the number of rows and
         size in bytes for the full dataset and for each subset and split.
       operationId: getDatasetSize
       tags:
-        - Files & Metadata
+      - Files & Metadata
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-          example: squad
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
       responses:
         '200':
           description: Dataset size information
@@ -400,40 +643,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SizeResponse'
+              examples:
+                Getdatasetsize200Example:
+                  summary: Default getDatasetSize 200 response
+                  x-microcks-default: true
+                  value:
+                    size:
+                      dataset:
+                        dataset: example_value
+                        num_bytes_original_files: 10
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                      configs:
+                      - dataset: example_value
+                        config: example_value
+                        num_bytes_original_files: 10
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                        num_columns: 10
+                      splits:
+                      - dataset: example_value
+                        config: example_value
+                        split: example_value
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                        num_columns: 10
+                    partial: true
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getdatasetsize404Example:
+                  summary: Default getDatasetSize 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /statistics:
     get:
-      summary: Get dataset statistics
+      summary: Get Dataset Statistics
       description: >-
         Get descriptive statistics for columns in a dataset split including
         distributions, counts, means, and other summary metrics.
       operationId: getStatistics
       tags:
-        - Files & Metadata
+      - Files & Metadata
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-        - name: config
-          in: query
-          required: true
-          description: The subset (configuration) name
-          schema:
-            type: string
-        - name: split
-          in: query
-          required: true
-          description: The split name
-          schema:
-            type: string
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
       responses:
         '200':
           description: Column statistics
@@ -441,29 +729,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StatisticsResponse'
+              examples:
+                Getstatistics200Example:
+                  summary: Default getStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    num_examples: 10
+                    statistics:
+                    - column_name: example_value
+                      column_type: example_value
+                      column_statistics:
+                        nan_count: 10
+                        nan_proportion: 42.5
+                        min: example_value
+                        max: example_value
+                        mean: 42.5
+                        median: 42.5
+                        std: 42.5
+                        histogram: {}
+                        frequencies: {}
+                    partial: true
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getstatistics400Example:
+                  summary: Default getStatistics 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /croissant:
     get:
-      summary: Get Croissant metadata
+      summary: Get Croissant Metadata
       description: >-
         Get Croissant (schema.org/Dataset compatible) metadata for a dataset.
         Croissant is a metadata format for ML datasets based on schema.org.
       operationId: getCroissantMetadata
       tags:
-        - Files & Metadata
+      - Files & Metadata
       parameters:
-        - name: dataset
-          in: query
-          required: true
-          description: The dataset ID
-          schema:
-            type: string
-          example: squad
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
       responses:
         '200':
           description: Croissant metadata in JSON-LD format
@@ -493,12 +814,39 @@ paths:
                     type: array
                     items:
                       type: object
+              examples:
+                Getcroissantmetadata200Example:
+                  summary: Default getCroissantMetadata 200 response
+                  x-microcks-default: true
+                  value:
+                    '@context': example_value
+                    '@type': example_value
+                    name: Example Title
+                    description: A sample description.
+                    url: https://www.example.com
+                    distribution:
+                    - {}
+                    recordSet:
+                    - {}
         '404':
           description: Dataset not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+              examples:
+                Getcroissantmetadata404Example:
+                  summary: Default getCroissantMetadata 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -515,18 +863,23 @@ components:
         preview:
           type: boolean
           description: Whether preview (first rows) is available
+          example: true
         viewer:
           type: boolean
           description: Whether the full viewer is available
+          example: true
         search:
           type: boolean
           description: Whether full-text search is available
+          example: true
         filter:
           type: boolean
           description: Whether filtering is available
+          example: true
         statistics:
           type: boolean
           description: Whether statistics are available
+          example: true
     SplitsResponse:
       type: object
       properties:
@@ -545,14 +898,17 @@ components:
                 type: string
                 description: Split name
                 example: train
+          example: []
         pending:
           type: array
           items:
             type: object
+          example: []
         failed:
           type: array
           items:
             type: object
+          example: []
     RowsResponse:
       type: object
       properties:
@@ -576,6 +932,7 @@ components:
                   _type:
                     type: string
           description: Column definitions and types
+          example: []
         rows:
           type: array
           items:
@@ -594,15 +951,19 @@ components:
                   type: string
                 description: List of cell names that were truncated
           description: Row data
+          example: []
         num_rows_total:
           type: integer
           description: Total number of rows in the split
+          example: 10
         num_rows_per_page:
           type: integer
           description: Number of rows per page
+          example: 10
         partial:
           type: boolean
           description: Whether this is a partial result
+          example: true
     SearchResponse:
       type: object
       properties:
@@ -617,6 +978,7 @@ components:
                 type: string
               type:
                 type: object
+          example: []
         rows:
           type: array
           items:
@@ -631,13 +993,17 @@ components:
                 type: array
                 items:
                   type: string
+          example: []
         num_rows_total:
           type: integer
           description: Total number of matching rows
+          example: 10
         num_rows_per_page:
           type: integer
+          example: 10
         partial:
           type: boolean
+          example: true
     ParquetResponse:
       type: object
       properties:
@@ -665,9 +1031,11 @@ components:
               size:
                 type: integer
                 description: File size in bytes
+          example: []
         partial:
           type: boolean
           description: Whether only partial data was converted
+          example: true
     SizeResponse:
       type: object
       properties:
@@ -729,14 +1097,17 @@ components:
                     type: integer
                   num_columns:
                     type: integer
+          example: example_value
         partial:
           type: boolean
+          example: true
     StatisticsResponse:
       type: object
       properties:
         num_examples:
           type: integer
           description: Total number of examples analyzed
+          example: 10
         statistics:
           type: array
           items:
@@ -759,12 +1130,12 @@ components:
                     format: float
                   min:
                     oneOf:
-                      - type: number
-                      - type: string
+                    - type: number
+                    - type: string
                   max:
                     oneOf:
-                      - type: number
-                      - type: string
+                    - type: number
+                    - type: string
                   mean:
                     type: number
                     format: float
@@ -797,22 +1168,28 @@ components:
                         proportion:
                           type: number
                           format: float
+          example: []
         partial:
           type: boolean
+          example: true
     Error:
       type: object
       properties:
         error:
           type: string
           description: Error message
+          example: example_value
         cause_exception:
           type: string
           description: Underlying exception type
+          example: example_value
         cause_message:
           type: string
           description: Underlying exception message
+          example: example_value
         cause_traceback:
           type: array
           items:
             type: string
           description: Stack trace (only in development)
+          example: []

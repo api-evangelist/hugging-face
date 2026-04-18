@@ -15,35 +15,61 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-  - url: https://api-inference.huggingface.co
-    description: Hugging Face hosted TGI server
-  - url: http://localhost:8080
-    description: Local TGI server (self-hosted)
+- url: https://api-inference.huggingface.co
+  description: Hugging Face hosted TGI server
+- url: http://localhost:8080
+  description: Local TGI server (self-hosted)
 security:
-  - bearerAuth: []
+- bearerAuth: []
 tags:
-  - name: Text Generation
-    description: TGI native text generation endpoints
-  - name: Chat
-    description: OpenAI-compatible chat completion endpoints
-  - name: Info
-    description: Server and model information
+- name: Text Generation
+  description: TGI native text generation endpoints
+- name: Chat
+  description: OpenAI-compatible chat completion endpoints
+- name: Info
+  description: Server and model information
 paths:
   /generate:
     post:
-      summary: Generate text
+      summary: Generate Text
       description: >-
         Generate text from a prompt using the loaded model. Returns the full
         generated text in a single response.
       operationId: generate
       tags:
-        - Text Generation
+      - Text Generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/GenerateRequest'
+            examples:
+              GenerateRequestExample:
+                summary: Default generate request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    max_new_tokens: 10
+                    temperature: 42.5
+                    top_p: 42.5
+                    top_k: 10
+                    repetition_penalty: 42.5
+                    do_sample: true
+                    seed: 10
+                    stop:
+                    - example_value
+                    watermark: true
+                    return_full_text: true
+                    decoder_input_details: true
+                    details: true
+                    truncate: 10
+                    typical_p: 42.5
+                    best_of: 10
+                    grammar:
+                      type: json
+                      value: example_value
       responses:
         '200':
           description: Generated text
@@ -51,6 +77,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenerateResponse'
+              examples:
+                Generate200Example:
+                  summary: Default generate 200 response
+                  x-microcks-default: true
+                  value:
+                    generated_text: example_value
+                    details:
+                      finish_reason: length
+                      generated_tokens: 10
+                      seed: 10
+                      prefill:
+                      - id: abc123
+                        text: example_value
+                        logprob: 42.5
+                      tokens:
+                      - id: abc123
+                        text: example_value
+                        logprob: 42.5
+                        special: true
+                      best_of_sequences:
+                      - {}
           headers:
             x-compute-type:
               schema:
@@ -94,33 +141,83 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Generate400Example:
+                  summary: Default generate 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
         '422':
           description: Generation error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Generate422Example:
+                  summary: Default generate 422 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
         '429':
           description: Model is overloaded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Generate429Example:
+                  summary: Default generate 429 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /generate_stream:
     post:
-      summary: Generate text with streaming
+      summary: Generate Text With Streaming
       description: >-
         Generate text from a prompt using Server-Sent Events (SSE) streaming.
         Tokens are returned incrementally as they are generated.
       operationId: generateStream
       tags:
-        - Text Generation
+      - Text Generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/GenerateRequest'
+            examples:
+              GeneratestreamRequestExample:
+                summary: Default generateStream request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    max_new_tokens: 10
+                    temperature: 42.5
+                    top_p: 42.5
+                    top_k: 10
+                    repetition_penalty: 42.5
+                    do_sample: true
+                    seed: 10
+                    stop:
+                    - example_value
+                    watermark: true
+                    return_full_text: true
+                    decoder_input_details: true
+                    details: true
+                    truncate: 10
+                    typical_p: 42.5
+                    best_of: 10
+                    grammar:
+                      type: json
+                      value: example_value
       responses:
         '200':
           description: Stream of generated tokens
@@ -128,21 +225,53 @@ paths:
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/StreamResponse'
+              examples:
+                Generatestream200Example:
+                  summary: Default generateStream 200 response
+                  x-microcks-default: true
+                  value:
+                    token:
+                      id: abc123
+                      text: example_value
+                      logprob: 42.5
+                      special: true
+                    generated_text: example_value
+                    details:
+                      finish_reason: example_value
+                      generated_tokens: 10
+                      seed: 10
         '400':
           description: Invalid input
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Generatestream400Example:
+                  summary: Default generateStream 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
         '429':
           description: Model is overloaded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Generatestream429Example:
+                  summary: Default generateStream 429 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/chat/completions:
     post:
-      summary: Create chat completion (OpenAI compatible)
+      summary: Create Chat Completion (openai Compatible)
       description: >-
         Create a chat completion using the OpenAI-compatible Messages API.
         Supports conversations, tool calling, structured output via JSON schema,
@@ -150,13 +279,48 @@ paths:
         client libraries.
       operationId: chatCompletions
       tags:
-        - Chat
+      - Chat
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ChatCompletionRequest'
+            examples:
+              ChatcompletionsRequestExample:
+                summary: Default chatCompletions request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  messages:
+                  - role: system
+                    content: example_value
+                    tool_calls:
+                    - {}
+                    tool_call_id: '500123'
+                    name: Example Title
+                  frequency_penalty: 42.5
+                  logprobs: true
+                  max_tokens: 10
+                  presence_penalty: 42.5
+                  response_format: example_value
+                  seed: 10
+                  stop:
+                  - example_value
+                  stream: true
+                  stream_options:
+                    include_usage: true
+                  temperature: 42.5
+                  tool_choice: example_value
+                  tool_prompt: example_value
+                  tools:
+                  - type: example_value
+                    function:
+                      name: Example Title
+                      description: A sample description.
+                      parameters: example_value
+                  top_logprobs: 10
+                  top_p: 42.5
       responses:
         '200':
           description: Chat completion response
@@ -164,42 +328,129 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChatCompletionResponse'
+              examples:
+                Chatcompletions200Example:
+                  summary: Default chatCompletions 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    system_fingerprint: example_value
+                    choices:
+                    - index: 10
+                      message:
+                        role: example_value
+                        content: example_value
+                        tool_calls: {}
+                        tool_call_id: '500123'
+                      finish_reason: stop
+                      logprobs:
+                        content: {}
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/ChatCompletionStreamResponse'
+              examples:
+                Chatcompletions200Example:
+                  summary: Default chatCompletions 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    system_fingerprint: example_value
+                    choices:
+                    - index: 10
+                      delta:
+                        role: example_value
+                        content: example_value
+                        tool_calls: {}
+                        tool_call_id: '500123'
+                      finish_reason: example_value
+                      logprobs:
+                        content: {}
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
         '400':
           description: Bad request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Chatcompletions400Example:
+                  summary: Default chatCompletions 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
         '422':
           description: Unprocessable entity
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Chatcompletions422Example:
+                  summary: Default chatCompletions 422 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
         '429':
           description: Model overloaded
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Chatcompletions429Example:
+                  summary: Default chatCompletions 429 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    error_type: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/completions:
     post:
-      summary: Create text completion (OpenAI compatible)
+      summary: Create Text Completion (openai Compatible)
       description: >-
         Create a text completion using the OpenAI-compatible completions API
         format.
       operationId: completions
       tags:
-        - Text Generation
+      - Text Generation
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/CompletionRequest'
+            examples:
+              CompletionsRequestExample:
+                summary: Default completions request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  prompt: example_value
+                  max_tokens: 10
+                  temperature: 42.5
+                  top_p: 42.5
+                  stop:
+                  - example_value
+                  stream: true
+                  seed: 10
+                  suffix: example_value
       responses:
         '200':
           description: Completion response
@@ -207,16 +458,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompletionResponse'
+              examples:
+                Completions200Example:
+                  summary: Default completions 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    choices:
+                    - text: example_value
+                      index: 10
+                      finish_reason: example_value
+                    usage:
+                      prompt_tokens: 10
+                      completion_tokens: 10
+                      total_tokens: 10
             text/event-stream:
               schema:
                 $ref: '#/components/schemas/CompletionStreamResponse'
+              examples:
+                Completions200Example:
+                  summary: Default completions 200 response
+                  x-microcks-default: true
+                  value:
+                    id: abc123
+                    object: example_value
+                    created: 10
+                    model: example_value
+                    choices:
+                    - text: example_value
+                      index: 10
+                      finish_reason: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /v1/models:
     get:
-      summary: List available models
+      summary: List Available Models
       description: Get information about the model currently loaded on this TGI server.
       operationId: listModels
       tags:
-        - Info
+      - Info
       security: []
       responses:
         '200':
@@ -244,15 +528,29 @@ paths:
                           type: integer
                         owned_by:
                           type: string
+              examples:
+                Listmodels200Example:
+                  summary: Default listModels 200 response
+                  x-microcks-default: true
+                  value:
+                    object: example_value
+                    data:
+                    - id: abc123
+                      object: example_value
+                      created: 10
+                      owned_by: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /info:
     get:
-      summary: Get server information
+      summary: Get Server Information
       description: >-
         Get metadata about the TGI server including the loaded model, version,
         SHA, Docker label, and model-specific parameters.
       operationId: getInfo
       tags:
-        - Info
+      - Info
       security: []
       responses:
         '200':
@@ -261,30 +559,59 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Info'
+              examples:
+                Getinfo200Example:
+                  summary: Default getInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    model_id: '500123'
+                    model_sha: example_value
+                    model_dtype: float16
+                    model_device_type: example_value
+                    model_pipeline_tag: example_value
+                    max_concurrent_requests: 10
+                    max_best_of: 10
+                    max_stop_sequences: 10
+                    max_input_length: 10
+                    max_total_tokens: 10
+                    waiting_served_ratio: 42.5
+                    max_batch_total_tokens: 10
+                    max_waiting_tokens: 10
+                    validation_workers: 10
+                    max_client_batch_size: 10
+                    version: example_value
+                    sha: example_value
+                    docker_label: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /health:
     get:
-      summary: Health check
+      summary: Health Check
       description: >-
         Check the health of the TGI server. Returns 200 if the model is loaded
         and ready to serve requests.
       operationId: healthCheck
       tags:
-        - Info
+      - Info
       security: []
       responses:
         '200':
           description: Server is healthy and ready
         '503':
           description: Server is not ready (model still loading)
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /metrics:
     get:
-      summary: Get Prometheus metrics
+      summary: Get Prometheus Metrics
       description: >-
         Get server metrics in Prometheus format including request counts,
         latencies, queue sizes, and token throughput.
       operationId: getMetrics
       tags:
-        - Info
+      - Info
       security: []
       responses:
         '200':
@@ -293,15 +620,23 @@ paths:
             text/plain:
               schema:
                 type: string
+              examples:
+                Getmetrics200Example:
+                  summary: Default getMetrics 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /tokenize:
     post:
-      summary: Tokenize text
+      summary: Tokenize Text
       description: >-
         Tokenize a string of text using the model's tokenizer. Returns the
         token IDs and their string representations.
       operationId: tokenize
       tags:
-        - Info
+      - Info
       requestBody:
         required: true
         content:
@@ -309,7 +644,7 @@ paths:
             schema:
               type: object
               required:
-                - inputs
+              - inputs
               properties:
                 inputs:
                   type: string
@@ -318,6 +653,13 @@ paths:
                   type: boolean
                   default: true
                   description: Whether to add special tokens
+            examples:
+              TokenizeRequestExample:
+                summary: Default tokenize request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  add_special_tokens: true
       responses:
         '200':
           description: Tokenized result
@@ -340,6 +682,19 @@ paths:
                       type: integer
                     special:
                       type: boolean
+              examples:
+                Tokenize200Example:
+                  summary: Default tokenize 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: abc123
+                    text: example_value
+                    start: 10
+                    stop: 10
+                    special: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
@@ -352,7 +707,7 @@ components:
     GenerateRequest:
       type: object
       required:
-        - inputs
+      - inputs
       properties:
         inputs:
           type: string
@@ -435,26 +790,28 @@ components:
                 type:
                   type: string
                   enum:
-                    - json
-                    - regex
+                  - json
+                  - regex
                 value:
                   type: string
                   description: Grammar specification (JSON schema or regex)
+          example: example_value
     GenerateResponse:
       type: object
       properties:
         generated_text:
           type: string
           description: The generated text
+          example: example_value
         details:
           type: object
           properties:
             finish_reason:
               type: string
               enum:
-                - length
-                - eos_token
-                - stop_sequence
+              - length
+              - eos_token
+              - stop_sequence
               description: Reason generation stopped
             generated_tokens:
               type: integer
@@ -493,6 +850,7 @@ components:
               items:
                 type: object
               description: Best-of sequences details
+          example: example_value
     StreamResponse:
       type: object
       properties:
@@ -507,9 +865,11 @@ components:
               type: number
             special:
               type: boolean
+          example: example_value
         generated_text:
           type: string
           description: Full generated text (only in the last event)
+          example: example_value
         details:
           type: object
           description: Generation details (only in the last event)
@@ -520,11 +880,12 @@ components:
               type: integer
             seed:
               type: integer
+          example: example_value
     ChatCompletionRequest:
       type: object
       required:
-        - model
-        - messages
+      - model
+      - messages
       properties:
         model:
           type: string
@@ -536,54 +897,54 @@ components:
           items:
             type: object
             required:
-              - role
+            - role
             properties:
               role:
                 type: string
                 enum:
-                  - system
-                  - user
-                  - assistant
-                  - tool
+                - system
+                - user
+                - assistant
+                - tool
               content:
                 oneOf:
-                  - type: string
-                  - type: array
-                    items:
-                      oneOf:
-                        - type: object
+                - type: string
+                - type: array
+                  items:
+                    oneOf:
+                    - type: object
+                      required:
+                      - type
+                      - text
+                      properties:
+                        type:
+                          type: string
+                          const: text
+                        text:
+                          type: string
+                    - type: object
+                      required:
+                      - type
+                      - image_url
+                      properties:
+                        type:
+                          type: string
+                          const: image_url
+                        image_url:
+                          type: object
                           required:
-                            - type
-                            - text
+                          - url
                           properties:
-                            type:
+                            url:
                               type: string
-                              const: text
-                            text:
-                              type: string
-                        - type: object
-                          required:
-                            - type
-                            - image_url
-                          properties:
-                            type:
-                              type: string
-                              const: image_url
-                            image_url:
-                              type: object
-                              required:
-                                - url
-                              properties:
-                                url:
-                                  type: string
               tool_calls:
                 type: array
                 items:
                   type: object
                   required:
-                    - id
-                    - type
-                    - function
+                  - id
+                  - type
+                  - function
                   properties:
                     id:
                       type: string
@@ -592,7 +953,7 @@ components:
                     function:
                       type: object
                       required:
-                        - name
+                      - name
                       properties:
                         name:
                           type: string
@@ -604,106 +965,119 @@ components:
                 type: string
               name:
                 type: string
+          example: []
         frequency_penalty:
           type: number
           minimum: -2.0
           maximum: 2.0
+          example: 42.5
         logprobs:
           type: boolean
+          example: true
         max_tokens:
           type: integer
           description: Maximum tokens to generate
+          example: 10
         presence_penalty:
           type: number
           minimum: -2.0
           maximum: 2.0
+          example: 42.5
         response_format:
           oneOf:
-            - type: object
-              properties:
-                type:
-                  type: string
-                  const: text
-            - type: object
-              required:
-                - type
-                - json_schema
-              properties:
-                type:
-                  type: string
-                  const: json_schema
-                json_schema:
-                  type: object
-                  required:
-                    - name
-                  properties:
-                    name:
-                      type: string
-                    description:
-                      type: string
-                    schema:
-                      type: object
-                    strict:
-                      type: boolean
-            - type: object
-              properties:
-                type:
-                  type: string
-                  const: json_object
+          - type: object
+            properties:
+              type:
+                type: string
+                const: text
+          - type: object
+            required:
+            - type
+            - json_schema
+            properties:
+              type:
+                type: string
+                const: json_schema
+              json_schema:
+                type: object
+                required:
+                - name
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  schema:
+                    type: object
+                  strict:
+                    type: boolean
+          - type: object
+            properties:
+              type:
+                type: string
+                const: json_object
+          example: example_value
         seed:
           type: integer
+          example: 10
         stop:
           type: array
           items:
             type: string
           maxItems: 4
+          example: []
         stream:
           type: boolean
           default: false
+          example: true
         stream_options:
           type: object
           properties:
             include_usage:
               type: boolean
+          example: example_value
         temperature:
           type: number
           minimum: 0
           maximum: 2
+          example: 42.5
         tool_choice:
           oneOf:
-            - type: string
-              enum:
-                - auto
-                - none
-                - required
-            - type: object
-              required:
-                - function
-              properties:
-                function:
-                  type: object
-                  required:
-                    - name
-                  properties:
-                    name:
-                      type: string
+          - type: string
+            enum:
+            - auto
+            - none
+            - required
+          - type: object
+            required:
+            - function
+            properties:
+              function:
+                type: object
+                required:
+                - name
+                properties:
+                  name:
+                    type: string
+          example: example_value
         tool_prompt:
           type: string
           description: Prompt appended before tools
+          example: example_value
         tools:
           type: array
           items:
             type: object
             required:
-              - type
-              - function
+            - type
+            - function
             properties:
               type:
                 type: string
               function:
                 type: object
                 required:
-                  - name
+                - name
                 properties:
                   name:
                     type: string
@@ -711,28 +1085,36 @@ components:
                     type: string
                   parameters:
                     type: object
+          example: []
         top_logprobs:
           type: integer
           minimum: 0
           maximum: 5
+          example: 10
         top_p:
           type: number
           minimum: 0
           maximum: 1
+          example: 42.5
     ChatCompletionResponse:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: chat.completion
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         system_fingerprint:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -770,9 +1152,9 @@ components:
               finish_reason:
                 type: string
                 enum:
-                  - stop
-                  - length
-                  - tool_calls
+                - stop
+                - length
+                - tool_calls
               logprobs:
                 type: object
                 properties:
@@ -794,6 +1176,7 @@ components:
                                 type: string
                               logprob:
                                 type: number
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     ChatCompletionStreamResponse:
@@ -801,15 +1184,20 @@ components:
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: chat.completion.chunk
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         system_fingerprint:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -867,53 +1255,67 @@ components:
                                 type: string
                               logprob:
                                 type: number
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     CompletionRequest:
       type: object
       required:
-        - model
-        - prompt
+      - model
+      - prompt
       properties:
         model:
           type: string
+          example: example_value
         prompt:
           oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: example_value
         max_tokens:
           type: integer
           default: 16
+          example: 10
         temperature:
           type: number
+          example: 42.5
         top_p:
           type: number
+          example: 42.5
         stop:
           type: array
           items:
             type: string
+          example: []
         stream:
           type: boolean
           default: false
+          example: true
         seed:
           type: integer
+          example: 10
         suffix:
           type: string
           description: Suffix to append after generated text
+          example: example_value
     CompletionResponse:
       type: object
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: text_completion
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -925,6 +1327,7 @@ components:
                 type: integer
               finish_reason:
                 type: string
+          example: []
         usage:
           $ref: '#/components/schemas/Usage'
     CompletionStreamResponse:
@@ -932,13 +1335,17 @@ components:
       properties:
         id:
           type: string
+          example: abc123
         object:
           type: string
           const: text_completion
+          example: example_value
         created:
           type: integer
+          example: 10
         model:
           type: string
+          example: example_value
         choices:
           type: array
           items:
@@ -950,74 +1357,98 @@ components:
                 type: integer
               finish_reason:
                 type: string
+          example: []
     Info:
       type: object
       properties:
         model_id:
           type: string
           description: Loaded model ID
+          example: '500123'
         model_sha:
           type: string
           description: Model revision SHA
+          example: example_value
         model_dtype:
           type: string
           description: Model data type
           enum:
-            - float16
-            - bfloat16
-            - float32
+          - float16
+          - bfloat16
+          - float32
+          example: float16
         model_device_type:
           type: string
           description: Device type (cuda, cpu)
+          example: example_value
         model_pipeline_tag:
           type: string
           description: Pipeline task tag
+          example: example_value
         max_concurrent_requests:
           type: integer
+          example: 10
         max_best_of:
           type: integer
+          example: 10
         max_stop_sequences:
           type: integer
+          example: 10
         max_input_length:
           type: integer
           description: Maximum input token length
+          example: 10
         max_total_tokens:
           type: integer
           description: Maximum total tokens (input + output)
+          example: 10
         waiting_served_ratio:
           type: number
+          example: 42.5
         max_batch_total_tokens:
           type: integer
+          example: 10
         max_waiting_tokens:
           type: integer
+          example: 10
         validation_workers:
           type: integer
+          example: 10
         max_client_batch_size:
           type: integer
+          example: 10
         version:
           type: string
           description: TGI version
+          example: example_value
         sha:
           type: string
           description: TGI build SHA
+          example: example_value
         docker_label:
           type: string
           description: Docker image label
+          example: example_value
     Usage:
       type: object
       properties:
         prompt_tokens:
           type: integer
+          example: 10
         completion_tokens:
           type: integer
+          example: 10
         total_tokens:
           type: integer
+          example: 10
     ErrorResponse:
       type: object
       properties:
         error:
           type: string
           description: Error message
+          example: example_value
         error_type:
           type: string
           description: Error type classification
+          example: example_value

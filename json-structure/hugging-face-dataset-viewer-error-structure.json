@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "Error",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string"
+    },
+    "cause_exception": {
+      "type": "string"
+    },
+    "cause_message": {
+      "type": "string"
+    },
+    "cause_traceback": {
+      "type": "array"
+    }
+  }
+}

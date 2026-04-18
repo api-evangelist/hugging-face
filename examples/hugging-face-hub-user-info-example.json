@@ -1,0 +1,13 @@
+{
+  "type": "example_value",
+  "id": "abc123",
+  "name": "Example Title",
+  "fullname": "example_value",
+  "email": "user@example.com",
+  "emailVerified": "user@example.com",
+  "plan": "example_value",
+  "canPay": true,
+  "avatarUrl": "https://www.example.com",
+  "orgs": [],
+  "auth": "example_value"
+}

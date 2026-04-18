@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RowsResponse",
+  "type": "object",
+  "properties": {
+    "features": {
+      "type": "array",
+      "description": "Column definitions and types"
+    },
+    "rows": {
+      "type": "array",
+      "description": "Row data"
+    },
+    "num_rows_total": {
+      "type": "integer",
+      "description": "Total number of rows in the split"
+    },
+    "num_rows_per_page": {
+      "type": "integer",
+      "description": "Number of rows per page"
+    },
+    "partial": {
+      "type": "boolean",
+      "description": "Whether this is a partial result"
+    }
+  }
+}

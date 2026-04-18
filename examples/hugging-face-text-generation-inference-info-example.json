@@ -1,0 +1,20 @@
+{
+  "model_id": "500123",
+  "model_sha": "example_value",
+  "model_dtype": "example_value",
+  "model_device_type": "example_value",
+  "model_pipeline_tag": "example_value",
+  "max_concurrent_requests": 10,
+  "max_best_of": 10,
+  "max_stop_sequences": 10,
+  "max_input_length": 10,
+  "max_total_tokens": 10,
+  "waiting_served_ratio": 42.5,
+  "max_batch_total_tokens": 10,
+  "max_waiting_tokens": 10,
+  "validation_workers": 10,
+  "max_client_batch_size": 10,
+  "version": "example_value",
+  "sha": "example_value",
+  "docker_label": "example_value"
+}

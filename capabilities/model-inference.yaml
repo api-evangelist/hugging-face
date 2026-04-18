@@ -1,0 +1,479 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Hugging Face Model Inference"
+  description: "Unified workflow for running AI/ML inference across Hugging Face APIs, combining the Inference API, Inference Providers, and Text Generation Inference for NLP, vision, audio, and multimodal tasks. Used by ML engineers and AI application developers."
+  tags:
+    - Hugging Face
+    - Machine Learning
+    - Inference
+    - AI
+    - Text Generation
+  created: "2026-04-18"
+  modified: "2026-04-18"
+
+binds:
+  - namespace: env
+    keys:
+      HF_API_TOKEN: HF_API_TOKEN
+
+capability:
+  consumes:
+    - import: hf-inference
+      location: ./shared/inference.yaml
+    - import: hf-providers
+      location: ./shared/inference-providers.yaml
+    - import: hf-tgi
+      location: ./shared/text-generation-inference.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: hf-model-inference-api
+      description: "Unified REST API for running ML inference across Hugging Face services."
+      resources:
+        - path: /v1/inference/{model_id}
+          name: inference
+          description: "Run inference on any model"
+          operations:
+            - method: POST
+              name: run-inference
+              description: "Run inference on a model via the Inference API"
+              call: "hf-inference.run-inference"
+              with:
+                model_id: "rest.model_id"
+                inputs: "rest.inputs"
+                parameters: "rest.parameters"
+                options: "rest.options"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/text-generation/{model_id}
+          name: text-generation
+          description: "Generate text with a specific model"
+          operations:
+            - method: POST
+              name: text-generation
+              description: "Generate text using the Inference API"
+              call: "hf-inference.text-generation"
+              with:
+                model_id: "rest.model_id"
+                inputs: "rest.inputs"
+                parameters: "rest.parameters"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/chat/completions
+          name: chat-completions
+          description: "OpenAI-compatible chat completions"
+          operations:
+            - method: POST
+              name: chat-completion
+              description: "Create chat completion via providers"
+              call: "hf-providers.create-chat-completion"
+              with:
+                model: "rest.model"
+                messages: "rest.messages"
+                max_tokens: "rest.max_tokens"
+                temperature: "rest.temperature"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/completions
+          name: completions
+          description: "Text completions"
+          operations:
+            - method: POST
+              name: text-completion
+              description: "Create text completion via providers"
+              call: "hf-providers.create-completion"
+              with:
+                model: "rest.model"
+                prompt: "rest.prompt"
+                max_tokens: "rest.max_tokens"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/embeddings
+          name: embeddings
+          description: "Text embeddings"
+          operations:
+            - method: POST
+              name: create-embeddings
+              description: "Create text embeddings"
+              call: "hf-providers.create-embeddings"
+              with:
+                model: "rest.model"
+                input: "rest.input"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/images/generations
+          name: image-generation
+          description: "Image generation"
+          operations:
+            - method: POST
+              name: generate-image
+              description: "Generate images from text"
+              call: "hf-providers.create-image-generation"
+              with:
+                model: "rest.model"
+                prompt: "rest.prompt"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/classification/{model_id}
+          name: classification
+          description: "Text classification"
+          operations:
+            - method: POST
+              name: classify-text
+              description: "Classify text into categories"
+              call: "hf-inference.text-classification"
+              with:
+                model_id: "rest.model_id"
+                inputs: "rest.inputs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/summarization/{model_id}
+          name: summarization
+          description: "Text summarization"
+          operations:
+            - method: POST
+              name: summarize
+              description: "Summarize text content"
+              call: "hf-inference.summarization"
+              with:
+                model_id: "rest.model_id"
+                inputs: "rest.inputs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/translation/{model_id}
+          name: translation
+          description: "Text translation"
+          operations:
+            - method: POST
+              name: translate
+              description: "Translate text between languages"
+              call: "hf-inference.translation"
+              with:
+                model_id: "rest.model_id"
+                inputs: "rest.inputs"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: hf-model-inference-mcp
+      transport: http
+      description: "MCP server for AI-assisted ML model inference across Hugging Face services."
+      tools:
+        - name: run-inference
+          description: "Run inference on any Hugging Face model by model ID."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.run-inference"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+            options: "tools.options"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: generate-text
+          description: "Generate text using a language model via the Inference API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.text-generation"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: classify-text
+          description: "Classify text into predefined categories."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.text-classification"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: answer-question
+          description: "Answer questions based on provided context."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.question-answering"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: summarize-text
+          description: "Summarize text content."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.summarization"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: translate-text
+          description: "Translate text between languages."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.translation"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: fill-mask
+          description: "Fill in masked tokens in text."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.fill-mask"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: extract-features
+          description: "Extract feature vectors from text for embeddings."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.feature-extraction"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: classify-image
+          description: "Classify images into categories."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.image-classification"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: detect-objects
+          description: "Detect objects in images."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.object-detection"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: transcribe-speech
+          description: "Transcribe audio to text using automatic speech recognition."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.automatic-speech-recognition"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: generate-image
+          description: "Generate images from text prompts."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.text-to-image"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: zero-shot-classify
+          description: "Classify text without predefined training labels."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.zero-shot-classification"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: compute-similarity
+          description: "Compute similarity between sentences."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-inference.sentence-similarity"
+          with:
+            model_id: "tools.model_id"
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-chat-completion
+          description: "Create chat completion via OpenAI-compatible multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-chat-completion"
+          with:
+            model: "tools.model"
+            messages: "tools.messages"
+            max_tokens: "tools.max_tokens"
+            temperature: "tools.temperature"
+            stream: "tools.stream"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-text-completion
+          description: "Create text completion via multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-completion"
+          with:
+            model: "tools.model"
+            prompt: "tools.prompt"
+            max_tokens: "tools.max_tokens"
+            temperature: "tools.temperature"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-create-embeddings
+          description: "Create text embeddings via multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-embeddings"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-generate-image
+          description: "Generate images via multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-image-generation"
+          with:
+            model: "tools.model"
+            prompt: "tools.prompt"
+            n: "tools.n"
+            size: "tools.size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-transcribe
+          description: "Transcribe audio via multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-transcription"
+          with:
+            model: "tools.model"
+            file: "tools.file"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: providers-text-to-speech
+          description: "Convert text to speech via multi-provider API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-providers.create-speech"
+          with:
+            model: "tools.model"
+            input: "tools.input"
+            voice: "tools.voice"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-generate
+          description: "Generate text using the TGI native endpoint."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-tgi.generate"
+          with:
+            inputs: "tools.inputs"
+            parameters: "tools.parameters"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-chat-completions
+          description: "Create chat completions using TGI OpenAI-compatible Messages API."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "hf-tgi.chat-completions"
+          with:
+            model: "tools.model"
+            messages: "tools.messages"
+            max_tokens: "tools.max_tokens"
+            temperature: "tools.temperature"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-tokenize
+          description: "Tokenize input text and return token IDs."
+          hints:
+            readOnly: true
+          call: "hf-tgi.tokenize"
+          with:
+            inputs: "tools.inputs"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: tgi-server-info
+          description: "Get TGI server information and deployed model details."
+          hints:
+            readOnly: true
+          call: "hf-tgi.get-info"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-provider-models
+          description: "List models available across all inference providers."
+          hints:
+            readOnly: true
+          call: "hf-providers.list-models"
+          outputParameters:
+            - type: object
+              mapping: "$."

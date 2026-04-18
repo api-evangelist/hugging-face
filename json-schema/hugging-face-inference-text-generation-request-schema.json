@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TextGenerationRequest",
+  "type": "object",
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The prompt text to generate from"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "options": {
+      "type": "object"
+    }
+  }
+}

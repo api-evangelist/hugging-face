@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "SpaceSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "lastModified": {
+      "type": "string"
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "array"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "sdk": {
+      "type": "string"
+    },
+    "runtime": {
+      "type": "object"
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  }
+}

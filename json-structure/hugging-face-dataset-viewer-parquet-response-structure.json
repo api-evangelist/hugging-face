@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-structure.org/draft/2020-12/schema",
+  "name": "ParquetResponse",
+  "type": "object",
+  "properties": {
+    "parquet_files": {
+      "type": "array"
+    },
+    "partial": {
+      "type": "boolean"
+    }
+  }
+}

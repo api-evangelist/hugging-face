@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ChatCompletionRequest",
+  "type": "object",
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model identifier (can be tgi or a model ID)"
+    },
+    "messages": {
+      "type": "array",
+      "description": "Conversation messages"
+    },
+    "frequency_penalty": {
+      "type": "number"
+    },
+    "logprobs": {
+      "type": "boolean"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "description": "Maximum tokens to generate"
+    },
+    "presence_penalty": {
+      "type": "number"
+    },
+    "response_format": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "stop": {
+      "type": "array"
+    },
+    "stream": {
+      "type": "boolean"
+    },
+    "stream_options": {
+      "type": "object"
+    },
+    "temperature": {
+      "type": "number"
+    },
+    "tool_choice": {
+      "type": "string"
+    },
+    "tool_prompt": {
+      "type": "string",
+      "description": "Prompt appended before tools"
+    },
+    "tools": {
+      "type": "array"
+    },
+    "top_logprobs": {
+      "type": "integer"
+    },
+    "top_p": {
+      "type": "number"
+    }
+  }
+}

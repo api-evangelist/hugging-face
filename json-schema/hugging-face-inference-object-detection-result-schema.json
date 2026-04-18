@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ObjectDetectionResult",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "Detected object label"
+    },
+    "score": {
+      "type": "number",
+      "description": "Detection confidence score"
+    },
+    "box": {
+      "type": "object"
+    }
+  }
+}

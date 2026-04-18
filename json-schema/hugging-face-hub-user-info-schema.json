@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UserInfo",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Account type (user or organization)"
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "Username"
+    },
+    "fullname": {
+      "type": "string",
+      "description": "Full display name"
+    },
+    "email": {
+      "type": "string"
+    },
+    "emailVerified": {
+      "type": "boolean"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Subscription plan"
+    },
+    "canPay": {
+      "type": "boolean"
+    },
+    "avatarUrl": {
+      "type": "string"
+    },
+    "orgs": {
+      "type": "array"
+    },
+    "auth": {
+      "type": "object"
+    }
+  }
+}
