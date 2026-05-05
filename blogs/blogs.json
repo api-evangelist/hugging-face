@@ -1,0 +1,13 @@
+{
+  "repo": "hugging-face",
+  "feeds": [
+    {
+      "source": "https://huggingface.co/blog",
+      "feed_url": "https://huggingface.co/blog/feed.xml",
+      "saved": 10,
+      "title": "Hugging Face - Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:29:22Z"
+}
