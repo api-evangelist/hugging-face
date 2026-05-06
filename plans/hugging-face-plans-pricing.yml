@@ -4,184 +4,462 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Hugging Face
 providerId: hugging-face
 created: '2026-05-04'
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - AI
+  - Machine Learning
+  - Inference
+  - Model Hub
+  - Datasets
+description: Hugging Face uses a hybrid pricing model. Account subscriptions (Free, PRO, Team, Enterprise)
+  layer on top of usage-based pricing for Inference Providers (pay-as-you-go), Inference Endpoints
+  (per-instance-hour), and Spaces hardware (per-hour). Storage is metered in TB/month with volume
+  discounts. Subscriptions include monthly inference credits that pass through provider rates with
+  no markup.
+sources:
+  - https://huggingface.co/pricing
+  - https://huggingface.co/docs/inference-providers/pricing
+  - https://huggingface.co/docs/inference-endpoints/pricing
 plans:
   - id: hugging-face-free
     name: Free
     type: freemium
-    description: Free entry tier for the Hugging Face API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+    description: Free Hub access for collaboration and learning. Includes $0.10/month in Inference
+      Providers credits.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: Inference Providers monthly credits
+        name: inference_credits
         type: quota
-        metric: requests
-        limit: 1000
+        metric: USD
+        limit: 0.10
         timeFrame: month
         geo: global
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Hugging Face Inference API
-      - name: Hugging Face Hub API
-      - name: Hugging Face Inference Endpoints API
-      - name: Hugging Face Inference Providers API
-      - name: Hugging Face Dataset Viewer API
-      - name: Hugging Face Text Generation Inference API
+      - name: Hub access (models, datasets, Spaces)
+      - name: Community support
+      - name: Public repos
+      - name: ZeroGPU access (limited quota)
   - id: hugging-face-pro
-    name: Professional
-    type: paid
-    description: Production tier for Hugging Face. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    name: PRO
+    type: subscription
+    description: Individual professional tier with 10x private storage, 2x public storage, 20x inference
+      credits, 8x ZeroGPU quota, and Spaces Dev Mode.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
+      - label: PRO subscription
+        name: pro_subscription
+        type: subscription
+        metric: month
+        limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
         unit: 1
-        price: TBD
+        price: '$9'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
+      - label: Inference Providers monthly credits
+        name: inference_credits
+        type: quota
+        metric: USD
+        limit: 2.00
+        timeFrame: month
         geo: global
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
+        unit: 1
+        price: included
+        userMultiplied: false
+    elements:
+      - name: 10x private storage vs Free
+      - name: 2x public storage vs Free
+      - name: 20x Inference Providers credits
+      - name: 8x ZeroGPU quota
+      - name: Spaces Dev Mode
+      - name: Higher rate limits
+  - id: hugging-face-team
+    name: Team
+    type: subscription
+    description: Per-seat plan for organizations with SSO, audit logs, storage regions, resource groups,
+      and analytics.
+    entries:
+      - label: Team seat
+        name: team_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$20'
+        userMultiplied: true
+      - label: Inference Providers credits per seat
+        name: inference_credits_per_seat
+        type: quota
+        metric: USD
+        limit: 2.00
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: SSO
+      - name: Storage regions (US, EU)
+      - name: Audit logs
+      - name: Resource groups
+      - name: Analytics
+      - name: Advanced compute
+  - id: hugging-face-enterprise
+    name: Enterprise Hub
+    type: enterprise
+    description: Enterprise per-seat plan with the highest limits, SCIM provisioning, dedicated support,
+      and contractual terms.
+    entries:
+      - label: Enterprise seat
+        name: enterprise_seat
+        type: subscription
+        metric: seat
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '$50+'
+        userMultiplied: true
+      - label: Inference Providers credits per seat
+        name: inference_credits_per_seat
+        type: quota
+        metric: USD
+        limit: 2.00
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: included
+        userMultiplied: true
+    elements:
+      - name: Highest rate limits
+      - name: SCIM provisioning
+      - name: Dedicated support
+      - name: Audit logs and compliance
+      - name: Storage regions
+  - id: hugging-face-inference-providers
+    name: Inference Providers (Pay-As-You-Go)
+    type: usage-based
+    description: Routed access to 200+ models across partner inference providers (Cerebras, Cohere,
+      Fireworks, Groq, Together, Replicate, fal, Sambanova, etc). Pass-through provider rates with
+      no Hugging Face markup.
+    entries:
+      - label: Inference request (routed)
+        name: inference_request
+        type: metered
+        metric: token
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: see provider rate card
+        userMultiplied: false
+    elements:
+      - name: 200+ models across multiple providers
+      - name: OpenAI-compatible chat completions endpoint
+      - name: Auto provider selection (fastest / cheapest / preferred)
+      - name: No additional Hugging Face markup
+  - id: hugging-face-inference-endpoints
+    name: Inference Endpoints
+    type: usage-based
+    description: Dedicated managed inference deployments billed per replica-hour by hardware tier.
+    entries:
+      - label: CPU - AWS Sapphire Rapids (1 vCPU)
+        name: cpu_aws_1vcpu
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.03
+        userMultiplied: false
+      - label: CPU - AWS Sapphire Rapids (16 vCPU)
+        name: cpu_aws_16vcpu
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.54
+        userMultiplied: false
+      - label: GPU - NVIDIA T4 (1x, 14GB)
+        name: gpu_t4
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.50
+        userMultiplied: false
+      - label: GPU - NVIDIA L40S (1x, 48GB)
+        name: gpu_l40s
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $1.80
+        userMultiplied: false
+      - label: GPU - NVIDIA A100 (1x, 80GB)
+        name: gpu_a100
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $2.50
+        userMultiplied: false
+      - label: GPU - NVIDIA H100 (1x, 80GB)
+        name: gpu_h100
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $4.50
+        userMultiplied: false
+      - label: GPU - NVIDIA H200 (1x, 141GB)
+        name: gpu_h200
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $5.00
+        userMultiplied: false
+      - label: GPU - NVIDIA B200 (1x, 179GB)
+        name: gpu_b200
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $9.25
+        userMultiplied: false
+      - label: GPU - NVIDIA A100 (8x, 640GB)
+        name: gpu_a100_8x
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $20.00
+        userMultiplied: false
+      - label: Accelerator - AWS Inf2 Neuron
+        name: accelerator_inf2
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.75
+        userMultiplied: false
+      - label: Accelerator - GCP TPU v5e (1x1)
+        name: accelerator_tpu_v5e
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $1.20
+        userMultiplied: false
+    elements:
+      - name: Auto-scaling and scale-to-zero
+      - name: Multi-cloud (AWS, Azure, GCP)
+      - name: Private VPC deployment options
+  - id: hugging-face-spaces
+    name: Spaces Hardware
+    type: usage-based
+    description: Hosted Gradio/Streamlit/Docker apps billed per hour by hardware. ZeroGPU is free with
+      dynamic allocation on H200.
+    entries:
+      - label: CPU Basic
+        name: spaces_cpu_basic
+        type: flat
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: CPU Upgrade (8 vCPU, 32GB)
+        name: spaces_cpu_upgrade
         type: metered
-        metric: requests
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.03
+        userMultiplied: false
+      - label: NVIDIA T4 small
+        name: spaces_t4_small
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.40
+        userMultiplied: false
+      - label: NVIDIA L4 (1x)
+        name: spaces_l4
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.80
+        userMultiplied: false
+      - label: NVIDIA A10G small
+        name: spaces_a10g_small
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $1.00
+        userMultiplied: false
+      - label: NVIDIA A100 large (1x, 80GB)
+        name: spaces_a100
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $2.50
+        userMultiplied: false
+      - label: 8x NVIDIA A100
+        name: spaces_a100_8x
+        type: metered
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $20.00
+        userMultiplied: false
+      - label: ZeroGPU (H200, dynamic)
+        name: spaces_zerogpu
+        type: flat
+        metric: instance-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: Free CPU Basic and ZeroGPU tiers
+      - name: Persistent storage add-ons
+  - id: hugging-face-storage
+    name: Hub Storage
+    type: usage-based
+    description: Tiered TB/month storage pricing for repositories. Public repos cheaper than private;
+      volume discounts at 50TB, 200TB, 500TB.
+    entries:
+      - label: Public storage (0-50TB)
+        name: storage_public_base
+        type: tiered
+        metric: gb
         limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
         unit: 1000
-        price: TBD
+        price: $12/TB
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Hugging Face Inference API
-      - name: Hugging Face Hub API
-      - name: Hugging Face Inference Endpoints API
-      - name: Hugging Face Inference Providers API
-      - name: Hugging Face Dataset Viewer API
-      - name: Hugging Face Text Generation Inference API
-  - id: hugging-face-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Hugging Face. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Public storage (50TB+)
+        name: storage_public_50tb
+        type: tiered
+        metric: gb
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
-        unit: 1
-        price: custom
+        geo: global
+        unit: 1000
+        price: $10/TB
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api-inference.huggingface.co
-          - https://huggingface.co/api
-          - https://api.endpoints.huggingface.cloud
-          - https://router.huggingface.co/v1
-          - https://datasets-server.huggingface.co
-        unit: 1
-        price: custom
+      - label: Public storage (200TB+)
+        name: storage_public_200tb
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $9/TB
+        userMultiplied: false
+      - label: Public storage (500TB+)
+        name: storage_public_500tb
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $8/TB
+        userMultiplied: false
+      - label: Private storage (0-50TB)
+        name: storage_private_base
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $18/TB
+        userMultiplied: false
+      - label: Private storage (50TB+)
+        name: storage_private_50tb
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $16/TB
+        userMultiplied: false
+      - label: Private storage (200TB+)
+        name: storage_private_200tb
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $14/TB
+        userMultiplied: false
+      - label: Private storage (500TB+)
+        name: storage_private_500tb
+        type: tiered
+        metric: gb
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1000
+        price: $12/TB
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Hugging Face Inference API
-      - name: Hugging Face Hub API
-      - name: Hugging Face Inference Endpoints API
-      - name: Hugging Face Inference Providers API
-      - name: Hugging Face Dataset Viewer API
-      - name: Hugging Face Text Generation Inference API
+      - name: Volume discounts at 50/200/500 TB
+      - name: Public vs private repo pricing
 maintainers:
-  - name: Kin Lane
+  - FN: Kin Lane
     email: kin@apievangelist.com
-    url: https://apievangelist.com
