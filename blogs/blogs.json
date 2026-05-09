@@ -4,10 +4,10 @@
     {
       "source": "https://huggingface.co/blog",
       "feed_url": "https://huggingface.co/blog/feed.xml",
-      "saved": 10,
-      "title": "Hugging Face - Blog"
+      "title": "Hugging Face - Blog",
+      "saved": 4
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:29:22Z"
+  "post_count": 14,
+  "fetched": "2026-05-09T20:17:51Z"
 }
