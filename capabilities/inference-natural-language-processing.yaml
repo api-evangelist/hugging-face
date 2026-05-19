@@ -1,0 +1,568 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Inference API — Natural Language Processing
+  description: 'Hugging Face Inference API — Natural Language Processing. 11 operations. Lead operation: Run Inference on
+    a Model. Self-contained Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Natural Language Processing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inference-natural-language-processing
+    baseUri: https://api-inference.huggingface.co
+    description: Hugging Face Inference API — Natural Language Processing business capability. Self-contained, no shared references.
+    resources:
+    - name: models-model_id
+      path: /models/{model_id}
+      operations:
+      - name: runinference
+        method: POST
+        description: Run Inference on a Model
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          description: The model ID on the Hugging Face Hub (e.g., gpt2, bert-base-uncased)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-feature-extraction
+      path: /models/{model_id}/feature-extraction
+      operations:
+      - name: featureextraction
+        method: POST
+        description: Feature Extraction Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-fill-mask
+      path: /models/{model_id}/fill-mask
+      operations:
+      - name: fillmask
+        method: POST
+        description: Fill Mask Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-question-answering
+      path: /models/{model_id}/question-answering
+      operations:
+      - name: questionanswering
+        method: POST
+        description: Question Answering Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-sentence-similarity
+      path: /models/{model_id}/sentence-similarity
+      operations:
+      - name: sentencesimilarity
+        method: POST
+        description: Sentence Similarity Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-summarization
+      path: /models/{model_id}/summarization
+      operations:
+      - name: summarization
+        method: POST
+        description: Text Summarization Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-text-classification
+      path: /models/{model_id}/text-classification
+      operations:
+      - name: textclassification
+        method: POST
+        description: Text Classification Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-text-generation
+      path: /models/{model_id}/text-generation
+      operations:
+      - name: textgeneration
+        method: POST
+        description: Text Generation Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-translation
+      path: /models/{model_id}/translation
+      operations:
+      - name: translation
+        method: POST
+        description: Translation Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: models-model_id-zero-shot-classification
+      path: /models/{model_id}/zero-shot-classification
+      operations:
+      - name: zeroshotclassification
+        method: POST
+        description: Zero-shot Classification Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: pipeline-task
+      path: /pipeline/{task}
+      operations:
+      - name: runpipelineinference
+        method: POST
+        description: Run Inference by Task Pipeline
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task
+          in: path
+          type: string
+          description: The pipeline task type (e.g., text-generation, text-classification, summarization)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inference-natural-language-processing-rest
+    port: 8080
+    description: REST adapter for Hugging Face Inference API — Natural Language Processing. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/models/{model-id}
+      name: models-model-id
+      description: REST surface for models-model_id.
+      operations:
+      - method: POST
+        name: runinference
+        description: Run Inference on a Model
+        call: inference-natural-language-processing.runinference
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/feature-extraction
+      name: models-model-id-feature-extraction
+      description: REST surface for models-model_id-feature-extraction.
+      operations:
+      - method: POST
+        name: featureextraction
+        description: Feature Extraction Inference
+        call: inference-natural-language-processing.featureextraction
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/fill-mask
+      name: models-model-id-fill-mask
+      description: REST surface for models-model_id-fill-mask.
+      operations:
+      - method: POST
+        name: fillmask
+        description: Fill Mask Inference
+        call: inference-natural-language-processing.fillmask
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/question-answering
+      name: models-model-id-question-answering
+      description: REST surface for models-model_id-question-answering.
+      operations:
+      - method: POST
+        name: questionanswering
+        description: Question Answering Inference
+        call: inference-natural-language-processing.questionanswering
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/sentence-similarity
+      name: models-model-id-sentence-similarity
+      description: REST surface for models-model_id-sentence-similarity.
+      operations:
+      - method: POST
+        name: sentencesimilarity
+        description: Sentence Similarity Inference
+        call: inference-natural-language-processing.sentencesimilarity
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/summarization
+      name: models-model-id-summarization
+      description: REST surface for models-model_id-summarization.
+      operations:
+      - method: POST
+        name: summarization
+        description: Text Summarization Inference
+        call: inference-natural-language-processing.summarization
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/text-classification
+      name: models-model-id-text-classification
+      description: REST surface for models-model_id-text-classification.
+      operations:
+      - method: POST
+        name: textclassification
+        description: Text Classification Inference
+        call: inference-natural-language-processing.textclassification
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/text-generation
+      name: models-model-id-text-generation
+      description: REST surface for models-model_id-text-generation.
+      operations:
+      - method: POST
+        name: textgeneration
+        description: Text Generation Inference
+        call: inference-natural-language-processing.textgeneration
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/translation
+      name: models-model-id-translation
+      description: REST surface for models-model_id-translation.
+      operations:
+      - method: POST
+        name: translation
+        description: Translation Inference
+        call: inference-natural-language-processing.translation
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/models/{model-id}/zero-shot-classification
+      name: models-model-id-zero-shot-classification
+      description: REST surface for models-model_id-zero-shot-classification.
+      operations:
+      - method: POST
+        name: zeroshotclassification
+        description: Zero-shot Classification Inference
+        call: inference-natural-language-processing.zeroshotclassification
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/pipeline/{task}
+      name: pipeline-task
+      description: REST surface for pipeline-task.
+      operations:
+      - method: POST
+        name: runpipelineinference
+        description: Run Inference by Task Pipeline
+        call: inference-natural-language-processing.runpipelineinference
+        with:
+          task: rest.task
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inference-natural-language-processing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Inference API — Natural Language Processing. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: run-inference-model
+      description: Run Inference on a Model
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.runinference
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: feature-extraction-inference
+      description: Feature Extraction Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.featureextraction
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: fill-mask-inference
+      description: Fill Mask Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.fillmask
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: question-answering-inference
+      description: Question Answering Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.questionanswering
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sentence-similarity-inference
+      description: Sentence Similarity Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.sentencesimilarity
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: text-summarization-inference
+      description: Text Summarization Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.summarization
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: text-classification-inference
+      description: Text Classification Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.textclassification
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: text-generation-inference
+      description: Text Generation Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.textgeneration
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: translation-inference
+      description: Translation Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.translation
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: zero-shot-classification-inference
+      description: Zero-shot Classification Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.zeroshotclassification
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: run-inference-task-pipeline
+      description: Run Inference by Task Pipeline
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-natural-language-processing.runpipelineinference
+      with:
+        task: tools.task
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

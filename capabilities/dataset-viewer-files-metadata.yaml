@@ -1,0 +1,220 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Dataset Viewer API — Files & Metadata
+  description: 'Hugging Face Dataset Viewer API — Files & Metadata. 4 operations. Lead operation: Get Croissant Metadata.
+    Self-contained Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Files & Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dataset-viewer-files-metadata
+    baseUri: https://datasets-server.huggingface.co
+    description: Hugging Face Dataset Viewer API — Files & Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: croissant
+      path: /croissant
+      operations:
+      - name: getcroissantmetadata
+        method: GET
+        description: Get Croissant Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+    - name: parquet
+      path: /parquet
+      operations:
+      - name: getparquetfiles
+        method: GET
+        description: List Parquet Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+    - name: size
+      path: /size
+      operations:
+      - name: getdatasetsize
+        method: GET
+        description: Get Dataset Size
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+    - name: statistics
+      path: /statistics
+      operations:
+      - name: getstatistics
+        method: GET
+        description: Get Dataset Statistics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+        - name: config
+          in: query
+          type: string
+          description: The subset (configuration) name
+          required: true
+        - name: split
+          in: query
+          type: string
+          description: The split name
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: dataset-viewer-files-metadata-rest
+    port: 8080
+    description: REST adapter for Hugging Face Dataset Viewer API — Files & Metadata. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/croissant
+      name: croissant
+      description: REST surface for croissant.
+      operations:
+      - method: GET
+        name: getcroissantmetadata
+        description: Get Croissant Metadata
+        call: dataset-viewer-files-metadata.getcroissantmetadata
+        with:
+          dataset: rest.dataset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/parquet
+      name: parquet
+      description: REST surface for parquet.
+      operations:
+      - method: GET
+        name: getparquetfiles
+        description: List Parquet Files
+        call: dataset-viewer-files-metadata.getparquetfiles
+        with:
+          dataset: rest.dataset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/size
+      name: size
+      description: REST surface for size.
+      operations:
+      - method: GET
+        name: getdatasetsize
+        description: Get Dataset Size
+        call: dataset-viewer-files-metadata.getdatasetsize
+        with:
+          dataset: rest.dataset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/statistics
+      name: statistics
+      description: REST surface for statistics.
+      operations:
+      - method: GET
+        name: getstatistics
+        description: Get Dataset Statistics
+        call: dataset-viewer-files-metadata.getstatistics
+        with:
+          dataset: rest.dataset
+          config: rest.config
+          split: rest.split
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dataset-viewer-files-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Dataset Viewer API — Files & Metadata. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-croissant-metadata
+      description: Get Croissant Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-files-metadata.getcroissantmetadata
+      with:
+        dataset: tools.dataset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-parquet-files
+      description: List Parquet Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-files-metadata.getparquetfiles
+      with:
+        dataset: tools.dataset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dataset-size
+      description: Get Dataset Size
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-files-metadata.getdatasetsize
+      with:
+        dataset: tools.dataset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dataset-statistics
+      description: Get Dataset Statistics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-files-metadata.getstatistics
+      with:
+        dataset: tools.dataset
+        config: tools.config
+        split: tools.split
+      outputParameters:
+      - type: object
+        mapping: $.

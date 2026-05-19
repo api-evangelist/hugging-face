@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Inference Providers API — Audio
+  description: 'Hugging Face Inference Providers API — Audio. 2 operations. Lead operation: Generate Speech. Self-contained
+    Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Audio
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inference-providers-audio
+    baseUri: https://router.huggingface.co
+    description: Hugging Face Inference Providers API — Audio business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-audio-speech
+      path: /v1/audio/speech
+      operations:
+      - name: createspeech
+        method: POST
+        description: Generate Speech
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-audio-transcriptions
+      path: /v1/audio/transcriptions
+      operations:
+      - name: createtranscription
+        method: POST
+        description: Transcribe Audio
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inference-providers-audio-rest
+    port: 8080
+    description: REST adapter for Hugging Face Inference Providers API — Audio. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/audio/speech
+      name: v1-audio-speech
+      description: REST surface for v1-audio-speech.
+      operations:
+      - method: POST
+        name: createspeech
+        description: Generate Speech
+        call: inference-providers-audio.createspeech
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/audio/transcriptions
+      name: v1-audio-transcriptions
+      description: REST surface for v1-audio-transcriptions.
+      operations:
+      - method: POST
+        name: createtranscription
+        description: Transcribe Audio
+        call: inference-providers-audio.createtranscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inference-providers-audio-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Inference Providers API — Audio. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: generate-speech
+      description: Generate Speech
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-providers-audio.createspeech
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: transcribe-audio
+      description: Transcribe Audio
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-providers-audio.createtranscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

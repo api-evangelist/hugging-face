@@ -1,0 +1,230 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Hub API — Datasets
+  description: 'Hugging Face Hub API — Datasets. 4 operations. Lead operation: List Datasets on the Hub. Self-contained Naftiko
+    capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Datasets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: hub-datasets
+    baseUri: https://huggingface.co/api
+    description: Hugging Face Hub API — Datasets business capability. Self-contained, no shared references.
+    resources:
+    - name: datasets
+      path: /datasets
+      operations:
+      - name: listdatasets
+        method: GET
+        description: List Datasets on the Hub
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+          description: Full-text search query to filter datasets
+        - name: author
+          in: query
+          type: string
+          description: Filter by dataset author or organization
+        - name: filter
+          in: query
+          type: string
+          description: Filter by tags (comma-separated)
+        - name: sort
+          in: query
+          type: string
+          description: Property to sort results by
+        - name: direction
+          in: query
+          type: string
+          description: Sort direction
+        - name: limit
+          in: query
+          type: integer
+          description: Number of results to return
+        - name: full
+          in: query
+          type: boolean
+          description: Whether to return full dataset information
+    - name: datasets-tags-by-type
+      path: /datasets-tags-by-type
+      operations:
+      - name: listdatasettags
+        method: GET
+        description: List Dataset Tags Grouped by Type
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: datasets-repo_id
+      path: /datasets/{repo_id}
+      operations:
+      - name: getdataset
+        method: GET
+        description: Get Dataset Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: repo_id
+          in: path
+          type: string
+          description: The dataset repository ID
+          required: true
+    - name: datasets-repo_id-parquet
+      path: /datasets/{repo_id}/parquet
+      operations:
+      - name: getdatasetparquet
+        method: GET
+        description: Get Dataset Parquet Files
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: repo_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: hub-datasets-rest
+    port: 8080
+    description: REST adapter for Hugging Face Hub API — Datasets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/datasets
+      name: datasets
+      description: REST surface for datasets.
+      operations:
+      - method: GET
+        name: listdatasets
+        description: List Datasets on the Hub
+        call: hub-datasets.listdatasets
+        with:
+          search: rest.search
+          author: rest.author
+          filter: rest.filter
+          sort: rest.sort
+          direction: rest.direction
+          limit: rest.limit
+          full: rest.full
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/datasets-tags-by-type
+      name: datasets-tags-by-type
+      description: REST surface for datasets-tags-by-type.
+      operations:
+      - method: GET
+        name: listdatasettags
+        description: List Dataset Tags Grouped by Type
+        call: hub-datasets.listdatasettags
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/datasets/{repo-id}
+      name: datasets-repo-id
+      description: REST surface for datasets-repo_id.
+      operations:
+      - method: GET
+        name: getdataset
+        description: Get Dataset Information
+        call: hub-datasets.getdataset
+        with:
+          repo_id: rest.repo_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/datasets/{repo-id}/parquet
+      name: datasets-repo-id-parquet
+      description: REST surface for datasets-repo_id-parquet.
+      operations:
+      - method: GET
+        name: getdatasetparquet
+        description: Get Dataset Parquet Files
+        call: hub-datasets.getdatasetparquet
+        with:
+          repo_id: rest.repo_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: hub-datasets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Hub API — Datasets. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-datasets-hub
+      description: List Datasets on the Hub
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hub-datasets.listdatasets
+      with:
+        search: tools.search
+        author: tools.author
+        filter: tools.filter
+        sort: tools.sort
+        direction: tools.direction
+        limit: tools.limit
+        full: tools.full
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-dataset-tags-grouped-type
+      description: List Dataset Tags Grouped by Type
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hub-datasets.listdatasettags
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dataset-information
+      description: Get Dataset Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hub-datasets.getdataset
+      with:
+        repo_id: tools.repo_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dataset-parquet-files
+      description: Get Dataset Parquet Files
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: hub-datasets.getdatasetparquet
+      with:
+        repo_id: tools.repo_id
+      outputParameters:
+      - type: object
+        mapping: $.

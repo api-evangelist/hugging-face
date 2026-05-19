@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Inference API — Multimodal
+  description: 'Hugging Face Inference API — Multimodal. 1 operations. Lead operation: Text to Image Generation. Self-contained
+    Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Multimodal
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inference-multimodal
+    baseUri: https://api-inference.huggingface.co
+    description: Hugging Face Inference API — Multimodal business capability. Self-contained, no shared references.
+    resources:
+    - name: models-model_id-text-to-image
+      path: /models/{model_id}/text-to-image
+      operations:
+      - name: texttoimage
+        method: POST
+        description: Text to Image Generation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inference-multimodal-rest
+    port: 8080
+    description: REST adapter for Hugging Face Inference API — Multimodal. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/models/{model-id}/text-to-image
+      name: models-model-id-text-to-image
+      description: REST surface for models-model_id-text-to-image.
+      operations:
+      - method: POST
+        name: texttoimage
+        description: Text to Image Generation
+        call: inference-multimodal.texttoimage
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inference-multimodal-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Inference API — Multimodal. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: text-image-generation
+      description: Text to Image Generation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-multimodal.texttoimage
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

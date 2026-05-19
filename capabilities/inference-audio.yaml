@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Inference API — Audio
+  description: 'Hugging Face Inference API — Audio. 1 operations. Lead operation: Automatic Speech Recognition Inference.
+    Self-contained Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Audio
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inference-audio
+    baseUri: https://api-inference.huggingface.co
+    description: Hugging Face Inference API — Audio business capability. Self-contained, no shared references.
+    resources:
+    - name: models-model_id-automatic-speech-recognition
+      path: /models/{model_id}/automatic-speech-recognition
+      operations:
+      - name: automaticspeechrecognition
+        method: POST
+        description: Automatic Speech Recognition Inference
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: model_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inference-audio-rest
+    port: 8080
+    description: REST adapter for Hugging Face Inference API — Audio. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/models/{model-id}/automatic-speech-recognition
+      name: models-model-id-automatic-speech-recognition
+      description: REST surface for models-model_id-automatic-speech-recognition.
+      operations:
+      - method: POST
+        name: automaticspeechrecognition
+        description: Automatic Speech Recognition Inference
+        call: inference-audio.automaticspeechrecognition
+        with:
+          model_id: rest.model_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inference-audio-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Inference API — Audio. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: automatic-speech-recognition-inference
+      description: Automatic Speech Recognition Inference
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-audio.automaticspeechrecognition
+      with:
+        model_id: tools.model_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,189 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Dataset Viewer API — Search & Filter
+  description: 'Hugging Face Dataset Viewer API — Search & Filter. 2 operations. Lead operation: Filter Rows in a Split. Self-contained
+    Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Search & Filter
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: dataset-viewer-search-filter
+    baseUri: https://datasets-server.huggingface.co
+    description: Hugging Face Dataset Viewer API — Search & Filter business capability. Self-contained, no shared references.
+    resources:
+    - name: filter
+      path: /filter
+      operations:
+      - name: filterrows
+        method: GET
+        description: Filter Rows in a Split
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+        - name: config
+          in: query
+          type: string
+          description: The subset (configuration) name
+          required: true
+        - name: split
+          in: query
+          type: string
+          description: The split name
+          required: true
+        - name: where
+          in: query
+          type: string
+          description: SQL-like WHERE clause for filtering (e.g., "label = 1" or "score > 0.5")
+        - name: orderby
+          in: query
+          type: string
+          description: SQL-like ORDER BY clause for sorting
+        - name: offset
+          in: query
+          type: integer
+        - name: length
+          in: query
+          type: integer
+    - name: search
+      path: /search
+      operations:
+      - name: searchrows
+        method: GET
+        description: Search Text in a Split
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: query
+          type: string
+          description: The dataset ID
+          required: true
+        - name: config
+          in: query
+          type: string
+          description: The subset (configuration) name
+          required: true
+        - name: split
+          in: query
+          type: string
+          description: The split name
+          required: true
+        - name: query
+          in: query
+          type: string
+          description: Search query string
+          required: true
+        - name: offset
+          in: query
+          type: integer
+        - name: length
+          in: query
+          type: integer
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: dataset-viewer-search-filter-rest
+    port: 8080
+    description: REST adapter for Hugging Face Dataset Viewer API — Search & Filter. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/filter
+      name: filter
+      description: REST surface for filter.
+      operations:
+      - method: GET
+        name: filterrows
+        description: Filter Rows in a Split
+        call: dataset-viewer-search-filter.filterrows
+        with:
+          dataset: rest.dataset
+          config: rest.config
+          split: rest.split
+          where: rest.where
+          orderby: rest.orderby
+          offset: rest.offset
+          length: rest.length
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/search
+      name: search
+      description: REST surface for search.
+      operations:
+      - method: GET
+        name: searchrows
+        description: Search Text in a Split
+        call: dataset-viewer-search-filter.searchrows
+        with:
+          dataset: rest.dataset
+          config: rest.config
+          split: rest.split
+          query: rest.query
+          offset: rest.offset
+          length: rest.length
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: dataset-viewer-search-filter-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Dataset Viewer API — Search & Filter. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: filter-rows-split
+      description: Filter Rows in a Split
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-search-filter.filterrows
+      with:
+        dataset: tools.dataset
+        config: tools.config
+        split: tools.split
+        where: tools.where
+        orderby: tools.orderby
+        offset: tools.offset
+        length: tools.length
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-text-split
+      description: Search Text in a Split
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: dataset-viewer-search-filter.searchrows
+      with:
+        dataset: tools.dataset
+        config: tools.config
+        split: tools.split
+        query: tools.query
+        offset: tools.offset
+        length: tools.length
+      outputParameters:
+      - type: object
+        mapping: $.

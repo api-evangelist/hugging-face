@@ -1,0 +1,492 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Hugging Face Inference Endpoints API — Endpoints
+  description: 'Hugging Face Inference Endpoints API — Endpoints. 10 operations. Lead operation: List All Endpoints. Self-contained
+    Naftiko capability covering one Hugging Face business surface.'
+  tags:
+  - Hugging Face
+  - Endpoints
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    HUGGING_FACE_API_KEY: HUGGING_FACE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inference-endpoints-endpoints
+    baseUri: https://api.endpoints.huggingface.cloud/v2
+    description: Hugging Face Inference Endpoints API — Endpoints business capability. Self-contained, no shared references.
+    resources:
+    - name: endpoint-namespace
+      path: /endpoint/{namespace}
+      operations:
+      - name: listendpoints
+        method: GET
+        description: List All Endpoints
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: User or organization namespace
+          required: true
+      - name: createendpoint
+        method: POST
+        description: Create a New Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          description: User or organization namespace
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: endpoint-namespace-endpoint_name
+      path: /endpoint/{namespace}/{endpoint_name}
+      operations:
+      - name: getendpoint
+        method: GET
+        description: Get Endpoint Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          description: Name of the endpoint
+          required: true
+      - name: updateendpoint
+        method: PUT
+        description: Update an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteendpoint
+        method: DELETE
+        description: Delete an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    - name: endpoint-namespace-endpoint_name-logs
+      path: /endpoint/{namespace}/{endpoint_name}/logs
+      operations:
+      - name: getendpointlogs
+        method: GET
+        description: Get Endpoint Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    - name: endpoint-namespace-endpoint_name-metrics
+      path: /endpoint/{namespace}/{endpoint_name}/metrics
+      operations:
+      - name: getendpointmetrics
+        method: GET
+        description: Get Endpoint Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    - name: endpoint-namespace-endpoint_name-pause
+      path: /endpoint/{namespace}/{endpoint_name}/pause
+      operations:
+      - name: pauseendpoint
+        method: POST
+        description: Pause an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    - name: endpoint-namespace-endpoint_name-resume
+      path: /endpoint/{namespace}/{endpoint_name}/resume
+      operations:
+      - name: resumeendpoint
+        method: POST
+        description: Resume an Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    - name: endpoint-namespace-endpoint_name-scale-to-zero
+      path: /endpoint/{namespace}/{endpoint_name}/scale-to-zero
+      operations:
+      - name: scaletozero
+        method: POST
+        description: Scale Endpoint to Zero
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: namespace
+          in: path
+          type: string
+          required: true
+        - name: endpoint_name
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.HUGGING_FACE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inference-endpoints-endpoints-rest
+    port: 8080
+    description: REST adapter for Hugging Face Inference Endpoints API — Endpoints. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/endpoint/{namespace}
+      name: endpoint-namespace
+      description: REST surface for endpoint-namespace.
+      operations:
+      - method: GET
+        name: listendpoints
+        description: List All Endpoints
+        call: inference-endpoints-endpoints.listendpoints
+        with:
+          namespace: rest.namespace
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createendpoint
+        description: Create a New Endpoint
+        call: inference-endpoints-endpoints.createendpoint
+        with:
+          namespace: rest.namespace
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}
+      name: endpoint-namespace-endpoint-name
+      description: REST surface for endpoint-namespace-endpoint_name.
+      operations:
+      - method: GET
+        name: getendpoint
+        description: Get Endpoint Details
+        call: inference-endpoints-endpoints.getendpoint
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateendpoint
+        description: Update an Endpoint
+        call: inference-endpoints-endpoints.updateendpoint
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteendpoint
+        description: Delete an Endpoint
+        call: inference-endpoints-endpoints.deleteendpoint
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}/logs
+      name: endpoint-namespace-endpoint-name-logs
+      description: REST surface for endpoint-namespace-endpoint_name-logs.
+      operations:
+      - method: GET
+        name: getendpointlogs
+        description: Get Endpoint Logs
+        call: inference-endpoints-endpoints.getendpointlogs
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}/metrics
+      name: endpoint-namespace-endpoint-name-metrics
+      description: REST surface for endpoint-namespace-endpoint_name-metrics.
+      operations:
+      - method: GET
+        name: getendpointmetrics
+        description: Get Endpoint Metrics
+        call: inference-endpoints-endpoints.getendpointmetrics
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}/pause
+      name: endpoint-namespace-endpoint-name-pause
+      description: REST surface for endpoint-namespace-endpoint_name-pause.
+      operations:
+      - method: POST
+        name: pauseendpoint
+        description: Pause an Endpoint
+        call: inference-endpoints-endpoints.pauseendpoint
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}/resume
+      name: endpoint-namespace-endpoint-name-resume
+      description: REST surface for endpoint-namespace-endpoint_name-resume.
+      operations:
+      - method: POST
+        name: resumeendpoint
+        description: Resume an Endpoint
+        call: inference-endpoints-endpoints.resumeendpoint
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/endpoint/{namespace}/{endpoint-name}/scale-to-zero
+      name: endpoint-namespace-endpoint-name-scale-to-zero
+      description: REST surface for endpoint-namespace-endpoint_name-scale-to-zero.
+      operations:
+      - method: POST
+        name: scaletozero
+        description: Scale Endpoint to Zero
+        call: inference-endpoints-endpoints.scaletozero
+        with:
+          namespace: rest.namespace
+          endpoint_name: rest.endpoint_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inference-endpoints-endpoints-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Hugging Face Inference Endpoints API — Endpoints. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-all-endpoints
+      description: List All Endpoints
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inference-endpoints-endpoints.listendpoints
+      with:
+        namespace: tools.namespace
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-endpoint
+      description: Create a New Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-endpoints-endpoints.createendpoint
+      with:
+        namespace: tools.namespace
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-endpoint-details
+      description: Get Endpoint Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inference-endpoints-endpoints.getendpoint
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-endpoint
+      description: Update an Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: inference-endpoints-endpoints.updateendpoint
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-endpoint
+      description: Delete an Endpoint
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: inference-endpoints-endpoints.deleteendpoint
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-endpoint-logs
+      description: Get Endpoint Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inference-endpoints-endpoints.getendpointlogs
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-endpoint-metrics
+      description: Get Endpoint Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inference-endpoints-endpoints.getendpointmetrics
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-endpoint
+      description: Pause an Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-endpoints-endpoints.pauseendpoint
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: resume-endpoint
+      description: Resume an Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-endpoints-endpoints.resumeendpoint
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: scale-endpoint-zero
+      description: Scale Endpoint to Zero
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inference-endpoints-endpoints.scaletozero
+      with:
+        namespace: tools.namespace
+        endpoint_name: tools.endpoint_name
+      outputParameters:
+      - type: object
+        mapping: $.
