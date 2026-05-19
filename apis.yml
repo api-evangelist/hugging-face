@@ -5,7 +5,7 @@ description: >-
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
-modified: '2026-04-18'
+modified: '2026-05-19'
 specificationVersion: '0.18'
 apis:
   - name: Hugging Face Inference API
@@ -270,6 +270,12 @@ common:
     url: json-ld/hugging-face-context.jsonld
   - type: Integrations
     url: https://huggingface.co/integrations
+  - name: MCP Server
+    url: https://github.com/huggingface/hf-mcp-server
+    type: MCPServer
+  - name: Agent Skills
+    url: https://github.com/huggingface/skills
+    type: AgentSkill
 integrations:
   - name: models 0
   - name: datasets 0
