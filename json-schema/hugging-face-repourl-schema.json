@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RepoUrl",
+  "title": "RepoUrl",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL of the created repository",
+      "example": "https://www.example.com"
+    }
+  }
+}

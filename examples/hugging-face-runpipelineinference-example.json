@@ -1,0 +1,46 @@
+{
+  "operationId": "runPipelineInference",
+  "method": "POST",
+  "path": "/pipeline/{task}",
+  "summary": "Run Inference by Task Pipeline",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RunpipelineinferenceRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": "example_value",
+        "options": {
+          "use_cache": true,
+          "wait_for_model": true
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Runpipelineinference200Example",
+      "example": {}
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Runpipelineinference400Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Runpipelineinference429Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    }
+  ]
+}

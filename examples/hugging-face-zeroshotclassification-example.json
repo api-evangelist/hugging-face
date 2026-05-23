@@ -1,0 +1,37 @@
+{
+  "operationId": "zeroShotClassification",
+  "method": "POST",
+  "path": "/models/{model_id}/zero-shot-classification",
+  "summary": "Zero-shot Classification Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "ZeroshotclassificationRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": {
+          "candidate_labels": [
+            "example_value"
+          ],
+          "multi_label": true
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Zeroshotclassification200Example",
+      "example": {
+        "sequence": "example_value",
+        "labels": [
+          "example_value"
+        ],
+        "scores": [
+          42.5
+        ]
+      }
+    }
+  ]
+}

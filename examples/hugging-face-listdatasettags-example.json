@@ -1,0 +1,15 @@
+{
+  "operationId": "listDatasetTags",
+  "method": "GET",
+  "path": "/datasets-tags-by-type",
+  "summary": "List Dataset Tags Grouped by Type",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdatasettags200Example",
+      "example": {}
+    }
+  ]
+}

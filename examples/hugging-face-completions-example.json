@@ -1,0 +1,68 @@
+{
+  "operationId": "completions",
+  "method": "POST",
+  "path": "/v1/completions",
+  "summary": "Create Text Completion (openai Compatible)",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CompletionsRequestExample",
+      "example": {
+        "model": "example_value",
+        "prompt": "example_value",
+        "max_tokens": 10,
+        "temperature": 42.5,
+        "top_p": 42.5,
+        "stop": [
+          "example_value"
+        ],
+        "stream": true,
+        "seed": 10,
+        "suffix": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Completions200Example",
+      "example": {
+        "id": "abc123",
+        "object": "example_value",
+        "created": 10,
+        "model": "example_value",
+        "choices": [
+          {
+            "text": "example_value",
+            "index": 10,
+            "finish_reason": "example_value"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 10,
+          "total_tokens": 10
+        }
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "text/event-stream",
+      "name": "Completions200Example",
+      "example": {
+        "id": "abc123",
+        "object": "example_value",
+        "created": 10,
+        "model": "example_value",
+        "choices": [
+          {
+            "text": "example_value",
+            "index": 10,
+            "finish_reason": "example_value"
+          }
+        ]
+      }
+    }
+  ]
+}

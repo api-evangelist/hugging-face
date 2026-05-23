@@ -1,0 +1,40 @@
+{
+  "operationId": "getCroissantMetadata",
+  "method": "GET",
+  "path": "/croissant",
+  "summary": "Get Croissant Metadata",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getcroissantmetadata200Example",
+      "example": {
+        "@context": "example_value",
+        "@type": "example_value",
+        "name": "Example Title",
+        "description": "A sample description.",
+        "url": "https://www.example.com",
+        "distribution": [
+          {}
+        ],
+        "recordSet": [
+          {}
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getcroissantmetadata404Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

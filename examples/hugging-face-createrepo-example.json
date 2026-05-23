@@ -1,0 +1,47 @@
+{
+  "operationId": "createRepo",
+  "method": "POST",
+  "path": "/repos/create",
+  "summary": "Create a New Repository",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreaterepoRequestExample",
+      "example": {
+        "name": "Example Title",
+        "type": "model",
+        "organization": "example_value",
+        "private": true,
+        "sdk": "gradio"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createrepo200Example",
+      "example": {
+        "url": "https://www.example.com"
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Createrepo401Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    },
+    {
+      "status": "409",
+      "contentType": "application/json",
+      "name": "Createrepo409Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "operationId": "imageClassification",
+  "method": "POST",
+  "path": "/models/{model_id}/image-classification",
+  "summary": "Image Classification Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/octet-stream",
+      "name": "ImageclassificationRequestExample",
+      "example": "example_value"
+    },
+    {
+      "contentType": "application/json",
+      "name": "ImageclassificationRequestExample",
+      "example": {
+        "inputs": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Imageclassification200Example",
+      "example": [
+        {
+          "label": "Example Title",
+          "score": 42.5
+        }
+      ]
+    }
+  ]
+}

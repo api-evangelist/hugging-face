@@ -1,0 +1,50 @@
+{
+  "operationId": "whoami",
+  "method": "GET",
+  "path": "/whoami-v2",
+  "summary": "Get Current User Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Whoami200Example",
+      "example": {
+        "type": "example_value",
+        "id": "abc123",
+        "name": "Example Title",
+        "fullname": "example_value",
+        "email": "user@example.com",
+        "emailVerified": "user@example.com",
+        "plan": "example_value",
+        "canPay": true,
+        "avatarUrl": "https://www.example.com",
+        "orgs": [
+          {
+            "name": "Example Title",
+            "fullname": "example_value",
+            "email": "user@example.com",
+            "plan": "example_value",
+            "avatarUrl": "https://www.example.com",
+            "isEnterprise": true
+          }
+        ],
+        "auth": {
+          "accessToken": {
+            "displayName": "example_value",
+            "role": "example_value"
+          }
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Whoami401Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

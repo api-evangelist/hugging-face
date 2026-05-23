@@ -1,0 +1,24 @@
+{
+  "operationId": "getSpace",
+  "method": "GET",
+  "path": "/spaces/{repo_id}",
+  "summary": "Get Space Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getspace200Example",
+      "example": {}
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getspace404Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

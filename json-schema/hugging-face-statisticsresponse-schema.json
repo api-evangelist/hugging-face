@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StatisticsResponse",
+  "title": "StatisticsResponse",
+  "type": "object",
+  "properties": {
+    "num_examples": {
+      "type": "integer",
+      "description": "Total number of examples analyzed",
+      "example": 10
+    },
+    "statistics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "column_name": {
+            "type": "string",
+            "description": "Name of the column"
+          },
+          "column_type": {
+            "type": "string",
+            "description": "Data type of the column"
+          },
+          "column_statistics": {
+            "type": "object",
+            "description": "Statistics for the column",
+            "properties": {
+              "nan_count": {
+                "type": "integer"
+              },
+              "nan_proportion": {
+                "type": "number",
+                "format": "float"
+              },
+              "min": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "max": {
+                "oneOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "mean": {
+                "type": "number",
+                "format": "float"
+              },
+              "median": {
+                "type": "number",
+                "format": "float"
+              },
+              "std": {
+                "type": "number",
+                "format": "float"
+              },
+              "histogram": {
+                "type": "object",
+                "properties": {
+                  "hist": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "bin_edges": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "frequencies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "proportion": {
+                      "type": "number",
+                      "format": "float"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "partial": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

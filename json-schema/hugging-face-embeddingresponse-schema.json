@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbeddingResponse",
+  "title": "EmbeddingResponse",
+  "type": "object",
+  "properties": {
+    "object": {
+      "type": "string",
+      "const": "list",
+      "example": "example_value"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "object": {
+            "type": "string",
+            "const": "embedding"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "embedding": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "model": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "prompt_tokens": {
+          "type": "integer"
+        },
+        "total_tokens": {
+          "type": "integer"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

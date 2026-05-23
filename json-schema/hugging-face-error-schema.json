@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message",
+      "example": "example_value"
+    },
+    "cause_exception": {
+      "type": "string",
+      "description": "Underlying exception type",
+      "example": "example_value"
+    },
+    "cause_message": {
+      "type": "string",
+      "description": "Underlying exception message",
+      "example": "example_value"
+    },
+    "cause_traceback": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Stack trace (only in development)",
+      "example": []
+    }
+  }
+}

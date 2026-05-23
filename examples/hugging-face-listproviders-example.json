@@ -1,0 +1,26 @@
+{
+  "operationId": "listProviders",
+  "method": "GET",
+  "path": "/provider",
+  "summary": "List Available Providers",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listproviders200Example",
+      "example": {
+        "items": [
+          {
+            "vendor": "aws",
+            "region": "example_value",
+            "status": "available",
+            "accelerators": [
+              {}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

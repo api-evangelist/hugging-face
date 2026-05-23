@@ -1,0 +1,40 @@
+{
+  "operationId": "getParquetFiles",
+  "method": "GET",
+  "path": "/parquet",
+  "summary": "List Parquet Files",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getparquetfiles200Example",
+      "example": {
+        "parquet_files": [
+          {
+            "dataset": "example_value",
+            "config": "example_value",
+            "split": "example_value",
+            "url": "https://www.example.com",
+            "filename": "example_value",
+            "size": 10
+          }
+        ],
+        "partial": true
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getparquetfiles404Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

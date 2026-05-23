@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompletionResponse",
+  "title": "CompletionResponse",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "abc123"
+    },
+    "object": {
+      "type": "string",
+      "const": "text_completion",
+      "example": "example_value"
+    },
+    "created": {
+      "type": "integer",
+      "example": 10
+    },
+    "model": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "finish_reason": {
+            "type": "string"
+          }
+        }
+      },
+      "example": []
+    },
+    "usage": {
+      "$ref": "#/components/schemas/Usage"
+    }
+  }
+}

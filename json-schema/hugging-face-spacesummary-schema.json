@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SpaceSummary",
+  "title": "SpaceSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "id": {
+      "type": "string",
+      "description": "Space repository ID",
+      "example": "abc123"
+    },
+    "author": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sha": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "private": {
+      "type": "boolean",
+      "example": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "likes": {
+      "type": "integer",
+      "example": 10
+    },
+    "sdk": {
+      "type": "string",
+      "description": "SDK used by the Space",
+      "enum": [
+        "gradio",
+        "streamlit",
+        "docker",
+        "static"
+      ],
+      "example": "gradio"
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": [
+            "RUNNING",
+            "STOPPED",
+            "BUILDING",
+            "PAUSED",
+            "ERROR"
+          ]
+        },
+        "hardware": {
+          "type": "object",
+          "properties": {
+            "current": {
+              "type": "string"
+            },
+            "requested": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

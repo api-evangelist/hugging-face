@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ClassificationResult",
+  "title": "ClassificationResult",
+  "type": "object",
+  "properties": {
+    "label": {
+      "type": "string",
+      "description": "The predicted label",
+      "example": "POSITIVE"
+    },
+    "score": {
+      "type": "number",
+      "format": "float",
+      "description": "Confidence score for the label",
+      "example": 0.9998
+    }
+  }
+}

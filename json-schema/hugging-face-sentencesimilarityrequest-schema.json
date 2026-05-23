@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SentenceSimilarityRequest",
+  "title": "SentenceSimilarityRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "object",
+      "required": [
+        "source_sentence",
+        "sentences"
+      ],
+      "properties": {
+        "source_sentence": {
+          "type": "string",
+          "description": "The source sentence to compare against"
+        },
+        "sentences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Target sentences to compare with"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

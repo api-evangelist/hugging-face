@@ -1,0 +1,51 @@
+{
+  "operationId": "filterRows",
+  "method": "GET",
+  "path": "/filter",
+  "summary": "Filter Rows in a Split",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Filterrows200Example",
+      "example": {
+        "features": [
+          {
+            "feature_idx": 10,
+            "name": "Example Title",
+            "type": {
+              "dtype": "example_value",
+              "_type": "example_value"
+            }
+          }
+        ],
+        "rows": [
+          {
+            "row_idx": 10,
+            "row": "example_value",
+            "truncated_cells": [
+              {}
+            ]
+          }
+        ],
+        "num_rows_total": 10,
+        "num_rows_per_page": 10,
+        "partial": true
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Filterrows400Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

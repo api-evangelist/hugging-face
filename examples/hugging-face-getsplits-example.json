@@ -1,0 +1,55 @@
+{
+  "operationId": "getSplits",
+  "method": "GET",
+  "path": "/splits",
+  "summary": "Get Dataset Splits",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getsplits200Example",
+      "example": {
+        "splits": [
+          {
+            "dataset": "example_value",
+            "config": "example_value",
+            "split": "example_value"
+          }
+        ],
+        "pending": [
+          {}
+        ],
+        "failed": [
+          {}
+        ]
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getsplits404Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    },
+    {
+      "status": "500",
+      "contentType": "application/json",
+      "name": "Getsplits500Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "operationId": "translation",
+  "method": "POST",
+  "path": "/models/{model_id}/translation",
+  "summary": "Translation Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TranslationRequestExample",
+      "example": {
+        "inputs": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Translation200Example",
+      "example": [
+        {
+          "translation_text": "example_value"
+        }
+      ]
+    }
+  ]
+}

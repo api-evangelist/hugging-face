@@ -1,0 +1,98 @@
+{
+  "operationId": "generate",
+  "method": "POST",
+  "path": "/generate",
+  "summary": "Generate Text",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GenerateRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": {
+          "max_new_tokens": 10,
+          "temperature": 42.5,
+          "top_p": 42.5,
+          "top_k": 10,
+          "repetition_penalty": 42.5,
+          "do_sample": true,
+          "seed": 10,
+          "stop": [
+            "example_value"
+          ],
+          "watermark": true,
+          "return_full_text": true,
+          "decoder_input_details": true,
+          "details": true,
+          "truncate": 10,
+          "typical_p": 42.5,
+          "best_of": 10,
+          "grammar": {
+            "type": "json",
+            "value": "example_value"
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Generate200Example",
+      "example": {
+        "generated_text": "example_value",
+        "details": {
+          "finish_reason": "length",
+          "generated_tokens": 10,
+          "seed": 10,
+          "prefill": [
+            {
+              "id": "abc123",
+              "text": "example_value",
+              "logprob": 42.5
+            }
+          ],
+          "tokens": [
+            {
+              "id": "abc123",
+              "text": "example_value",
+              "logprob": 42.5,
+              "special": true
+            }
+          ],
+          "best_of_sequences": [
+            {}
+          ]
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Generate400Example",
+      "example": {
+        "error": "example_value",
+        "error_type": "example_value"
+      }
+    },
+    {
+      "status": "422",
+      "contentType": "application/json",
+      "name": "Generate422Example",
+      "example": {
+        "error": "example_value",
+        "error_type": "example_value"
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Generate429Example",
+      "example": {
+        "error": "example_value",
+        "error_type": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "operationId": "getEndpointMetrics",
+  "method": "GET",
+  "path": "/endpoint/{namespace}/{endpoint_name}/metrics",
+  "summary": "Get Endpoint Metrics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getendpointmetrics200Example",
+      "example": {
+        "request_count": 10,
+        "request_duration_ms": {
+          "p50": 42.5,
+          "p90": 42.5,
+          "p99": 42.5
+        },
+        "error_rate": 42.5,
+        "tokens_per_second": 42.5
+      }
+    }
+  ]
+}

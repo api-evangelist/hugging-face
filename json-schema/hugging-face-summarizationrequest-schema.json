@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SummarizationRequest",
+  "title": "SummarizationRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text to summarize",
+      "example": "example_value"
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "min_length": {
+          "type": "integer",
+          "description": "Minimum length of the summary"
+        },
+        "max_length": {
+          "type": "integer",
+          "description": "Maximum length of the summary"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

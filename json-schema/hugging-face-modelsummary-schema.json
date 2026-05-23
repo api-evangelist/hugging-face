@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModelSummary",
+  "title": "ModelSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Unique model identifier",
+      "example": "500123"
+    },
+    "id": {
+      "type": "string",
+      "description": "Model repository ID (e.g., bert-base-uncased)",
+      "example": "abc123"
+    },
+    "modelId": {
+      "type": "string",
+      "description": "Alias for id",
+      "example": "500123"
+    },
+    "author": {
+      "type": "string",
+      "description": "Model author or organization",
+      "example": "example_value"
+    },
+    "sha": {
+      "type": "string",
+      "description": "Latest commit SHA",
+      "example": "example_value"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification timestamp",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "private": {
+      "type": "boolean",
+      "description": "Whether the model is private",
+      "example": true
+    },
+    "disabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "gated": {
+      "type": "boolean",
+      "description": "Whether access is gated",
+      "example": true
+    },
+    "pipeline_tag": {
+      "type": "string",
+      "description": "Pipeline task tag",
+      "example": "example_value"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "downloads": {
+      "type": "integer",
+      "description": "Total download count",
+      "example": 10
+    },
+    "likes": {
+      "type": "integer",
+      "description": "Total like count",
+      "example": 10
+    },
+    "library_name": {
+      "type": "string",
+      "description": "Primary ML library",
+      "example": "example_value"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    }
+  }
+}

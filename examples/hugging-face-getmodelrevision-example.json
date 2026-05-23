@@ -1,0 +1,15 @@
+{
+  "operationId": "getModelRevision",
+  "method": "GET",
+  "path": "/models/{repo_id}/revision/{revision}",
+  "summary": "Get Model Information at a Specific Revision",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getmodelrevision200Example",
+      "example": {}
+    }
+  ]
+}

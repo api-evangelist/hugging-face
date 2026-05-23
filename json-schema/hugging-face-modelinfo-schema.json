@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModelInfo",
+  "title": "ModelInfo",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/ModelSummary"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "siblings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rfilename": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              },
+              "lfs": {
+                "type": "object",
+                "properties": {
+                  "sha256": {
+                    "type": "string"
+                  },
+                  "size": {
+                    "type": "integer"
+                  },
+                  "pointerSize": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Files in the repository"
+        },
+        "spaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Spaces using this model"
+        },
+        "safetensors": {
+          "type": "object",
+          "properties": {
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "description": "Safetensors parameter information"
+        },
+        "config": {
+          "type": "object",
+          "description": "Model configuration"
+        },
+        "cardData": {
+          "type": "object",
+          "description": "Parsed model card metadata"
+        },
+        "transformersInfo": {
+          "type": "object",
+          "properties": {
+            "auto_model": {
+              "type": "string"
+            },
+            "pipeline_tag": {
+              "type": "string"
+            },
+            "processor": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

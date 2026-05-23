@@ -1,0 +1,51 @@
+{
+  "operationId": "createImageGeneration",
+  "method": "POST",
+  "path": "/v1/images/generations",
+  "summary": "Generate Images",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateimagegenerationRequestExample",
+      "example": {
+        "model": "example_value",
+        "prompt": "example_value",
+        "n": 10,
+        "size": "256x256",
+        "response_format": "url",
+        "negative_prompt": "example_value",
+        "num_inference_steps": 10,
+        "guidance_scale": 42.5
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createimagegeneration200Example",
+      "example": {
+        "created": 10,
+        "data": [
+          {
+            "url": "https://www.example.com",
+            "b64_json": "example_value",
+            "revised_prompt": "example_value"
+          }
+        ]
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Createimagegeneration400Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

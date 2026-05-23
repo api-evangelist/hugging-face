@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SpaceInfo",
+  "title": "SpaceInfo",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/SpaceSummary"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "siblings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rfilename": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "cardData": {
+          "type": "object",
+          "description": "Parsed Space card metadata"
+        }
+      }
+    }
+  ]
+}

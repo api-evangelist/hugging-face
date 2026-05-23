@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TextGenerationResponse",
+  "title": "TextGenerationResponse",
+  "type": "object",
+  "properties": {
+    "generated_text": {
+      "type": "string",
+      "description": "The generated text",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompletionRequest",
+  "title": "CompletionRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "prompt"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model ID to use",
+      "example": "example_value"
+    },
+    "prompt": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Prompt(s) to generate completions for",
+      "example": "example_value"
+    },
+    "max_tokens": {
+      "type": "integer",
+      "default": 16,
+      "example": 10
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1.0,
+      "example": 42.5
+    },
+    "top_p": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 1.0,
+      "example": 42.5
+    },
+    "stop": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "example": []
+    },
+    "stream": {
+      "type": "boolean",
+      "default": false,
+      "example": true
+    },
+    "seed": {
+      "type": "integer",
+      "example": 10
+    }
+  }
+}

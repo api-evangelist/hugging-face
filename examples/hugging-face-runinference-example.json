@@ -1,0 +1,82 @@
+{
+  "operationId": "runInference",
+  "method": "POST",
+  "path": "/models/{model_id}",
+  "summary": "Run Inference on a Model",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "RuninferenceRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": "example_value",
+        "options": {
+          "use_cache": true,
+          "wait_for_model": true
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Runinference200Example",
+      "example": {}
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Runinference400Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Runinference401Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "403",
+      "contentType": "application/json",
+      "name": "Runinference403Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Runinference404Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Runinference429Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "503",
+      "contentType": "application/json",
+      "name": "Runinference503Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    }
+  ]
+}

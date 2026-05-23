@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SizeResponse",
+  "title": "SizeResponse",
+  "type": "object",
+  "properties": {
+    "size": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "type": "object",
+          "properties": {
+            "dataset": {
+              "type": "string"
+            },
+            "num_bytes_original_files": {
+              "type": "integer",
+              "description": "Original files size in bytes"
+            },
+            "num_bytes_parquet_files": {
+              "type": "integer",
+              "description": "Parquet files size in bytes"
+            },
+            "num_bytes_memory": {
+              "type": "integer",
+              "description": "Estimated in-memory size in bytes"
+            },
+            "num_rows": {
+              "type": "integer",
+              "description": "Total number of rows"
+            }
+          }
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dataset": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              },
+              "num_bytes_original_files": {
+                "type": "integer"
+              },
+              "num_bytes_parquet_files": {
+                "type": "integer"
+              },
+              "num_bytes_memory": {
+                "type": "integer"
+              },
+              "num_rows": {
+                "type": "integer"
+              },
+              "num_columns": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "splits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dataset": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              },
+              "split": {
+                "type": "string"
+              },
+              "num_bytes_parquet_files": {
+                "type": "integer"
+              },
+              "num_bytes_memory": {
+                "type": "integer"
+              },
+              "num_rows": {
+                "type": "integer"
+              },
+              "num_columns": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "partial": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

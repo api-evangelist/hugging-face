@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TextToImageRequest",
+  "title": "TextToImageRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text prompt to generate an image from",
+      "example": "A beautiful sunset over mountains"
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "negative_prompt": {
+          "type": "string",
+          "description": "Text describing what to avoid in the image"
+        },
+        "height": {
+          "type": "integer",
+          "description": "Height of the generated image in pixels"
+        },
+        "width": {
+          "type": "integer",
+          "description": "Width of the generated image in pixels"
+        },
+        "num_inference_steps": {
+          "type": "integer",
+          "description": "Number of denoising steps"
+        },
+        "guidance_scale": {
+          "type": "number",
+          "format": "float",
+          "description": "Classifier-free guidance scale"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

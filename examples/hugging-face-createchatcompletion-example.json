@@ -1,0 +1,179 @@
+{
+  "operationId": "createChatCompletion",
+  "method": "POST",
+  "path": "/v1/chat/completions",
+  "summary": "Create Chat Completion",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreatechatcompletionRequestExample",
+      "example": {
+        "model": "example_value",
+        "messages": [
+          {
+            "role": "system",
+            "content": "example_value",
+            "name": "Example Title",
+            "tool_calls": [
+              {}
+            ],
+            "tool_call_id": "500123"
+          }
+        ],
+        "frequency_penalty": 42.5,
+        "logprobs": true,
+        "max_tokens": 10,
+        "presence_penalty": 42.5,
+        "reasoning_effort": "example_value",
+        "response_format": "example_value",
+        "seed": 10,
+        "stop": [
+          "example_value"
+        ],
+        "stream": true,
+        "stream_options": {
+          "include_usage": true
+        },
+        "temperature": 42.5,
+        "tool_choice": "example_value",
+        "tool_prompt": "example_value",
+        "tools": [
+          {
+            "type": "example_value",
+            "function": {
+              "name": "Example Title",
+              "description": "A sample description.",
+              "parameters": "example_value"
+            }
+          }
+        ],
+        "top_logprobs": 10,
+        "top_p": 42.5
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createchatcompletion200Example",
+      "example": {
+        "id": "abc123",
+        "object": "example_value",
+        "created": 10,
+        "model": "example_value",
+        "system_fingerprint": "example_value",
+        "choices": [
+          {
+            "index": 10,
+            "message": {
+              "role": "example_value",
+              "content": "example_value",
+              "tool_calls": {}
+            },
+            "finish_reason": "stop",
+            "logprobs": {
+              "content": {}
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 10,
+          "total_tokens": 10
+        }
+      }
+    },
+    {
+      "status": "200",
+      "contentType": "text/event-stream",
+      "name": "Createchatcompletion200Example",
+      "example": {
+        "id": "abc123",
+        "object": "example_value",
+        "created": 10,
+        "model": "example_value",
+        "system_fingerprint": "example_value",
+        "choices": [
+          {
+            "index": 10,
+            "delta": {
+              "role": "example_value",
+              "content": "example_value",
+              "tool_calls": {}
+            },
+            "finish_reason": "example_value",
+            "logprobs": {
+              "content": {}
+            }
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 10,
+          "total_tokens": 10
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Createchatcompletion400Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Createchatcompletion401Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Createchatcompletion404Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Createchatcompletion429Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    },
+    {
+      "status": "502",
+      "contentType": "application/json",
+      "name": "Createchatcompletion502Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

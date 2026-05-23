@@ -1,0 +1,35 @@
+{
+  "operationId": "listModels",
+  "method": "GET",
+  "path": "/models",
+  "summary": "List Models on the Hub",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmodels200Example",
+      "example": [
+        {
+          "_id": "500123",
+          "id": "abc123",
+          "modelId": "500123",
+          "author": "example_value",
+          "sha": "example_value",
+          "lastModified": "2026-01-15T10:30:00Z",
+          "private": true,
+          "disabled": true,
+          "gated": true,
+          "pipeline_tag": "example_value",
+          "tags": [
+            "example_value"
+          ],
+          "downloads": 10,
+          "likes": 10,
+          "library_name": "example_value",
+          "createdAt": "2026-01-15T10:30:00Z"
+        }
+      ]
+    }
+  ]
+}

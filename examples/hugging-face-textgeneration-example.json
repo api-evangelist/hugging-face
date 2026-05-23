@@ -1,0 +1,61 @@
+{
+  "operationId": "textGeneration",
+  "method": "POST",
+  "path": "/models/{model_id}/text-generation",
+  "summary": "Text Generation Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TextgenerationRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": {
+          "max_new_tokens": 10,
+          "temperature": 42.5,
+          "top_p": 42.5,
+          "top_k": 10,
+          "repetition_penalty": 42.5,
+          "do_sample": true,
+          "return_full_text": true,
+          "stop": [
+            "example_value"
+          ]
+        },
+        "options": {
+          "use_cache": true,
+          "wait_for_model": true
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Textgeneration200Example",
+      "example": [
+        {
+          "generated_text": "example_value"
+        }
+      ]
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Textgeneration400Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    },
+    {
+      "status": "503",
+      "contentType": "application/json",
+      "name": "Textgeneration503Example",
+      "example": {
+        "error": "example_value",
+        "estimated_time": 42.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QuestionAnsweringRequest",
+  "title": "QuestionAnsweringRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "object",
+      "required": [
+        "question",
+        "context"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "The question to answer",
+          "example": "What is the capital of France?"
+        },
+        "context": {
+          "type": "string",
+          "description": "The context containing the answer",
+          "example": "France is a country in Europe. Its capital is Paris."
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

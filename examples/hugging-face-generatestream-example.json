@@ -1,0 +1,77 @@
+{
+  "operationId": "generateStream",
+  "method": "POST",
+  "path": "/generate_stream",
+  "summary": "Generate Text With Streaming",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "GeneratestreamRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": {
+          "max_new_tokens": 10,
+          "temperature": 42.5,
+          "top_p": 42.5,
+          "top_k": 10,
+          "repetition_penalty": 42.5,
+          "do_sample": true,
+          "seed": 10,
+          "stop": [
+            "example_value"
+          ],
+          "watermark": true,
+          "return_full_text": true,
+          "decoder_input_details": true,
+          "details": true,
+          "truncate": 10,
+          "typical_p": 42.5,
+          "best_of": 10,
+          "grammar": {
+            "type": "json",
+            "value": "example_value"
+          }
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "text/event-stream",
+      "name": "Generatestream200Example",
+      "example": {
+        "token": {
+          "id": "abc123",
+          "text": "example_value",
+          "logprob": 42.5,
+          "special": true
+        },
+        "generated_text": "example_value",
+        "details": {
+          "finish_reason": "example_value",
+          "generated_tokens": 10,
+          "seed": 10
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Generatestream400Example",
+      "example": {
+        "error": "example_value",
+        "error_type": "example_value"
+      }
+    },
+    {
+      "status": "429",
+      "contentType": "application/json",
+      "name": "Generatestream429Example",
+      "example": {
+        "error": "example_value",
+        "error_type": "example_value"
+      }
+    }
+  ]
+}

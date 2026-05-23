@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QuestionAnsweringResponse",
+  "title": "QuestionAnsweringResponse",
+  "type": "object",
+  "properties": {
+    "answer": {
+      "type": "string",
+      "description": "The extracted answer",
+      "example": "Paris"
+    },
+    "score": {
+      "type": "number",
+      "format": "float",
+      "description": "Confidence score",
+      "example": 42.5
+    },
+    "start": {
+      "type": "integer",
+      "description": "Start character position in context",
+      "example": 10
+    },
+    "end": {
+      "type": "integer",
+      "description": "End character position in context",
+      "example": 10
+    }
+  }
+}

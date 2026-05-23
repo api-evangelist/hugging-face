@@ -1,0 +1,24 @@
+{
+  "operationId": "getEndpointLogs",
+  "method": "GET",
+  "path": "/endpoint/{namespace}/{endpoint_name}/logs",
+  "summary": "Get Endpoint Logs",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "text/plain",
+      "name": "Getendpointlogs200Example",
+      "example": "example_value"
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getendpointlogs404Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

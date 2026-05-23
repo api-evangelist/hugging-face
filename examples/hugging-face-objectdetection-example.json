@@ -1,0 +1,32 @@
+{
+  "operationId": "objectDetection",
+  "method": "POST",
+  "path": "/models/{model_id}/object-detection",
+  "summary": "Object Detection Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/octet-stream",
+      "name": "ObjectdetectionRequestExample",
+      "example": "example_value"
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Objectdetection200Example",
+      "example": [
+        {
+          "label": "Example Title",
+          "score": 42.5,
+          "box": {
+            "xmin": 10,
+            "ymin": 10,
+            "xmax": 10,
+            "ymax": 10
+          }
+        }
+      ]
+    }
+  ]
+}

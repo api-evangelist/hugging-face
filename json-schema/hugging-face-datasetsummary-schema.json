@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DatasetSummary",
+  "title": "DatasetSummary",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string",
+      "example": "500123"
+    },
+    "id": {
+      "type": "string",
+      "description": "Dataset repository ID",
+      "example": "abc123"
+    },
+    "author": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "sha": {
+      "type": "string",
+      "example": "example_value"
+    },
+    "lastModified": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "private": {
+      "type": "boolean",
+      "example": true
+    },
+    "gated": {
+      "type": "boolean",
+      "example": true
+    },
+    "disabled": {
+      "type": "boolean",
+      "example": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "example": []
+    },
+    "downloads": {
+      "type": "integer",
+      "example": 10
+    },
+    "likes": {
+      "type": "integer",
+      "example": 10
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2026-01-15T10:30:00Z"
+    },
+    "description": {
+      "type": "string",
+      "example": "A sample description."
+    }
+  }
+}

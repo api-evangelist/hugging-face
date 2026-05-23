@@ -1,0 +1,173 @@
+{
+  "provider": "Hugging Face",
+  "providerId": "hugging-face",
+  "kind": "json-structure",
+  "description": "Structural overview of the Hugging Face API surface; extracted from openapi/.",
+  "schemaCount": 12,
+  "operationCount": 9,
+  "schemas": [
+    {
+      "name": "GenerateRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "inputs"
+      ]
+    },
+    {
+      "name": "GenerateResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "StreamResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ChatCompletionRequest",
+      "type": "object",
+      "propertyCount": 17,
+      "required": [
+        "model",
+        "messages"
+      ]
+    },
+    {
+      "name": "ChatCompletionResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "ChatCompletionStreamResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "CompletionRequest",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "model",
+        "prompt"
+      ]
+    },
+    {
+      "name": "CompletionResponse",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "CompletionStreamResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Info",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "Usage",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ErrorResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/generate",
+      "operationId": "generate",
+      "summary": "Generate Text",
+      "tags": [
+        "Text Generation"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/generate_stream",
+      "operationId": "generateStream",
+      "summary": "Generate Text With Streaming",
+      "tags": [
+        "Text Generation"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/chat/completions",
+      "operationId": "chatCompletions",
+      "summary": "Create Chat Completion (openai Compatible)",
+      "tags": [
+        "Chat"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/completions",
+      "operationId": "completions",
+      "summary": "Create Text Completion (openai Compatible)",
+      "tags": [
+        "Text Generation"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/models",
+      "operationId": "listModels",
+      "summary": "List Available Models",
+      "tags": [
+        "Info"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/info",
+      "operationId": "getInfo",
+      "summary": "Get Server Information",
+      "tags": [
+        "Info"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "operationId": "healthCheck",
+      "summary": "Health Check",
+      "tags": [
+        "Info"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics",
+      "operationId": "getMetrics",
+      "summary": "Get Prometheus Metrics",
+      "tags": [
+        "Info"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tokenize",
+      "operationId": "tokenize",
+      "summary": "Tokenize Text",
+      "tags": [
+        "Info"
+      ]
+    }
+  ]
+}

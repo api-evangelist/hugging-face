@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModelLoadingResponse",
+  "title": "ModelLoadingResponse",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error message indicating the model is loading",
+      "example": "Model is currently loading"
+    },
+    "estimated_time": {
+      "type": "number",
+      "format": "float",
+      "description": "Estimated time in seconds until the model is ready",
+      "example": 42.5
+    }
+  }
+}

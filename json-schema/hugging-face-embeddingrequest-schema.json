@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EmbeddingRequest",
+  "title": "EmbeddingRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "input"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Embedding model ID",
+      "example": "sentence-transformers/all-MiniLM-L6-v2"
+    },
+    "input": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "Text input(s) to embed",
+      "example": "example_value"
+    },
+    "encoding_format": {
+      "type": "string",
+      "enum": [
+        "float",
+        "base64"
+      ],
+      "default": "float",
+      "example": "float"
+    }
+  }
+}

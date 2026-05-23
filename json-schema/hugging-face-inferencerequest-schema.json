@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InferenceRequest",
+  "title": "InferenceRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ],
+      "description": "The input data for inference",
+      "example": "example_value"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Task-specific parameters",
+      "example": "example_value"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "use_cache": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use cached results if available"
+        },
+        "wait_for_model": {
+          "type": "boolean",
+          "default": false,
+          "description": "Wait for the model to load instead of returning 503"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SpeechRecognitionResponse",
+  "title": "SpeechRecognitionResponse",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "The transcribed text",
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "operationId": "createEmbeddings",
+  "method": "POST",
+  "path": "/v1/embeddings",
+  "summary": "Create Embeddings",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "CreateembeddingsRequestExample",
+      "example": {
+        "model": "example_value",
+        "input": "example_value",
+        "encoding_format": "float"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createembeddings200Example",
+      "example": {
+        "object": "example_value",
+        "data": [
+          {
+            "object": "example_value",
+            "index": 10,
+            "embedding": [
+              {}
+            ]
+          }
+        ],
+        "model": "example_value",
+        "usage": {
+          "prompt_tokens": 10,
+          "total_tokens": 10
+        }
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Createembeddings400Example",
+      "example": {
+        "error": {
+          "message": "example_value",
+          "type": "example_value",
+          "code": "example_value"
+        }
+      }
+    }
+  ]
+}

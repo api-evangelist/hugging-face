@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FillMaskRequest",
+  "title": "FillMaskRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "Text with [MASK] token to fill",
+      "example": "The capital of France is [MASK]."
+    }
+  }
+}

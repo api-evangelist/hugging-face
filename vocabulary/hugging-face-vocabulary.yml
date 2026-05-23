@@ -1,0 +1,11 @@
+name: Hugging Face Domain Vocabulary
+provider: Hugging Face
+providerId: hugging-face
+description: Tag-derived vocabulary for the Hugging Face API surface; sourced from openapi/ tags.
+terms:
+- term: Text Generation
+  description: TGI native text generation endpoints
+- term: Chat
+  description: OpenAI-compatible chat completion endpoints
+- term: Info
+  description: Server and model information

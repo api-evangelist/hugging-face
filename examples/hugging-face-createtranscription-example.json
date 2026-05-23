@@ -1,0 +1,30 @@
+{
+  "operationId": "createTranscription",
+  "method": "POST",
+  "path": "/v1/audio/transcriptions",
+  "summary": "Transcribe Audio",
+  "requestExamples": [
+    {
+      "contentType": "multipart/form-data",
+      "name": "CreatetranscriptionRequestExample",
+      "example": {
+        "file": "example_value",
+        "model": "example_value",
+        "language": "example_value",
+        "prompt": "example_value",
+        "response_format": "json",
+        "temperature": 42.5
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Createtranscription200Example",
+      "example": {
+        "text": "example_value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "operationId": "sentenceSimilarity",
+  "method": "POST",
+  "path": "/models/{model_id}/sentence-similarity",
+  "summary": "Sentence Similarity Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "SentencesimilarityRequestExample",
+      "example": {
+        "inputs": {
+          "source_sentence": "example_value",
+          "sentences": [
+            "example_value"
+          ]
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Sentencesimilarity200Example",
+      "example": [
+        42.5
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "operationId": "featureExtraction",
+  "method": "POST",
+  "path": "/models/{model_id}/feature-extraction",
+  "summary": "Feature Extraction Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "FeatureextractionRequestExample",
+      "example": {
+        "inputs": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Featureextraction200Example",
+      "example": [
+        [
+          42.5
+        ]
+      ]
+    }
+  ]
+}

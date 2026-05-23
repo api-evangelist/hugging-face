@@ -1,0 +1,37 @@
+{
+  "operationId": "deleteRepo",
+  "method": "DELETE",
+  "path": "/repos/delete",
+  "summary": "Delete a Repository",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "DeleterepoRequestExample",
+      "example": {
+        "name": "Example Title",
+        "type": "model",
+        "organization": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Deleterepo401Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    },
+    {
+      "status": "403",
+      "contentType": "application/json",
+      "name": "Deleterepo403Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

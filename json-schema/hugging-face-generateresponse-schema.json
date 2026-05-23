@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenerateResponse",
+  "title": "GenerateResponse",
+  "type": "object",
+  "properties": {
+    "generated_text": {
+      "type": "string",
+      "description": "The generated text",
+      "example": "example_value"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "finish_reason": {
+          "type": "string",
+          "enum": [
+            "length",
+            "eos_token",
+            "stop_sequence"
+          ],
+          "description": "Reason generation stopped"
+        },
+        "generated_tokens": {
+          "type": "integer",
+          "description": "Number of generated tokens"
+        },
+        "seed": {
+          "type": "integer",
+          "description": "Sampling seed used"
+        },
+        "prefill": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "text": {
+                "type": "string"
+              },
+              "logprob": {
+                "type": "number"
+              }
+            }
+          },
+          "description": "Prefill token details"
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "text": {
+                "type": "string"
+              },
+              "logprob": {
+                "type": "number"
+              },
+              "special": {
+                "type": "boolean"
+              }
+            }
+          },
+          "description": "Generated token details"
+        },
+        "best_of_sequences": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "description": "Best-of sequences details"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

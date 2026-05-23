@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Endpoint",
+  "title": "Endpoint",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Endpoint name",
+      "example": "my-text-gen-endpoint"
+    },
+    "type": {
+      "type": "string",
+      "description": "Endpoint type",
+      "enum": [
+        "public",
+        "protected",
+        "private"
+      ],
+      "example": "public"
+    },
+    "accountId": {
+      "type": "string",
+      "example": "500123"
+    },
+    "provider": {
+      "type": "object",
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "description": "Cloud vendor",
+          "enum": [
+            "aws",
+            "azure",
+            "gcp"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Cloud region",
+          "example": "us-east-1"
+        }
+      },
+      "example": "example_value"
+    },
+    "compute": {
+      "type": "object",
+      "properties": {
+        "accelerator": {
+          "type": "string",
+          "description": "GPU or accelerator type",
+          "example": "gpu"
+        },
+        "instanceType": {
+          "type": "string",
+          "description": "Instance type identifier",
+          "example": "nvidia-a10g"
+        },
+        "instanceSize": {
+          "type": "string",
+          "description": "Instance size",
+          "example": "x1"
+        },
+        "scaling": {
+          "type": "object",
+          "properties": {
+            "minReplica": {
+              "type": "integer",
+              "description": "Minimum number of replicas",
+              "example": 0
+            },
+            "maxReplica": {
+              "type": "integer",
+              "description": "Maximum number of replicas",
+              "example": 2
+            },
+            "scaleToZeroTimeout": {
+              "type": "integer",
+              "description": "Minutes of inactivity before scaling to zero",
+              "example": 15
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "repository": {
+          "type": "string",
+          "description": "Model repository ID on the Hub",
+          "example": "meta-llama/Llama-2-7b-chat-hf"
+        },
+        "revision": {
+          "type": "string",
+          "description": "Model revision or branch",
+          "example": "main"
+        },
+        "task": {
+          "type": "string",
+          "description": "Inference task",
+          "example": "text-generation"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Serving framework",
+          "enum": [
+            "pytorch",
+            "custom"
+          ]
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "huggingface": {
+              "type": "object",
+              "description": "Hugging Face optimized container settings"
+            },
+            "custom": {
+              "type": "object",
+              "description": "Custom container settings",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "port": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "example": "example_value"
+    },
+    "status": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "Current endpoint state",
+          "enum": [
+            "pending",
+            "initializing",
+            "running",
+            "updating",
+            "paused",
+            "scaledToZero",
+            "failed"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable status message"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Inference URL for the running endpoint"
+        }
+      },
+      "example": "example_value"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Inference URL for the endpoint",
+      "example": "https://www.example.com"
+    }
+  }
+}

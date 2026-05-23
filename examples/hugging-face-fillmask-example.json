@@ -1,0 +1,30 @@
+{
+  "operationId": "fillMask",
+  "method": "POST",
+  "path": "/models/{model_id}/fill-mask",
+  "summary": "Fill Mask Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "FillmaskRequestExample",
+      "example": {
+        "inputs": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Fillmask200Example",
+      "example": [
+        {
+          "sequence": "example_value",
+          "score": 42.5,
+          "token": 10,
+          "token_str": "example_value"
+        }
+      ]
+    }
+  ]
+}

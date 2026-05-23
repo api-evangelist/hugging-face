@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ValidityResponse",
+  "title": "ValidityResponse",
+  "type": "object",
+  "properties": {
+    "preview": {
+      "type": "boolean",
+      "description": "Whether preview (first rows) is available",
+      "example": true
+    },
+    "viewer": {
+      "type": "boolean",
+      "description": "Whether the full viewer is available",
+      "example": true
+    },
+    "search": {
+      "type": "boolean",
+      "description": "Whether full-text search is available",
+      "example": true
+    },
+    "filter": {
+      "type": "boolean",
+      "description": "Whether filtering is available",
+      "example": true
+    },
+    "statistics": {
+      "type": "boolean",
+      "description": "Whether statistics are available",
+      "example": true
+    }
+  }
+}

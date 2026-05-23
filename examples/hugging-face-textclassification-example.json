@@ -1,0 +1,30 @@
+{
+  "operationId": "textClassification",
+  "method": "POST",
+  "path": "/models/{model_id}/text-classification",
+  "summary": "Text Classification Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TextclassificationRequestExample",
+      "example": {
+        "inputs": "example_value"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Textclassification200Example",
+      "example": [
+        [
+          {
+            "label": "Example Title",
+            "score": 42.5
+          }
+        ]
+      ]
+    }
+  ]
+}

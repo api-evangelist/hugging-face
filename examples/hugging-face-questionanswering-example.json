@@ -1,0 +1,31 @@
+{
+  "operationId": "questionAnswering",
+  "method": "POST",
+  "path": "/models/{model_id}/question-answering",
+  "summary": "Question Answering Inference",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "QuestionansweringRequestExample",
+      "example": {
+        "inputs": {
+          "question": "example_value",
+          "context": "example_value"
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Questionanswering200Example",
+      "example": {
+        "answer": "example_value",
+        "score": 42.5,
+        "start": 10,
+        "end": 10
+      }
+    }
+  ]
+}

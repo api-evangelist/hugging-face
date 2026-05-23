@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchResponse",
+  "title": "SearchResponse",
+  "type": "object",
+  "properties": {
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "feature_idx": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "object"
+          }
+        }
+      },
+      "example": []
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row_idx": {
+            "type": "integer"
+          },
+          "row": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "truncated_cells": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "example": []
+    },
+    "num_rows_total": {
+      "type": "integer",
+      "description": "Total number of matching rows",
+      "example": 10
+    },
+    "num_rows_per_page": {
+      "type": "integer",
+      "example": 10
+    },
+    "partial": {
+      "type": "boolean",
+      "example": true
+    }
+  }
+}

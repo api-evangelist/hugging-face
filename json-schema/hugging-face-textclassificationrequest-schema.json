@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TextClassificationRequest",
+  "title": "TextClassificationRequest",
+  "type": "object",
+  "required": [
+    "inputs"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text to classify",
+      "example": "I love this movie!"
+    }
+  }
+}

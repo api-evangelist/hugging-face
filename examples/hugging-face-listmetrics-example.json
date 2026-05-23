@@ -1,0 +1,20 @@
+{
+  "operationId": "listMetrics",
+  "method": "GET",
+  "path": "/metrics",
+  "summary": "List Available Metrics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmetrics200Example",
+      "example": [
+        {
+          "id": "abc123",
+          "description": "A sample description."
+        }
+      ]
+    }
+  ]
+}

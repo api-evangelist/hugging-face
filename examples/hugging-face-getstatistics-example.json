@@ -1,0 +1,48 @@
+{
+  "operationId": "getStatistics",
+  "method": "GET",
+  "path": "/statistics",
+  "summary": "Get Dataset Statistics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getstatistics200Example",
+      "example": {
+        "num_examples": 10,
+        "statistics": [
+          {
+            "column_name": "example_value",
+            "column_type": "example_value",
+            "column_statistics": {
+              "nan_count": 10,
+              "nan_proportion": 42.5,
+              "min": "example_value",
+              "max": "example_value",
+              "mean": 42.5,
+              "median": 42.5,
+              "std": 42.5,
+              "histogram": {},
+              "frequencies": {}
+            }
+          }
+        ],
+        "partial": true
+      }
+    },
+    {
+      "status": "400",
+      "contentType": "application/json",
+      "name": "Getstatistics400Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "operationId": "automaticSpeechRecognition",
+  "method": "POST",
+  "path": "/models/{model_id}/automatic-speech-recognition",
+  "summary": "Automatic Speech Recognition Inference",
+  "requestExamples": [
+    {
+      "contentType": "audio/flac",
+      "name": "AutomaticspeechrecognitionRequestExample",
+      "example": "example_value"
+    },
+    {
+      "contentType": "audio/wav",
+      "name": "AutomaticspeechrecognitionRequestExample",
+      "example": "example_value"
+    },
+    {
+      "contentType": "audio/mp3",
+      "name": "AutomaticspeechrecognitionRequestExample",
+      "example": "example_value"
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Automaticspeechrecognition200Example",
+      "example": {
+        "text": "example_value"
+      }
+    }
+  ]
+}

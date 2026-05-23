@@ -1,0 +1,24 @@
+{
+  "operationId": "getDataset",
+  "method": "GET",
+  "path": "/datasets/{repo_id}",
+  "summary": "Get Dataset Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdataset200Example",
+      "example": {}
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getdataset404Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

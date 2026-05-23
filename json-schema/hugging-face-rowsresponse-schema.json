@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RowsResponse",
+  "title": "RowsResponse",
+  "type": "object",
+  "properties": {
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "feature_idx": {
+            "type": "integer",
+            "description": "Feature index"
+          },
+          "name": {
+            "type": "string",
+            "description": "Column name"
+          },
+          "type": {
+            "type": "object",
+            "description": "Column data type information",
+            "properties": {
+              "dtype": {
+                "type": "string"
+              },
+              "_type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "description": "Column definitions and types",
+      "example": []
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "row_idx": {
+            "type": "integer",
+            "description": "Row index in the split"
+          },
+          "row": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Row data as key-value pairs"
+          },
+          "truncated_cells": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of cell names that were truncated"
+          }
+        }
+      },
+      "description": "Row data",
+      "example": []
+    },
+    "num_rows_total": {
+      "type": "integer",
+      "description": "Total number of rows in the split",
+      "example": 10
+    },
+    "num_rows_per_page": {
+      "type": "integer",
+      "description": "Number of rows per page",
+      "example": 10
+    },
+    "partial": {
+      "type": "boolean",
+      "description": "Whether this is a partial result",
+      "example": true
+    }
+  }
+}

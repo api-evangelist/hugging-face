@@ -1,0 +1,30 @@
+{
+  "operationId": "textToImage",
+  "method": "POST",
+  "path": "/models/{model_id}/text-to-image",
+  "summary": "Text to Image Generation",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TexttoimageRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "parameters": {
+          "negative_prompt": "example_value",
+          "height": 10,
+          "width": 10,
+          "num_inference_steps": 10,
+          "guidance_scale": 42.5
+        }
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "image/png",
+      "name": "Texttoimage200Example",
+      "example": "example_value"
+    }
+  ]
+}

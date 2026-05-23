@@ -1,0 +1,15 @@
+{
+  "operationId": "getMetrics",
+  "method": "GET",
+  "path": "/metrics",
+  "summary": "Get Prometheus Metrics",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "text/plain",
+      "name": "Getmetrics200Example",
+      "example": "example_value"
+    }
+  ]
+}

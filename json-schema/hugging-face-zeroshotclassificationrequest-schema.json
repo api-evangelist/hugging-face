@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ZeroShotClassificationRequest",
+  "title": "ZeroShotClassificationRequest",
+  "type": "object",
+  "required": [
+    "inputs",
+    "parameters"
+  ],
+  "properties": {
+    "inputs": {
+      "type": "string",
+      "description": "The text to classify",
+      "example": "example_value"
+    },
+    "parameters": {
+      "type": "object",
+      "required": [
+        "candidate_labels"
+      ],
+      "properties": {
+        "candidate_labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Labels to classify against"
+        },
+        "multi_label": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether multiple labels can be true"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "operationId": "getDatasetParquet",
+  "method": "GET",
+  "path": "/datasets/{repo_id}/parquet",
+  "summary": "Get Dataset Parquet Files",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatasetparquet200Example",
+      "example": {
+        "parquet_files": [
+          {
+            "dataset": "example_value",
+            "config": "example_value",
+            "split": "example_value",
+            "url": "https://www.example.com",
+            "filename": "example_value",
+            "size": 10
+          }
+        ]
+      }
+    }
+  ]
+}

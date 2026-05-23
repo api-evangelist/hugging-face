@@ -1,0 +1,15 @@
+{
+  "operationId": "listModelTags",
+  "method": "GET",
+  "path": "/models-tags-by-type",
+  "summary": "List Model Tags Grouped by Type",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listmodeltags200Example",
+      "example": {}
+    }
+  ]
+}

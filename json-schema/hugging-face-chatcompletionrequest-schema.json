@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ChatCompletionRequest",
+  "title": "ChatCompletionRequest",
+  "type": "object",
+  "required": [
+    "model",
+    "messages"
+  ],
+  "properties": {
+    "model": {
+      "type": "string",
+      "description": "Model ID to use. Can be a Hugging Face model ID (e.g., meta-llama/Llama-3-70b-chat-hf) or a provider-specific identifier.",
+      "example": "meta-llama/Llama-3-70b-chat-hf"
+    },
+    "messages": {
+      "type": "array",
+      "description": "List of messages comprising the conversation",
+      "items": {
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "system",
+              "user",
+              "assistant",
+              "tool"
+            ],
+            "description": "The role of the message author"
+          },
+          "content": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "required": [
+                        "type",
+                        "text"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "const": "text"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "required": [
+                        "type",
+                        "image_url"
+                      ],
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "const": "image_url"
+                        },
+                        "image_url": {
+                          "type": "object",
+                          "required": [
+                            "url"
+                          ],
+                          "properties": {
+                            "url": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "description": "Message content (string or array for multimodal)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional name for the participant"
+          },
+          "tool_calls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "function"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "function": {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "arguments": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tool_call_id": {
+            "type": "string",
+            "description": "Tool call ID for tool responses"
+          }
+        }
+      },
+      "example": []
+    },
+    "frequency_penalty": {
+      "type": "number",
+      "minimum": -2.0,
+      "maximum": 2.0,
+      "default": 0,
+      "description": "Penalize tokens based on frequency in text so far",
+      "example": 42.5
+    },
+    "logprobs": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to return log probabilities",
+      "example": true
+    },
+    "max_tokens": {
+      "type": "integer",
+      "description": "Maximum number of tokens to generate",
+      "example": 10
+    },
+    "presence_penalty": {
+      "type": "number",
+      "minimum": -2.0,
+      "maximum": 2.0,
+      "default": 0,
+      "description": "Penalize tokens based on presence in text so far",
+      "example": 42.5
+    },
+    "reasoning_effort": {
+      "type": "string",
+      "description": "Constrains effort on reasoning for models that support it. Common values are none, minimal, low, medium, high, xhigh.",
+      "example": "example_value"
+    },
+    "response_format": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "text"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "json_schema"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "json_schema"
+            },
+            "json_schema": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "schema": {
+                  "type": "object"
+                },
+                "strict": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "json_object"
+            }
+          }
+        }
+      ],
+      "example": "example_value"
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Random seed for reproducibility",
+      "example": 10
+    },
+    "stop": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "description": "Up to 4 sequences where generation will stop",
+      "example": []
+    },
+    "stream": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to stream partial responses using SSE",
+      "example": true
+    },
+    "stream_options": {
+      "type": "object",
+      "properties": {
+        "include_usage": {
+          "type": "boolean",
+          "description": "Include usage statistics in stream"
+        }
+      },
+      "example": "example_value"
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 1.0,
+      "description": "Sampling temperature",
+      "example": 42.5
+    },
+    "tool_choice": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "auto",
+            "none",
+            "required"
+          ]
+        },
+        {
+          "type": "object",
+          "required": [
+            "function"
+          ],
+          "properties": {
+            "function": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "description": "Controls tool usage",
+      "example": "example_value"
+    },
+    "tool_prompt": {
+      "type": "string",
+      "description": "Prompt prepended before tools",
+      "example": "example_value"
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "function"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "function": {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "parameters": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "description": "List of tools the model may call",
+      "example": []
+    },
+    "top_logprobs": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Number of most likely tokens to return per position",
+      "example": 10
+    },
+    "top_p": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 1.0,
+      "description": "Nucleus sampling parameter",
+      "example": 42.5
+    }
+  }
+}

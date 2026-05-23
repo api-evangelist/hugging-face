@@ -1,0 +1,33 @@
+{
+  "operationId": "listDatasets",
+  "method": "GET",
+  "path": "/datasets",
+  "summary": "List Datasets on the Hub",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Listdatasets200Example",
+      "example": [
+        {
+          "_id": "500123",
+          "id": "abc123",
+          "author": "example_value",
+          "sha": "example_value",
+          "lastModified": "2026-01-15T10:30:00Z",
+          "private": true,
+          "gated": true,
+          "disabled": true,
+          "tags": [
+            "example_value"
+          ],
+          "downloads": 10,
+          "likes": 10,
+          "createdAt": "2026-01-15T10:30:00Z",
+          "description": "A sample description."
+        }
+      ]
+    }
+  ]
+}

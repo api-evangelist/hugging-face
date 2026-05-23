@@ -1,0 +1,61 @@
+{
+  "operationId": "getDatasetSize",
+  "method": "GET",
+  "path": "/size",
+  "summary": "Get Dataset Size",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getdatasetsize200Example",
+      "example": {
+        "size": {
+          "dataset": {
+            "dataset": "example_value",
+            "num_bytes_original_files": 10,
+            "num_bytes_parquet_files": 10,
+            "num_bytes_memory": 10,
+            "num_rows": 10
+          },
+          "configs": [
+            {
+              "dataset": "example_value",
+              "config": "example_value",
+              "num_bytes_original_files": 10,
+              "num_bytes_parquet_files": 10,
+              "num_bytes_memory": 10,
+              "num_rows": 10,
+              "num_columns": 10
+            }
+          ],
+          "splits": [
+            {
+              "dataset": "example_value",
+              "config": "example_value",
+              "split": "example_value",
+              "num_bytes_parquet_files": 10,
+              "num_bytes_memory": 10,
+              "num_rows": 10,
+              "num_columns": 10
+            }
+          ]
+        },
+        "partial": true
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getdatasetsize404Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

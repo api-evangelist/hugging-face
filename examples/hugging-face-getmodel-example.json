@@ -1,0 +1,33 @@
+{
+  "operationId": "getModel",
+  "method": "GET",
+  "path": "/models/{repo_id}",
+  "summary": "Get Model Information",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Getmodel200Example",
+      "example": {}
+    },
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Getmodel401Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Getmodel404Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

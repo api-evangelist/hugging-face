@@ -1,0 +1,63 @@
+{
+  "operationId": "scaleToZero",
+  "method": "POST",
+  "path": "/endpoint/{namespace}/{endpoint_name}/scale-to-zero",
+  "summary": "Scale Endpoint to Zero",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Scaletozero200Example",
+      "example": {
+        "name": "Example Title",
+        "type": "public",
+        "accountId": "500123",
+        "provider": {
+          "vendor": "aws",
+          "region": "example_value"
+        },
+        "compute": {
+          "accelerator": "example_value",
+          "instanceType": "example_value",
+          "instanceSize": "example_value",
+          "scaling": {
+            "minReplica": 10,
+            "maxReplica": 10,
+            "scaleToZeroTimeout": 10
+          }
+        },
+        "model": {
+          "repository": "example_value",
+          "revision": "example_value",
+          "task": "example_value",
+          "framework": "pytorch",
+          "image": {
+            "huggingface": "example_value",
+            "custom": {
+              "url": "https://www.example.com",
+              "port": 10
+            }
+          }
+        },
+        "status": {
+          "state": "pending",
+          "message": "example_value",
+          "createdAt": "2026-01-15T10:30:00Z",
+          "updatedAt": "2026-01-15T10:30:00Z",
+          "url": "https://www.example.com"
+        },
+        "url": "https://www.example.com"
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Scaletozero404Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

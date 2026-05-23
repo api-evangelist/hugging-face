@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/StreamResponse",
+  "title": "StreamResponse",
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "text": {
+          "type": "string"
+        },
+        "logprob": {
+          "type": "number"
+        },
+        "special": {
+          "type": "boolean"
+        }
+      },
+      "example": "example_value"
+    },
+    "generated_text": {
+      "type": "string",
+      "description": "Full generated text (only in the last event)",
+      "example": "example_value"
+    },
+    "details": {
+      "type": "object",
+      "description": "Generation details (only in the last event)",
+      "properties": {
+        "finish_reason": {
+          "type": "string"
+        },
+        "generated_tokens": {
+          "type": "integer"
+        },
+        "seed": {
+          "type": "integer"
+        }
+      },
+      "example": "example_value"
+    }
+  }
+}

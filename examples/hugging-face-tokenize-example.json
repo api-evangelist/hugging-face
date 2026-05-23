@@ -1,0 +1,32 @@
+{
+  "operationId": "tokenize",
+  "method": "POST",
+  "path": "/tokenize",
+  "summary": "Tokenize Text",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "TokenizeRequestExample",
+      "example": {
+        "inputs": "example_value",
+        "add_special_tokens": true
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Tokenize200Example",
+      "example": [
+        {
+          "id": "abc123",
+          "text": "example_value",
+          "start": 10,
+          "stop": 10,
+          "special": true
+        }
+      ]
+    }
+  ]
+}

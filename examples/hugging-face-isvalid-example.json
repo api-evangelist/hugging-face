@@ -1,0 +1,47 @@
+{
+  "operationId": "isValid",
+  "method": "GET",
+  "path": "/is-valid",
+  "summary": "Check Dataset Validity",
+  "requestExamples": [],
+  "responseExamples": [
+    {
+      "status": "200",
+      "contentType": "application/json",
+      "name": "Isvalid200Example",
+      "example": {
+        "preview": true,
+        "viewer": true,
+        "search": true,
+        "filter": true,
+        "statistics": true
+      }
+    },
+    {
+      "status": "404",
+      "contentType": "application/json",
+      "name": "Isvalid404Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    },
+    {
+      "status": "500",
+      "contentType": "application/json",
+      "name": "Isvalid500Example",
+      "example": {
+        "error": "example_value",
+        "cause_exception": "example_value",
+        "cause_message": "example_value",
+        "cause_traceback": [
+          "example_value"
+        ]
+      }
+    }
+  ]
+}

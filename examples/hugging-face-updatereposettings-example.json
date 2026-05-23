@@ -1,0 +1,27 @@
+{
+  "operationId": "updateRepoSettings",
+  "method": "PUT",
+  "path": "/repos/{repo_type}/{repo_id}/settings",
+  "summary": "Update Repository Settings",
+  "requestExamples": [
+    {
+      "contentType": "application/json",
+      "name": "UpdatereposettingsRequestExample",
+      "example": {
+        "private": true,
+        "gated": "auto"
+      }
+    }
+  ],
+  "responseExamples": [
+    {
+      "status": "401",
+      "contentType": "application/json",
+      "name": "Updatereposettings401Example",
+      "example": {
+        "error": "example_value",
+        "statusCode": 10
+      }
+    }
+  ]
+}

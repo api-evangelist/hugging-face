@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SplitsResponse",
+  "title": "SplitsResponse",
+  "type": "object",
+  "properties": {
+    "splits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dataset": {
+            "type": "string",
+            "description": "Dataset ID"
+          },
+          "config": {
+            "type": "string",
+            "description": "Subset (configuration) name"
+          },
+          "split": {
+            "type": "string",
+            "description": "Split name",
+            "example": "train"
+          }
+        }
+      },
+      "example": []
+    },
+    "pending": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "example": []
+    },
+    "failed": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "example": []
+    }
+  }
+}

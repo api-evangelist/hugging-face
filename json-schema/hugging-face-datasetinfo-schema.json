@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DatasetInfo",
+  "title": "DatasetInfo",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/DatasetSummary"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "siblings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rfilename": {
+                "type": "string"
+              },
+              "size": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "cardData": {
+          "type": "object",
+          "description": "Parsed dataset card metadata",
+          "properties": {
+            "language": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "license": {
+              "type": "string"
+            },
+            "task_categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "size_categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
