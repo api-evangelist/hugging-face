@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face TGI Inspect and Generate
+  summary: Read a TGI server's info, tokenize a prompt to check its length, then generate text.
+  description: >-
+    A self-hosted Text Generation Inference (TGI) flow. The workflow reads the
+    TGI server's info to learn the loaded model and its maximum input length,
+    tokenizes the prompt to measure how many tokens it consumes, and then runs a
+    non-streaming text generation request against the loaded model. The info and
+    tokenize steps ground the generation request in the server's real limits.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: textGenerationInferenceApi
+  url: ../openapi/hugging-face-text-generation-inference-api.yml
+  type: openapi
+workflows:
+- workflowId: tgi-inspect-and-generate
+  summary: Inspect a TGI server, tokenize a prompt, and generate text from it.
+  description: >-
+    Reads TGI server info, tokenizes the prompt to measure its token count, and
+    generates text from the prompt against the loaded model.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - prompt
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      prompt:
+        type: string
+        description: The input prompt to tokenize and generate from.
+      maxNewTokens:
+        type: integer
+        description: Maximum number of new tokens to generate.
+        default: 128
+      temperature:
+        type: number
+        description: Sampling temperature.
+        default: 0.7
+  steps:
+  - stepId: getServerInfo
+    description: >-
+      Read the TGI server info to learn the loaded model id and its maximum
+      input length before submitting a prompt.
+    operationId: getInfo
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelId: $response.body#/model_id
+      maxInputLength: $response.body#/max_input_length
+  - stepId: tokenizePrompt
+    description: >-
+      Tokenize the prompt to measure how many tokens it consumes against the
+      server's input limit.
+    operationId: tokenize
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.prompt
+        add_special_tokens: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstTokenId: $response.body#/0/id
+  - stepId: generateText
+    description: >-
+      Generate text from the prompt using the loaded model with details enabled
+      so the finish reason and token count are returned.
+    operationId: generate
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.prompt
+        parameters:
+          max_new_tokens: $inputs.maxNewTokens
+          temperature: $inputs.temperature
+          details: true
+          return_full_text: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      generatedText: $response.body#/generated_text
+      finishReason: $response.body#/details/finish_reason
+      generatedTokens: $response.body#/details/generated_tokens
+  outputs:
+    modelId: $steps.getServerInfo.outputs.modelId
+    generatedText: $steps.generateText.outputs.generatedText
+    finishReason: $steps.generateText.outputs.finishReason

@@ -1,0 +1,118 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Toggle Inference Endpoint State
+  summary: Read an endpoint's current state, then pause it if running or resume it if paused.
+  description: >-
+    A cost-control flow over the Inference Endpoints management API. The workflow
+    reads an endpoint's current status and branches on its state: when the
+    endpoint is running it pauses it to stop incurring compute costs, and when the
+    endpoint is paused it resumes it. Both branch actions return the updated
+    endpoint record. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inferenceEndpointsApi
+  url: ../openapi/hugging-face-inference-endpoints-api.yml
+  type: openapi
+workflows:
+- workflowId: toggle-endpoint-state
+  summary: Pause a running endpoint or resume a paused one based on its current state.
+  description: >-
+    Reads the current endpoint state and either pauses a running endpoint or
+    resumes a paused endpoint.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - namespace
+    - endpointName
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      namespace:
+        type: string
+        description: User or organization namespace that owns the endpoint.
+      endpointName:
+        type: string
+        description: The name of the endpoint to toggle.
+  steps:
+  - stepId: readState
+    description: >-
+      Read the endpoint's current status and branch on whether it is running or
+      paused.
+    operationId: getEndpoint
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: endpoint_name
+      in: path
+      value: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      currentState: $response.body#/status/state
+    onSuccess:
+    - name: isRunning
+      type: goto
+      stepId: pauseEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.status.state == 'running'
+        type: jsonpath
+    - name: isPaused
+      type: goto
+      stepId: resumeEndpoint
+      criteria:
+      - context: $response.body
+        condition: $.status.state == 'paused'
+        type: jsonpath
+  - stepId: pauseEndpoint
+    description: >-
+      Pause the running endpoint to stop compute costs while preserving its
+      configuration.
+    operationId: pauseEndpoint
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: endpoint_name
+      in: path
+      value: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newState: $response.body#/status/state
+    onSuccess:
+    - name: paused
+      type: end
+  - stepId: resumeEndpoint
+    description: >-
+      Resume the previously paused endpoint so it can serve inference requests
+      again.
+    operationId: resumeEndpoint
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: endpoint_name
+      in: path
+      value: $inputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      newState: $response.body#/status/state
+  outputs:
+    previousState: $steps.readState.outputs.currentState
+    pausedState: $steps.pauseEndpoint.outputs.newState
+    resumedState: $steps.resumeEndpoint.outputs.newState

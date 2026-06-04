@@ -1,0 +1,124 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Grounded Text Generation
+  summary: Find a text-generation model on the Hub, confirm it, then run hosted text generation.
+  description: >-
+    Combines the Hub API with the hosted Inference API. The workflow searches the
+    Hub for text-generation models, confirms the top match exists, and then runs
+    a text-generation inference call against that model with tuning parameters.
+    The flow handles the model-loading (503) case by documenting it as a known
+    response. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: hubApi
+  url: ../openapi/hugging-face-hub-api.yml
+  type: openapi
+- name: inferenceApi
+  url: ../openapi/hugging-face-inference-api.yml
+  type: openapi
+workflows:
+- workflowId: grounded-text-generation
+  summary: Discover a text-generation model on the Hub and generate text with it.
+  description: >-
+    Searches the Hub for a text-generation model, verifies it, and runs a hosted
+    text-generation inference request against the selected model.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - search
+    - prompt
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      search:
+        type: string
+        description: Full-text search query for finding a model on the Hub.
+      prompt:
+        type: string
+        description: The input text prompt to generate from.
+      maxNewTokens:
+        type: integer
+        description: Maximum number of new tokens to generate.
+        default: 128
+      temperature:
+        type: number
+        description: Sampling temperature.
+        default: 0.7
+  steps:
+  - stepId: findModel
+    description: >-
+      Search the Hub for text-generation models matching the query, sorted by
+      downloads, and take the most popular match.
+    operationId: $sourceDescriptions.hubApi.listModels
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.search
+    - name: pipeline_tag
+      in: query
+      value: text-generation
+    - name: sort
+      in: query
+      value: downloads
+    - name: limit
+      in: query
+      value: 5
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelId: $response.body#/0/id
+    onSuccess:
+    - name: haveModel
+      type: goto
+      stepId: confirmModel
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+  - stepId: confirmModel
+    description: >-
+      Confirm the selected model exists and read its tags before issuing a paid
+      inference request.
+    operationId: $sourceDescriptions.hubApi.getModel
+    parameters:
+    - name: repo_id
+      in: path
+      value: $steps.findModel.outputs.modelId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedModelId: $response.body#/id
+  - stepId: generateText
+    description: >-
+      Run a hosted text-generation inference request against the confirmed model.
+      A 200 returns the generated text; a 503 indicates the model is still
+      loading and the request may be retried.
+    operationId: $sourceDescriptions.inferenceApi.textGeneration
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: model_id
+      in: path
+      value: $steps.findModel.outputs.modelId
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.prompt
+        parameters:
+          max_new_tokens: $inputs.maxNewTokens
+          temperature: $inputs.temperature
+          return_full_text: false
+        options:
+          use_cache: true
+          wait_for_model: true
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      generatedText: $response.body#/0/generated_text
+  outputs:
+    modelId: $steps.confirmModel.outputs.confirmedModelId
+    generatedText: $steps.generateText.outputs.generatedText

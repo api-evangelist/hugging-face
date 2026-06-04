@@ -1,0 +1,136 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Create Repository and Configure
+  summary: Identify the authenticated user, create a new repository, then set its visibility and gating.
+  description: >-
+    A repository provisioning flow over the Hub API. The workflow first confirms
+    the caller's identity with whoami so the owning namespace is known, creates a
+    new model, dataset, or Space repository, and then applies repository settings
+    (private flag and access gating) to the freshly created repo. The create step
+    documents the 409 conflict response for the already-exists case. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: hubApi
+  url: ../openapi/hugging-face-hub-api.yml
+  type: openapi
+workflows:
+- workflowId: create-repo-and-configure
+  summary: Create a Hub repository and apply visibility and gating settings.
+  description: >-
+    Resolves the authenticated user, creates a new repository under that
+    namespace, and updates the repository's visibility and gating settings.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - name
+    - type
+    - repoTypePlural
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      name:
+        type: string
+        description: The repository name to create (without the namespace prefix).
+      type:
+        type: string
+        description: Repository type to create (singular form used by createRepo).
+        enum:
+        - model
+        - dataset
+        - space
+      repoTypePlural:
+        type: string
+        description: >-
+          Repository type in the plural form required by the settings path
+          segment (models, datasets, or spaces).
+        enum:
+        - models
+        - datasets
+        - spaces
+      organization:
+        type: string
+        description: Optional organization namespace to create the repo under.
+      private:
+        type: boolean
+        description: Whether the repository should be private.
+        default: true
+      gated:
+        type: string
+        description: Access gating configuration to apply after creation.
+        enum:
+        - auto
+        - manual
+        - 'false'
+        default: 'false'
+  steps:
+  - stepId: whoami
+    description: >-
+      Confirm the authenticated user and capture their name to use as the default
+      owning namespace.
+    operationId: whoami
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      userName: $response.body#/name
+  - stepId: createRepo
+    description: >-
+      Create the new repository. A 200 returns the repository URL; a 409 means a
+      repository with this name already exists.
+    operationId: createRepo
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        type: $inputs.type
+        organization: $inputs.organization
+        private: $inputs.private
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      repoUrl: $response.body#/url
+    onSuccess:
+    - name: created
+      type: goto
+      stepId: applySettings
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: applySettings
+    description: >-
+      Apply the visibility and access gating settings to the newly created
+      repository using its owning namespace and name.
+    operationId: updateRepoSettings
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: repo_type
+      in: path
+      value: $inputs.repoTypePlural
+    - name: repo_id
+      in: path
+      value: $inputs.name
+    requestBody:
+      contentType: application/json
+      payload:
+        private: $inputs.private
+        gated: $inputs.gated
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      settingsStatus: $statusCode
+  outputs:
+    userName: $steps.whoami.outputs.userName
+    repoUrl: $steps.createRepo.outputs.repoUrl
+    settingsStatus: $steps.applySettings.outputs.settingsStatus

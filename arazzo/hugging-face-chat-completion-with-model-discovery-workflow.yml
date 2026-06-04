@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Chat Completion with Model Discovery
+  summary: Discover an available router model, confirm it exists, then run an OpenAI-compatible chat completion.
+  description: >-
+    Uses the Hugging Face Inference Providers router to list the models that are
+    currently servable, verifies the requested model is present, and then sends
+    an OpenAI-compatible chat completion request that is automatically routed to
+    the best provider. The flow branches on whether the requested model is found
+    in the catalog. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inferenceProvidersApi
+  url: ../openapi/hugging-face-inference-providers-api.yml
+  type: openapi
+workflows:
+- workflowId: chat-completion-with-model-discovery
+  summary: Confirm a router model is available and run a chat completion against it.
+  description: >-
+    Lists router models, retrieves the requested model record to confirm it is
+    servable, and then creates a chat completion using that model.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - modelId
+    - userMessage
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      modelId:
+        type: string
+        description: The model id to run the chat completion against.
+      systemPrompt:
+        type: string
+        description: Optional system message that sets assistant behavior.
+        default: You are a helpful assistant.
+      userMessage:
+        type: string
+        description: The user message content to send to the model.
+      maxTokens:
+        type: integer
+        description: Maximum number of tokens to generate.
+        default: 256
+  steps:
+  - stepId: listRouterModels
+    description: >-
+      List the models currently available through the inference providers router
+      so the requested model can be confirmed before billing a completion.
+    operationId: listModels
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      models: $response.body#/data
+  - stepId: confirmModel
+    description: >-
+      Fetch the requested model record from the router to confirm it exists and
+      is servable. Branches to the chat completion on success.
+    operationId: getModel
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: model_id
+      in: path
+      value: $inputs.modelId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedModelId: $response.body#/id
+    onSuccess:
+    - name: modelConfirmed
+      type: goto
+      stepId: createChat
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: createChat
+    description: >-
+      Send an OpenAI-compatible chat completion request with a system and user
+      message; the router selects the optimal provider automatically.
+    operationId: createChatCompletion
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $steps.confirmModel.outputs.confirmedModelId
+        messages:
+        - role: system
+          content: $inputs.systemPrompt
+        - role: user
+          content: $inputs.userMessage
+        max_tokens: $inputs.maxTokens
+        stream: false
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      completionId: $response.body#/id
+      assistantMessage: $response.body#/choices/0/message/content
+      finishReason: $response.body#/choices/0/finish_reason
+      totalTokens: $response.body#/usage/total_tokens
+  outputs:
+    completionId: $steps.createChat.outputs.completionId
+    assistantMessage: $steps.createChat.outputs.assistantMessage
+    totalTokens: $steps.createChat.outputs.totalTokens

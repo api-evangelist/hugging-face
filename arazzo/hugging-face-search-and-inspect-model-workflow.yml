@@ -1,0 +1,111 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Search and Inspect a Model
+  summary: Search the Hub for a model, fetch its full record, then inspect a specific revision.
+  description: >-
+    A discovery flow over the Hugging Face Hub API. The workflow runs a
+    full-text model search, selects the top match, retrieves the detailed model
+    record by its repository id, and then reads the model information pinned to a
+    specific Git revision (branch, tag, or commit SHA). Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: hubApi
+  url: ../openapi/hugging-face-hub-api.yml
+  type: openapi
+workflows:
+- workflowId: search-and-inspect-model
+  summary: Find a model by search term and inspect it at a chosen revision.
+  description: >-
+    Searches the Hub for models matching a query, takes the first result, loads
+    the full model card, and resolves the model state at a specific revision.
+  inputs:
+    type: object
+    required:
+    - search
+    - revision
+    properties:
+      search:
+        type: string
+        description: Full-text search query used to find models on the Hub.
+      pipelineTag:
+        type: string
+        description: Optional pipeline task type to narrow the search (e.g. text-generation).
+      revision:
+        type: string
+        description: Git revision (branch, tag, or commit SHA) to inspect.
+      limit:
+        type: integer
+        description: Maximum number of search results to return.
+        default: 10
+  steps:
+  - stepId: searchModels
+    description: >-
+      Run a full-text search against the Hub, returning the most relevant models
+      with full card data so the top match can be resolved.
+    operationId: listModels
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.search
+    - name: pipeline_tag
+      in: query
+      value: $inputs.pipelineTag
+    - name: limit
+      in: query
+      value: $inputs.limit
+    - name: full
+      in: query
+      value: true
+    - name: sort
+      in: query
+      value: downloads
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topModelId: $response.body#/0/id
+      results: $response.body
+    onSuccess:
+    - name: haveMatch
+      type: goto
+      stepId: getModelInfo
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+  - stepId: getModelInfo
+    description: >-
+      Retrieve the detailed model record for the top search result using its
+      repository id.
+    operationId: getModel
+    parameters:
+    - name: repo_id
+      in: path
+      value: $steps.searchModels.outputs.topModelId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      modelId: $response.body#/id
+      sha: $response.body#/sha
+      tags: $response.body#/tags
+  - stepId: getModelAtRevision
+    description: >-
+      Read the model information pinned to the requested Git revision so the
+      caller can compare the default branch against a tagged or committed state.
+    operationId: getModelRevision
+    parameters:
+    - name: repo_id
+      in: path
+      value: $steps.searchModels.outputs.topModelId
+    - name: revision
+      in: path
+      value: $inputs.revision
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      revisionSha: $response.body#/sha
+  outputs:
+    topModelId: $steps.searchModels.outputs.topModelId
+    modelTags: $steps.getModelInfo.outputs.tags
+    revisionSha: $steps.getModelAtRevision.outputs.revisionSha

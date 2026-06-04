@@ -1,0 +1,123 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Dataset Filter Rows
+  summary: Confirm a dataset supports filtering, resolve its split, then apply a SQL-like filter.
+  description: >-
+    A targeted querying flow over the Dataset Viewer API. The workflow checks the
+    dataset's validity to confirm the filter feature is available, branching to
+    stop early when it is not, resolves the first subset and split, and then
+    applies a SQL-like WHERE and ORDER BY filter to return only the matching rows
+    in the requested order. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datasetViewerApi
+  url: ../openapi/hugging-face-dataset-viewer-api.yml
+  type: openapi
+workflows:
+- workflowId: dataset-filter-rows
+  summary: Apply a SQL-like filter to a dataset split after confirming filter support.
+  description: >-
+    Confirms filtering is available for a dataset, resolves its first split, and
+    runs a WHERE/ORDER BY filter against that split.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - dataset
+    - where
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      dataset:
+        type: string
+        description: The dataset id on the Hugging Face Hub.
+      where:
+        type: string
+        description: SQL-like WHERE clause for filtering (e.g. "label = 1").
+      orderby:
+        type: string
+        description: Optional SQL-like ORDER BY clause for sorting (e.g. "score DESC").
+      length:
+        type: integer
+        description: Number of rows to return (max 100).
+        default: 100
+  steps:
+  - stepId: checkFilterSupport
+    description: >-
+      Check the dataset's validity and confirm the filter feature is available
+      before issuing a filter query.
+    operationId: isValid
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      filter: $response.body#/filter
+    onSuccess:
+    - name: filterable
+      type: goto
+      stepId: resolveSplit
+      criteria:
+      - context: $response.body
+        condition: $.filter == true
+        type: jsonpath
+  - stepId: resolveSplit
+    description: >-
+      Resolve the dataset's first subset and split to use as the filter target.
+    operationId: getSplits
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      config: $response.body#/splits/0/config
+      split: $response.body#/splits/0/split
+  - stepId: filterSplit
+    description: >-
+      Apply the SQL-like WHERE and optional ORDER BY clauses to the resolved
+      split and return the matching rows.
+    operationId: filterRows
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    - name: config
+      in: query
+      value: $steps.resolveSplit.outputs.config
+    - name: split
+      in: query
+      value: $steps.resolveSplit.outputs.split
+    - name: where
+      in: query
+      value: $inputs.where
+    - name: orderby
+      in: query
+      value: $inputs.orderby
+    - name: length
+      in: query
+      value: $inputs.length
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      rows: $response.body#/rows
+      numRowsTotal: $response.body#/num_rows_total
+  outputs:
+    config: $steps.resolveSplit.outputs.config
+    split: $steps.resolveSplit.outputs.split
+    rows: $steps.filterSplit.outputs.rows
+    numRowsTotal: $steps.filterSplit.outputs.numRowsTotal

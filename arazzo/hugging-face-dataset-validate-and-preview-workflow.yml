@@ -1,0 +1,105 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Dataset Validate and Preview
+  summary: Check a dataset is viewer-ready, list its splits, then preview the first rows.
+  description: >-
+    A safe dataset onboarding flow over the Dataset Viewer API. The workflow first
+    checks whether a dataset is valid and processed by the viewer, branching to
+    stop early when preview is unavailable. When the dataset is previewable it
+    lists the subsets and splits, selects the first split, and fetches its first
+    rows for inspection. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datasetViewerApi
+  url: ../openapi/hugging-face-dataset-viewer-api.yml
+  type: openapi
+workflows:
+- workflowId: dataset-validate-and-preview
+  summary: Validate a dataset, discover its first split, and preview its first rows.
+  description: >-
+    Confirms a dataset is preview-capable, resolves its first subset and split,
+    and reads the first rows of that split.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - dataset
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      dataset:
+        type: string
+        description: The dataset id on the Hugging Face Hub (e.g. squad).
+  steps:
+  - stepId: checkValidity
+    description: >-
+      Check whether the dataset is processed by the viewer and previewable.
+      Branches to split discovery only when preview is available.
+    operationId: isValid
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      preview: $response.body#/preview
+      viewer: $response.body#/viewer
+    onSuccess:
+    - name: previewable
+      type: goto
+      stepId: getSplits
+      criteria:
+      - context: $response.body
+        condition: $.preview == true
+        type: jsonpath
+  - stepId: getSplits
+    description: >-
+      List the subsets (configs) and splits for the dataset and take the first
+      split as the preview target.
+    operationId: getSplits
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      config: $response.body#/splits/0/config
+      split: $response.body#/splits/0/split
+  - stepId: previewFirstRows
+    description: >-
+      Fetch the first rows of the selected subset and split to inspect the
+      dataset's feature schema and sample content.
+    operationId: getFirstRows
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    - name: config
+      in: query
+      value: $steps.getSplits.outputs.config
+    - name: split
+      in: query
+      value: $steps.getSplits.outputs.split
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      features: $response.body#/features
+      numRowsTotal: $response.body#/num_rows_total
+  outputs:
+    config: $steps.getSplits.outputs.config
+    split: $steps.getSplits.outputs.split
+    features: $steps.previewFirstRows.outputs.features
+    numRowsTotal: $steps.previewFirstRows.outputs.numRowsTotal

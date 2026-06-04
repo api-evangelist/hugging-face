@@ -1,0 +1,97 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Summarize Then Translate
+  summary: Summarize a long document with one model, then translate the summary with another.
+  description: >-
+    A two-stage NLP pipeline over the hosted Inference API. The workflow first
+    summarizes a long input text using a summarization model, then feeds the
+    produced summary into a translation model to render it in another language.
+    Both hosted inference calls authenticate inline with a Bearer token. Every
+    step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inferenceApi
+  url: ../openapi/hugging-face-inference-api.yml
+  type: openapi
+workflows:
+- workflowId: summarize-then-translate
+  summary: Summarize a document and translate the resulting summary.
+  description: >-
+    Runs a summarization inference call on a long text and then translates the
+    generated summary using a translation model.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - summarizationModelId
+    - translationModelId
+    - text
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      summarizationModelId:
+        type: string
+        description: Model id used for summarization (e.g. facebook/bart-large-cnn).
+      translationModelId:
+        type: string
+        description: Model id used for translation (e.g. Helsinki-NLP/opus-mt-en-fr).
+      text:
+        type: string
+        description: The long source text to summarize and then translate.
+      minLength:
+        type: integer
+        description: Minimum length of the generated summary.
+        default: 30
+      maxLength:
+        type: integer
+        description: Maximum length of the generated summary.
+        default: 130
+  steps:
+  - stepId: summarize
+    description: >-
+      Summarize the source text into a shorter version using the summarization
+      model.
+    operationId: summarization
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: model_id
+      in: path
+      value: $inputs.summarizationModelId
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.text
+        parameters:
+          min_length: $inputs.minLength
+          max_length: $inputs.maxLength
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      summaryText: $response.body#/0/summary_text
+  - stepId: translate
+    description: >-
+      Translate the generated summary into the target language using the
+      translation model.
+    operationId: translation
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: model_id
+      in: path
+      value: $inputs.translationModelId
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $steps.summarize.outputs.summaryText
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      translationText: $response.body#/0/translation_text
+  outputs:
+    summaryText: $steps.summarize.outputs.summaryText
+    translationText: $steps.translate.outputs.translationText

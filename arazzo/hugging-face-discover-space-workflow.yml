@@ -1,0 +1,87 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Discover a Space
+  summary: Search Hub Spaces by SDK and query, then load the top Space's details.
+  description: >-
+    A discovery flow over the Hub API for Spaces. The workflow searches the Hub
+    for Spaces matching a query, takes the most-liked match, and loads its
+    detailed record including runtime and hardware information. The flow branches
+    on whether any Space matched the search. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: hubApi
+  url: ../openapi/hugging-face-hub-api.yml
+  type: openapi
+workflows:
+- workflowId: discover-space
+  summary: Find a Space by search term and load its detailed record.
+  description: >-
+    Searches the Hub for Spaces matching a query sorted by likes and loads the
+    detailed record of the top match.
+  inputs:
+    type: object
+    required:
+    - search
+    properties:
+      search:
+        type: string
+        description: Full-text search query used to find Spaces on the Hub.
+      filter:
+        type: string
+        description: Optional tag filter to narrow the Space search.
+      limit:
+        type: integer
+        description: Maximum number of search results to return.
+        default: 10
+  steps:
+  - stepId: searchSpaces
+    description: >-
+      Search the Hub for Spaces matching the query, sorted by likes, and take the
+      most-liked match.
+    operationId: listSpaces
+    parameters:
+    - name: search
+      in: query
+      value: $inputs.search
+    - name: filter
+      in: query
+      value: $inputs.filter
+    - name: sort
+      in: query
+      value: likes
+    - name: direction
+      in: query
+      value: '-1'
+    - name: limit
+      in: query
+      value: $inputs.limit
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      topSpaceId: $response.body#/0/id
+    onSuccess:
+    - name: haveMatch
+      type: goto
+      stepId: getSpaceInfo
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+  - stepId: getSpaceInfo
+    description: >-
+      Load the detailed record for the top Space match, including runtime and
+      hardware information.
+    operationId: getSpace
+    parameters:
+    - name: repo_id
+      in: path
+      value: $steps.searchSpaces.outputs.topSpaceId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      spaceId: $response.body#/id
+  outputs:
+    topSpaceId: $steps.searchSpaces.outputs.topSpaceId
+    spaceId: $steps.getSpaceInfo.outputs.spaceId

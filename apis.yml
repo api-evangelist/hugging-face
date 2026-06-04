@@ -210,6 +210,51 @@ apis:
   - type: Support
     url: https://huggingface.co/support
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/hugging-face-chat-completion-with-model-discovery-workflow.yml
+    name: Hugging Face Chat Completion with Model Discovery
+    summary: Discover an available router model, confirm it exists, then run an OpenAI-compatible chat completion.
+  - url: arazzo/hugging-face-create-repo-and-configure-workflow.yml
+    name: Hugging Face Create Repository and Configure
+    summary: Identify the authenticated user, create a new repository, then set its visibility and gating.
+  - url: arazzo/hugging-face-dataset-filter-rows-workflow.yml
+    name: Hugging Face Dataset Filter Rows
+    summary: Confirm a dataset supports filtering, resolve its split, then apply a SQL-like filter.
+  - url: arazzo/hugging-face-dataset-search-and-statistics-workflow.yml
+    name: Hugging Face Dataset Search and Statistics
+    summary: Resolve a dataset split, full-text search within it, then pull column statistics.
+  - url: arazzo/hugging-face-dataset-size-and-parquet-workflow.yml
+    name: Hugging Face Dataset Size and Parquet Files
+    summary: Confirm a dataset on the Hub, read its size profile, then list its Parquet files.
+  - url: arazzo/hugging-face-dataset-validate-and-preview-workflow.yml
+    name: Hugging Face Dataset Validate and Preview
+    summary: Check a dataset is viewer-ready, list its splits, then preview the first rows.
+  - url: arazzo/hugging-face-deploy-inference-endpoint-workflow.yml
+    name: Hugging Face Deploy Inference Endpoint and Wait
+    summary: Create a dedicated Inference Endpoint, then poll its status until it is running.
+  - url: arazzo/hugging-face-discover-space-workflow.yml
+    name: Hugging Face Discover a Space
+    summary: Search Hub Spaces by SDK and query, then load the top Space's details.
+  - url: arazzo/hugging-face-embeddings-pair-workflow.yml
+    name: Hugging Face Embeddings Pair
+    summary: Confirm an embedding model is available, then embed a query and a document for comparison.
+  - url: arazzo/hugging-face-grounded-text-generation-workflow.yml
+    name: Hugging Face Grounded Text Generation
+    summary: Find a text-generation model on the Hub, confirm it, then run hosted text generation.
+  - url: arazzo/hugging-face-search-and-inspect-model-workflow.yml
+    name: Hugging Face Search and Inspect a Model
+    summary: Search the Hub for a model, fetch its full record, then inspect a specific revision.
+  - url: arazzo/hugging-face-summarize-then-translate-workflow.yml
+    name: Hugging Face Summarize Then Translate
+    summary: Summarize a long document with one model, then translate the summary with another.
+  - url: arazzo/hugging-face-tgi-inspect-and-generate-workflow.yml
+    name: Hugging Face TGI Inspect and Generate
+    summary: Read a TGI server's info, tokenize a prompt to check its length, then generate text.
+  - url: arazzo/hugging-face-toggle-endpoint-state-workflow.yml
+    name: Hugging Face Toggle Inference Endpoint State
+    summary: Read an endpoint's current state, then pause it if running or resume it if paused.
 - type: Portal
   url: https://huggingface.co
 - type: Documentation

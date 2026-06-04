@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Deploy Inference Endpoint and Wait
+  summary: Create a dedicated Inference Endpoint, then poll its status until it is running.
+  description: >-
+    A deployment flow over the Inference Endpoints management API. The workflow
+    creates a new dedicated endpoint for a model on the chosen cloud provider and
+    hardware, then polls the endpoint's status, looping while it is still
+    pending or initializing and exiting once it reaches the running state. The
+    poll step branches back to itself until the endpoint is ready. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inferenceEndpointsApi
+  url: ../openapi/hugging-face-inference-endpoints-api.yml
+  type: openapi
+workflows:
+- workflowId: deploy-inference-endpoint
+  summary: Create a dedicated Inference Endpoint and wait until it is running.
+  description: >-
+    Provisions a new Inference Endpoint for a model and polls its status until
+    it reports the running state, returning the inference URL.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - namespace
+    - name
+    - repository
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      namespace:
+        type: string
+        description: User or organization namespace that will own the endpoint.
+      name:
+        type: string
+        description: The endpoint name to create.
+      repository:
+        type: string
+        description: The model repository to deploy (e.g. gpt2).
+      revision:
+        type: string
+        description: Git revision of the model to deploy.
+        default: main
+      task:
+        type: string
+        description: The pipeline task the endpoint will serve.
+        default: text-generation
+      vendor:
+        type: string
+        description: Cloud vendor to deploy on.
+        default: aws
+      region:
+        type: string
+        description: Cloud region to deploy in.
+        default: us-east-1
+      instanceType:
+        type: string
+        description: Compute instance type identifier.
+      instanceSize:
+        type: string
+        description: Compute instance size identifier.
+  steps:
+  - stepId: createEndpoint
+    description: >-
+      Create a new dedicated Inference Endpoint for the model. A 201 returns the
+      endpoint record; a 409 means an endpoint with this name already exists.
+    operationId: createEndpoint
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        type: public
+        provider:
+          vendor: $inputs.vendor
+          region: $inputs.region
+        compute:
+          accelerator: cpu
+          instanceType: $inputs.instanceType
+          instanceSize: $inputs.instanceSize
+          scaling:
+            minReplica: 1
+            maxReplica: 1
+        model:
+          repository: $inputs.repository
+          revision: $inputs.revision
+          task: $inputs.task
+          framework: pytorch
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      endpointName: $response.body#/name
+      initialState: $response.body#/status/state
+    onSuccess:
+    - name: created
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - condition: $statusCode == 201
+  - stepId: pollStatus
+    description: >-
+      Poll the endpoint status. While the state is pending or initializing the
+      step loops back to itself; once the state is running it proceeds to the
+      end of the workflow.
+    operationId: getEndpoint
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: namespace
+      in: path
+      value: $inputs.namespace
+    - name: endpoint_name
+      in: path
+      value: $steps.createEndpoint.outputs.endpointName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      state: $response.body#/status/state
+      inferenceUrl: $response.body#/status/url
+    onSuccess:
+    - name: stillStarting
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status.state == 'pending' || $.status.state == 'initializing'
+        type: jsonpath
+    - name: ready
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status.state == 'running'
+        type: jsonpath
+  outputs:
+    endpointName: $steps.createEndpoint.outputs.endpointName
+    state: $steps.pollStatus.outputs.state
+    inferenceUrl: $steps.pollStatus.outputs.inferenceUrl

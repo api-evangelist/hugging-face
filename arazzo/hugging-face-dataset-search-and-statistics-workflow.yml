@@ -1,0 +1,117 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Dataset Search and Statistics
+  summary: Resolve a dataset split, full-text search within it, then pull column statistics.
+  description: >-
+    An analysis flow over the Dataset Viewer API. The workflow resolves the
+    dataset's first subset and split, runs a full-text search across that split to
+    find matching rows, and then retrieves descriptive column statistics for the
+    split so the search results can be understood in the context of the underlying
+    distributions. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: datasetViewerApi
+  url: ../openapi/hugging-face-dataset-viewer-api.yml
+  type: openapi
+workflows:
+- workflowId: dataset-search-and-statistics
+  summary: Search a dataset split and pull descriptive statistics for the same split.
+  description: >-
+    Discovers the first split of a dataset, performs a full-text search within
+    it, and fetches column statistics for the split.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - dataset
+    - query
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      dataset:
+        type: string
+        description: The dataset id on the Hugging Face Hub.
+      query:
+        type: string
+        description: Full-text search query string to run against the split.
+      length:
+        type: integer
+        description: Number of matching rows to return (max 100).
+        default: 100
+  steps:
+  - stepId: resolveSplit
+    description: >-
+      Resolve the dataset's first subset and split to use as the search and
+      statistics target.
+    operationId: getSplits
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      config: $response.body#/splits/0/config
+      split: $response.body#/splits/0/split
+  - stepId: searchSplit
+    description: >-
+      Run a full-text search across the resolved split and return the matching
+      rows.
+    operationId: searchRows
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    - name: config
+      in: query
+      value: $steps.resolveSplit.outputs.config
+    - name: split
+      in: query
+      value: $steps.resolveSplit.outputs.split
+    - name: query
+      in: query
+      value: $inputs.query
+    - name: length
+      in: query
+      value: $inputs.length
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedRows: $response.body#/rows
+      numRowsTotal: $response.body#/num_rows_total
+  - stepId: getColumnStatistics
+    description: >-
+      Retrieve descriptive statistics for the columns of the resolved split to
+      contextualize the search matches.
+    operationId: getStatistics
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    - name: config
+      in: query
+      value: $steps.resolveSplit.outputs.config
+    - name: split
+      in: query
+      value: $steps.resolveSplit.outputs.split
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      numExamples: $response.body#/num_examples
+      statistics: $response.body#/statistics
+  outputs:
+    config: $steps.resolveSplit.outputs.config
+    split: $steps.resolveSplit.outputs.split
+    matchedRows: $steps.searchSplit.outputs.matchedRows
+    statistics: $steps.getColumnStatistics.outputs.statistics

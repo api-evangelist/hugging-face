@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Dataset Size and Parquet Files
+  summary: Confirm a dataset on the Hub, read its size profile, then list its Parquet files.
+  description: >-
+    A data-engineering planning flow that spans the Hub API and the Dataset
+    Viewer API. The workflow first confirms a dataset exists on the Hub, then
+    reads its size profile (row counts and byte sizes per subset and split) from
+    the Dataset Viewer, and finally lists the auto-converted Parquet files so a
+    consumer can plan efficient bulk access. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: hubApi
+  url: ../openapi/hugging-face-hub-api.yml
+  type: openapi
+- name: datasetViewerApi
+  url: ../openapi/hugging-face-dataset-viewer-api.yml
+  type: openapi
+workflows:
+- workflowId: dataset-size-and-parquet
+  summary: Verify a dataset, read its size profile, and list its Parquet files.
+  description: >-
+    Confirms a dataset exists on the Hub, retrieves its size information from the
+    Dataset Viewer, and lists its converted Parquet files.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - dataset
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      dataset:
+        type: string
+        description: The dataset id on the Hugging Face Hub.
+  steps:
+  - stepId: confirmDataset
+    description: >-
+      Confirm the dataset exists on the Hub before querying the viewer for its
+      size and Parquet files.
+    operationId: $sourceDescriptions.hubApi.getDataset
+    parameters:
+    - name: repo_id
+      in: path
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasetId: $response.body#/id
+    onSuccess:
+    - name: exists
+      type: goto
+      stepId: getSize
+      criteria:
+      - condition: $statusCode == 200
+  - stepId: getSize
+    description: >-
+      Read the dataset's size profile including row counts and byte sizes for the
+      full dataset and for each subset and split.
+    operationId: $sourceDescriptions.datasetViewerApi.getDatasetSize
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasetNumRows: $response.body#/size/dataset/num_rows
+      configs: $response.body#/size/configs
+  - stepId: listParquet
+    description: >-
+      List the auto-converted Parquet files for the dataset so a consumer can
+      plan efficient bulk access.
+    operationId: $sourceDescriptions.datasetViewerApi.getParquetFiles
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    - name: dataset
+      in: query
+      value: $inputs.dataset
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      parquetFiles: $response.body#/parquet_files
+  outputs:
+    datasetNumRows: $steps.getSize.outputs.datasetNumRows
+    configs: $steps.getSize.outputs.configs
+    parquetFiles: $steps.listParquet.outputs.parquetFiles

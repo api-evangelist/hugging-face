@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Hugging Face Embeddings Pair
+  summary: Confirm an embedding model is available, then embed a query and a document for comparison.
+  description: >-
+    A semantic-search building block over the Inference Providers router. The
+    workflow lists the available router models to confirm an embedding model is
+    servable, then creates an embedding vector for a query string and a separate
+    embedding vector for a document string so the two can be compared downstream
+    (for example by cosine similarity). Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: inferenceProvidersApi
+  url: ../openapi/hugging-face-inference-providers-api.yml
+  type: openapi
+workflows:
+- workflowId: embeddings-pair
+  summary: Embed a query and a document with the same model for similarity comparison.
+  description: >-
+    Confirms an embedding model is available on the router, then produces an
+    embedding vector for a query and for a document.
+  inputs:
+    type: object
+    required:
+    - hfToken
+    - modelId
+    - query
+    - document
+    properties:
+      hfToken:
+        type: string
+        description: Hugging Face access token used as a Bearer credential.
+      modelId:
+        type: string
+        description: The embedding model id to use.
+      query:
+        type: string
+        description: The query text to embed.
+      document:
+        type: string
+        description: The document text to embed for comparison against the query.
+  steps:
+  - stepId: listRouterModels
+    description: >-
+      List the models available through the router to confirm the requested
+      embedding model can be served before embedding.
+    operationId: listModels
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      models: $response.body#/data
+  - stepId: embedQuery
+    description: >-
+      Create an embedding vector for the query text using the requested model.
+    operationId: createEmbeddings
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.modelId
+        input: $inputs.query
+        encoding_format: float
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      queryVector: $response.body#/data/0/embedding
+  - stepId: embedDocument
+    description: >-
+      Create an embedding vector for the document text using the same model so
+      it can be compared to the query vector.
+    operationId: createEmbeddings
+    parameters:
+    - name: Authorization
+      in: header
+      value: Bearer $inputs.hfToken
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.modelId
+        input: $inputs.document
+        encoding_format: float
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      documentVector: $response.body#/data/0/embedding
+      totalTokens: $response.body#/usage/total_tokens
+  outputs:
+    queryVector: $steps.embedQuery.outputs.queryVector
+    documentVector: $steps.embedDocument.outputs.documentVector
