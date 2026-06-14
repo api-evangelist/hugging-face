@@ -1,0 +1,1239 @@
+"""
+Hugging Face GraphQL Schema
+
+Conceptual GraphQL schema modeling the Hugging Face platform APIs:
+- Hub API (https://huggingface.co/api)
+- Inference API (https://api-inference.huggingface.co)
+- Inference Endpoints API (https://api.endpoints.huggingface.cloud)
+- Dataset Viewer API (https://datasets-server.huggingface.co)
+
+This is a conceptual schema. Hugging Face does not currently expose a native
+GraphQL endpoint. This schema is intended for use in GraphQL gateway layers,
+federation designs, and developer tooling built on top of the REST APIs.
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+scalar URL
+scalar Upload
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum RepositoryType {
+  MODEL
+  DATASET
+  SPACE
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum SpaceSDK {
+  GRADIO
+  STREAMLIT
+  DOCKER
+  STATIC
+}
+
+enum SpaceStage {
+  NO_APP_FILE
+  CONFIG_ERROR
+  BUILDING
+  BUILD_ERROR
+  APP_STARTING
+  RUNNING
+  RUNNING_BUILDING
+  RUNTIME_ERROR
+  DELETING
+  STOPPED
+  PAUSED
+}
+
+enum EndpointState {
+  PENDING
+  INITIALIZING
+  UPDATING
+  UPDATE_FAILED
+  RUNNING
+  PAUSED
+  FAILED
+  EXPIRED
+  SCALED_TO_ZERO
+}
+
+enum EndpointType {
+  PUBLIC
+  PROTECTED
+  PRIVATE
+}
+
+enum PipelineTask {
+  TEXT_GENERATION
+  TEXT2TEXT_GENERATION
+  TEXT_CLASSIFICATION
+  TOKEN_CLASSIFICATION
+  QUESTION_ANSWERING
+  SUMMARIZATION
+  TRANSLATION
+  FILL_MASK
+  ZERO_SHOT_CLASSIFICATION
+  FEATURE_EXTRACTION
+  SENTENCE_SIMILARITY
+  TABLE_QUESTION_ANSWERING
+  IMAGE_CLASSIFICATION
+  OBJECT_DETECTION
+  IMAGE_SEGMENTATION
+  DEPTH_ESTIMATION
+  IMAGE_TO_IMAGE
+  IMAGE_TO_TEXT
+  TEXT_TO_IMAGE
+  AUDIO_CLASSIFICATION
+  AUTOMATIC_SPEECH_RECOGNITION
+  TEXT_TO_SPEECH
+  AUDIO_TO_AUDIO
+  DOCUMENT_QUESTION_ANSWERING
+  VISUAL_QUESTION_ANSWERING
+}
+
+enum PullRequestStatus {
+  OPEN
+  CLOSED
+  MERGED
+}
+
+enum TokenType {
+  READ
+  WRITE
+  FINE_GRAINED
+}
+
+enum MemberRole {
+  READ
+  WRITE
+  CONTRIBUTOR
+  ADMIN
+}
+
+# ---------------------------------------------------------------------------
+# Repository and Hub Types
+# ---------------------------------------------------------------------------
+
+"""A machine learning model repository on the Hugging Face Hub."""
+type Model {
+  id: ID!
+  modelId: String!
+  author: String
+  sha: String
+  lastModified: DateTime
+  private: Boolean!
+  disabled: Boolean
+  gated: Boolean
+  pipeline_tag: PipelineTask
+  tags: [String!]
+  downloads: Int
+  likes: Int
+  library_name: String
+  info: ModelInfo
+  files: [ModelFile!]
+  card: ModelCard
+  evaluations: [ModelEvaluation!]
+  commits(limit: Int): [Commit!]
+  branches: [Branch!]
+  tags_list: [Tag!]
+  pullRequests(status: PullRequestStatus): [PullRequest!]
+  discussions: [Discussion!]
+}
+
+"""Detailed metadata for a model including pipeline configuration and card data."""
+type ModelInfo {
+  id: ID!
+  modelId: String!
+  sha: String
+  pipeline_tag: PipelineTask
+  tags: [String!]
+  cardData: JSON
+  config: JSON
+  transformersInfo: JSON
+  widgetData: JSON
+  safetensors: JSON
+  author: String
+  downloads: Int
+  downloadsAllTime: Int
+  likes: Int
+  trendingScore: Float
+  createdAt: DateTime
+  lastModified: DateTime
+  library_name: String
+  license: String
+  language: [String!]
+  datasets: [String!]
+  metrics: [String!]
+  baseModel: String
+  masked: Boolean
+  spaces: [String!]
+}
+
+"""A single file within a model repository."""
+type ModelFile {
+  rfilename: String!
+  size: Int
+  blobId: String
+  lfs: LFSFile
+  lastCommit: CommitInfo
+  security: FileSecurity
+}
+
+"""Metadata for a file stored via Git LFS."""
+type LFSFile {
+  sha256: String!
+  size: Int!
+  pointerSize: Int
+}
+
+"""Security scan result for a repository file."""
+type FileSecurity {
+  safe: Boolean!
+  avScan: JSON
+  pickleImportScan: JSON
+}
+
+"""Structured metadata parsed from a model's README model card."""
+type ModelCard {
+  language: [String!]
+  license: String
+  tags: [String!]
+  datasets: [String!]
+  metrics: [String!]
+  pipeline_tag: String
+  baseModel: String
+  modelIndex: JSON
+  co2EqEmissions: JSON
+  widgetData: JSON
+}
+
+"""Evaluation results attached to a model."""
+type ModelEvaluation {
+  task: String!
+  dataset: String!
+  metric: String!
+  value: Float
+  verified: Boolean
+}
+
+# ---------------------------------------------------------------------------
+
+"""A dataset repository on the Hugging Face Hub."""
+type Dataset {
+  id: ID!
+  datasetId: String!
+  author: String
+  sha: String
+  lastModified: DateTime
+  private: Boolean!
+  gated: Boolean
+  disabled: Boolean
+  tags: [String!]
+  downloads: Int
+  likes: Int
+  info: DatasetInfo
+  card: DatasetCard
+  splits: [DatasetSplit!]
+  commits(limit: Int): [Commit!]
+  branches: [Branch!]
+  discussions: [Discussion!]
+}
+
+"""Detailed metadata for a dataset repository."""
+type DatasetInfo {
+  id: ID!
+  datasetId: String!
+  sha: String
+  tags: [String!]
+  cardData: JSON
+  author: String
+  downloads: Int
+  likes: Int
+  trendingScore: Float
+  createdAt: DateTime
+  lastModified: DateTime
+  license: String
+  language: [String!]
+  task_categories: [String!]
+  size_categories: [String!]
+  pretty_name: String
+  configs: [JSON!]
+}
+
+"""Structured metadata from a dataset's README card."""
+type DatasetCard {
+  language: [String!]
+  license: String
+  multilinguality: String
+  size_categories: [String!]
+  task_categories: [String!]
+  task_ids: [String!]
+  pretty_name: String
+  tags: [String!]
+  configs: [JSON!]
+}
+
+"""Paginated row content returned from the Dataset Viewer API."""
+type DatasetContent {
+  features: [DatasetColumn!]!
+  rows: [DatasetRow!]!
+  numRowsTotal: Int
+  numRowsPerPage: Int
+  partial: Boolean
+}
+
+# ---------------------------------------------------------------------------
+
+"""A Gradio, Streamlit, Docker, or static application hosted on the Hub."""
+type Space {
+  id: ID!
+  spaceId: String!
+  author: String
+  sha: String
+  lastModified: DateTime
+  private: Boolean!
+  gated: Boolean
+  sdk: SpaceSDK
+  tags: [String!]
+  likes: Int
+  info: SpaceInfo
+  card: SpaceCard
+  runtime: SpaceRuntime
+  commits(limit: Int): [Commit!]
+  discussions: [Discussion!]
+}
+
+"""Detailed metadata for a Space."""
+type SpaceInfo {
+  id: ID!
+  spaceId: String!
+  sha: String
+  sdk: SpaceSDK
+  sdk_version: String
+  app_port: Int
+  tags: [String!]
+  author: String
+  likes: Int
+  trendingScore: Float
+  createdAt: DateTime
+  lastModified: DateTime
+  license: String
+  language: [String!]
+  pinned: Boolean
+  subdomain: String
+  host: URL
+}
+
+"""Structured metadata from a Space's README card."""
+type SpaceCard {
+  title: String
+  emoji: String
+  colorFrom: String
+  colorTo: String
+  sdk: String
+  sdk_version: String
+  app_file: String
+  app_port: Int
+  pinned: Boolean
+  license: String
+  tags: [String!]
+}
+
+"""Current runtime state and hardware allocation of a Space."""
+type SpaceRuntime {
+  stage: SpaceStage!
+  sdk: SpaceSDK
+  sdk_version: String
+  hardware: SpaceHardware
+  requestedHw: String
+  errorMessage: String
+  gcTimeout: Int
+  useCache: Boolean
+  replicas: Int
+}
+
+"""Hardware specification currently assigned to a Space."""
+type SpaceHardware {
+  current: String
+  currentPretty: String
+  requested: String
+  requestedPretty: String
+}
+
+# ---------------------------------------------------------------------------
+# Version Control Types
+# ---------------------------------------------------------------------------
+
+"""A generic repository reference (model, dataset, or space)."""
+type Repository {
+  id: ID!
+  type: RepositoryType!
+  name: String!
+  author: String!
+  sha: String
+  private: Boolean!
+  lastModified: DateTime
+  branches: [Branch!]
+  tags: [Tag!]
+  commits(limit: Int, offset: Int): [Commit!]
+}
+
+"""A named branch within a Hub repository."""
+type Branch {
+  name: String!
+  targetCommit: String!
+  ref: String!
+}
+
+"""A named tag pointing to a specific commit in a repository."""
+type Tag {
+  name: String!
+  targetCommit: String!
+  ref: String!
+}
+
+"""A single commit in a repository's history."""
+type Commit {
+  id: ID!
+  sha: String!
+  title: String!
+  message: String
+  authors: [CommitAuthor!]
+  date: DateTime
+  url: URL
+}
+
+"""Full metadata for a commit including file-level changes."""
+type CommitInfo {
+  id: ID!
+  sha: String!
+  title: String!
+  message: String
+  authors: [CommitAuthor!]
+  date: DateTime
+  url: URL
+  filesChanged: [String!]
+  summary: String
+}
+
+"""Authorship information for a commit."""
+type CommitAuthor {
+  name: String!
+  email: String
+  avatar: URL
+  user: User
+}
+
+# ---------------------------------------------------------------------------
+# Collaboration Types
+# ---------------------------------------------------------------------------
+
+"""A pull request opened against a Hub repository."""
+type PullRequest {
+  id: ID!
+  number: Int!
+  title: String!
+  status: PullRequestStatus!
+  author: User
+  createdAt: DateTime
+  updatedAt: DateTime
+  targetBranch: String
+  sourceBranch: String
+  changedFiles: [String!]
+  reviews: [Review!]
+  comments: [Comment!]
+  mergedAt: DateTime
+  mergedBy: User
+}
+
+"""A review submitted on a pull request."""
+type Review {
+  id: ID!
+  author: User
+  body: String
+  state: String
+  submittedAt: DateTime
+  comments: [Comment!]
+}
+
+"""A discussion thread on a model, dataset, or space."""
+type Discussion {
+  id: ID!
+  number: Int!
+  title: String!
+  status: String!
+  author: User
+  createdAt: DateTime
+  updatedAt: DateTime
+  isPullRequest: Boolean!
+  comments: [Comment!]
+}
+
+"""A comment within a discussion or pull request."""
+type Comment {
+  id: ID!
+  author: User
+  body: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  edited: Boolean
+}
+
+"""A webhook registered for Hub repository events."""
+type Webhook {
+  id: ID!
+  url: URL!
+  watched: [WebhookWatch!]!
+  domains: [String!]!
+  secret: String
+  disabled: Boolean!
+  stats: WebhookStats
+}
+
+"""A resource watched by a webhook."""
+type WebhookWatch {
+  type: RepositoryType!
+  name: String!
+}
+
+"""Delivery statistics for a webhook."""
+type WebhookStats {
+  successRate: Float
+  recentPings: Int
+  lastTriggeredAt: DateTime
+}
+
+# ---------------------------------------------------------------------------
+# Identity and Access Types
+# ---------------------------------------------------------------------------
+
+"""A registered Hugging Face user account."""
+type User {
+  id: ID!
+  name: String!
+  fullname: String
+  email: String
+  emailVerified: Boolean
+  avatarUrl: URL
+  websiteUrl: URL
+  isPro: Boolean
+  followerCount: Int
+  followingCount: Int
+  createdAt: DateTime
+  profile: UserProfile
+  models(limit: Int): [Model!]
+  datasets(limit: Int): [Dataset!]
+  spaces(limit: Int): [Space!]
+  organizations: [Organization!]
+  tokens: [Token!]
+}
+
+"""Extended public profile data for a user."""
+type UserProfile {
+  username: String!
+  fullname: String
+  bio: String
+  location: String
+  company: String
+  websiteUrl: URL
+  githubUsername: String
+  twitterUsername: String
+  avatarUrl: URL
+  isPro: Boolean
+  followerCount: Int
+  followingCount: Int
+  numModels: Int
+  numDatasets: Int
+  numSpaces: Int
+  numLikes: Int
+}
+
+"""A Hugging Face organization grouping users and resources."""
+type Organization {
+  id: ID!
+  name: String!
+  fullname: String
+  description: String
+  location: String
+  email: String
+  websiteUrl: URL
+  avatarUrl: URL
+  isEnterprise: Boolean
+  memberCount: Int
+  members: [OrgMember!]
+  models(limit: Int): [Model!]
+  datasets(limit: Int): [Dataset!]
+  spaces(limit: Int): [Space!]
+  resources: [OrgResource!]
+}
+
+"""A user's membership record within an organization."""
+type OrgMember {
+  user: User!
+  role: MemberRole!
+  joinedAt: DateTime
+}
+
+"""A resource (model, dataset, or space) owned by an organization."""
+type OrgResource {
+  id: ID!
+  type: RepositoryType!
+  name: String!
+  private: Boolean!
+  lastModified: DateTime
+}
+
+"""A user or application authentication token."""
+type Token {
+  id: ID!
+  name: String!
+  type: TokenType!
+  createdAt: DateTime
+  lastUsedAt: DateTime
+  expired: Boolean
+}
+
+"""A scoped access token with read or write permissions."""
+type AccessToken {
+  id: ID!
+  name: String!
+  accessToken: String
+  role: String
+  createdAt: DateTime
+  lastUsedAt: DateTime
+  fineGrainedPermissions: JSON
+}
+
+"""An API key for third-party inference provider access."""
+type APIKey {
+  id: ID!
+  provider: String!
+  maskedKey: String!
+  createdAt: DateTime
+  active: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Inference and Pipeline Types
+# ---------------------------------------------------------------------------
+
+"""Input payload for a serverless Inference API call."""
+type InferenceRequest {
+  model: String!
+  inputs: JSON!
+  parameters: JSON
+  options: InferenceOptions
+}
+
+"""Options controlling inference execution behavior."""
+type InferenceOptions {
+  useCache: Boolean
+  waitForModel: Boolean
+  useGPU: Boolean
+}
+
+"""Output payload returned from an Inference API call."""
+type InferenceOutput {
+  model: String
+  computeTime: Float
+  output: JSON
+  warnings: [String!]
+}
+
+"""An ML pipeline task type and its associated metadata."""
+type Pipeline {
+  task: PipelineTask!
+  defaultModel: String
+  widgetData: JSON
+  isZeroShot: Boolean
+  isBranching: Boolean
+}
+
+"""Output from a text generation pipeline."""
+type TextGeneration {
+  generated_text: String!
+  details: TextGenerationDetails
+}
+
+"""Token-level details for a text generation output."""
+type TextGenerationDetails {
+  finish_reason: String
+  generated_tokens: Int
+  seed: Int
+  prefill: [TokenDetail!]
+  tokens: [TokenDetail!]
+}
+
+"""Per-token metadata from a generation or classification output."""
+type TokenDetail {
+  id: Int!
+  text: String!
+  logprob: Float
+  special: Boolean
+}
+
+"""Label and score output from a text classification pipeline."""
+type TextClassification {
+  label: String!
+  score: Float!
+}
+
+"""Per-token label from a token classification pipeline."""
+type TokenClassification {
+  entity: String!
+  score: Float!
+  index: Int!
+  word: String!
+  start: Int
+  end: Int
+}
+
+"""Named entity recognition output with entity type and span."""
+type NER {
+  entity_group: String!
+  score: Float!
+  word: String!
+  start: Int
+  end: Int
+}
+
+"""Answer span and confidence from a question-answering pipeline."""
+type QuestionAnswering {
+  score: Float!
+  start: Int!
+  end: Int!
+  answer: String!
+}
+
+"""Generated summary from a summarization pipeline."""
+type SummarizationResult {
+  summary_text: String!
+}
+
+"""Translated text from a translation pipeline."""
+type Translation {
+  translation_text: String!
+}
+
+"""Embedding vector from a feature extraction pipeline."""
+type FeatureExtraction {
+  embedding: [[Float!]!]!
+  model: String
+}
+
+"""Label and confidence score from an image classification pipeline."""
+type ImageClassification {
+  label: String!
+  score: Float!
+}
+
+"""Bounding box and label from an object detection pipeline."""
+type ObjectDetection {
+  label: String!
+  score: Float!
+  box: BoundingBox!
+}
+
+"""A normalized bounding box in image coordinates."""
+type BoundingBox {
+  xmin: Float!
+  ymin: Float!
+  xmax: Float!
+  ymax: Float!
+}
+
+"""Mask and label from an image segmentation pipeline."""
+type Segmentation {
+  label: String!
+  score: Float!
+  mask: String
+}
+
+"""Depth map from a monocular depth estimation pipeline."""
+type DepthEstimation {
+  estimated_depth: [[Float!]!]
+  depth: String
+}
+
+"""Label and score from an audio classification pipeline."""
+type AudioClassification {
+  label: String!
+  score: Float!
+}
+
+"""Transcribed text from an automatic speech recognition pipeline."""
+type SpeechRecognition {
+  text: String!
+  chunks: [ASRChunk!]
+}
+
+"""Timestamped chunk from an ASR output."""
+type ASRChunk {
+  text: String!
+  timestamp: [Float!]
+}
+
+"""Audio blob output from a text-to-speech pipeline."""
+type TextToSpeech {
+  audio: String!
+  contentType: String
+}
+
+"""Candidate label scores from a zero-shot classification pipeline."""
+type ZeroShotClassification {
+  sequence: String!
+  labels: [String!]!
+  scores: [Float!]!
+}
+
+"""Answer extracted from a structured table by a table-QA pipeline."""
+type TableQuestion {
+  answer: String!
+  coordinates: [[Int!]!]
+  cells: [String!]
+  aggregator: String
+}
+
+"""Input document payload for document understanding tasks."""
+type Document {
+  image: String!
+  question: String
+  wordBoxes: [[JSON!]!]
+}
+
+"""Top token candidates from a masked language model fill-mask pipeline."""
+type FillMask {
+  score: Float!
+  token: Int!
+  token_str: String!
+  sequence: String!
+}
+
+# ---------------------------------------------------------------------------
+# Inference Endpoint Types
+# ---------------------------------------------------------------------------
+
+"""A dedicated, scalable inference endpoint for production deployments."""
+type InferenceEndpoint {
+  name: String!
+  namespace: String!
+  type: EndpointType!
+  state: EndpointState!
+  model: EndpointModel!
+  compute: EndpointCompute!
+  scaling: EndpointScaling!
+  status: EndpointStatus!
+  url: URL
+  createdAt: DateTime
+  updatedAt: DateTime
+  provider: EndpointProvider
+}
+
+"""The model configuration attached to an inference endpoint."""
+type EndpointModel {
+  repository: String!
+  framework: String
+  task: PipelineTask
+  image: JSON
+}
+
+"""Hardware configuration for an inference endpoint."""
+type EndpointCompute {
+  accelerator: String!
+  instanceType: String!
+  instanceSize: String!
+  numReplicas: Int
+  region: String!
+}
+
+"""Autoscaling configuration for an inference endpoint."""
+type EndpointScaling {
+  minReplicas: Int!
+  maxReplicas: Int!
+  scaleToZeroTimeout: Int
+}
+
+"""Current operational status and replica count of an endpoint."""
+type EndpointStatus {
+  state: EndpointState!
+  message: String
+  readyReplicas: Int
+  url: URL
+  private: EndpointPrivateLink
+}
+
+"""Private link configuration for a private inference endpoint."""
+type EndpointPrivateLink {
+  enabled: Boolean!
+  serviceName: String
+}
+
+"""Cloud provider configuration for an inference endpoint."""
+type EndpointProvider {
+  name: String!
+  region: String!
+}
+
+# ---------------------------------------------------------------------------
+# Dataset Viewer Types
+# ---------------------------------------------------------------------------
+
+"""A named split (train/validation/test) within a dataset."""
+type DatasetSplit {
+  dataset: String!
+  config: String!
+  split: String!
+  numRows: Int
+  numBytes: Int
+  partial: Boolean
+  features: [DatasetColumn!]
+}
+
+"""A single data row from a dataset split."""
+type DatasetRow {
+  row_idx: Int!
+  row: JSON!
+  truncatedCells: [String!]
+}
+
+"""Schema and type information for a dataset column."""
+type DatasetColumn {
+  name: String!
+  type: DatasetColumnType!
+  dtype: String
+  feature: JSON
+}
+
+"""The high-level data type of a dataset column."""
+type DatasetColumnType {
+  _type: String!
+  dtype: String
+  feature: JSON
+}
+
+"""Descriptive statistics for a dataset column."""
+type DatasetStatistics {
+  column_name: String!
+  column_type: String!
+  column_statistics: JSON!
+}
+
+"""A row returned by a full-text search over a dataset split."""
+type DatasetSearchResult {
+  row_idx: Int!
+  score: Float!
+  row: JSON!
+  truncatedCells: [String!]
+}
+
+"""A Parquet shard file for a dataset split."""
+type ParquetFile {
+  dataset: String!
+  config: String!
+  split: String!
+  url: URL!
+  filename: String!
+  size: Int
+  numRows: Int
+}
+
+# ---------------------------------------------------------------------------
+# Pagination and Filter Types
+# ---------------------------------------------------------------------------
+
+"""Cursor-based pagination metadata."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int
+}
+
+"""Filter options for model list queries."""
+input ModelFilter {
+  author: String
+  pipeline_tag: PipelineTask
+  library: String
+  language: String
+  tags: [String!]
+  search: String
+  sort: String
+  direction: Int
+  limit: Int
+}
+
+"""Filter options for dataset list queries."""
+input DatasetFilter {
+  author: String
+  language: String
+  multilinguality: String
+  size_categories: String
+  tags: [String!]
+  search: String
+  sort: String
+  direction: Int
+  limit: Int
+}
+
+"""Filter options for space list queries."""
+input SpaceFilter {
+  author: String
+  sdk: SpaceSDK
+  tags: [String!]
+  search: String
+  sort: String
+  direction: Int
+  limit: Int
+}
+
+# ---------------------------------------------------------------------------
+# Input Types for Mutations
+# ---------------------------------------------------------------------------
+
+"""Input for creating a new repository."""
+input CreateRepositoryInput {
+  name: String!
+  type: RepositoryType!
+  private: Boolean
+  organization: String
+  license: String
+  sdk: SpaceSDK
+}
+
+"""Input for committing files to a repository."""
+input CreateCommitInput {
+  repoId: String!
+  repoType: RepositoryType!
+  commitMessage: String!
+  commitDescription: String
+  operations: [CommitOperation!]!
+  branch: String
+  parentCommit: String
+}
+
+"""A single file operation within a commit."""
+input CommitOperation {
+  operation: String!
+  path: String!
+  content: String
+  upload: Upload
+}
+
+"""Input for opening a pull request."""
+input CreatePullRequestInput {
+  repoId: String!
+  repoType: RepositoryType!
+  title: String!
+  description: String
+  head: String!
+}
+
+"""Input for opening a discussion."""
+input CreateDiscussionInput {
+  repoId: String!
+  repoType: RepositoryType!
+  title: String!
+  description: String
+}
+
+"""Input for creating a dedicated inference endpoint."""
+input CreateEndpointInput {
+  name: String!
+  namespace: String!
+  type: EndpointType!
+  model: EndpointModelInput!
+  compute: EndpointComputeInput!
+  scaling: EndpointScalingInput!
+  provider: EndpointProviderInput!
+}
+
+"""Input for the model specification of an inference endpoint."""
+input EndpointModelInput {
+  repository: String!
+  framework: String
+  task: PipelineTask
+  image: JSON
+}
+
+"""Input for the compute specification of an inference endpoint."""
+input EndpointComputeInput {
+  accelerator: String!
+  instanceType: String!
+  instanceSize: String!
+  numReplicas: Int
+}
+
+"""Input for the autoscaling policy of an inference endpoint."""
+input EndpointScalingInput {
+  minReplicas: Int!
+  maxReplicas: Int!
+  scaleToZeroTimeout: Int
+}
+
+"""Input for the cloud provider configuration of an inference endpoint."""
+input EndpointProviderInput {
+  name: String!
+  region: String!
+}
+
+"""Input for updating an existing inference endpoint."""
+input UpdateEndpointInput {
+  type: EndpointType
+  compute: EndpointComputeInput
+  scaling: EndpointScalingInput
+}
+
+"""Input for registering a webhook."""
+input CreateWebhookInput {
+  url: URL!
+  watched: [WebhookWatchInput!]!
+  domains: [String!]!
+  secret: String
+}
+
+"""Input for specifying a watched resource in a webhook."""
+input WebhookWatchInput {
+  type: RepositoryType!
+  name: String!
+}
+
+# ---------------------------------------------------------------------------
+# Query Type
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Fetch a single model by its Hub ID (e.g. 'mistralai/Mistral-7B-v0.1')."""
+  model(id: ID!): Model
+
+  """List models with optional filters."""
+  models(filter: ModelFilter, limit: Int, offset: Int): [Model!]!
+
+  """Fetch a single dataset by its Hub ID."""
+  dataset(id: ID!): Dataset
+
+  """List datasets with optional filters."""
+  datasets(filter: DatasetFilter, limit: Int, offset: Int): [Dataset!]!
+
+  """Fetch a single Space by its Hub ID."""
+  space(id: ID!): Space
+
+  """List spaces with optional filters."""
+  spaces(filter: SpaceFilter, limit: Int, offset: Int): [Space!]!
+
+  """Fetch a user profile by username."""
+  user(username: String!): User
+
+  """Fetch the currently authenticated user's profile."""
+  me: User
+
+  """Fetch an organization by name."""
+  organization(name: String!): Organization
+
+  """Fetch a specific inference endpoint by namespace and name."""
+  inferenceEndpoint(namespace: String!, name: String!): InferenceEndpoint
+
+  """List all inference endpoints for a namespace."""
+  inferenceEndpoints(namespace: String!): [InferenceEndpoint!]!
+
+  """List available splits for a dataset."""
+  datasetSplits(dataset: String!, config: String): [DatasetSplit!]!
+
+  """Fetch paginated rows from a dataset split."""
+  datasetRows(dataset: String!, config: String!, split: String!, offset: Int, length: Int): DatasetContent
+
+  """Search within a dataset split using full-text search."""
+  datasetSearch(dataset: String!, config: String!, split: String!, query: String!, offset: Int, length: Int): [DatasetSearchResult!]!
+
+  """Fetch column statistics for a dataset split."""
+  datasetStatistics(dataset: String!, config: String!, split: String!): [DatasetStatistics!]!
+
+  """List Parquet files for a dataset."""
+  parquetFiles(dataset: String!, config: String, split: String): [ParquetFile!]!
+
+  """List available inference pipeline tasks."""
+  pipelines: [Pipeline!]!
+
+  """Fetch the current user's webhooks."""
+  webhooks: [Webhook!]!
+
+  """Fetch a single webhook by ID."""
+  webhook(id: ID!): Webhook
+}
+
+# ---------------------------------------------------------------------------
+# Mutation Type
+# ---------------------------------------------------------------------------
+
+type Mutation {
+  """Create a new model, dataset, or space repository."""
+  createRepository(input: CreateRepositoryInput!): Repository!
+
+  """Delete a repository."""
+  deleteRepository(id: ID!, type: RepositoryType!): Boolean!
+
+  """Toggle a repository's public/private visibility."""
+  updateRepositoryVisibility(id: ID!, type: RepositoryType!, private: Boolean!): Repository!
+
+  """Commit one or more file operations to a repository."""
+  createCommit(input: CreateCommitInput!): CommitInfo!
+
+  """Open a pull request against a repository."""
+  createPullRequest(input: CreatePullRequestInput!): PullRequest!
+
+  """Merge an open pull request."""
+  mergePullRequest(repoId: String!, repoType: RepositoryType!, number: Int!): PullRequest!
+
+  """Close a pull request without merging."""
+  closePullRequest(repoId: String!, repoType: RepositoryType!, number: Int!): PullRequest!
+
+  """Open a discussion thread on a repository."""
+  createDiscussion(input: CreateDiscussionInput!): Discussion!
+
+  """Add a comment to an existing discussion or pull request."""
+  addComment(repoId: String!, repoType: RepositoryType!, discussionNumber: Int!, body: String!): Comment!
+
+  """Provision a new dedicated inference endpoint."""
+  createInferenceEndpoint(input: CreateEndpointInput!): InferenceEndpoint!
+
+  """Update an existing inference endpoint's configuration."""
+  updateInferenceEndpoint(namespace: String!, name: String!, input: UpdateEndpointInput!): InferenceEndpoint!
+
+  """Delete an inference endpoint."""
+  deleteInferenceEndpoint(namespace: String!, name: String!): Boolean!
+
+  """Pause a running inference endpoint to stop billing."""
+  pauseInferenceEndpoint(namespace: String!, name: String!): InferenceEndpoint!
+
+  """Resume a paused inference endpoint."""
+  resumeInferenceEndpoint(namespace: String!, name: String!): InferenceEndpoint!
+
+  """Run serverless inference via the Inference API."""
+  runInference(model: String!, inputs: JSON!, parameters: JSON, options: JSON): InferenceOutput!
+
+  """Register a new webhook for Hub events."""
+  createWebhook(input: CreateWebhookInput!): Webhook!
+
+  """Update an existing webhook."""
+  updateWebhook(id: ID!, input: CreateWebhookInput!): Webhook!
+
+  """Delete a webhook."""
+  deleteWebhook(id: ID!): Boolean!
+}

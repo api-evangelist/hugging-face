@@ -1,5 +1,6 @@
 name: Hugging Face
-description: The AI community building the future with open-source machine learning models, datasets, and applications.
+description: The AI community building the future with open-source machine learning
+  models, datasets, and applications.
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
@@ -7,7 +8,8 @@ modified: '2026-05-19'
 specificationVersion: '0.18'
 apis:
 - name: Hugging Face Inference API
-  description: Run inference on 200,000+ machine learning models with a simple HTTP request.
+  description: Run inference on 200,000+ machine learning models with a simple HTTP
+    request.
   image: https://huggingface.co/front/assets/huggingface_logo.svg
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
@@ -31,37 +33,14 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: NaftikoCapability
-    url: capabilities/dataset-viewer-data-access.yaml
-  - type: NaftikoCapability
-    url: capabilities/dataset-viewer-dataset-info.yaml
-  - type: NaftikoCapability
-    url: capabilities/dataset-viewer-files-metadata.yaml
-  - type: NaftikoCapability
-    url: capabilities/dataset-viewer-search-filter.yaml
-  - type: NaftikoCapability
-    url: capabilities/hub-datasets.yaml
-  - type: NaftikoCapability
-    url: capabilities/hub-models.yaml
-  - type: NaftikoCapability
-    url: capabilities/hub-repos.yaml
-  - type: NaftikoCapability
-    url: capabilities/hub-spaces.yaml
-  - type: NaftikoCapability
-    url: capabilities/hub-users.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-audio.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-computer-vision.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-multimodal.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-natural-language-processing.yaml
+  - url: graphql/hugging-face-graphql.md
+    type: GraphQL
   contact:
   - type: Support
     url: https://huggingface.co/support
 - name: Hugging Face Hub API
-  description: Programmatically interact with the Hugging Face Hub - manage models, datasets, and spaces.
+  description: Programmatically interact with the Hugging Face Hub - manage models,
+    datasets, and spaces.
   image: https://huggingface.co/front/assets/huggingface_logo.svg
   humanURL: https://huggingface.co/docs/hub/api
   baseURL: https://huggingface.co/api
@@ -109,15 +88,12 @@ apis:
     url: https://huggingface.co/pricing#inference-endpoints
   - type: Authentication
     url: https://huggingface.co/docs/hub/security-tokens
-  - type: NaftikoCapability
-    url: capabilities/inference-endpoints-endpoints.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-endpoints-providers.yaml
   contact:
   - type: Support
     url: https://huggingface.co/support
 - name: Hugging Face Inference Providers API
-  description: Unified proxy layer providing access to 15+ inference partners through a single OpenAI-compatible endpoint.
+  description: Unified proxy layer providing access to 15+ inference partners through
+    a single OpenAI-compatible endpoint.
   image: https://huggingface.co/front/assets/huggingface_logo.svg
   humanURL: https://huggingface.co/docs/inference-providers/en/index
   baseURL: https://router.huggingface.co/v1
@@ -139,23 +115,12 @@ apis:
     url: https://huggingface.co/docs/inference-providers/pricing
   - type: Models
     url: https://huggingface.co/inference/models
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-audio.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-chat-completions.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-embeddings.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-image-generation.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-models.yaml
-  - type: NaftikoCapability
-    url: capabilities/inference-providers-text-generation.yaml
   contact:
   - type: Support
     url: https://huggingface.co/support
 - name: Hugging Face Dataset Viewer API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API.
+  description: Query and visualize datasets stored on the Hugging Face Hub through
+    a lightweight REST API.
   image: https://huggingface.co/front/assets/huggingface_logo.svg
   humanURL: https://huggingface.co/docs/dataset-viewer/index
   baseURL: https://datasets-server.huggingface.co
@@ -178,7 +143,8 @@ apis:
   - type: Support
     url: https://huggingface.co/support
 - name: Hugging Face Text Generation Inference API
-  description: High-performance toolkit for deploying and serving large language models with optimized inference.
+  description: High-performance toolkit for deploying and serving large language models
+    with optimized inference.
   image: https://huggingface.co/front/assets/huggingface_logo.svg
   humanURL: https://huggingface.co/docs/text-generation-inference/en/index
   baseURL: https://api-inference.huggingface.co
@@ -200,61 +166,70 @@ apis:
     url: https://huggingface.co/docs/text-generation-inference/en/messages_api
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
-  - type: NaftikoCapability
-    url: capabilities/text-generation-inference-chat.yaml
-  - type: NaftikoCapability
-    url: capabilities/text-generation-inference-info.yaml
-  - type: NaftikoCapability
-    url: capabilities/text-generation-inference-text-generation.yaml
   contact:
   - type: Support
     url: https://huggingface.co/support
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/hugging-face/overview
 - type: ArazzoWorkflows
   url: arazzo/
   workflows:
   - url: arazzo/hugging-face-chat-completion-with-model-discovery-workflow.yml
     name: Hugging Face Chat Completion with Model Discovery
-    summary: Discover an available router model, confirm it exists, then run an OpenAI-compatible chat completion.
+    summary: Discover an available router model, confirm it exists, then run an OpenAI-compatible
+      chat completion.
   - url: arazzo/hugging-face-create-repo-and-configure-workflow.yml
     name: Hugging Face Create Repository and Configure
-    summary: Identify the authenticated user, create a new repository, then set its visibility and gating.
+    summary: Identify the authenticated user, create a new repository, then set its
+      visibility and gating.
   - url: arazzo/hugging-face-dataset-filter-rows-workflow.yml
     name: Hugging Face Dataset Filter Rows
-    summary: Confirm a dataset supports filtering, resolve its split, then apply a SQL-like filter.
+    summary: Confirm a dataset supports filtering, resolve its split, then apply a
+      SQL-like filter.
   - url: arazzo/hugging-face-dataset-search-and-statistics-workflow.yml
     name: Hugging Face Dataset Search and Statistics
-    summary: Resolve a dataset split, full-text search within it, then pull column statistics.
+    summary: Resolve a dataset split, full-text search within it, then pull column
+      statistics.
   - url: arazzo/hugging-face-dataset-size-and-parquet-workflow.yml
     name: Hugging Face Dataset Size and Parquet Files
-    summary: Confirm a dataset on the Hub, read its size profile, then list its Parquet files.
+    summary: Confirm a dataset on the Hub, read its size profile, then list its Parquet
+      files.
   - url: arazzo/hugging-face-dataset-validate-and-preview-workflow.yml
     name: Hugging Face Dataset Validate and Preview
-    summary: Check a dataset is viewer-ready, list its splits, then preview the first rows.
+    summary: Check a dataset is viewer-ready, list its splits, then preview the first
+      rows.
   - url: arazzo/hugging-face-deploy-inference-endpoint-workflow.yml
     name: Hugging Face Deploy Inference Endpoint and Wait
-    summary: Create a dedicated Inference Endpoint, then poll its status until it is running.
+    summary: Create a dedicated Inference Endpoint, then poll its status until it
+      is running.
   - url: arazzo/hugging-face-discover-space-workflow.yml
     name: Hugging Face Discover a Space
     summary: Search Hub Spaces by SDK and query, then load the top Space's details.
   - url: arazzo/hugging-face-embeddings-pair-workflow.yml
     name: Hugging Face Embeddings Pair
-    summary: Confirm an embedding model is available, then embed a query and a document for comparison.
+    summary: Confirm an embedding model is available, then embed a query and a document
+      for comparison.
   - url: arazzo/hugging-face-grounded-text-generation-workflow.yml
     name: Hugging Face Grounded Text Generation
-    summary: Find a text-generation model on the Hub, confirm it, then run hosted text generation.
+    summary: Find a text-generation model on the Hub, confirm it, then run hosted
+      text generation.
   - url: arazzo/hugging-face-search-and-inspect-model-workflow.yml
     name: Hugging Face Search and Inspect a Model
-    summary: Search the Hub for a model, fetch its full record, then inspect a specific revision.
+    summary: Search the Hub for a model, fetch its full record, then inspect a specific
+      revision.
   - url: arazzo/hugging-face-summarize-then-translate-workflow.yml
     name: Hugging Face Summarize Then Translate
-    summary: Summarize a long document with one model, then translate the summary with another.
+    summary: Summarize a long document with one model, then translate the summary
+      with another.
   - url: arazzo/hugging-face-tgi-inspect-and-generate-workflow.yml
     name: Hugging Face TGI Inspect and Generate
-    summary: Read a TGI server's info, tokenize a prompt to check its length, then generate text.
+    summary: Read a TGI server's info, tokenize a prompt to check its length, then
+      generate text.
   - url: arazzo/hugging-face-toggle-endpoint-state-workflow.yml
     name: Hugging Face Toggle Inference Endpoint State
-    summary: Read an endpoint's current state, then pause it if running or resume it if paused.
+    summary: Read an endpoint's current state, then pause it if running or resume
+      it if paused.
 - type: Portal
   url: https://huggingface.co
 - type: Documentation
@@ -300,44 +275,58 @@ common:
 - type: Features
   data:
   - name: Model Inference
-    description: Run inference on 200,000+ ML models with a simple HTTP request across NLP, vision, audio, and multimodal
-      tasks.
+    description: Run inference on 200,000+ ML models with a simple HTTP request across
+      NLP, vision, audio, and multimodal tasks.
   - name: Hub Repository Management
-    description: Programmatically manage models, datasets, and spaces including creation, versioning, and access control.
+    description: Programmatically manage models, datasets, and spaces including creation,
+      versioning, and access control.
   - name: Dedicated Endpoints
-    description: Deploy models on dedicated infrastructure with autoscaling, custom hardware, and private networking.
+    description: Deploy models on dedicated infrastructure with autoscaling, custom
+      hardware, and private networking.
   - name: Multi-Provider Routing
-    description: Unified OpenAI-compatible API routing to 15+ inference providers with automatic model selection.
+    description: Unified OpenAI-compatible API routing to 15+ inference providers
+      with automatic model selection.
   - name: Dataset Exploration
-    description: Query, search, filter, and visualize datasets without downloading via the Dataset Viewer API.
+    description: Query, search, filter, and visualize datasets without downloading
+      via the Dataset Viewer API.
   - name: Text Generation Inference
-    description: High-performance LLM serving with streaming, tool calling, structured output, and grammar constraints.
+    description: High-performance LLM serving with streaming, tool calling, structured
+      output, and grammar constraints.
   - name: OpenAI Compatibility
-    description: Drop-in replacement for OpenAI API with chat completions, embeddings, and image generation endpoints.
+    description: Drop-in replacement for OpenAI API with chat completions, embeddings,
+      and image generation endpoints.
 - type: UseCases
   data:
   - name: ML Model Prototyping
-    description: Rapidly prototype AI applications by running inference on pre-trained models without infrastructure setup.
+    description: Rapidly prototype AI applications by running inference on pre-trained
+      models without infrastructure setup.
   - name: Production ML Deployment
-    description: Deploy and scale ML models for production workloads with dedicated endpoints and autoscaling.
+    description: Deploy and scale ML models for production workloads with dedicated
+      endpoints and autoscaling.
   - name: Dataset Curation
-    description: Explore, validate, and curate ML datasets programmatically for training pipeline automation.
+    description: Explore, validate, and curate ML datasets programmatically for training
+      pipeline automation.
   - name: AI Application Development
-    description: Build AI-powered applications using unified inference APIs with multi-provider routing.
+    description: Build AI-powered applications using unified inference APIs with multi-provider
+      routing.
   - name: Model Benchmarking
-    description: Compare model performance across providers and hardware configurations for optimization.
+    description: Compare model performance across providers and hardware configurations
+      for optimization.
 - type: Integrations
   data:
   - name: AWS
-    description: Deploy inference endpoints on AWS with SageMaker integration and GPU instances.
+    description: Deploy inference endpoints on AWS with SageMaker integration and
+      GPU instances.
   - name: Google Cloud
-    description: Route inference to Google Cloud TPUs and GPUs through the providers API.
+    description: Route inference to Google Cloud TPUs and GPUs through the providers
+      API.
   - name: Azure
     description: Deploy models on Azure infrastructure with managed endpoint support.
   - name: LangChain
     description: Use Hugging Face models as LangChain LLM and embedding providers.
   - name: Gradio
-    description: Build interactive ML demos with Gradio and deploy as Hugging Face Spaces.
+    description: Build interactive ML demos with Gradio and deploy as Hugging Face
+      Spaces.
 - type: JSONSchema
   url: json-schema/hugging-face-model-schema.json
 - type: JSONSchema
