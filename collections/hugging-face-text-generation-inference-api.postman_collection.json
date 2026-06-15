@@ -1,0 +1,1375 @@
+{
+  "item": [
+    {
+      "id": "c6711132-4fcc-4c2e-ae81-9e7e1a02fe93",
+      "name": "Text Generation",
+      "description": {
+        "content": "TGI native text generation endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d9e344dc-83ff-4a3c-965f-35f7980682f5",
+          "name": "Generate Text",
+          "request": {
+            "name": "Generate Text",
+            "description": {
+              "content": "Generate text from a prompt using the loaded model. Returns the full generated text in a single response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": 20,\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": false,\n    \"seed\": \"<integer>\",\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"watermark\": false,\n    \"return_full_text\": false,\n    \"decoder_input_details\": false,\n    \"details\": false,\n    \"truncate\": \"<integer>\",\n    \"typical_p\": \"<float>\",\n    \"best_of\": \"<integer>\",\n    \"grammar\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "75472d57-543c-44d1-b84a-c514e385cbb6",
+              "name": "Generated text",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Compute backend used",
+                  "key": "x-compute-type",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of input characters",
+                  "key": "x-compute-characters",
+                  "value": "8123"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total inference time in milliseconds",
+                  "key": "x-total-time",
+                  "value": "4364.71663317005"
+                },
+                {
+                  "disabled": false,
+                  "description": "Input validation time in milliseconds",
+                  "key": "x-validation-time",
+                  "value": "4364.71663317005"
+                },
+                {
+                  "disabled": false,
+                  "description": "Queue wait time in milliseconds",
+                  "key": "x-queue-time",
+                  "value": "4364.71663317005"
+                },
+                {
+                  "disabled": false,
+                  "description": "Model inference time in milliseconds",
+                  "key": "x-inference-time",
+                  "value": "4364.71663317005"
+                },
+                {
+                  "disabled": false,
+                  "description": "Average time per generated token in milliseconds",
+                  "key": "x-time-per-token",
+                  "value": "4364.71663317005"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of prompt tokens",
+                  "key": "x-prompt-tokens",
+                  "value": "8123"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of generated tokens",
+                  "key": "x-generated-tokens",
+                  "value": "8123"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"generated_text\": \"example_value\",\n  \"details\": {\n    \"finish_reason\": \"length\",\n    \"generated_tokens\": 10,\n    \"seed\": 10,\n    \"prefill\": [\n      {\n        \"id\": \"abc123\",\n        \"text\": \"example_value\",\n        \"logprob\": 42.5\n      }\n    ],\n    \"tokens\": [\n      {\n        \"id\": \"abc123\",\n        \"text\": \"example_value\",\n        \"logprob\": 42.5,\n        \"special\": true\n      }\n    ],\n    \"best_of_sequences\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "286a83b4-15b6-4099-8311-5955e7cc86fe",
+              "name": "Invalid input - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b56d85f0-5c63-4c93-bc10-52e59da4480e",
+              "name": "Generation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "137aa417-3a12-4f38-8bd4-e90ce0e2ed70",
+              "name": "Model is overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09d1d0e2-45cb-4c25-8afd-0973f5f87cc6",
+          "name": "Generate Text With Streaming",
+          "request": {
+            "name": "Generate Text With Streaming",
+            "description": {
+              "content": "Generate text from a prompt using Server-Sent Events (SSE) streaming. Tokens are returned incrementally as they are generated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate_stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": 20,\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": false,\n    \"seed\": \"<integer>\",\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"watermark\": false,\n    \"return_full_text\": false,\n    \"decoder_input_details\": false,\n    \"details\": false,\n    \"truncate\": \"<integer>\",\n    \"typical_p\": \"<float>\",\n    \"best_of\": \"<integer>\",\n    \"grammar\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5198fe3e-aefb-4797-a93d-9d8b3a8fbb9a",
+              "name": "Stream of generated tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91185827-6451-43e5-a03c-9146f04383a6",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc1551d5-f2ed-46eb-a8f3-2b0a134ea50f",
+              "name": "Model is overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f440fb7-dcce-4152-80e9-37b907cf4637",
+          "name": "Create Text Completion (openai Compatible)",
+          "request": {
+            "name": "Create Text Completion (openai Compatible)",
+            "description": {
+              "content": "Create a text completion using the OpenAI-compatible completions API format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"max_tokens\": 16,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": false,\n  \"seed\": \"<integer>\",\n  \"suffix\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8328f667-0272-4a35-a6c6-8cc87ad1151f",
+              "name": "Completion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"prompt\": \"example_value\",\n  \"max_tokens\": 10,\n  \"temperature\": 42.5,\n  \"top_p\": 42.5,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"seed\": 10,\n  \"suffix\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"object\": \"example_value\",\n  \"created\": 10,\n  \"model\": \"example_value\",\n  \"choices\": [\n    {\n      \"text\": \"example_value\",\n      \"index\": 10,\n      \"finish_reason\": \"example_value\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 10,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6ffd891a-ceb8-4f2e-906f-8d91a79b7eda",
+      "name": "Chat",
+      "description": {
+        "content": "OpenAI-compatible chat completion endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0bd7c0a9-bc2b-4e6d-ac21-330f6ced0db1",
+          "name": "Create Chat Completion (openai Compatible)",
+          "request": {
+            "name": "Create Chat Completion (openai Compatible)",
+            "description": {
+              "content": "Create a chat completion using the OpenAI-compatible Messages API. Supports conversations, tool calling, structured output via JSON schema, and multi-modal inputs (text + images). Fully compatible with OpenAI client libraries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        },\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        }\n      ],\n      \"tool_call_id\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        },\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        }\n      ],\n      \"tool_call_id\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"presence_penalty\": \"<number>\",\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"seed\": \"<integer>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"temperature\": \"<number>\",\n  \"tool_choice\": \"<string>\",\n  \"tool_prompt\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": \"<object>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": \"<object>\"\n      }\n    }\n  ],\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "df3dd5b1-fe39-43f0-a125-49f229513db6",
+              "name": "Chat completion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\",\n      \"name\": \"Example Title\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"object\": \"example_value\",\n  \"created\": 10,\n  \"model\": \"example_value\",\n  \"system_fingerprint\": \"example_value\",\n  \"choices\": [\n    {\n      \"index\": 10,\n      \"message\": {\n        \"role\": \"example_value\",\n        \"content\": \"example_value\",\n        \"tool_calls\": {},\n        \"tool_call_id\": \"500123\"\n      },\n      \"finish_reason\": \"stop\",\n      \"logprobs\": {\n        \"content\": {}\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 10,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0f3a7d3-4033-4846-814c-6d6541c67cbf",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\",\n      \"name\": \"Example Title\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "810102b9-0d73-4d0e-9296-6048f8ecbe70",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\",\n      \"name\": \"Example Title\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a36e8db2-f29d-4a3e-8c49-214c23ddecea",
+              "name": "Model overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\",\n      \"name\": \"Example Title\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "64edf508-10ec-4422-9ace-211043a5134b",
+      "name": "Info",
+      "description": {
+        "content": "Server and model information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a207d034-0469-4bab-832b-64d6822f2723",
+          "name": "List Available Models",
+          "request": {
+            "name": "List Available Models",
+            "description": {
+              "content": "Get information about the model currently loaded on this TGI server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a544717a-3fd1-4450-85fa-14a9116cd9df",
+              "name": "Available models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"example_value\",\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"object\": \"example_value\",\n      \"created\": 10,\n      \"owned_by\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61d8e0d5-091d-45e0-9e3d-10cef50b206f",
+          "name": "Get Server Information",
+          "request": {
+            "name": "Get Server Information",
+            "description": {
+              "content": "Get metadata about the TGI server including the loaded model, version, SHA, Docker label, and model-specific parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8e709ce-3178-40eb-8a7d-5c7ed1827e68",
+              "name": "Server and model information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model_id\": \"500123\",\n  \"model_sha\": \"example_value\",\n  \"model_dtype\": \"float16\",\n  \"model_device_type\": \"example_value\",\n  \"model_pipeline_tag\": \"example_value\",\n  \"max_concurrent_requests\": 10,\n  \"max_best_of\": 10,\n  \"max_stop_sequences\": 10,\n  \"max_input_length\": 10,\n  \"max_total_tokens\": 10,\n  \"waiting_served_ratio\": 42.5,\n  \"max_batch_total_tokens\": 10,\n  \"max_waiting_tokens\": 10,\n  \"validation_workers\": 10,\n  \"max_client_batch_size\": 10,\n  \"version\": \"example_value\",\n  \"sha\": \"example_value\",\n  \"docker_label\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2576b63b-3843-45ae-85b9-c7a9d04b9f8f",
+          "name": "Health Check",
+          "request": {
+            "name": "Health Check",
+            "description": {
+              "content": "Check the health of the TGI server. Returns 200 if the model is loaded and ready to serve requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9a593cd2-1d84-409a-9ec3-51bc75fd7128",
+              "name": "Server is healthy and ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "756a93a6-72fa-42ce-abec-817924170adc",
+              "name": "Server is not ready (model still loading)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "413bf3ad-b045-46e8-9e51-11ead410180b",
+          "name": "Get Prometheus Metrics",
+          "request": {
+            "name": "Get Prometheus Metrics",
+            "description": {
+              "content": "Get server metrics in Prometheus format including request counts, latencies, queue sizes, and token throughput.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82bab110-737e-4102-bb5e-2c9833953808",
+              "name": "Prometheus-formatted metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8db2f466-0db5-4944-a641-a727a575b80e",
+          "name": "Tokenize Text",
+          "request": {
+            "name": "Tokenize Text",
+            "description": {
+              "content": "Tokenize a string of text using the model's tokenizer. Returns the token IDs and their string representations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokenize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"add_special_tokens\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8908d0cf-c439-4aef-a01f-91622681450d",
+              "name": "Tokenized result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokenize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"add_special_tokens\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"abc123\",\n    \"text\": \"example_value\",\n    \"start\": 10,\n    \"stop\": 10,\n    \"special\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api-inference.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9eb041da-28be-4092-8099-8dff957d8192",
+    "name": "Hugging Face Text Generation Inference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "High-performance toolkit for deploying and serving large language models with optimized inference. Provides both a custom TGI API and an OpenAI-compatible Messages API for chat completions. Supports streaming, tool calling, structured output, grammar constraints, and multi-modal inputs.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

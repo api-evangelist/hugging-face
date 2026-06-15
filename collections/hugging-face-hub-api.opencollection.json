@@ -1,0 +1,433 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Hub API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Models on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/models",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query to filter models"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by model author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags (comma-separated)"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return (max 1000)"
+              },
+              {
+                "name": "full",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return full model information including card data"
+              },
+              {
+                "name": "config",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return the model config"
+              },
+              {
+                "name": "pipeline_tag",
+                "value": "text-generation",
+                "type": "query",
+                "description": "Filter by pipeline task type"
+              },
+              {
+                "name": "library",
+                "value": "transformers",
+                "type": "query",
+                "description": "Filter by ML library"
+              }
+            ]
+          },
+          "docs": "List and search models hosted on the Hugging Face Hub. Supports filtering by author, task, library, tags, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Model Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/models/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "bert-base-uncased",
+                "type": "path",
+                "description": "The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific model by its repository ID."
+        },
+        {
+          "info": {
+            "name": "Get Model Information at a Specific Revision",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/models/:repo_id/revision/:revision",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "revision",
+                "value": "example_value",
+                "type": "path",
+                "description": "Git revision (branch name, tag, or commit SHA)"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a model at a specific Git revision (branch, tag, or commit SHA)."
+        },
+        {
+          "info": {
+            "name": "List Available Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/metrics"
+          },
+          "docs": "Get the list of available evaluation metrics on the Hub."
+        },
+        {
+          "info": {
+            "name": "List Model Tags Grouped by Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/models-tags-by-type"
+          },
+          "docs": "Get all available model tags organized by type (pipeline_tag, library, language, license, etc.)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Datasets on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/datasets",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query to filter datasets"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by dataset author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags (comma-separated)"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "full",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return full dataset information"
+              }
+            ]
+          },
+          "docs": "List and search datasets hosted on the Hugging Face Hub. Supports filtering by author, tags, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/datasets/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "squad",
+                "type": "path",
+                "description": "The dataset repository ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Parquet Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/datasets/:repo_id/parquet",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of auto-converted Parquet files for a dataset."
+        },
+        {
+          "info": {
+            "name": "List Dataset Tags Grouped by Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/datasets-tags-by-type"
+          },
+          "docs": "Get all available dataset tags organized by type (task_categories, language, size_categories, etc.)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Spaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Spaces on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/spaces",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by Space author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "List and search Spaces hosted on the Hugging Face Hub. Supports filtering by author, SDK, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Space Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/spaces/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path",
+                "description": "The Space repository ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific Space."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Repos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a New Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://huggingface.co/api/repos/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new model, dataset, or Space repository on the Hugging Face Hub."
+        },
+        {
+          "info": {
+            "name": "Delete a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://huggingface.co/api/repos/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a model, dataset, or Space repository from the Hub."
+        },
+        {
+          "info": {
+            "name": "Update Repository Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://huggingface.co/api/repos/:repo_type/:repo_id/settings",
+            "params": [
+              {
+                "name": "repo_type",
+                "value": "models",
+                "type": "path"
+              },
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the settings (visibility, etc.) for a repository."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current User Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://huggingface.co/api/whoami-v2"
+          },
+          "docs": "Get information about the authenticated user, including their organizations and access tokens."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

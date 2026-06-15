@@ -1,0 +1,215 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Inference Providers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat Completions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Chat Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a chat completion using an OpenAI-compatible API. Supports conversational LLMs and Vision-Language Models (VLMs). Requests are routed to the optimal inference provider automatically."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Text Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Text Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a text completion for a given prompt. Supports standard completion parameters compatible with the OpenAI API format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/embeddings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create embedding vectors for input text. Returns dense vector representations useful for semantic search, clustering, and classification tasks."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Image Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/images/generations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate images from text prompts using diffusion models available through inference providers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Transcribe Audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/audio/transcriptions",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "model",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "language",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "prompt",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "response_format",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "temperature",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Transcribe audio to text using automatic speech recognition models."
+        },
+        {
+          "info": {
+            "name": "Generate Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://router.huggingface.co/v1/audio/speech",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate audio speech from text input."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://router.huggingface.co/v1/models"
+          },
+          "docs": "List models available through inference providers. Returns model IDs and basic metadata."
+        },
+        {
+          "info": {
+            "name": "Get Model Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://router.huggingface.co/v1/models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "meta-llama/Llama-3-70b-chat-hf",
+                "type": "path",
+                "description": "The model ID"
+              }
+            ]
+          },
+          "docs": "Get information about a specific model available through inference providers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

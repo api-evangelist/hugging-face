@@ -1,0 +1,2547 @@
+{
+  "info": {
+    "_postman_id": "08d27d0d-445b-4e16-99a0-b39c06bee608",
+    "name": "Hugging Face Inference API",
+    "description": "Run inference on 200,000+ machine learning models hosted on the Hugging Face Hub with a simple HTTP request. Supports text generation, image classification, object detection, speech recognition, and many more tasks.\n\nContact Support:\n Name: Hugging Face Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:43.000Z",
+    "updatedAt": "2026-06-05T15:09:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-08d27d0d-445b-4e16-99a0-b39c06bee608"
+  },
+  "item": [
+    {
+      "name": "models",
+      "item": [
+        {
+          "name": "{model_id}",
+          "item": [
+            {
+              "name": "text-generation",
+              "item": [
+                {
+                  "name": "Text Generation Inference",
+                  "id": "cf257e24-2637-471b-bdad-471d575a5cd2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": true,\n    \"return_full_text\": true,\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/text-generation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "text-generation"
+                      ],
+                      "variable": [
+                        {
+                          "id": "57e7e061-a526-4ef9-9c72-b2dea57f1dfc",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Generate text using a language model. Supports parameters like temperature, top_p, max_new_tokens, and repetition_penalty."
+                  },
+                  "response": [
+                    {
+                      "id": "85cf0343-f268-4cbd-a83b-e4f43fcc324e",
+                      "name": "Generated text response",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": true,\n    \"return_full_text\": true,\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/text-generation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "text-generation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"generated_text\": \"<string>\"\n  },\n  {\n    \"generated_text\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-85cf0343-f268-4cbd-a83b-e4f43fcc324e"
+                    },
+                    {
+                      "id": "e6d25891-8587-42ba-856e-d8d0293637b0",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": true,\n    \"return_full_text\": true,\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/text-generation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "text-generation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-e6d25891-8587-42ba-856e-d8d0293637b0"
+                    },
+                    {
+                      "id": "55be088f-bdb6-4e36-b2fc-d8b367693aca",
+                      "name": "Model is loading",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": \"<integer>\",\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": true,\n    \"return_full_text\": true,\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/text-generation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "text-generation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-55be088f-bdb6-4e36-b2fc-d8b367693aca"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-cf257e24-2637-471b-bdad-471d575a5cd2"
+                }
+              ],
+              "id": "a83cc732-8ad1-49c0-8af5-ebabda678a3e",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-a83cc732-8ad1-49c0-8af5-ebabda678a3e"
+            },
+            {
+              "name": "text-classification",
+              "item": [
+                {
+                  "name": "Text Classification Inference",
+                  "id": "2b400698-086c-43de-b005-6ecd55e1be3e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/text-classification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "text-classification"
+                      ],
+                      "variable": [
+                        {
+                          "id": "89b66d95-537f-4cd4-993f-3a33168c8f8b",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Classify text into predefined categories using a text classification model such as sentiment analysis."
+                  },
+                  "response": [
+                    {
+                      "id": "588a2595-6118-4d02-b8c5-57736c58142a",
+                      "name": "Classification results",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/text-classification",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "text-classification"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  [\n    {\n      \"label\": \"<string>\",\n      \"score\": \"<float>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"score\": \"<float>\"\n    }\n  ],\n  [\n    {\n      \"label\": \"<string>\",\n      \"score\": \"<float>\"\n    },\n    {\n      \"label\": \"<string>\",\n      \"score\": \"<float>\"\n    }\n  ]\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-588a2595-6118-4d02-b8c5-57736c58142a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-2b400698-086c-43de-b005-6ecd55e1be3e"
+                }
+              ],
+              "id": "394d34d8-77a1-4c53-8bc6-eb27b05ff690",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-394d34d8-77a1-4c53-8bc6-eb27b05ff690"
+            },
+            {
+              "name": "question-answering",
+              "item": [
+                {
+                  "name": "Question Answering Inference",
+                  "id": "08be8e73-e197-4cb0-b829-abc053b4e99b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": {\n    \"question\": \"<string>\",\n    \"context\": \"<string>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/question-answering",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "question-answering"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d61407cf-0188-4e60-beab-42fa6eb3c43f",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Extract answers from a given context using a question answering model."
+                  },
+                  "response": [
+                    {
+                      "id": "9b1c8bfb-e98d-462b-b738-ea17d8ad328d",
+                      "name": "Answer extracted from context",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": {\n    \"question\": \"<string>\",\n    \"context\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/question-answering",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "question-answering"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"answer\": \"<string>\",\n  \"score\": \"<float>\",\n  \"start\": \"<integer>\",\n  \"end\": \"<integer>\"\n}",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-9b1c8bfb-e98d-462b-b738-ea17d8ad328d"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-08be8e73-e197-4cb0-b829-abc053b4e99b"
+                }
+              ],
+              "id": "6688fa21-9d89-494f-bde8-ac006d2c2bc9",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-6688fa21-9d89-494f-bde8-ac006d2c2bc9"
+            },
+            {
+              "name": "summarization",
+              "item": [
+                {
+                  "name": "Text Summarization Inference",
+                  "id": "75221153-23f6-462c-aa6d-e5f3140fb2db",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"min_length\": \"<integer>\",\n    \"max_length\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/summarization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "summarization"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d45af7ea-ddf0-49b9-9964-d30dceff7714",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Summarize a long text into a shorter version."
+                  },
+                  "response": [
+                    {
+                      "id": "2b8c0e12-5bdf-4248-bf0e-191519aff628",
+                      "name": "Summarized text",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"min_length\": \"<integer>\",\n    \"max_length\": \"<integer>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/summarization",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "summarization"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"summary_text\": \"<string>\"\n  },\n  {\n    \"summary_text\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-2b8c0e12-5bdf-4248-bf0e-191519aff628"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-75221153-23f6-462c-aa6d-e5f3140fb2db"
+                }
+              ],
+              "id": "075b8148-f120-4443-881a-c4d4b28c8f95",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-075b8148-f120-4443-881a-c4d4b28c8f95"
+            },
+            {
+              "name": "translation",
+              "item": [
+                {
+                  "name": "Translation Inference",
+                  "id": "87b2722d-4236-4e6e-8d7b-fcbf14697e86",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/translation",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "translation"
+                      ],
+                      "variable": [
+                        {
+                          "id": "12b181e9-717f-41b4-969b-3f8ab6a072c6",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Translate text from one language to another."
+                  },
+                  "response": [
+                    {
+                      "id": "16879765-5101-40ac-84c1-d86d8544a7b4",
+                      "name": "Translated text",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/translation",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "translation"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"translation_text\": \"<string>\"\n  },\n  {\n    \"translation_text\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-16879765-5101-40ac-84c1-d86d8544a7b4"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-87b2722d-4236-4e6e-8d7b-fcbf14697e86"
+                }
+              ],
+              "id": "95bb22b3-857a-4723-b2fc-94722c59efde",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-95bb22b3-857a-4723-b2fc-94722c59efde"
+            },
+            {
+              "name": "fill-mask",
+              "item": [
+                {
+                  "name": "Fill Mask Inference",
+                  "id": "da97f89d-f225-49c1-b961-222739248053",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/fill-mask",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "fill-mask"
+                      ],
+                      "variable": [
+                        {
+                          "id": "51e7da13-3410-44cf-9a62-08f4fa36cb8e",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Fill in a masked token in a sentence using a masked language model."
+                  },
+                  "response": [
+                    {
+                      "id": "fc57e77d-55e8-482f-978c-4ccf57f2a8cf",
+                      "name": "Predicted tokens for the mask",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/fill-mask",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "fill-mask"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"sequence\": \"<string>\",\n    \"score\": \"<float>\",\n    \"token\": \"<integer>\",\n    \"token_str\": \"<string>\"\n  },\n  {\n    \"sequence\": \"<string>\",\n    \"score\": \"<float>\",\n    \"token\": \"<integer>\",\n    \"token_str\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-fc57e77d-55e8-482f-978c-4ccf57f2a8cf"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-da97f89d-f225-49c1-b961-222739248053"
+                }
+              ],
+              "id": "a3d8684f-e73b-4614-8c72-419cde5ce62f",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-a3d8684f-e73b-4614-8c72-419cde5ce62f"
+            },
+            {
+              "name": "feature-extraction",
+              "item": [
+                {
+                  "name": "Feature Extraction Inference",
+                  "id": "8be4a8ba-0136-4038-92b9-a9b7b9a89519",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/feature-extraction",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "feature-extraction"
+                      ],
+                      "variable": [
+                        {
+                          "id": "45a20b3b-677b-4506-8533-25e775ed86b9",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Extract dense vector representations (embeddings) from text input."
+                  },
+                  "response": [
+                    {
+                      "id": "3bc19811-6973-4744-aa88-e54a1aff2b6a",
+                      "name": "Extracted feature vectors",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/feature-extraction",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "feature-extraction"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  [\n    \"<number>\",\n    \"<number>\"\n  ],\n  [\n    \"<number>\",\n    \"<number>\"\n  ]\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-3bc19811-6973-4744-aa88-e54a1aff2b6a"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-8be4a8ba-0136-4038-92b9-a9b7b9a89519"
+                }
+              ],
+              "id": "33d11529-7520-42e7-8641-ca899c170069",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-33d11529-7520-42e7-8641-ca899c170069"
+            },
+            {
+              "name": "image-classification",
+              "item": [
+                {
+                  "name": "Image Classification Inference",
+                  "id": "0fc24e03-b89a-42aa-af02-2d9d90993436",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/image-classification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "image-classification"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f4d95ed6-1230-49f9-a1e9-cf52c2a543ce",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Classify an image into predefined categories."
+                  },
+                  "response": [
+                    {
+                      "id": "163907b8-ff1e-4db2-bc14-83cbcbdadc60",
+                      "name": "Classification results",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/image-classification",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "image-classification"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"label\": \"<string>\",\n    \"score\": \"<float>\"\n  },\n  {\n    \"label\": \"<string>\",\n    \"score\": \"<float>\"\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-163907b8-ff1e-4db2-bc14-83cbcbdadc60"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-0fc24e03-b89a-42aa-af02-2d9d90993436"
+                }
+              ],
+              "id": "32b48223-2d7b-4fc6-84f5-d0ab201893fb",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-32b48223-2d7b-4fc6-84f5-d0ab201893fb"
+            },
+            {
+              "name": "object-detection",
+              "item": [
+                {
+                  "name": "Object Detection Inference",
+                  "id": "ec5a9e05-d41d-440c-bd89-5e2ef0f83716",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/octet-stream"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<binary>"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/object-detection",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "object-detection"
+                      ],
+                      "variable": [
+                        {
+                          "id": "adde8682-7a64-4099-abd8-39351ece8d5a",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Detect objects in an image and return bounding boxes with labels."
+                  },
+                  "response": [
+                    {
+                      "id": "cf2fc971-9dc8-4366-b8aa-1a5e40293ad5",
+                      "name": "Detected objects with bounding boxes",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/octet-stream"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<binary>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/object-detection",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "object-detection"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"label\": \"<string>\",\n    \"score\": \"<float>\",\n    \"box\": {\n      \"xmin\": \"<integer>\",\n      \"ymin\": \"<integer>\",\n      \"xmax\": \"<integer>\",\n      \"ymax\": \"<integer>\"\n    }\n  },\n  {\n    \"label\": \"<string>\",\n    \"score\": \"<float>\",\n    \"box\": {\n      \"xmin\": \"<integer>\",\n      \"ymin\": \"<integer>\",\n      \"xmax\": \"<integer>\",\n      \"ymax\": \"<integer>\"\n    }\n  }\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-cf2fc971-9dc8-4366-b8aa-1a5e40293ad5"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-ec5a9e05-d41d-440c-bd89-5e2ef0f83716"
+                }
+              ],
+              "id": "e50ccb37-a03c-47de-bac9-f8bd51a48447",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-e50ccb37-a03c-47de-bac9-f8bd51a48447"
+            },
+            {
+              "name": "automatic-speech-recognition",
+              "item": [
+                {
+                  "name": "Automatic Speech Recognition Inference",
+                  "id": "52156080-051c-4101-b594-492c24508b25",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "audio/flac"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "<binary>"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/automatic-speech-recognition",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "automatic-speech-recognition"
+                      ],
+                      "variable": [
+                        {
+                          "id": "81e6094d-45f3-4c64-a95c-f10d3787e365",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Transcribe audio to text using a speech recognition model."
+                  },
+                  "response": [
+                    {
+                      "id": "1942b17d-0979-455a-914b-f6b6c2e401b0",
+                      "name": "Transcribed text",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "audio/flac"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "<binary>"
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/automatic-speech-recognition",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "automatic-speech-recognition"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"text\": \"<string>\"\n}",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-1942b17d-0979-455a-914b-f6b6c2e401b0"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-52156080-051c-4101-b594-492c24508b25"
+                }
+              ],
+              "id": "100b5bbd-3539-47ab-9b92-fde64db7d76f",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-100b5bbd-3539-47ab-9b92-fde64db7d76f"
+            },
+            {
+              "name": "text-to-image",
+              "item": [
+                {
+                  "name": "Text to Image Generation",
+                  "id": "9229c3f7-8db8-4888-b7bb-669df1ff3df6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "image/png"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"negative_prompt\": \"<string>\",\n    \"height\": \"<integer>\",\n    \"width\": \"<integer>\",\n    \"num_inference_steps\": \"<integer>\",\n    \"guidance_scale\": \"<float>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/text-to-image",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "text-to-image"
+                      ],
+                      "variable": [
+                        {
+                          "id": "54ca4801-0207-4f0e-b7ca-2e519b3925a5",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Generate an image from a text prompt using a diffusion model."
+                  },
+                  "response": [
+                    {
+                      "id": "131872a2-00c2-4616-a418-1d96015e0f50",
+                      "name": "Generated image",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "image/png"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"negative_prompt\": \"<string>\",\n    \"height\": \"<integer>\",\n    \"width\": \"<integer>\",\n    \"num_inference_steps\": \"<integer>\",\n    \"guidance_scale\": \"<float>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/text-to-image",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "text-to-image"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "image/png"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<binary>",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-131872a2-00c2-4616-a418-1d96015e0f50"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-9229c3f7-8db8-4888-b7bb-669df1ff3df6"
+                }
+              ],
+              "id": "e4dd89e9-f4e7-46e6-9a05-08b4e56fc7e5",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-e4dd89e9-f4e7-46e6-9a05-08b4e56fc7e5"
+            },
+            {
+              "name": "zero-shot-classification",
+              "item": [
+                {
+                  "name": "Zero-shot Classification Inference",
+                  "id": "081bc2aa-7409-4c66-b5c3-2988384dd86f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"candidate_labels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"multi_label\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/zero-shot-classification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "zero-shot-classification"
+                      ],
+                      "variable": [
+                        {
+                          "id": "62ca6b61-7ba3-4c49-a9a8-344daf093b88",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Classify text into categories that the model has not been explicitly trained on using natural language inference."
+                  },
+                  "response": [
+                    {
+                      "id": "18058300-73ee-4959-9953-3241454633ac",
+                      "name": "Classification scores for each candidate label",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"candidate_labels\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"multi_label\": false\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/zero-shot-classification",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "zero-shot-classification"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"sequence\": \"<string>\",\n  \"labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"scores\": [\n    \"<float>\",\n    \"<float>\"\n  ]\n}",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-18058300-73ee-4959-9953-3241454633ac"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-081bc2aa-7409-4c66-b5c3-2988384dd86f"
+                }
+              ],
+              "id": "0235f919-a5ac-4f5c-a1b9-96dfa9309c75",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-0235f919-a5ac-4f5c-a1b9-96dfa9309c75"
+            },
+            {
+              "name": "sentence-similarity",
+              "item": [
+                {
+                  "name": "Sentence Similarity Inference",
+                  "id": "bfa101d3-093a-46c4-9448-c0ef592823a2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": {\n    \"source_sentence\": \"<string>\",\n    \"sentences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id/sentence-similarity",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id",
+                        "sentence-similarity"
+                      ],
+                      "variable": [
+                        {
+                          "id": "4cbb9fe5-b44a-45c0-9306-5a60b9cd4077",
+                          "key": "model_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Compute similarity scores between a source sentence and target sentences."
+                  },
+                  "response": [
+                    {
+                      "id": "64f6f202-d1d6-4310-9373-76889ea7f36e",
+                      "name": "Similarity scores",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"inputs\": {\n    \"source_sentence\": \"<string>\",\n    \"sentences\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:model_id/sentence-similarity",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":model_id",
+                            "sentence-similarity"
+                          ],
+                          "variable": [
+                            {
+                              "key": "model_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  \"<float>\",\n  \"<float>\"\n]",
+                      "createdAt": "2026-06-05T15:09:44.000Z",
+                      "updatedAt": "2026-06-05T15:09:44.000Z",
+                      "uid": "35240-64f6f202-d1d6-4310-9373-76889ea7f36e"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-bfa101d3-093a-46c4-9448-c0ef592823a2"
+                }
+              ],
+              "id": "d5f4ee24-44fd-4c7b-a0eb-f77c3dcf9619",
+              "createdAt": "2026-06-05T15:09:43.000Z",
+              "updatedAt": "2026-06-05T15:09:43.000Z",
+              "uid": "35240-d5f4ee24-44fd-4c7b-a0eb-f77c3dcf9619"
+            },
+            {
+              "name": "Run Inference on a Model",
+              "id": "7e98f94b-ee4c-42fc-83bd-afd7b3de1c95",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/:model_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    ":model_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "7f2c1497-1901-43ca-8461-b59d2cbbeade",
+                      "key": "model_id",
+                      "value": "<string>",
+                      "description": "(Required) The model ID on the Hugging Face Hub (e.g., gpt2, bert-base-uncased)"
+                    }
+                  ]
+                },
+                "description": "Run inference on any model hosted on the Hugging Face Hub. The request and response format depends on the model's pipeline task."
+              },
+              "response": [
+                {
+                  "id": "df38216d-dd52-411e-9e80-252e1d84f9fc",
+                  "name": "Successful inference result",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[]",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-df38216d-dd52-411e-9e80-252e1d84f9fc"
+                },
+                {
+                  "id": "9da26f6c-1e91-41e3-8ed8-864474ea4386",
+                  "name": "Bad request - invalid input parameters",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-9da26f6c-1e91-41e3-8ed8-864474ea4386"
+                },
+                {
+                  "id": "55cbb5b9-b022-40a5-95b7-6a24c40a88f2",
+                  "name": "Unauthorized - invalid or missing API token",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-55cbb5b9-b022-40a5-95b7-6a24c40a88f2"
+                },
+                {
+                  "id": "6d7ee624-a826-4715-98f9-28924410acac",
+                  "name": "Forbidden - insufficient permissions for this model",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-6d7ee624-a826-4715-98f9-28924410acac"
+                },
+                {
+                  "id": "ba811876-1ad0-4a91-869c-a57782ff9285",
+                  "name": "Model not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-ba811876-1ad0-4a91-869c-a57782ff9285"
+                },
+                {
+                  "id": "4027b1bb-dd54-4a14-b18e-21d076ad2a91",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-4027b1bb-dd54-4a14-b18e-21d076ad2a91"
+                },
+                {
+                  "id": "ff094197-44bb-44c3-abb4-a0198c7c6c0f",
+                  "name": "Model is loading or unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:model_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":model_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "model_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-ff094197-44bb-44c3-abb4-a0198c7c6c0f"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-7e98f94b-ee4c-42fc-83bd-afd7b3de1c95"
+            }
+          ],
+          "id": "4eaecf5d-d45d-4a4d-9a92-cfdfb555c6bb",
+          "createdAt": "2026-06-05T15:09:43.000Z",
+          "updatedAt": "2026-06-05T15:09:43.000Z",
+          "uid": "35240-4eaecf5d-d45d-4a4d-9a92-cfdfb555c6bb"
+        }
+      ],
+      "id": "a3082a39-d715-4a31-afc3-4ee19906098d",
+      "createdAt": "2026-06-05T15:09:43.000Z",
+      "updatedAt": "2026-06-05T15:09:43.000Z",
+      "uid": "35240-a3082a39-d715-4a31-afc3-4ee19906098d"
+    },
+    {
+      "name": "pipeline",
+      "item": [
+        {
+          "name": "{task}",
+          "item": [
+            {
+              "name": "Run Inference by Task Pipeline",
+              "id": "9a248332-0fdc-4289-8e01-6ec79184565e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/pipeline/:task",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "pipeline",
+                    ":task"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2299d44e-79b8-4f9f-8acd-8e57ddc564af",
+                      "key": "task",
+                      "value": "audio-classification",
+                      "description": "(Required) The pipeline task type (e.g., text-generation, text-classification, summarization)"
+                    }
+                  ]
+                },
+                "description": "Run inference using a recommended model for a specific task pipeline. Hugging Face selects the best available model for the given task."
+              },
+              "response": [
+                {
+                  "id": "c8292d00-77a1-4147-a0eb-77ece76a4238",
+                  "name": "Successful inference result",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:task",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":task"
+                      ],
+                      "variable": [
+                        {
+                          "key": "task"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "[]",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-c8292d00-77a1-4147-a0eb-77ece76a4238"
+                },
+                {
+                  "id": "7a89a2e0-1ea6-41f5-86cd-7214e8660e38",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:task",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":task"
+                      ],
+                      "variable": [
+                        {
+                          "key": "task"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-7a89a2e0-1ea6-41f5-86cd-7214e8660e38"
+                },
+                {
+                  "id": "68ab1849-18f5-4a60-ad4c-27180f723198",
+                  "name": "Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {},\n  \"options\": {\n    \"use_cache\": true,\n    \"wait_for_model\": false\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/pipeline/:task",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "pipeline",
+                        ":task"
+                      ],
+                      "variable": [
+                        {
+                          "key": "task"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"estimated_time\": \"<float>\"\n}",
+                  "createdAt": "2026-06-05T15:09:44.000Z",
+                  "updatedAt": "2026-06-05T15:09:44.000Z",
+                  "uid": "35240-68ab1849-18f5-4a60-ad4c-27180f723198"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:44.000Z",
+              "updatedAt": "2026-06-05T15:09:44.000Z",
+              "uid": "35240-9a248332-0fdc-4289-8e01-6ec79184565e"
+            }
+          ],
+          "id": "c59d5306-1adb-4f80-b48f-ef1be8ed62be",
+          "createdAt": "2026-06-05T15:09:43.000Z",
+          "updatedAt": "2026-06-05T15:09:43.000Z",
+          "uid": "35240-c59d5306-1adb-4f80-b48f-ef1be8ed62be"
+        }
+      ],
+      "id": "d88b1485-71c5-4fb1-9201-153e81d9f726",
+      "createdAt": "2026-06-05T15:09:43.000Z",
+      "updatedAt": "2026-06-05T15:09:43.000Z",
+      "uid": "35240-d88b1485-71c5-4fb1-9201-153e81d9f726"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api-inference.huggingface.co"
+    }
+  ]
+}

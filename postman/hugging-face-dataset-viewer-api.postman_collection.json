@@ -1,0 +1,1785 @@
+{
+  "info": {
+    "_postman_id": "646ea9f8-1f55-4c5c-b703-d6e4de64c7ed",
+    "name": "Hugging Face Dataset Viewer API",
+    "description": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:50.000Z",
+    "updatedAt": "2026-06-05T15:09:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-646ea9f8-1f55-4c5c-b703-d6e4de64c7ed"
+  },
+  "item": [
+    {
+      "name": "is-valid",
+      "item": [
+        {
+          "name": "Check Dataset Validity",
+          "id": "06626e1d-bc22-4712-b78e-bd44644c5afa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/is-valid?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "is-valid"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID on the Hugging Face Hub",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Check whether a specific dataset is valid and processed by the Dataset Viewer. Returns availability status for preview, viewer, search, filter, and statistics features."
+          },
+          "response": [
+            {
+              "id": "be9c3a65-7518-4083-b026-448977f9a293",
+              "name": "Dataset validity status",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/is-valid?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "is-valid"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"preview\": \"<boolean>\",\n  \"viewer\": \"<boolean>\",\n  \"search\": \"<boolean>\",\n  \"filter\": \"<boolean>\",\n  \"statistics\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-be9c3a65-7518-4083-b026-448977f9a293"
+            },
+            {
+              "id": "b3bc3fb0-f8db-4264-b88a-470840f3564b",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/is-valid?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "is-valid"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-b3bc3fb0-f8db-4264-b88a-470840f3564b"
+            },
+            {
+              "id": "366b0e30-5871-447b-aea4-9f9d2ab1c228",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/is-valid?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "is-valid"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-366b0e30-5871-447b-aea4-9f9d2ab1c228"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-06626e1d-bc22-4712-b78e-bd44644c5afa"
+        }
+      ],
+      "id": "5b4d0cef-a9b8-4606-bf91-548534a729de",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-5b4d0cef-a9b8-4606-bf91-548534a729de"
+    },
+    {
+      "name": "splits",
+      "item": [
+        {
+          "name": "Get Dataset Splits",
+          "id": "c9a2f2f8-9e6b-4b6a-9d45-aa0506fa7a03",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/splits?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "splits"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID on the Hugging Face Hub",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get the list of subsets (configurations) and splits for a dataset. A dataset can have multiple subsets, each with different splits (e.g., train, test, validation)."
+          },
+          "response": [
+            {
+              "id": "cf7ba959-d454-4742-9627-a3a453aa2c20",
+              "name": "List of subsets and splits",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/splits?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "splits"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"splits\": [\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\"\n    },\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-cf7ba959-d454-4742-9627-a3a453aa2c20"
+            },
+            {
+              "id": "c612fd53-78fe-418e-ab9d-19757f3a3ef2",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/splits?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "splits"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-c612fd53-78fe-418e-ab9d-19757f3a3ef2"
+            },
+            {
+              "id": "bb396d22-02c3-406c-8b0e-de423154239a",
+              "name": "Processing error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/splits?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "splits"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID on the Hugging Face Hub",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-bb396d22-02c3-406c-8b0e-de423154239a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-c9a2f2f8-9e6b-4b6a-9d45-aa0506fa7a03"
+        }
+      ],
+      "id": "abc16dba-85c2-4b74-a08e-ca501c2e719c",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-abc16dba-85c2-4b74-a08e-ca501c2e719c"
+    },
+    {
+      "name": "first-rows",
+      "item": [
+        {
+          "name": "Get First Rows of a Split",
+          "id": "8d39dddc-e459-4e0c-84d0-ed6d0728e97f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/first-rows?dataset=<string>&config=<string>&split=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "first-rows"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The subset (configuration) name",
+                  "key": "config",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The split name",
+                  "key": "split",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get the first 100 rows of a dataset split. Useful for previewing data structure and content."
+          },
+          "response": [
+            {
+              "id": "699002b8-d69e-42ce-973c-1232c334c9b9",
+              "name": "First rows of the dataset split",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/first-rows?dataset=<string>&config=<string>&split=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "first-rows"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    },\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"irure_\": \"consectetur irure in dolore\",\n        \"laborum2c2\": true\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"eu97c\": \"officia quis enim\",\n        \"in24\": false,\n        \"consequat_4\": \"ex ipsum veniam\",\n        \"nostrud4af\": 915340\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"num_rows_total\": \"<integer>\",\n  \"num_rows_per_page\": \"<integer>\",\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-699002b8-d69e-42ce-973c-1232c334c9b9"
+            },
+            {
+              "id": "c08646ee-dafe-4e57-a126-4450e386193d",
+              "name": "Bad request - missing or invalid parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/first-rows?dataset=<string>&config=<string>&split=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "first-rows"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-c08646ee-dafe-4e57-a126-4450e386193d"
+            },
+            {
+              "id": "dc38839b-3a15-4b0a-a4d4-05c3bcf135b2",
+              "name": "Dataset, config, or split not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/first-rows?dataset=<string>&config=<string>&split=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "first-rows"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-dc38839b-3a15-4b0a-a4d4-05c3bcf135b2"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-8d39dddc-e459-4e0c-84d0-ed6d0728e97f"
+        }
+      ],
+      "id": "cebbf59f-74d5-4c99-8f7d-b5599c33152b",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-cebbf59f-74d5-4c99-8f7d-b5599c33152b"
+    },
+    {
+      "name": "rows",
+      "item": [
+        {
+          "name": "Get a Slice of Rows",
+          "id": "824c9183-2b83-47b3-b4f3-b378cda825d4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rows?dataset=<string>&config=<string>&split=<string>&offset=0&length=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "rows"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The subset (configuration) name",
+                  "key": "config",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The split name",
+                  "key": "split",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Row offset to start from",
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "description": "Number of rows to return (max 100)",
+                  "key": "length",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Get a slice of rows from a dataset split with pagination support. Returns up to 100 rows per request."
+          },
+          "response": [
+            {
+              "id": "65e351c2-db16-484f-bced-2cf6d491d959",
+              "name": "Slice of rows from the dataset",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rows?dataset=<string>&config=<string>&split=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rows"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Row offset to start from",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Number of rows to return (max 100)",
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    },\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"irure_\": \"consectetur irure in dolore\",\n        \"laborum2c2\": true\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"eu97c\": \"officia quis enim\",\n        \"in24\": false,\n        \"consequat_4\": \"ex ipsum veniam\",\n        \"nostrud4af\": 915340\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"num_rows_total\": \"<integer>\",\n  \"num_rows_per_page\": \"<integer>\",\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-65e351c2-db16-484f-bced-2cf6d491d959"
+            },
+            {
+              "id": "0a39fe54-9991-457e-9528-0cf420c193c0",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rows?dataset=<string>&config=<string>&split=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rows"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Row offset to start from",
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "description": "Number of rows to return (max 100)",
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-0a39fe54-9991-457e-9528-0cf420c193c0"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-824c9183-2b83-47b3-b4f3-b378cda825d4"
+        }
+      ],
+      "id": "3845da28-2f12-4860-89a4-40ed46381dc1",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-3845da28-2f12-4860-89a4-40ed46381dc1"
+    },
+    {
+      "name": "search",
+      "item": [
+        {
+          "name": "Search Text in a Split",
+          "id": "a650bada-2bcd-428f-af9e-dd506d5e62dd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search?dataset=<string>&config=<string>&split=<string>&query=<string>&offset=0&length=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The subset (configuration) name",
+                  "key": "config",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The split name",
+                  "key": "split",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Search query string",
+                  "key": "query",
+                  "value": "<string>"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "length",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Full-text search within a dataset split. Searches across all text columns and returns matching rows."
+          },
+          "response": [
+            {
+              "id": "a18c48cc-7657-4dc7-8704-8ebfe0ff5d88",
+              "name": "Search results",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/search?dataset=<string>&config=<string>&split=<string>&query=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Search query string",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {}\n    },\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {}\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"culpa6\": 35650874,\n        \"ad44b\": 49454515\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"laboris874\": -41890871\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"num_rows_total\": \"<integer>\",\n  \"num_rows_per_page\": \"<integer>\",\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-a18c48cc-7657-4dc7-8704-8ebfe0ff5d88"
+            },
+            {
+              "id": "a5c60c3e-0de4-404f-bcca-eb3b6b99aefc",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/search?dataset=<string>&config=<string>&split=<string>&query=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Search query string",
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-a5c60c3e-0de4-404f-bcca-eb3b6b99aefc"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-a650bada-2bcd-428f-af9e-dd506d5e62dd"
+        }
+      ],
+      "id": "0000d856-204c-4d8c-8219-60a9a195201b",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-0000d856-204c-4d8c-8219-60a9a195201b"
+    },
+    {
+      "name": "filter",
+      "item": [
+        {
+          "name": "Filter Rows in a Split",
+          "id": "f7df97bb-d314-425b-99c5-a2154ead1820",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/filter?dataset=<string>&config=<string>&split=<string>&where=<string>&orderby=<string>&offset=0&length=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "filter"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The subset (configuration) name",
+                  "key": "config",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The split name",
+                  "key": "split",
+                  "value": "<string>"
+                },
+                {
+                  "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")",
+                  "key": "where",
+                  "value": "<string>"
+                },
+                {
+                  "description": "SQL-like ORDER BY clause for sorting",
+                  "key": "orderby",
+                  "value": "<string>"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "length",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Filter rows in a dataset split using SQL-like WHERE and ORDER BY clauses. Supports comparison operators and logical operations."
+          },
+          "response": [
+            {
+              "id": "2f877d61-abc9-4873-bac3-e42dacbfa2de",
+              "name": "Filtered rows",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/filter?dataset=<string>&config=<string>&split=<string>&where=<string>&orderby=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")",
+                      "key": "where",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "SQL-like ORDER BY clause for sorting",
+                      "key": "orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    },\n    {\n      \"feature_idx\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"type\": {\n        \"dtype\": \"<string>\",\n        \"_type\": \"<string>\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"irure_\": \"consectetur irure in dolore\",\n        \"laborum2c2\": true\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"row_idx\": \"<integer>\",\n      \"row\": {\n        \"eu97c\": \"officia quis enim\",\n        \"in24\": false,\n        \"consequat_4\": \"ex ipsum veniam\",\n        \"nostrud4af\": 915340\n      },\n      \"truncated_cells\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"num_rows_total\": \"<integer>\",\n  \"num_rows_per_page\": \"<integer>\",\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-2f877d61-abc9-4873-bac3-e42dacbfa2de"
+            },
+            {
+              "id": "f0ee4336-9d35-448b-a616-320b5fced066",
+              "name": "Bad request or invalid filter expression",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/filter?dataset=<string>&config=<string>&split=<string>&where=<string>&orderby=<string>&offset=0&length=100",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "filter"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")",
+                      "key": "where",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "SQL-like ORDER BY clause for sorting",
+                      "key": "orderby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "length",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-f0ee4336-9d35-448b-a616-320b5fced066"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-f7df97bb-d314-425b-99c5-a2154ead1820"
+        }
+      ],
+      "id": "d47a689e-7b68-4858-ae48-550e8b094aa4",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-d47a689e-7b68-4858-ae48-550e8b094aa4"
+    },
+    {
+      "name": "parquet",
+      "item": [
+        {
+          "name": "List Parquet Files",
+          "id": "86ac1f7c-0e32-4893-a836-0a826271fe53",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/parquet?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "parquet"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get the list of a dataset's files converted to Parquet format. Datasets are auto-converted to Parquet on the Hub for efficient data access."
+          },
+          "response": [
+            {
+              "id": "ff25a389-03a3-48b7-81a5-1f528de81fd6",
+              "name": "List of Parquet files",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/parquet?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parquet"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"parquet_files\": [\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\"\n    },\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\"\n    }\n  ],\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-ff25a389-03a3-48b7-81a5-1f528de81fd6"
+            },
+            {
+              "id": "adf8bfc5-271f-47be-9f37-706ae1bc8372",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/parquet?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "parquet"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-adf8bfc5-271f-47be-9f37-706ae1bc8372"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-86ac1f7c-0e32-4893-a836-0a826271fe53"
+        }
+      ],
+      "id": "5be41c6b-eb87-4624-b85a-5ba9de60fb39",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-5be41c6b-eb87-4624-b85a-5ba9de60fb39"
+    },
+    {
+      "name": "size",
+      "item": [
+        {
+          "name": "Get Dataset Size",
+          "id": "cb491eaf-f1fb-49af-b934-b87aa3ff605d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/size?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "size"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get size information for a dataset including the number of rows and size in bytes for the full dataset and for each subset and split."
+          },
+          "response": [
+            {
+              "id": "16fb62c8-e922-4e1e-a2b5-2c08fd34f193",
+              "name": "Dataset size information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/size?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "size"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"size\": {\n    \"dataset\": {\n      \"dataset\": \"<string>\",\n      \"num_bytes_original_files\": \"<integer>\",\n      \"num_bytes_parquet_files\": \"<integer>\",\n      \"num_bytes_memory\": \"<integer>\",\n      \"num_rows\": \"<integer>\"\n    },\n    \"configs\": [\n      {\n        \"dataset\": \"<string>\",\n        \"config\": \"<string>\",\n        \"num_bytes_original_files\": \"<integer>\",\n        \"num_bytes_parquet_files\": \"<integer>\",\n        \"num_bytes_memory\": \"<integer>\",\n        \"num_rows\": \"<integer>\",\n        \"num_columns\": \"<integer>\"\n      },\n      {\n        \"dataset\": \"<string>\",\n        \"config\": \"<string>\",\n        \"num_bytes_original_files\": \"<integer>\",\n        \"num_bytes_parquet_files\": \"<integer>\",\n        \"num_bytes_memory\": \"<integer>\",\n        \"num_rows\": \"<integer>\",\n        \"num_columns\": \"<integer>\"\n      }\n    ],\n    \"splits\": [\n      {\n        \"dataset\": \"<string>\",\n        \"config\": \"<string>\",\n        \"split\": \"<string>\",\n        \"num_bytes_parquet_files\": \"<integer>\",\n        \"num_bytes_memory\": \"<integer>\",\n        \"num_rows\": \"<integer>\",\n        \"num_columns\": \"<integer>\"\n      },\n      {\n        \"dataset\": \"<string>\",\n        \"config\": \"<string>\",\n        \"split\": \"<string>\",\n        \"num_bytes_parquet_files\": \"<integer>\",\n        \"num_bytes_memory\": \"<integer>\",\n        \"num_rows\": \"<integer>\",\n        \"num_columns\": \"<integer>\"\n      }\n    ]\n  },\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-16fb62c8-e922-4e1e-a2b5-2c08fd34f193"
+            },
+            {
+              "id": "ed0a6c1e-1ecf-40e4-9015-ff04be4382f4",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/size?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "size"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-ed0a6c1e-1ecf-40e4-9015-ff04be4382f4"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-cb491eaf-f1fb-49af-b934-b87aa3ff605d"
+        }
+      ],
+      "id": "9c5593eb-6364-45ed-ad10-017f9557c32a",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-9c5593eb-6364-45ed-ad10-017f9557c32a"
+    },
+    {
+      "name": "statistics",
+      "item": [
+        {
+          "name": "Get Dataset Statistics",
+          "id": "813d08a9-5af9-494f-a35f-538d2342323c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/statistics?dataset=<string>&config=<string>&split=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "statistics"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The subset (configuration) name",
+                  "key": "config",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) The split name",
+                  "key": "split",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get descriptive statistics for columns in a dataset split including distributions, counts, means, and other summary metrics."
+          },
+          "response": [
+            {
+              "id": "14d906c1-24c4-48eb-9dc7-dfb985f0fefb",
+              "name": "Column statistics",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/statistics?dataset=<string>&config=<string>&split=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statistics"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"num_examples\": \"<integer>\",\n  \"statistics\": [\n    {\n      \"column_name\": \"<string>\",\n      \"column_type\": \"<string>\",\n      \"column_statistics\": {\n        \"nan_count\": \"<integer>\",\n        \"nan_proportion\": \"<float>\",\n        \"min\": \"<number>\",\n        \"max\": \"<number>\",\n        \"mean\": \"<float>\",\n        \"median\": \"<float>\",\n        \"std\": \"<float>\",\n        \"histogram\": {\n          \"hist\": [\n            \"<integer>\",\n            \"<integer>\"\n          ],\n          \"bin_edges\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        },\n        \"frequencies\": [\n          {\n            \"value\": \"<string>\",\n            \"count\": \"<integer>\",\n            \"proportion\": \"<float>\"\n          },\n          {\n            \"value\": \"<string>\",\n            \"count\": \"<integer>\",\n            \"proportion\": \"<float>\"\n          }\n        ]\n      }\n    },\n    {\n      \"column_name\": \"<string>\",\n      \"column_type\": \"<string>\",\n      \"column_statistics\": {\n        \"nan_count\": \"<integer>\",\n        \"nan_proportion\": \"<float>\",\n        \"min\": \"<number>\",\n        \"max\": \"<number>\",\n        \"mean\": \"<float>\",\n        \"median\": \"<float>\",\n        \"std\": \"<float>\",\n        \"histogram\": {\n          \"hist\": [\n            \"<integer>\",\n            \"<integer>\"\n          ],\n          \"bin_edges\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        },\n        \"frequencies\": [\n          {\n            \"value\": \"<string>\",\n            \"count\": \"<integer>\",\n            \"proportion\": \"<float>\"\n          },\n          {\n            \"value\": \"<string>\",\n            \"count\": \"<integer>\",\n            \"proportion\": \"<float>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"partial\": \"<boolean>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-14d906c1-24c4-48eb-9dc7-dfb985f0fefb"
+            },
+            {
+              "id": "67f80c14-2036-4154-948f-dec790d1f1b8",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/statistics?dataset=<string>&config=<string>&split=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "statistics"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The subset (configuration) name",
+                      "key": "config",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) The split name",
+                      "key": "split",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-67f80c14-2036-4154-948f-dec790d1f1b8"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-813d08a9-5af9-494f-a35f-538d2342323c"
+        }
+      ],
+      "id": "59f29ef7-91c8-493e-91dd-a99c0ff447b0",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-59f29ef7-91c8-493e-91dd-a99c0ff447b0"
+    },
+    {
+      "name": "croissant",
+      "item": [
+        {
+          "name": "Get Croissant Metadata",
+          "id": "7687451e-c400-4adb-9cc2-b1df5421b5b8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/croissant?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "croissant"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The dataset ID",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Get Croissant (schema.org/Dataset compatible) metadata for a dataset. Croissant is a metadata format for ML datasets based on schema.org."
+          },
+          "response": [
+            {
+              "id": "2a253fbf-2bc7-4f1a-8ad8-b5defc707b55",
+              "name": "Croissant metadata in JSON-LD format",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/croissant?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "croissant"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"@context\": {},\n  \"@type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<uri>\"\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-2a253fbf-2bc7-4f1a-8ad8-b5defc707b55"
+            },
+            {
+              "id": "15e84a4c-9bb9-4eb3-9284-f8e6d231c344",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/croissant?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "croissant"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The dataset ID",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"cause_exception\": \"<string>\",\n  \"cause_message\": \"<string>\",\n  \"cause_traceback\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:50.000Z",
+              "updatedAt": "2026-06-05T15:09:50.000Z",
+              "uid": "35240-15e84a4c-9bb9-4eb3-9284-f8e6d231c344"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:50.000Z",
+          "updatedAt": "2026-06-05T15:09:50.000Z",
+          "uid": "35240-7687451e-c400-4adb-9cc2-b1df5421b5b8"
+        }
+      ],
+      "id": "4b6a92cd-df28-45b8-9937-69d62884e698",
+      "createdAt": "2026-06-05T15:09:50.000Z",
+      "updatedAt": "2026-06-05T15:09:50.000Z",
+      "uid": "35240-4b6a92cd-df28-45b8-9937-69d62884e698"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://datasets-server.huggingface.co"
+    }
+  ]
+}

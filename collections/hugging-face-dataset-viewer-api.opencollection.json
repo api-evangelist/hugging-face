@@ -1,0 +1,342 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dataset Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Dataset Validity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/is-valid",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "cornell-movie-review-data/rotten_tomatoes",
+                "type": "query",
+                "description": "The dataset ID on the Hugging Face Hub"
+              }
+            ]
+          },
+          "docs": "Check whether a specific dataset is valid and processed by the Dataset Viewer. Returns availability status for preview, viewer, search, filter, and statistics features."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Splits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/splits",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID on the Hugging Face Hub"
+              }
+            ]
+          },
+          "docs": "Get the list of subsets (configurations) and splits for a dataset. A dataset can have multiple subsets, each with different splits (e.g., train, test, validation)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get First Rows of a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/first-rows",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "plain_text",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "train",
+                "type": "query",
+                "description": "The split name"
+              }
+            ]
+          },
+          "docs": "Get the first 100 rows of a dataset split. Useful for previewing data structure and content."
+        },
+        {
+          "info": {
+            "name": "Get a Slice of Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/rows",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "plain_text",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "train",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query",
+                "description": "Row offset to start from"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query",
+                "description": "Number of rows to return (max 100)"
+              }
+            ]
+          },
+          "docs": "Get a slice of rows from a dataset split with pagination support. Returns up to 100 rows per request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Search & Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Text in a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/search",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "query",
+                "value": "machine learning",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Full-text search within a dataset split. Searches across all text columns and returns matching rows."
+        },
+        {
+          "info": {
+            "name": "Filter Rows in a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/filter",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "where",
+                "value": "label = 1",
+                "type": "query",
+                "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")"
+              },
+              {
+                "name": "orderby",
+                "value": "score DESC",
+                "type": "query",
+                "description": "SQL-like ORDER BY clause for sorting"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Filter rows in a dataset split using SQL-like WHERE and ORDER BY clauses. Supports comparison operators and logical operations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files & Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Parquet Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/parquet",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get the list of a dataset's files converted to Parquet format. Datasets are auto-converted to Parquet on the Hub for efficient data access."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/size",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get size information for a dataset including the number of rows and size in bytes for the full dataset and for each subset and split."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/statistics",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              }
+            ]
+          },
+          "docs": "Get descriptive statistics for columns in a dataset split including distributions, counts, means, and other summary metrics."
+        },
+        {
+          "info": {
+            "name": "Get Croissant Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/croissant",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get Croissant (schema.org/Dataset compatible) metadata for a dataset. Croissant is a metadata format for ML datasets based on schema.org."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

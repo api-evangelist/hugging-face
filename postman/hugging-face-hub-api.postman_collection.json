@@ -1,0 +1,2255 @@
+{
+  "info": {
+    "_postman_id": "83797cc7-d715-4900-b212-28719a7eda31",
+    "name": "Hugging Face Hub API",
+    "description": "Programmatically interact with the Hugging Face Hub to manage models, datasets, spaces, and repositories. Provides endpoints for listing, searching, creating, and managing resources on the Hub.\n\nContact Support:\n Name: Hugging Face Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:09:44.000Z",
+    "updatedAt": "2026-06-05T15:09:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-83797cc7-d715-4900-b212-28719a7eda31"
+  },
+  "item": [
+    {
+      "name": "models",
+      "item": [
+        {
+          "name": "{repo_id}",
+          "item": [
+            {
+              "name": "revision",
+              "item": [
+                {
+                  "name": "{revision}",
+                  "item": [
+                    {
+                      "name": "Get Model Information at a Specific Revision",
+                      "id": "fefdf9f4-1dc5-444f-8ccd-7bb503d220e1",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/models/:repo_id/revision/:revision",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "models",
+                            ":repo_id",
+                            "revision",
+                            ":revision"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ac131596-4332-483e-bafe-4ffab279d39f",
+                              "key": "repo_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "2289f24e-5fbe-4edf-8919-2f96adff5fb8",
+                              "key": "revision",
+                              "value": "<string>",
+                              "description": "(Required) Git revision (branch name, tag, or commit SHA)"
+                            }
+                          ]
+                        },
+                        "description": "Get detailed information about a model at a specific Git revision (branch, tag, or commit SHA)."
+                      },
+                      "response": [
+                        {
+                          "id": "e4b61d49-9f1a-4523-bdab-b81734dd58fd",
+                          "name": "Model information at the specified revision",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/models/:repo_id/revision/:revision",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "models",
+                                ":repo_id",
+                                "revision",
+                                ":revision"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "repo_id"
+                                },
+                                {
+                                  "key": "revision"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"author\": \"<string>\",\n  \"sha\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"private\": \"<boolean>\",\n  \"disabled\": \"<boolean>\",\n  \"gated\": \"<boolean>\",\n  \"pipeline_tag\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"downloads\": \"<integer>\",\n  \"likes\": \"<integer>\",\n  \"library_name\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"siblings\": [\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"lfs\": {\n        \"sha256\": \"<string>\",\n        \"size\": \"<integer>\",\n        \"pointerSize\": \"<integer>\"\n      }\n    },\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"lfs\": {\n        \"sha256\": \"<string>\",\n        \"size\": \"<integer>\",\n        \"pointerSize\": \"<integer>\"\n      }\n    }\n  ],\n  \"spaces\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"safetensors\": {\n    \"parameters\": {\n      \"quis9b\": \"<integer>\"\n    },\n    \"total\": \"<integer>\"\n  },\n  \"config\": {},\n  \"cardData\": {},\n  \"transformersInfo\": {\n    \"auto_model\": \"<string>\",\n    \"pipeline_tag\": \"<string>\",\n    \"processor\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-06-05T15:09:45.000Z",
+                          "updatedAt": "2026-06-05T15:09:45.000Z",
+                          "uid": "35240-e4b61d49-9f1a-4523-bdab-b81734dd58fd"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:09:45.000Z",
+                      "updatedAt": "2026-06-05T15:09:45.000Z",
+                      "uid": "35240-fefdf9f4-1dc5-444f-8ccd-7bb503d220e1"
+                    }
+                  ],
+                  "id": "6809b34b-fbb3-4930-a38d-6cbe632e9ef0",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-6809b34b-fbb3-4930-a38d-6cbe632e9ef0"
+                }
+              ],
+              "id": "ee812240-e0d7-4d8c-a1f2-bdf92b505a92",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-ee812240-e0d7-4d8c-a1f2-bdf92b505a92"
+            },
+            {
+              "name": "Get Model Information",
+              "id": "bf4cee87-8d04-42a7-bd1a-649cad55542a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models/:repo_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models",
+                    ":repo_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "897f2679-eb84-417e-bda8-77290b75cd0e",
+                      "key": "repo_id",
+                      "value": "<string>",
+                      "description": "(Required) The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+                    }
+                  ]
+                },
+                "description": "Get detailed information about a specific model by its repository ID."
+              },
+              "response": [
+                {
+                  "id": "d8614d1a-76b1-4a78-bdc6-1756d10fffe0",
+                  "name": "Detailed model information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"modelId\": \"<string>\",\n  \"author\": \"<string>\",\n  \"sha\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"private\": \"<boolean>\",\n  \"disabled\": \"<boolean>\",\n  \"gated\": \"<boolean>\",\n  \"pipeline_tag\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"downloads\": \"<integer>\",\n  \"likes\": \"<integer>\",\n  \"library_name\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"siblings\": [\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"lfs\": {\n        \"sha256\": \"<string>\",\n        \"size\": \"<integer>\",\n        \"pointerSize\": \"<integer>\"\n      }\n    },\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"lfs\": {\n        \"sha256\": \"<string>\",\n        \"size\": \"<integer>\",\n        \"pointerSize\": \"<integer>\"\n      }\n    }\n  ],\n  \"spaces\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"safetensors\": {\n    \"parameters\": {\n      \"quis9b\": \"<integer>\"\n    },\n    \"total\": \"<integer>\"\n  },\n  \"config\": {},\n  \"cardData\": {},\n  \"transformersInfo\": {\n    \"auto_model\": \"<string>\",\n    \"pipeline_tag\": \"<string>\",\n    \"processor\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-d8614d1a-76b1-4a78-bdc6-1756d10fffe0"
+                },
+                {
+                  "id": "47f13752-c181-4952-a5c3-b0e52b3b3325",
+                  "name": "Unauthorized - token required for private models",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-47f13752-c181-4952-a5c3-b0e52b3b3325"
+                },
+                {
+                  "id": "e035211c-8b93-4fd8-8269-0d4ad496e96c",
+                  "name": "Model not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/models/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "models",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-e035211c-8b93-4fd8-8269-0d4ad496e96c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-bf4cee87-8d04-42a7-bd1a-649cad55542a"
+            }
+          ],
+          "id": "b8d71d90-427f-4e02-8655-3f37af64e72a",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-b8d71d90-427f-4e02-8655-3f37af64e72a"
+        },
+        {
+          "name": "List Models on the Hub",
+          "id": "803a8581-d8e9-4358-866d-e99cb7a6382e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models?search=<string>&author=<string>&filter=<string>&sort=createdAt&direction=1&limit=30&full=false&config=false&pipeline_tag=translation&library=diffusers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models"
+              ],
+              "query": [
+                {
+                  "description": "Full-text search query to filter models",
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by model author or organization",
+                  "key": "author",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by tags (comma-separated)",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Property to sort results by",
+                  "key": "sort",
+                  "value": "createdAt"
+                },
+                {
+                  "description": "Sort direction",
+                  "key": "direction",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of results to return (max 1000)",
+                  "key": "limit",
+                  "value": "30"
+                },
+                {
+                  "description": "Whether to return full model information including card data",
+                  "key": "full",
+                  "value": "false"
+                },
+                {
+                  "description": "Whether to return the model config",
+                  "key": "config",
+                  "value": "false"
+                },
+                {
+                  "description": "Filter by pipeline task type",
+                  "key": "pipeline_tag",
+                  "value": "translation"
+                },
+                {
+                  "description": "Filter by ML library",
+                  "key": "library",
+                  "value": "diffusers"
+                }
+              ]
+            },
+            "description": "List and search models hosted on the Hugging Face Hub. Supports filtering by author, task, library, tags, and full-text search."
+          },
+          "response": [
+            {
+              "id": "410e2bdc-f698-4e9b-9dbd-f15ce35c996b",
+              "name": "List of models matching the query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models?search=<string>&author=<string>&filter=<string>&sort=createdAt&direction=1&limit=30&full=false&config=false&pipeline_tag=translation&library=diffusers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models"
+                  ],
+                  "query": [
+                    {
+                      "description": "Full-text search query to filter models",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by model author or organization",
+                      "key": "author",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by tags (comma-separated)",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Property to sort results by",
+                      "key": "sort",
+                      "value": "createdAt"
+                    },
+                    {
+                      "description": "Sort direction",
+                      "key": "direction",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of results to return (max 1000)",
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Whether to return full model information including card data",
+                      "key": "full",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Whether to return the model config",
+                      "key": "config",
+                      "value": "false"
+                    },
+                    {
+                      "description": "Filter by pipeline task type",
+                      "key": "pipeline_tag",
+                      "value": "translation"
+                    },
+                    {
+                      "description": "Filter by ML library",
+                      "key": "library",
+                      "value": "diffusers"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"disabled\": \"<boolean>\",\n    \"gated\": \"<boolean>\",\n    \"pipeline_tag\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"downloads\": \"<integer>\",\n    \"likes\": \"<integer>\",\n    \"library_name\": \"<string>\",\n    \"createdAt\": \"<dateTime>\"\n  },\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"modelId\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"disabled\": \"<boolean>\",\n    \"gated\": \"<boolean>\",\n    \"pipeline_tag\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"downloads\": \"<integer>\",\n    \"likes\": \"<integer>\",\n    \"library_name\": \"<string>\",\n    \"createdAt\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-410e2bdc-f698-4e9b-9dbd-f15ce35c996b"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-803a8581-d8e9-4358-866d-e99cb7a6382e"
+        }
+      ],
+      "id": "72839fdb-b73b-4ba1-8864-39a029f9c662",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-72839fdb-b73b-4ba1-8864-39a029f9c662"
+    },
+    {
+      "name": "datasets",
+      "item": [
+        {
+          "name": "{repo_id}",
+          "item": [
+            {
+              "name": "parquet",
+              "item": [
+                {
+                  "name": "Get Dataset Parquet Files",
+                  "id": "9652a155-4ad4-4aec-9a7d-484fb8a23f28",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/datasets/:repo_id/parquet",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "datasets",
+                        ":repo_id",
+                        "parquet"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1467e6c7-d584-4520-a690-4aba7537c321",
+                          "key": "repo_id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Get the list of auto-converted Parquet files for a dataset."
+                  },
+                  "response": [
+                    {
+                      "id": "e4ea2186-dd14-4a5e-998f-16590a6b85d2",
+                      "name": "List of Parquet file URLs",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/datasets/:repo_id/parquet",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "datasets",
+                            ":repo_id",
+                            "parquet"
+                          ],
+                          "variable": [
+                            {
+                              "key": "repo_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"parquet_files\": [\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\"\n    },\n    {\n      \"dataset\": \"<string>\",\n      \"config\": \"<string>\",\n      \"split\": \"<string>\",\n      \"url\": \"<uri>\",\n      \"filename\": \"<string>\",\n      \"size\": \"<integer>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-06-05T15:09:45.000Z",
+                      "updatedAt": "2026-06-05T15:09:45.000Z",
+                      "uid": "35240-e4ea2186-dd14-4a5e-998f-16590a6b85d2"
+                    }
+                  ],
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-9652a155-4ad4-4aec-9a7d-484fb8a23f28"
+                }
+              ],
+              "id": "c93264bf-1d10-4db7-91ff-eac04a1323dd",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-c93264bf-1d10-4db7-91ff-eac04a1323dd"
+            },
+            {
+              "name": "Get Dataset Information",
+              "id": "ed63f673-2961-440f-b0a9-7764728fd00f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/datasets/:repo_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "datasets",
+                    ":repo_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9a966293-23a6-476d-8467-b3583a3ae110",
+                      "key": "repo_id",
+                      "value": "<string>",
+                      "description": "(Required) The dataset repository ID"
+                    }
+                  ]
+                },
+                "description": "Get detailed information about a specific dataset."
+              },
+              "response": [
+                {
+                  "id": "d3856fbd-6120-44fa-a6a3-fa36a488f09e",
+                  "name": "Detailed dataset information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/datasets/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "datasets",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"author\": \"<string>\",\n  \"sha\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"private\": \"<boolean>\",\n  \"gated\": \"<boolean>\",\n  \"disabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"downloads\": \"<integer>\",\n  \"likes\": \"<integer>\",\n  \"createdAt\": \"<dateTime>\",\n  \"description\": \"<string>\",\n  \"siblings\": [\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\"\n    },\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\"\n    }\n  ],\n  \"cardData\": {\n    \"language\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"license\": \"<string>\",\n    \"task_categories\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"size_categories\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-d3856fbd-6120-44fa-a6a3-fa36a488f09e"
+                },
+                {
+                  "id": "0258b81d-1a6a-4ae5-8e8c-5d2a67e1a835",
+                  "name": "Dataset not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/datasets/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "datasets",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-0258b81d-1a6a-4ae5-8e8c-5d2a67e1a835"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-ed63f673-2961-440f-b0a9-7764728fd00f"
+            }
+          ],
+          "id": "1cc5cb7b-1ccc-473f-ac12-87ecd57f9203",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-1cc5cb7b-1ccc-473f-ac12-87ecd57f9203"
+        },
+        {
+          "name": "List Datasets on the Hub",
+          "id": "c41ae206-f575-4fc8-bda8-d6975885e7c8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/datasets?search=<string>&author=<string>&filter=<string>&sort=createdAt&direction=1&limit=30&full=false",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "datasets"
+              ],
+              "query": [
+                {
+                  "description": "Full-text search query to filter datasets",
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by dataset author or organization",
+                  "key": "author",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by tags (comma-separated)",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Property to sort results by",
+                  "key": "sort",
+                  "value": "createdAt"
+                },
+                {
+                  "description": "Sort direction",
+                  "key": "direction",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of results to return",
+                  "key": "limit",
+                  "value": "30"
+                },
+                {
+                  "description": "Whether to return full dataset information",
+                  "key": "full",
+                  "value": "false"
+                }
+              ]
+            },
+            "description": "List and search datasets hosted on the Hugging Face Hub. Supports filtering by author, tags, and full-text search."
+          },
+          "response": [
+            {
+              "id": "28a1b3ab-e01e-47bc-a1d3-7ac1cb1fb5bb",
+              "name": "List of datasets matching the query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/datasets?search=<string>&author=<string>&filter=<string>&sort=createdAt&direction=1&limit=30&full=false",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "datasets"
+                  ],
+                  "query": [
+                    {
+                      "description": "Full-text search query to filter datasets",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by dataset author or organization",
+                      "key": "author",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by tags (comma-separated)",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Property to sort results by",
+                      "key": "sort",
+                      "value": "createdAt"
+                    },
+                    {
+                      "description": "Sort direction",
+                      "key": "direction",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of results to return",
+                      "key": "limit",
+                      "value": "30"
+                    },
+                    {
+                      "description": "Whether to return full dataset information",
+                      "key": "full",
+                      "value": "false"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"gated\": \"<boolean>\",\n    \"disabled\": \"<boolean>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"downloads\": \"<integer>\",\n    \"likes\": \"<integer>\",\n    \"createdAt\": \"<dateTime>\",\n    \"description\": \"<string>\"\n  },\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"gated\": \"<boolean>\",\n    \"disabled\": \"<boolean>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"downloads\": \"<integer>\",\n    \"likes\": \"<integer>\",\n    \"createdAt\": \"<dateTime>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-28a1b3ab-e01e-47bc-a1d3-7ac1cb1fb5bb"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-c41ae206-f575-4fc8-bda8-d6975885e7c8"
+        }
+      ],
+      "id": "8bb70774-31ef-4487-b894-f567fe64fabf",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-8bb70774-31ef-4487-b894-f567fe64fabf"
+    },
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{repo_id}",
+          "item": [
+            {
+              "name": "Get Space Information",
+              "id": "c58bdc61-81c5-4540-ad81-f77cab286da9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/spaces/:repo_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "spaces",
+                    ":repo_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "829e6bbf-4f2f-48e6-bb95-6648e0eda5df",
+                      "key": "repo_id",
+                      "value": "<string>",
+                      "description": "(Required) The Space repository ID"
+                    }
+                  ]
+                },
+                "description": "Get detailed information about a specific Space."
+              },
+              "response": [
+                {
+                  "id": "bd229dcd-181a-4320-a47d-3933411b0bab",
+                  "name": "Detailed Space information",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"_id\": \"<string>\",\n  \"id\": \"<string>\",\n  \"author\": \"<string>\",\n  \"sha\": \"<string>\",\n  \"lastModified\": \"<dateTime>\",\n  \"private\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"likes\": \"<integer>\",\n  \"sdk\": \"gradio\",\n  \"runtime\": {\n    \"stage\": \"STOPPED\",\n    \"hardware\": {\n      \"current\": \"<string>\",\n      \"requested\": \"<string>\"\n    }\n  },\n  \"createdAt\": \"<dateTime>\",\n  \"siblings\": [\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\"\n    },\n    {\n      \"rfilename\": \"<string>\",\n      \"size\": \"<integer>\"\n    }\n  ],\n  \"cardData\": {}\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-bd229dcd-181a-4320-a47d-3933411b0bab"
+                },
+                {
+                  "id": "448e327b-490c-4078-99b8-9ad461dc530a",
+                  "name": "Space not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:repo_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":repo_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "repo_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-448e327b-490c-4078-99b8-9ad461dc530a"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-c58bdc61-81c5-4540-ad81-f77cab286da9"
+            }
+          ],
+          "id": "27d066a5-70fc-43d1-98da-3c35cd86ee11",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-27d066a5-70fc-43d1-98da-3c35cd86ee11"
+        },
+        {
+          "name": "List Spaces on the Hub",
+          "id": "e5273d52-8df2-451a-8e4b-1c55b64c8830",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/spaces?search=<string>&author=<string>&filter=<string>&sort=lastModified&direction=1&limit=30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "spaces"
+              ],
+              "query": [
+                {
+                  "description": "Full-text search query",
+                  "key": "search",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by Space author or organization",
+                  "key": "author",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter by tags",
+                  "key": "filter",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Property to sort results by",
+                  "key": "sort",
+                  "value": "lastModified"
+                },
+                {
+                  "description": "Sort direction",
+                  "key": "direction",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of results to return",
+                  "key": "limit",
+                  "value": "30"
+                }
+              ]
+            },
+            "description": "List and search Spaces hosted on the Hugging Face Hub. Supports filtering by author, SDK, and full-text search."
+          },
+          "response": [
+            {
+              "id": "f74a0963-4320-4805-980e-8816748554da",
+              "name": "List of Spaces matching the query",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/spaces?search=<string>&author=<string>&filter=<string>&sort=lastModified&direction=1&limit=30",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "spaces"
+                  ],
+                  "query": [
+                    {
+                      "description": "Full-text search query",
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by Space author or organization",
+                      "key": "author",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by tags",
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Property to sort results by",
+                      "key": "sort",
+                      "value": "lastModified"
+                    },
+                    {
+                      "description": "Sort direction",
+                      "key": "direction",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of results to return",
+                      "key": "limit",
+                      "value": "30"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"likes\": \"<integer>\",\n    \"sdk\": \"gradio\",\n    \"runtime\": {\n      \"stage\": \"BUILDING\",\n      \"hardware\": {\n        \"current\": \"<string>\",\n        \"requested\": \"<string>\"\n      }\n    },\n    \"createdAt\": \"<dateTime>\"\n  },\n  {\n    \"_id\": \"<string>\",\n    \"id\": \"<string>\",\n    \"author\": \"<string>\",\n    \"sha\": \"<string>\",\n    \"lastModified\": \"<dateTime>\",\n    \"private\": \"<boolean>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"likes\": \"<integer>\",\n    \"sdk\": \"docker\",\n    \"runtime\": {\n      \"stage\": \"ERROR\",\n      \"hardware\": {\n        \"current\": \"<string>\",\n        \"requested\": \"<string>\"\n      }\n    },\n    \"createdAt\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-f74a0963-4320-4805-980e-8816748554da"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-e5273d52-8df2-451a-8e4b-1c55b64c8830"
+        }
+      ],
+      "id": "aed7cb01-c2b9-48c6-ac96-3b601d91482d",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-aed7cb01-c2b9-48c6-ac96-3b601d91482d"
+    },
+    {
+      "name": "repos",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Create a New Repository",
+              "id": "377b9ec3-efd0-4bb0-910a-804885af7a9b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"model\",\n  \"organization\": \"<string>\",\n  \"private\": false,\n  \"sdk\": \"static\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/repos/create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "repos",
+                    "create"
+                  ]
+                },
+                "description": "Create a new model, dataset, or Space repository on the Hugging Face Hub."
+              },
+              "response": [
+                {
+                  "id": "85e31089-b269-4e7d-a28f-ac1a78ed938b",
+                  "name": "Repository created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"model\",\n  \"organization\": \"<string>\",\n  \"private\": false,\n  \"sdk\": \"static\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"url\": \"<uri>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-85e31089-b269-4e7d-a28f-ac1a78ed938b"
+                },
+                {
+                  "id": "857edfda-346e-4d15-93bc-d9f03936a906",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"model\",\n  \"organization\": \"<string>\",\n  \"private\": false,\n  \"sdk\": \"static\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-857edfda-346e-4d15-93bc-d9f03936a906"
+                },
+                {
+                  "id": "7ab14b25-1483-4881-8690-9e205452d239",
+                  "name": "Repository already exists",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"model\",\n  \"organization\": \"<string>\",\n  \"private\": false,\n  \"sdk\": \"static\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-7ab14b25-1483-4881-8690-9e205452d239"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-377b9ec3-efd0-4bb0-910a-804885af7a9b"
+            }
+          ],
+          "id": "1a85b31d-54b0-49fb-9042-5a77f77c7266",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-1a85b31d-54b0-49fb-9042-5a77f77c7266"
+        },
+        {
+          "name": "delete",
+          "item": [
+            {
+              "name": "Delete a Repository",
+              "id": "d5b876fd-82b0-4905-8891-d38cd43267bb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"space\",\n  \"organization\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/repos/delete",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "repos",
+                    "delete"
+                  ]
+                },
+                "description": "Delete a model, dataset, or Space repository from the Hub."
+              },
+              "response": [
+                {
+                  "id": "25e840a6-9111-4a2f-b102-7cdf27120e83",
+                  "name": "Repository deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"space\",\n  \"organization\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/delete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "delete"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-25e840a6-9111-4a2f-b102-7cdf27120e83"
+                },
+                {
+                  "id": "68e9da8b-f723-4270-bd6c-dd71ca56d17f",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"space\",\n  \"organization\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/delete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "delete"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-68e9da8b-f723-4270-bd6c-dd71ca56d17f"
+                },
+                {
+                  "id": "6e512116-9e5e-444b-bec9-99bc176c03c5",
+                  "name": "Forbidden - insufficient permissions",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"space\",\n  \"organization\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/repos/delete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "repos",
+                        "delete"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-6e512116-9e5e-444b-bec9-99bc176c03c5"
+                }
+              ],
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-d5b876fd-82b0-4905-8891-d38cd43267bb"
+            }
+          ],
+          "id": "88b21ebe-50ad-475a-9997-876db8953c6a",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-88b21ebe-50ad-475a-9997-876db8953c6a"
+        },
+        {
+          "name": "{repo_type}",
+          "item": [
+            {
+              "name": "{repo_id}",
+              "item": [
+                {
+                  "name": "settings",
+                  "item": [
+                    {
+                      "name": "Update Repository Settings",
+                      "id": "d5cc9a2d-73a7-40d3-b52e-76761ddde82e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"private\": \"<boolean>\",\n  \"gated\": \"auto\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/repos/:repo_type/:repo_id/settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "repos",
+                            ":repo_type",
+                            ":repo_id",
+                            "settings"
+                          ],
+                          "variable": [
+                            {
+                              "id": "53e6321b-9fa9-4606-96df-8045b88fb506",
+                              "key": "repo_type",
+                              "value": "datasets",
+                              "description": "(Required) "
+                            },
+                            {
+                              "id": "f8fe46f7-b9f7-447e-9a1d-228d5ec8aa54",
+                              "key": "repo_id",
+                              "value": "<string>",
+                              "description": "(Required) "
+                            }
+                          ]
+                        },
+                        "description": "Update the settings (visibility, etc.) for a repository."
+                      },
+                      "response": [
+                        {
+                          "id": "9d0305c6-fdbb-42f6-aabb-daa2b170b301",
+                          "name": "Settings updated successfully",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"private\": \"<boolean>\",\n  \"gated\": \"auto\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/repos/:repo_type/:repo_id/settings",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "repos",
+                                ":repo_type",
+                                ":repo_id",
+                                "settings"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "repo_type"
+                                },
+                                {
+                                  "key": "repo_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-06-05T15:09:45.000Z",
+                          "updatedAt": "2026-06-05T15:09:45.000Z",
+                          "uid": "35240-9d0305c6-fdbb-42f6-aabb-daa2b170b301"
+                        },
+                        {
+                          "id": "9105153c-6cd3-49bb-9522-f182b86d462f",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"private\": \"<boolean>\",\n  \"gated\": \"auto\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/repos/:repo_type/:repo_id/settings",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "repos",
+                                ":repo_type",
+                                ":repo_id",
+                                "settings"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "repo_type"
+                                },
+                                {
+                                  "key": "repo_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+                          "createdAt": "2026-06-05T15:09:45.000Z",
+                          "updatedAt": "2026-06-05T15:09:45.000Z",
+                          "uid": "35240-9105153c-6cd3-49bb-9522-f182b86d462f"
+                        }
+                      ],
+                      "createdAt": "2026-06-05T15:09:45.000Z",
+                      "updatedAt": "2026-06-05T15:09:45.000Z",
+                      "uid": "35240-d5cc9a2d-73a7-40d3-b52e-76761ddde82e"
+                    }
+                  ],
+                  "id": "fc7c408f-36da-40a3-b1ac-2e5a6037c392",
+                  "createdAt": "2026-06-05T15:09:45.000Z",
+                  "updatedAt": "2026-06-05T15:09:45.000Z",
+                  "uid": "35240-fc7c408f-36da-40a3-b1ac-2e5a6037c392"
+                }
+              ],
+              "id": "abe11cc0-0ae0-4703-b42b-9766afbee9fc",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-abe11cc0-0ae0-4703-b42b-9766afbee9fc"
+            }
+          ],
+          "id": "fd07f111-b390-4f46-9c8e-1aa32379319d",
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-fd07f111-b390-4f46-9c8e-1aa32379319d"
+        }
+      ],
+      "id": "0a46a254-9072-42b1-9c5d-58b5a470644b",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-0a46a254-9072-42b1-9c5d-58b5a470644b"
+    },
+    {
+      "name": "whoami-v2",
+      "item": [
+        {
+          "name": "Get Current User Information",
+          "id": "716f7765-7e58-477c-a6de-36bb14ea9fe7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/whoami-v2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "whoami-v2"
+              ]
+            },
+            "description": "Get information about the authenticated user, including their organizations and access tokens."
+          },
+          "response": [
+            {
+              "id": "4660b6dd-1b9a-4fe4-9a79-271627be24e2",
+              "name": "Current user information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/whoami-v2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "whoami-v2"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"type\": \"<string>\",\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"fullname\": \"<string>\",\n  \"email\": \"<email>\",\n  \"emailVerified\": \"<boolean>\",\n  \"plan\": \"<string>\",\n  \"canPay\": \"<boolean>\",\n  \"avatarUrl\": \"<uri>\",\n  \"orgs\": [\n    {\n      \"name\": \"<string>\",\n      \"fullname\": \"<string>\",\n      \"email\": \"<string>\",\n      \"plan\": \"<string>\",\n      \"avatarUrl\": \"<uri>\",\n      \"isEnterprise\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"fullname\": \"<string>\",\n      \"email\": \"<string>\",\n      \"plan\": \"<string>\",\n      \"avatarUrl\": \"<uri>\",\n      \"isEnterprise\": \"<boolean>\"\n    }\n  ],\n  \"auth\": {\n    \"accessToken\": {\n      \"displayName\": \"<string>\",\n      \"role\": \"<string>\"\n    }\n  }\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-4660b6dd-1b9a-4fe4-9a79-271627be24e2"
+            },
+            {
+              "id": "7b747a33-0c47-4a16-9cd4-b02238181260",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/whoami-v2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "whoami-v2"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-7b747a33-0c47-4a16-9cd4-b02238181260"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-716f7765-7e58-477c-a6de-36bb14ea9fe7"
+        }
+      ],
+      "id": "a0ceb368-6b58-4fae-bf4d-c593a0f830a5",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-a0ceb368-6b58-4fae-bf4d-c593a0f830a5"
+    },
+    {
+      "name": "metrics",
+      "item": [
+        {
+          "name": "List Available Metrics",
+          "id": "52c9ea44-256d-40a4-a360-f9364468e320",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metrics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metrics"
+              ]
+            },
+            "description": "Get the list of available evaluation metrics on the Hub."
+          },
+          "response": [
+            {
+              "id": "a07ee8bf-aa22-4921-9aa0-704cf130d53c",
+              "name": "List of available metrics",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metrics",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metrics"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"description\": \"<string>\"\n  }\n]",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-a07ee8bf-aa22-4921-9aa0-704cf130d53c"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-52c9ea44-256d-40a4-a360-f9364468e320"
+        }
+      ],
+      "id": "2bef3e96-e6bf-4323-9e38-294f89a864c2",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-2bef3e96-e6bf-4323-9e38-294f89a864c2"
+    },
+    {
+      "name": "models-tags-by-type",
+      "item": [
+        {
+          "name": "List Model Tags Grouped by Type",
+          "id": "55a19a9d-a27a-4748-bcb2-0d42da5528e1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/models-tags-by-type",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "models-tags-by-type"
+              ]
+            },
+            "description": "Get all available model tags organized by type (pipeline_tag, library, language, license, etc.)."
+          },
+          "response": [
+            {
+              "id": "16731329-dbef-4e1c-95d2-0974972b845e",
+              "name": "Tags grouped by type",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/models-tags-by-type",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "models-tags-by-type"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"dolor_92\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    }\n  ],\n  \"quis6\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    }\n  ],\n  \"commodo9\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\",\n      \"subType\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-16731329-dbef-4e1c-95d2-0974972b845e"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-55a19a9d-a27a-4748-bcb2-0d42da5528e1"
+        }
+      ],
+      "id": "573921d6-430c-4781-bcea-fd7b29bf2690",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-573921d6-430c-4781-bcea-fd7b29bf2690"
+    },
+    {
+      "name": "datasets-tags-by-type",
+      "item": [
+        {
+          "name": "List Dataset Tags Grouped by Type",
+          "id": "51136f7b-c49a-4bdc-ac05-ec073c494a0e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/datasets-tags-by-type",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "datasets-tags-by-type"
+              ]
+            },
+            "description": "Get all available dataset tags organized by type (task_categories, language, size_categories, etc.)."
+          },
+          "response": [
+            {
+              "id": "929d44fe-6304-4a9b-a9bb-55fba29ced2a",
+              "name": "Tags grouped by type",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/datasets-tags-by-type",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "datasets-tags-by-type"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"do7\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ],\n  \"ea_c3\": [\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"label\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-06-05T15:09:45.000Z",
+              "updatedAt": "2026-06-05T15:09:45.000Z",
+              "uid": "35240-929d44fe-6304-4a9b-a9bb-55fba29ced2a"
+            }
+          ],
+          "createdAt": "2026-06-05T15:09:45.000Z",
+          "updatedAt": "2026-06-05T15:09:45.000Z",
+          "uid": "35240-51136f7b-c49a-4bdc-ac05-ec073c494a0e"
+        }
+      ],
+      "id": "8ba3cb44-7cca-4533-af1e-4786efcd23a6",
+      "createdAt": "2026-06-05T15:09:45.000Z",
+      "updatedAt": "2026-06-05T15:09:45.000Z",
+      "uid": "35240-8ba3cb44-7cca-4533-af1e-4786efcd23a6"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://huggingface.co/api"
+    }
+  ]
+}

@@ -1,0 +1,1998 @@
+{
+  "item": [
+    {
+      "id": "e4272abe-ae81-4b49-aa04-ff85cf47cf65",
+      "name": "Endpoints",
+      "description": {
+        "content": "Manage dedicated inference endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7eb66746-f344-4391-939e-f4da814208b9",
+          "name": "List All Endpoints",
+          "request": {
+            "name": "List All Endpoints",
+            "description": {
+              "content": "List all Inference Endpoints for a given namespace (user or organization).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) User or organization namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "be6d5005-f5de-4438-b0ba-2e6831e41686",
+              "name": "List of endpoints",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"Example Title\",\n      \"type\": \"public\",\n      \"accountId\": \"500123\",\n      \"provider\": {\n        \"vendor\": \"aws\",\n        \"region\": \"example_value\"\n      },\n      \"compute\": {\n        \"accelerator\": \"example_value\",\n        \"instanceType\": \"example_value\",\n        \"instanceSize\": \"example_value\",\n        \"scaling\": {}\n      },\n      \"model\": {\n        \"repository\": \"example_value\",\n        \"revision\": \"example_value\",\n        \"task\": \"example_value\",\n        \"framework\": \"pytorch\",\n        \"image\": {}\n      },\n      \"status\": {\n        \"state\": \"pending\",\n        \"message\": \"example_value\",\n        \"createdAt\": \"2026-01-15T10:30:00Z\",\n        \"updatedAt\": \"2026-01-15T10:30:00Z\",\n        \"url\": \"https://www.example.com\"\n      },\n      \"url\": \"https://www.example.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9cdf4a5-ec32-449c-b18c-95bcff8153fe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d45fbb5e-344f-4931-b46c-257a30b83286",
+          "name": "Create a New Endpoint",
+          "request": {
+            "name": "Create a New Endpoint",
+            "description": {
+              "content": "Create a new Inference Endpoint with the specified model, hardware, and configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) User or organization namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"protected\",\n  \"provider\": {\n    \"vendor\": \"<string>\",\n    \"region\": \"<string>\"\n  },\n  \"compute\": {\n    \"accelerator\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"instanceSize\": \"<string>\",\n    \"scaling\": {\n      \"minReplica\": \"<integer>\",\n      \"maxReplica\": \"<integer>\",\n      \"scaleToZeroTimeout\": \"<integer>\"\n    }\n  },\n  \"model\": {\n    \"repository\": \"<string>\",\n    \"task\": \"<string>\",\n    \"revision\": \"main\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"<object>\",\n      \"custom\": {\n        \"url\": \"<uri>\",\n        \"health_route\": \"<string>\",\n        \"env\": {\n          \"key_0\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e98e60aa-8f88-49d8-94c3-cfd0c0940ebe",
+              "name": "Endpoint created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "296dd3e4-3f31-40c7-bba7-42888e23f125",
+              "name": "Bad request - invalid configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ec9ea75-1b86-4545-99b1-5638d0972563",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e69f4d3-eb53-4dba-bd4e-ff07c614aa16",
+              "name": "Endpoint name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c579b2dc-5191-4e25-a46c-a61043919225",
+          "name": "Get Endpoint Details",
+          "request": {
+            "name": "Get Endpoint Details",
+            "description": {
+              "content": "Get detailed information about a specific Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) Name of the endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b78d4e8-c9d9-49da-b4e5-7073488f424e",
+              "name": "Endpoint details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) Name of the endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e75fdfeb-cf2f-44ff-b821-cb9efa5e8b8e",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) Name of the endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "35926742-fffb-4819-b1c8-083394127285",
+          "name": "Update an Endpoint",
+          "request": {
+            "name": "Update an Endpoint",
+            "description": {
+              "content": "Update the configuration of an existing Inference Endpoint including model, hardware, and scaling settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"compute\": {\n    \"accelerator\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"instanceSize\": \"<string>\",\n    \"scaling\": {\n      \"minReplica\": \"<integer>\",\n      \"maxReplica\": \"<integer>\",\n      \"scaleToZeroTimeout\": \"<integer>\"\n    }\n  },\n  \"model\": {\n    \"repository\": \"<string>\",\n    \"revision\": \"<string>\",\n    \"task\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d0bccfe-29fa-4618-b0d5-5c644230dc42",
+              "name": "Endpoint updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58838d08-6ff5-4836-ae37-64c285b92c03",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0120ae83-e8c7-4429-9f18-58dd1d29f32d",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "256a44d0-8349-49c0-945d-ff5ec0f55b80",
+          "name": "Delete an Endpoint",
+          "request": {
+            "name": "Delete an Endpoint",
+            "description": {
+              "content": "Permanently delete an Inference Endpoint and all associated resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8234db7a-7761-4643-a643-f6bdbca0ff9b",
+              "name": "Endpoint deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f6469673-518f-4122-80bb-8e56fb80a111",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55159739-13dc-438c-ac53-02c5dca2865a",
+          "name": "Pause an Endpoint",
+          "request": {
+            "name": "Pause an Endpoint",
+            "description": {
+              "content": "Pause an Inference Endpoint to stop incurring compute costs while preserving the configuration. The endpoint can be resumed later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5050b49b-2aba-4022-977f-d8c9696c70dc",
+              "name": "Endpoint paused successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "720344fb-4d54-4039-8387-366a004b8380",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6fc8691-d332-4cf7-b818-c17390e460ee",
+          "name": "Resume an Endpoint",
+          "request": {
+            "name": "Resume an Endpoint",
+            "description": {
+              "content": "Resume a previously paused Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e10526f-6215-4fd1-90e9-b6d3403f33b1",
+              "name": "Endpoint resumed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92d5882b-a29f-493c-be72-b966f4d496f7",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcac47c9-d8f9-456c-986e-4bdd19b18b84",
+          "name": "Scale Endpoint to Zero",
+          "request": {
+            "name": "Scale Endpoint to Zero",
+            "description": {
+              "content": "Scale the endpoint to zero replicas. The endpoint will automatically scale up when it receives traffic (if autoscaling is configured).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "scale-to-zero"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c58bffc3-4850-4b0c-95c2-28400b48bf1b",
+              "name": "Endpoint scaled to zero",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "scale-to-zero"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9cd2ada-d6b9-4db5-931f-5d36e7910cc6",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "scale-to-zero"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d07de561-98f4-4cd2-a68e-c3a392b373e1",
+          "name": "Get Endpoint Logs",
+          "request": {
+            "name": "Get Endpoint Logs",
+            "description": {
+              "content": "Retrieve the runtime logs for an Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e4c7e24-8791-418d-aa0a-4e2fcc4d0f43",
+              "name": "Endpoint logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2d6234ab-4bad-4392-a32e-c0aff3407ae0",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98660438-38da-4b96-bf5c-e0945808dbb2",
+          "name": "Get Endpoint Metrics",
+          "request": {
+            "name": "Get Endpoint Metrics",
+            "description": {
+              "content": "Retrieve performance metrics for an Inference Endpoint including request counts, latencies, and error rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5a326f4-5b39-453a-8c54-7e47e6a570b6",
+              "name": "Endpoint metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_count\": 10,\n  \"request_duration_ms\": {\n    \"p50\": 42.5,\n    \"p90\": 42.5,\n    \"p99\": 42.5\n  },\n  \"error_rate\": 42.5,\n  \"tokens_per_second\": 42.5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c49490a8-a488-4791-ad5a-570b8b0f7ffc",
+      "name": "Providers",
+      "description": {
+        "content": "Available cloud providers and hardware",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c8ea6e0a-ae7c-4514-84ad-347fce7dabd2",
+          "name": "List Available Providers",
+          "request": {
+            "name": "List Available Providers",
+            "description": {
+              "content": "List available cloud providers and their regions for deploying Inference Endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provider"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fe29c3e-824e-4d9e-a7be-799fefcef01c",
+              "name": "Available cloud providers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"vendor\": \"aws\",\n      \"region\": \"example_value\",\n      \"status\": \"available\",\n      \"accelerators\": [\n        {}\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.endpoints.huggingface.cloud/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2f38df3-82cf-4d8c-9e83-6fa0cb713b4c",
+    "name": "Hugging Face Inference Endpoints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Deploy and scale machine learning models with dedicated, secure infrastructure. Manage Inference Endpoints programmatically - create, update, scale, pause, resume, and delete dedicated endpoints for serving ML models with autoscaling and custom hardware configurations.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

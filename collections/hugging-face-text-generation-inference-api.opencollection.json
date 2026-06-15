@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Text Generation Inference API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Text Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-inference.huggingface.co/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate text from a prompt using the loaded model. Returns the full generated text in a single response."
+        },
+        {
+          "info": {
+            "name": "Generate Text With Streaming",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-inference.huggingface.co/generate_stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate text from a prompt using Server-Sent Events (SSE) streaming. Tokens are returned incrementally as they are generated."
+        },
+        {
+          "info": {
+            "name": "Create Text Completion (openai Compatible)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-inference.huggingface.co/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a text completion using the OpenAI-compatible completions API format."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Chat Completion (openai Compatible)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-inference.huggingface.co/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a chat completion using the OpenAI-compatible Messages API. Supports conversations, tool calling, structured output via JSON schema, and multi-modal inputs (text + images). Fully compatible with OpenAI client libraries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-inference.huggingface.co/v1/models"
+          },
+          "docs": "Get information about the model currently loaded on this TGI server."
+        },
+        {
+          "info": {
+            "name": "Get Server Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-inference.huggingface.co/info"
+          },
+          "docs": "Get metadata about the TGI server including the loaded model, version, SHA, Docker label, and model-specific parameters."
+        },
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-inference.huggingface.co/health"
+          },
+          "docs": "Check the health of the TGI server. Returns 200 if the model is loaded and ready to serve requests."
+        },
+        {
+          "info": {
+            "name": "Get Prometheus Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api-inference.huggingface.co/metrics"
+          },
+          "docs": "Get server metrics in Prometheus format including request counts, latencies, queue sizes, and token throughput."
+        },
+        {
+          "info": {
+            "name": "Tokenize Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api-inference.huggingface.co/tokenize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tokenize a string of text using the model's tokenizer. Returns the token IDs and their string representations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
