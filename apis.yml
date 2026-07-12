@@ -170,6 +170,12 @@ apis:
   - type: Support
     url: https://huggingface.co/support
 common:
+- type: VulnerabilityDisclosure
+  url: security/hugging-face-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/hugging-face-domain-security.yml
+- type: Authentication
+  url: authentication/hugging-face-authentication.yml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/hugging-face/overview
 - type: Arazzo

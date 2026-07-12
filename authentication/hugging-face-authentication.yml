@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hugging-face-dataset-viewer-api.yml, openapi/hugging-face-hub-api.yml, openapi/hugging-face-inference-api.yml,
+  openapi/hugging-face-inference-endpoints-api.yml, openapi/hugging-face-inference-providers-api.yml,
+  openapi/hugging-face-text-generation-inference-api.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: HF Token
+  description: Optional Hugging Face API token. Required for private and gated datasets.
+  sources:
+  - openapi/hugging-face-dataset-viewer-api.yml
+  - openapi/hugging-face-hub-api.yml
+  - openapi/hugging-face-inference-api.yml
+  - openapi/hugging-face-inference-endpoints-api.yml
+  - openapi/hugging-face-inference-providers-api.yml
+  - openapi/hugging-face-text-generation-inference-api.yml
