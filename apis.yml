@@ -170,6 +170,8 @@ apis:
   - type: Support
     url: https://huggingface.co/support
 common:
+- type: AgenticAccess
+  url: agentic-access/hugging-face-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/hugging-face-vulnerability-disclosure.yml
 - type: DomainSecurity
