@@ -1,10 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Hugging Face Inference API
-  description: >-
-    Run inference on 200,000+ machine learning models hosted on the Hugging Face
-    Hub with a simple HTTP request. Supports text generation, image
-    classification, object detection, speech recognition, and many more tasks.
+  title: Hugging Face Dataset Viewer Audio Natural Language Processing API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -14,26 +11,19 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://api-inference.huggingface.co
-  description: Hugging Face Inference API production server
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
 security:
+- {}
 - bearerAuth: []
 tags:
 - name: Natural Language Processing
   description: NLP tasks including text generation, classification, and translation
-- name: Computer Vision
-  description: Image classification, object detection, and segmentation tasks
-- name: Audio
-  description: Speech recognition, audio classification, and text-to-speech tasks
-- name: Multimodal
-  description: Tasks involving multiple modalities
 paths:
   /models/{model_id}:
     post:
       summary: Run Inference on a Model
-      description: >-
-        Run inference on any model hosted on the Hugging Face Hub. The request
-        and response format depends on the model's pipeline task.
+      description: Run inference on any model hosted on the Hugging Face Hub. The request and response format depends on the model's pipeline task.
       operationId: runInference
       tags:
       - Natural Language Processing
@@ -157,9 +147,7 @@ paths:
   /pipeline/{task}:
     post:
       summary: Run Inference by Task Pipeline
-      description: >-
-        Run inference using a recommended model for a specific task pipeline.
-        Hugging Face selects the best available model for the given task.
+      description: Run inference using a recommended model for a specific task pipeline. Hugging Face selects the best available model for the given task.
       operationId: runPipelineInference
       tags:
       - Natural Language Processing
@@ -167,9 +155,7 @@ paths:
       - name: task
         in: path
         required: true
-        description: >-
-          The pipeline task type (e.g., text-generation,
-          text-classification, summarization)
+        description: The pipeline task type (e.g., text-generation, text-classification, summarization)
         schema:
           type: string
           enum:
@@ -255,9 +241,7 @@ paths:
   /models/{model_id}/text-generation:
     post:
       summary: Text Generation Inference
-      description: >-
-        Generate text using a language model. Supports parameters like
-        temperature, top_p, max_new_tokens, and repetition_penalty.
+      description: Generate text using a language model. Supports parameters like temperature, top_p, max_new_tokens, and repetition_penalty.
       operationId: textGeneration
       tags:
       - Natural Language Processing
@@ -340,9 +324,7 @@ paths:
   /models/{model_id}/text-classification:
     post:
       summary: Text Classification Inference
-      description: >-
-        Classify text into predefined categories using a text classification
-        model such as sentiment analysis.
+      description: Classify text into predefined categories using a text classification model such as sentiment analysis.
       operationId: textClassification
       tags:
       - Natural Language Processing
@@ -389,8 +371,7 @@ paths:
   /models/{model_id}/question-answering:
     post:
       summary: Question Answering Inference
-      description: >-
-        Extract answers from a given context using a question answering model.
+      description: Extract answers from a given context using a question answering model.
       operationId: questionAnswering
       tags:
       - Natural Language Processing
@@ -528,8 +509,7 @@ paths:
   /models/{model_id}/fill-mask:
     post:
       summary: Fill Mask Inference
-      description: >-
-        Fill in a masked token in a sentence using a masked language model.
+      description: Fill in a masked token in a sentence using a masked language model.
       operationId: fillMask
       tags:
       - Natural Language Processing
@@ -576,8 +556,7 @@ paths:
   /models/{model_id}/feature-extraction:
     post:
       summary: Feature Extraction Inference
-      description: >-
-        Extract dense vector representations (embeddings) from text input.
+      description: Extract dense vector representations (embeddings) from text input.
       operationId: featureExtraction
       tags:
       - Natural Language Processing
@@ -620,228 +599,10 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-  /models/{model_id}/image-classification:
-    post:
-      summary: Image Classification Inference
-      description: Classify an image into predefined categories.
-      operationId: imageClassification
-      tags:
-      - Computer Vision
-      parameters:
-      - name: model_id
-        in: path
-        required: true
-        schema:
-          type: string
-        example: google/vit-base-patch16-224
-      requestBody:
-        required: true
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-            examples:
-              ImageclassificationRequestExample:
-                summary: Default imageClassification request
-                x-microcks-default: true
-                value: example_value
-          application/json:
-            schema:
-              type: object
-              properties:
-                inputs:
-                  type: string
-                  description: URL of the image to classify
-            examples:
-              ImageclassificationRequestExample:
-                summary: Default imageClassification request
-                x-microcks-default: true
-                value:
-                  inputs: example_value
-      responses:
-        '200':
-          description: Classification results
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ClassificationResult'
-              examples:
-                Imageclassification200Example:
-                  summary: Default imageClassification 200 response
-                  x-microcks-default: true
-                  value:
-                  - label: Example Title
-                    score: 42.5
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /models/{model_id}/object-detection:
-    post:
-      summary: Object Detection Inference
-      description: Detect objects in an image and return bounding boxes with labels.
-      operationId: objectDetection
-      tags:
-      - Computer Vision
-      parameters:
-      - name: model_id
-        in: path
-        required: true
-        schema:
-          type: string
-        example: facebook/detr-resnet-50
-      requestBody:
-        required: true
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-            examples:
-              ObjectdetectionRequestExample:
-                summary: Default objectDetection request
-                x-microcks-default: true
-                value: example_value
-      responses:
-        '200':
-          description: Detected objects with bounding boxes
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ObjectDetectionResult'
-              examples:
-                Objectdetection200Example:
-                  summary: Default objectDetection 200 response
-                  x-microcks-default: true
-                  value:
-                  - label: Example Title
-                    score: 42.5
-                    box:
-                      xmin: 10
-                      ymin: 10
-                      xmax: 10
-                      ymax: 10
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /models/{model_id}/automatic-speech-recognition:
-    post:
-      summary: Automatic Speech Recognition Inference
-      description: Transcribe audio to text using a speech recognition model.
-      operationId: automaticSpeechRecognition
-      tags:
-      - Audio
-      parameters:
-      - name: model_id
-        in: path
-        required: true
-        schema:
-          type: string
-        example: openai/whisper-large-v3
-      requestBody:
-        required: true
-        content:
-          audio/flac:
-            schema:
-              type: string
-              format: binary
-            examples:
-              AutomaticspeechrecognitionRequestExample:
-                summary: Default automaticSpeechRecognition request
-                x-microcks-default: true
-                value: example_value
-          audio/wav:
-            schema:
-              type: string
-              format: binary
-            examples:
-              AutomaticspeechrecognitionRequestExample:
-                summary: Default automaticSpeechRecognition request
-                x-microcks-default: true
-                value: example_value
-          audio/mp3:
-            schema:
-              type: string
-              format: binary
-            examples:
-              AutomaticspeechrecognitionRequestExample:
-                summary: Default automaticSpeechRecognition request
-                x-microcks-default: true
-                value: example_value
-      responses:
-        '200':
-          description: Transcribed text
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SpeechRecognitionResponse'
-              examples:
-                Automaticspeechrecognition200Example:
-                  summary: Default automaticSpeechRecognition 200 response
-                  x-microcks-default: true
-                  value:
-                    text: example_value
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-  /models/{model_id}/text-to-image:
-    post:
-      summary: Text to Image Generation
-      description: Generate an image from a text prompt using a diffusion model.
-      operationId: textToImage
-      tags:
-      - Multimodal
-      parameters:
-      - name: model_id
-        in: path
-        required: true
-        schema:
-          type: string
-        example: stabilityai/stable-diffusion-xl-base-1.0
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TextToImageRequest'
-            examples:
-              TexttoimageRequestExample:
-                summary: Default textToImage request
-                x-microcks-default: true
-                value:
-                  inputs: example_value
-                  parameters:
-                    negative_prompt: example_value
-                    height: 10
-                    width: 10
-                    num_inference_steps: 10
-                    guidance_scale: 42.5
-      responses:
-        '200':
-          description: Generated image
-          content:
-            image/png:
-              schema:
-                type: string
-                format: binary
-              examples:
-                Texttoimage200Example:
-                  summary: Default textToImage 200 response
-                  x-microcks-default: true
-                  value: example_value
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
   /models/{model_id}/zero-shot-classification:
     post:
       summary: Zero-shot Classification Inference
-      description: >-
-        Classify text into categories that the model has not been explicitly
-        trained on using natural language inference.
+      description: Classify text into categories that the model has not been explicitly trained on using natural language inference.
       operationId: zeroShotClassification
       tags:
       - Natural Language Processing
@@ -937,44 +698,7 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: HF Token
-      description: >-
-        Hugging Face API token. Generate one from
-        https://huggingface.co/settings/tokens
   schemas:
-    InferenceRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: The input data for inference
-          example: example_value
-        parameters:
-          type: object
-          description: Task-specific parameters
-          example: example_value
-        options:
-          type: object
-          properties:
-            use_cache:
-              type: boolean
-              default: true
-              description: Use cached results if available
-            wait_for_model:
-              type: boolean
-              default: false
-              description: Wait for the model to load instead of returning 503
-          example: example_value
     InferenceResponse:
       oneOf:
       - type: array
@@ -983,6 +707,69 @@ components:
       - type: object
       - type: string
       description: The inference result - format depends on the task
+    SummarizationResponse:
+      type: object
+      properties:
+        summary_text:
+          type: string
+          description: The summarized text
+          example: example_value
+    ClassificationResult:
+      type: object
+      properties:
+        label:
+          type: string
+          description: The predicted label
+          example: POSITIVE
+        score:
+          type: number
+          format: float
+          description: Confidence score for the label
+          example: 0.9998
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        estimated_time:
+          type: number
+          format: float
+          description: Estimated time until availability (for loading errors)
+          example: 42.5
+    TextGenerationResponse:
+      type: object
+      properties:
+        generated_text:
+          type: string
+          description: The generated text
+          example: example_value
+    ZeroShotClassificationRequest:
+      type: object
+      required:
+      - inputs
+      - parameters
+      properties:
+        inputs:
+          type: string
+          description: The text to classify
+          example: example_value
+        parameters:
+          type: object
+          required:
+          - candidate_labels
+          properties:
+            candidate_labels:
+              type: array
+              items:
+                type: string
+              description: Labels to classify against
+            multi_label:
+              type: boolean
+              default: false
+              description: Whether multiple labels can be true
+          example: example_value
     TextGenerationRequest:
       type: object
       required:
@@ -1042,34 +829,33 @@ components:
               type: boolean
               default: false
           example: example_value
-    TextGenerationResponse:
+    TranslationResponse:
       type: object
       properties:
-        generated_text:
+        translation_text:
           type: string
-          description: The generated text
+          description: The translated text
           example: example_value
-    TextClassificationRequest:
+    SentenceSimilarityRequest:
       type: object
       required:
       - inputs
       properties:
         inputs:
-          type: string
-          description: The text to classify
-          example: I love this movie!
-    ClassificationResult:
-      type: object
-      properties:
-        label:
-          type: string
-          description: The predicted label
-          example: POSITIVE
-        score:
-          type: number
-          format: float
-          description: Confidence score for the label
-          example: 0.9998
+          type: object
+          required:
+          - source_sentence
+          - sentences
+          properties:
+            source_sentence:
+              type: string
+              description: The source sentence to compare against
+            sentences:
+              type: array
+              items:
+                type: string
+              description: Target sentences to compare with
+          example: example_value
     QuestionAnsweringRequest:
       type: object
       required:
@@ -1089,6 +875,117 @@ components:
               type: string
               description: The context containing the answer
               example: France is a country in Europe. Its capital is Paris.
+          example: example_value
+    InferenceRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The input data for inference
+          example: example_value
+        parameters:
+          type: object
+          description: Task-specific parameters
+          example: example_value
+        options:
+          type: object
+          properties:
+            use_cache:
+              type: boolean
+              default: true
+              description: Use cached results if available
+            wait_for_model:
+              type: boolean
+              default: false
+              description: Wait for the model to load instead of returning 503
+          example: example_value
+    FillMaskResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: The complete text with filled mask
+          example: example_value
+        score:
+          type: number
+          format: float
+          description: Confidence score for the prediction
+          example: 42.5
+        token:
+          type: integer
+          description: Token ID of the predicted word
+          example: 10
+        token_str:
+          type: string
+          description: The predicted word
+          example: example_value
+    FillMaskRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: Text with [MASK] token to fill
+          example: The capital of France is [MASK].
+    ModelLoadingResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message indicating the model is loading
+          example: Model is currently loading
+        estimated_time:
+          type: number
+          format: float
+          description: Estimated time in seconds until the model is ready
+          example: 42.5
+    TranslationRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: The text to translate
+          example: Hello, how are you?
+    SummarizationRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: The text to summarize
+          example: example_value
+        parameters:
+          type: object
+          properties:
+            min_length:
+              type: integer
+              description: Minimum length of the summary
+            max_length:
+              type: integer
+              description: Maximum length of the summary
+          example: example_value
+    FeatureExtractionRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The text input(s) for embedding extraction
           example: example_value
     QuestionAnsweringResponse:
       type: object
@@ -1110,144 +1007,15 @@ components:
           type: integer
           description: End character position in context
           example: 10
-    SummarizationRequest:
+    TextClassificationRequest:
       type: object
       required:
       - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text to summarize
-          example: example_value
-        parameters:
-          type: object
-          properties:
-            min_length:
-              type: integer
-              description: Minimum length of the summary
-            max_length:
-              type: integer
-              description: Maximum length of the summary
-          example: example_value
-    SummarizationResponse:
-      type: object
-      properties:
-        summary_text:
-          type: string
-          description: The summarized text
-          example: example_value
-    TranslationRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text to translate
-          example: Hello, how are you?
-    TranslationResponse:
-      type: object
-      properties:
-        translation_text:
-          type: string
-          description: The translated text
-          example: example_value
-    FillMaskRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: Text with [MASK] token to fill
-          example: The capital of France is [MASK].
-    FillMaskResponse:
-      type: object
-      properties:
-        sequence:
-          type: string
-          description: The complete text with filled mask
-          example: example_value
-        score:
-          type: number
-          format: float
-          description: Confidence score for the prediction
-          example: 42.5
-        token:
-          type: integer
-          description: Token ID of the predicted word
-          example: 10
-        token_str:
-          type: string
-          description: The predicted word
-          example: example_value
-    FeatureExtractionRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: The text input(s) for embedding extraction
-          example: example_value
-    TextToImageRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text prompt to generate an image from
-          example: A beautiful sunset over mountains
-        parameters:
-          type: object
-          properties:
-            negative_prompt:
-              type: string
-              description: Text describing what to avoid in the image
-            height:
-              type: integer
-              description: Height of the generated image in pixels
-            width:
-              type: integer
-              description: Width of the generated image in pixels
-            num_inference_steps:
-              type: integer
-              description: Number of denoising steps
-            guidance_scale:
-              type: number
-              format: float
-              description: Classifier-free guidance scale
-          example: example_value
-    ZeroShotClassificationRequest:
-      type: object
-      required:
-      - inputs
-      - parameters
       properties:
         inputs:
           type: string
           description: The text to classify
-          example: example_value
-        parameters:
-          type: object
-          required:
-          - candidate_labels
-          properties:
-            candidate_labels:
-              type: array
-              items:
-                type: string
-              description: Labels to classify against
-            multi_label:
-              type: boolean
-              default: false
-              description: Whether multiple labels can be true
-          example: example_value
+          example: I love this movie!
     ZeroShotClassificationResponse:
       type: object
       properties:
@@ -1265,78 +1033,9 @@ components:
             type: number
             format: float
           example: []
-    SentenceSimilarityRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: object
-          required:
-          - source_sentence
-          - sentences
-          properties:
-            source_sentence:
-              type: string
-              description: The source sentence to compare against
-            sentences:
-              type: array
-              items:
-                type: string
-              description: Target sentences to compare with
-          example: example_value
-    ObjectDetectionResult:
-      type: object
-      properties:
-        label:
-          type: string
-          description: Detected object label
-          example: Example Title
-        score:
-          type: number
-          format: float
-          description: Detection confidence score
-          example: 42.5
-        box:
-          type: object
-          properties:
-            xmin:
-              type: integer
-            ymin:
-              type: integer
-            xmax:
-              type: integer
-            ymax:
-              type: integer
-          example: example_value
-    SpeechRecognitionResponse:
-      type: object
-      properties:
-        text:
-          type: string
-          description: The transcribed text
-          example: example_value
-    ModelLoadingResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message indicating the model is loading
-          example: Model is currently loading
-        estimated_time:
-          type: number
-          format: float
-          description: Estimated time in seconds until the model is ready
-          example: 42.5
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        estimated_time:
-          type: number
-          format: float
-          description: Estimated time until availability (for loading errors)
-          example: 42.5
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Datasets API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Datasets
+  description: Operations for managing and querying datasets on the Hub
+paths:
+  /datasets:
+    get:
+      summary: List Datasets on the Hub
+      description: List and search datasets hosted on the Hugging Face Hub. Supports filtering by author, tags, and full-text search.
+      operationId: listDatasets
+      tags:
+      - Datasets
+      security: []
+      parameters:
+      - name: search
+        in: query
+        description: Full-text search query to filter datasets
+        schema:
+          type: string
+        example: example_value
+      - name: author
+        in: query
+        description: Filter by dataset author or organization
+        schema:
+          type: string
+        example: example_value
+      - name: filter
+        in: query
+        description: Filter by tags (comma-separated)
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: Property to sort results by
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - downloads
+          - likes
+          - createdAt
+        example: lastModified
+      - name: direction
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+          enum:
+          - '-1'
+          - '1'
+        example: '-1'
+      - name: limit
+        in: query
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 30
+          maximum: 1000
+        example: 10
+      - name: full
+        in: query
+        description: Whether to return full dataset information
+        schema:
+          type: boolean
+          default: false
+        example: true
+      responses:
+        '200':
+          description: List of datasets matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetSummary'
+              examples:
+                Listdatasets200Example:
+                  summary: Default listDatasets 200 response
+                  x-microcks-default: true
+                  value:
+                  - _id: '500123'
+                    id: abc123
+                    author: example_value
+                    sha: example_value
+                    lastModified: '2026-01-15T10:30:00Z'
+                    private: true
+                    gated: true
+                    disabled: true
+                    tags:
+                    - example_value
+                    downloads: 10
+                    likes: 10
+                    createdAt: '2026-01-15T10:30:00Z'
+                    description: A sample description.
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /datasets/{repo_id}:
+    get:
+      summary: Get Dataset Information
+      description: Get detailed information about a specific dataset.
+      operationId: getDataset
+      tags:
+      - Datasets
+      security: []
+      parameters:
+      - name: repo_id
+        in: path
+        required: true
+        description: The dataset repository ID
+        schema:
+          type: string
+        example: squad
+      responses:
+        '200':
+          description: Detailed dataset information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInfo'
+              examples:
+                Getdataset200Example:
+                  summary: Default getDataset 200 response
+                  x-microcks-default: true
+                  value: {}
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getdataset404Example:
+                  summary: Default getDataset 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /datasets/{repo_id}/parquet:
+    get:
+      summary: Get Dataset Parquet Files
+      description: Get the list of auto-converted Parquet files for a dataset.
+      operationId: getDatasetParquet
+      tags:
+      - Datasets
+      security: []
+      parameters:
+      - name: repo_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: List of Parquet file URLs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parquet_files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dataset:
+                          type: string
+                        config:
+                          type: string
+                        split:
+                          type: string
+                        url:
+                          type: string
+                          format: uri
+                        filename:
+                          type: string
+                        size:
+                          type: integer
+              examples:
+                Getdatasetparquet200Example:
+                  summary: Default getDatasetParquet 200 response
+                  x-microcks-default: true
+                  value:
+                    parquet_files:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                      url: https://www.example.com
+                      filename: example_value
+                      size: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /datasets-tags-by-type:
+    get:
+      summary: List Dataset Tags Grouped by Type
+      description: Get all available dataset tags organized by type (task_categories, language, size_categories, etc.).
+      operationId: listDatasetTags
+      tags:
+      - Datasets
+      security: []
+      responses:
+        '200':
+          description: Tags grouped by type
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      label:
+                        type: string
+              examples:
+                Listdatasettags200Example:
+                  summary: Default listDatasetTags 200 response
+                  x-microcks-default: true
+                  value: {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    DatasetSummary:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: '500123'
+        id:
+          type: string
+          description: Dataset repository ID
+          example: abc123
+        author:
+          type: string
+          example: example_value
+        sha:
+          type: string
+          example: example_value
+        lastModified:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        private:
+          type: boolean
+          example: true
+        gated:
+          type: boolean
+          example: true
+        disabled:
+          type: boolean
+          example: true
+        tags:
+          type: array
+          items:
+            type: string
+          example: []
+        downloads:
+          type: integer
+          example: 10
+        likes:
+          type: integer
+          example: 10
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        description:
+          type: string
+          example: A sample description.
+    DatasetInfo:
+      allOf:
+      - $ref: '#/components/schemas/DatasetSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
+              type: object
+              properties:
+                rfilename:
+                  type: string
+                size:
+                  type: integer
+          cardData:
+            type: object
+            description: Parsed dataset card metadata
+            properties:
+              language:
+                type: array
+                items:
+                  type: string
+              license:
+                type: string
+              task_categories:
+                type: array
+                items:
+                  type: string
+              size_categories:
+                type: array
+                items:
+                  type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

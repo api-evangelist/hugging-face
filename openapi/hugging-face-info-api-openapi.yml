@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Info API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Info
+  description: Server and model information
+paths:
+  /v1/models:
+    get:
+      summary: List Available Models
+      description: Get information about the model currently loaded on this TGI server.
+      operationId: listModels
+      tags:
+      - Info
+      security: []
+      responses:
+        '200':
+          description: Available models
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    const: list
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          description: Model ID
+                        object:
+                          type: string
+                          const: model
+                        created:
+                          type: integer
+                        owned_by:
+                          type: string
+              examples:
+                Listmodels200Example:
+                  summary: Default listModels 200 response
+                  x-microcks-default: true
+                  value:
+                    object: example_value
+                    data:
+                    - id: abc123
+                      object: example_value
+                      created: 10
+                      owned_by: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /info:
+    get:
+      summary: Get Server Information
+      description: Get metadata about the TGI server including the loaded model, version, SHA, Docker label, and model-specific parameters.
+      operationId: getInfo
+      tags:
+      - Info
+      security: []
+      responses:
+        '200':
+          description: Server and model information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+              examples:
+                Getinfo200Example:
+                  summary: Default getInfo 200 response
+                  x-microcks-default: true
+                  value:
+                    model_id: '500123'
+                    model_sha: example_value
+                    model_dtype: float16
+                    model_device_type: example_value
+                    model_pipeline_tag: example_value
+                    max_concurrent_requests: 10
+                    max_best_of: 10
+                    max_stop_sequences: 10
+                    max_input_length: 10
+                    max_total_tokens: 10
+                    waiting_served_ratio: 42.5
+                    max_batch_total_tokens: 10
+                    max_waiting_tokens: 10
+                    validation_workers: 10
+                    max_client_batch_size: 10
+                    version: example_value
+                    sha: example_value
+                    docker_label: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /health:
+    get:
+      summary: Health Check
+      description: Check the health of the TGI server. Returns 200 if the model is loaded and ready to serve requests.
+      operationId: healthCheck
+      tags:
+      - Info
+      security: []
+      responses:
+        '200':
+          description: Server is healthy and ready
+        '503':
+          description: Server is not ready (model still loading)
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /metrics:
+    get:
+      summary: Get Prometheus Metrics
+      description: Get server metrics in Prometheus format including request counts, latencies, queue sizes, and token throughput.
+      operationId: getMetrics
+      tags:
+      - Info
+      security: []
+      responses:
+        '200':
+          description: Prometheus-formatted metrics
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                Getmetrics200Example:
+                  summary: Default getMetrics 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tokenize:
+    post:
+      summary: Tokenize Text
+      description: Tokenize a string of text using the model's tokenizer. Returns the token IDs and their string representations.
+      operationId: tokenize
+      tags:
+      - Info
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - inputs
+              properties:
+                inputs:
+                  type: string
+                  description: Text to tokenize
+                add_special_tokens:
+                  type: boolean
+                  default: true
+                  description: Whether to add special tokens
+            examples:
+              TokenizeRequestExample:
+                summary: Default tokenize request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  add_special_tokens: true
+      responses:
+        '200':
+          description: Tokenized result
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Token ID
+                    text:
+                      type: string
+                      description: Token text
+                    start:
+                      type: integer
+                    stop:
+                      type: integer
+                    special:
+                      type: boolean
+              examples:
+                Tokenize200Example:
+                  summary: Default tokenize 200 response
+                  x-microcks-default: true
+                  value:
+                  - id: abc123
+                    text: example_value
+                    start: 10
+                    stop: 10
+                    special: true
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Info:
+      type: object
+      properties:
+        model_id:
+          type: string
+          description: Loaded model ID
+          example: '500123'
+        model_sha:
+          type: string
+          description: Model revision SHA
+          example: example_value
+        model_dtype:
+          type: string
+          description: Model data type
+          enum:
+          - float16
+          - bfloat16
+          - float32
+          example: float16
+        model_device_type:
+          type: string
+          description: Device type (cuda, cpu)
+          example: example_value
+        model_pipeline_tag:
+          type: string
+          description: Pipeline task tag
+          example: example_value
+        max_concurrent_requests:
+          type: integer
+          example: 10
+        max_best_of:
+          type: integer
+          example: 10
+        max_stop_sequences:
+          type: integer
+          example: 10
+        max_input_length:
+          type: integer
+          description: Maximum input token length
+          example: 10
+        max_total_tokens:
+          type: integer
+          description: Maximum total tokens (input + output)
+          example: 10
+        waiting_served_ratio:
+          type: number
+          example: 42.5
+        max_batch_total_tokens:
+          type: integer
+          example: 10
+        max_waiting_tokens:
+          type: integer
+          example: 10
+        validation_workers:
+          type: integer
+          example: 10
+        max_client_batch_size:
+          type: integer
+          example: 10
+        version:
+          type: string
+          description: TGI version
+          example: example_value
+        sha:
+          type: string
+          description: TGI build SHA
+          example: example_value
+        docker_label:
+          type: string
+          description: Docker image label
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

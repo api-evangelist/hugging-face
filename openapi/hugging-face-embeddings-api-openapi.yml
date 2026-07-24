@@ -1,0 +1,166 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Embeddings API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Embeddings
+  description: Text embedding endpoints
+paths:
+  /v1/embeddings:
+    post:
+      summary: Create Embeddings
+      description: Create embedding vectors for input text. Returns dense vector representations useful for semantic search, clustering, and classification tasks.
+      operationId: createEmbeddings
+      tags:
+      - Embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingRequest'
+            examples:
+              CreateembeddingsRequestExample:
+                summary: Default createEmbeddings request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  input: example_value
+                  encoding_format: float
+      responses:
+        '200':
+          description: Embedding response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingResponse'
+              examples:
+                Createembeddings200Example:
+                  summary: Default createEmbeddings 200 response
+                  x-microcks-default: true
+                  value:
+                    object: example_value
+                    data:
+                    - object: example_value
+                      index: 10
+                      embedding:
+                      - {}
+                    model: example_value
+                    usage:
+                      prompt_tokens: 10
+                      total_tokens: 10
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createembeddings400Example:
+                  summary: Default createEmbeddings 400 response
+                  x-microcks-default: true
+                  value:
+                    error:
+                      message: example_value
+                      type: example_value
+                      code: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    EmbeddingRequest:
+      type: object
+      required:
+      - model
+      - input
+      properties:
+        model:
+          type: string
+          description: Embedding model ID
+          example: sentence-transformers/all-MiniLM-L6-v2
+        input:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: Text input(s) to embed
+          example: example_value
+        encoding_format:
+          type: string
+          enum:
+          - float
+          - base64
+          default: float
+          example: float
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
+    EmbeddingResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          const: list
+          example: example_value
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              object:
+                type: string
+                const: embedding
+              index:
+                type: integer
+              embedding:
+                type: array
+                items:
+                  type: number
+                  format: float
+          example: []
+        model:
+          type: string
+          example: example_value
+        usage:
+          type: object
+          properties:
+            prompt_tokens:
+              type: integer
+            total_tokens:
+              type: integer
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

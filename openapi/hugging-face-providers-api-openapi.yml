@@ -1,0 +1,96 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Providers API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Providers
+  description: Available cloud providers and hardware
+paths:
+  /provider:
+    get:
+      summary: List Available Providers
+      description: List available cloud providers and their regions for deploying Inference Endpoints.
+      operationId: listProviders
+      tags:
+      - Providers
+      responses:
+        '200':
+          description: Available cloud providers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Provider'
+              examples:
+                Listproviders200Example:
+                  summary: Default listProviders 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - vendor: aws
+                      region: example_value
+                      status: available
+                      accelerators:
+                      - {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Provider:
+      type: object
+      properties:
+        vendor:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        region:
+          type: string
+          example: example_value
+        status:
+          type: string
+          enum:
+          - available
+          - unavailable
+          example: available
+        accelerators:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              instanceType:
+                type: string
+              instanceSizes:
+                type: array
+                items:
+                  type: string
+          example: []
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

@@ -1,0 +1,107 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Multimodal API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Multimodal
+  description: Tasks involving multiple modalities
+paths:
+  /models/{model_id}/text-to-image:
+    post:
+      summary: Text to Image Generation
+      description: Generate an image from a text prompt using a diffusion model.
+      operationId: textToImage
+      tags:
+      - Multimodal
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: stabilityai/stable-diffusion-xl-base-1.0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToImageRequest'
+            examples:
+              TexttoimageRequestExample:
+                summary: Default textToImage request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+                  parameters:
+                    negative_prompt: example_value
+                    height: 10
+                    width: 10
+                    num_inference_steps: 10
+                    guidance_scale: 42.5
+      responses:
+        '200':
+          description: Generated image
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+              examples:
+                Texttoimage200Example:
+                  summary: Default textToImage 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TextToImageRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: The text prompt to generate an image from
+          example: A beautiful sunset over mountains
+        parameters:
+          type: object
+          properties:
+            negative_prompt:
+              type: string
+              description: Text describing what to avoid in the image
+            height:
+              type: integer
+              description: Height of the generated image in pixels
+            width:
+              type: integer
+              description: Width of the generated image in pixels
+            num_inference_steps:
+              type: integer
+              description: Number of denoising steps
+            guidance_scale:
+              type: number
+              format: float
+              description: Classifier-free guidance scale
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

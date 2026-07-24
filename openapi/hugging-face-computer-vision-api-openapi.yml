@@ -1,0 +1,174 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Computer Vision API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Computer Vision
+  description: Image classification, object detection, and segmentation tasks
+paths:
+  /models/{model_id}/image-classification:
+    post:
+      summary: Image Classification Inference
+      description: Classify an image into predefined categories.
+      operationId: imageClassification
+      tags:
+      - Computer Vision
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: google/vit-base-patch16-224
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+            examples:
+              ImageclassificationRequestExample:
+                summary: Default imageClassification request
+                x-microcks-default: true
+                value: example_value
+          application/json:
+            schema:
+              type: object
+              properties:
+                inputs:
+                  type: string
+                  description: URL of the image to classify
+            examples:
+              ImageclassificationRequestExample:
+                summary: Default imageClassification request
+                x-microcks-default: true
+                value:
+                  inputs: example_value
+      responses:
+        '200':
+          description: Classification results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassificationResult'
+              examples:
+                Imageclassification200Example:
+                  summary: Default imageClassification 200 response
+                  x-microcks-default: true
+                  value:
+                  - label: Example Title
+                    score: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /models/{model_id}/object-detection:
+    post:
+      summary: Object Detection Inference
+      description: Detect objects in an image and return bounding boxes with labels.
+      operationId: objectDetection
+      tags:
+      - Computer Vision
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: facebook/detr-resnet-50
+      requestBody:
+        required: true
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+            examples:
+              ObjectdetectionRequestExample:
+                summary: Default objectDetection request
+                x-microcks-default: true
+                value: example_value
+      responses:
+        '200':
+          description: Detected objects with bounding boxes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectDetectionResult'
+              examples:
+                Objectdetection200Example:
+                  summary: Default objectDetection 200 response
+                  x-microcks-default: true
+                  value:
+                  - label: Example Title
+                    score: 42.5
+                    box:
+                      xmin: 10
+                      ymin: 10
+                      xmax: 10
+                      ymax: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ObjectDetectionResult:
+      type: object
+      properties:
+        label:
+          type: string
+          description: Detected object label
+          example: Example Title
+        score:
+          type: number
+          format: float
+          description: Detection confidence score
+          example: 42.5
+        box:
+          type: object
+          properties:
+            xmin:
+              type: integer
+            ymin:
+              type: integer
+            xmax:
+              type: integer
+            ymax:
+              type: integer
+          example: example_value
+    ClassificationResult:
+      type: object
+      properties:
+        label:
+          type: string
+          description: The predicted label
+          example: POSITIVE
+        score:
+          type: number
+          format: float
+          description: Confidence score for the label
+          example: 0.9998
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

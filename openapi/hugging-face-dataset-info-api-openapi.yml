@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Dataset Info API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Dataset Info
+  description: Dataset validity and structure endpoints
+paths:
+  /is-valid:
+    get:
+      summary: Check Dataset Validity
+      description: Check whether a specific dataset is valid and processed by the Dataset Viewer. Returns availability status for preview, viewer, search, filter, and statistics features.
+      operationId: isValid
+      tags:
+      - Dataset Info
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID on the Hugging Face Hub
+        schema:
+          type: string
+        example: cornell-movie-review-data/rotten_tomatoes
+      responses:
+        '200':
+          description: Dataset validity status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidityResponse'
+              examples:
+                Isvalid200Example:
+                  summary: Default isValid 200 response
+                  x-microcks-default: true
+                  value:
+                    preview: true
+                    viewer: true
+                    search: true
+                    filter: true
+                    statistics: true
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Isvalid404Example:
+                  summary: Default isValid 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Isvalid500Example:
+                  summary: Default isValid 500 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /splits:
+    get:
+      summary: Get Dataset Splits
+      description: Get the list of subsets (configurations) and splits for a dataset. A dataset can have multiple subsets, each with different splits (e.g., train, test, validation).
+      operationId: getSplits
+      tags:
+      - Dataset Info
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID on the Hugging Face Hub
+        schema:
+          type: string
+        example: squad
+      responses:
+        '200':
+          description: List of subsets and splits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitsResponse'
+              examples:
+                Getsplits200Example:
+                  summary: Default getSplits 200 response
+                  x-microcks-default: true
+                  value:
+                    splits:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                    pending:
+                    - {}
+                    failed:
+                    - {}
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getsplits404Example:
+                  summary: Default getSplits 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+        '500':
+          description: Processing error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getsplits500Example:
+                  summary: Default getSplits 500 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        cause_exception:
+          type: string
+          description: Underlying exception type
+          example: example_value
+        cause_message:
+          type: string
+          description: Underlying exception message
+          example: example_value
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)
+          example: []
+    SplitsResponse:
+      type: object
+      properties:
+        splits:
+          type: array
+          items:
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset (configuration) name
+              split:
+                type: string
+                description: Split name
+                example: train
+          example: []
+        pending:
+          type: array
+          items:
+            type: object
+          example: []
+        failed:
+          type: array
+          items:
+            type: object
+          example: []
+    ValidityResponse:
+      type: object
+      properties:
+        preview:
+          type: boolean
+          description: Whether preview (first rows) is available
+          example: true
+        viewer:
+          type: boolean
+          description: Whether the full viewer is available
+          example: true
+        search:
+          type: boolean
+          description: Whether full-text search is available
+          example: true
+        filter:
+          type: boolean
+          description: Whether filtering is available
+          example: true
+        statistics:
+          type: boolean
+          description: Whether statistics are available
+          example: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

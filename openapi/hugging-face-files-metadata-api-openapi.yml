@@ -1,0 +1,495 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Files & Metadata API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Files & Metadata
+  description: Parquet files, size, statistics, and metadata
+paths:
+  /parquet:
+    get:
+      summary: List Parquet Files
+      description: Get the list of a dataset's files converted to Parquet format. Datasets are auto-converted to Parquet on the Hub for efficient data access.
+      operationId: getParquetFiles
+      tags:
+      - Files & Metadata
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
+      responses:
+        '200':
+          description: List of Parquet files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParquetResponse'
+              examples:
+                Getparquetfiles200Example:
+                  summary: Default getParquetFiles 200 response
+                  x-microcks-default: true
+                  value:
+                    parquet_files:
+                    - dataset: example_value
+                      config: example_value
+                      split: example_value
+                      url: https://www.example.com
+                      filename: example_value
+                      size: 10
+                    partial: true
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getparquetfiles404Example:
+                  summary: Default getParquetFiles 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /size:
+    get:
+      summary: Get Dataset Size
+      description: Get size information for a dataset including the number of rows and size in bytes for the full dataset and for each subset and split.
+      operationId: getDatasetSize
+      tags:
+      - Files & Metadata
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
+      responses:
+        '200':
+          description: Dataset size information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SizeResponse'
+              examples:
+                Getdatasetsize200Example:
+                  summary: Default getDatasetSize 200 response
+                  x-microcks-default: true
+                  value:
+                    size:
+                      dataset:
+                        dataset: example_value
+                        num_bytes_original_files: 10
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                      configs:
+                      - dataset: example_value
+                        config: example_value
+                        num_bytes_original_files: 10
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                        num_columns: 10
+                      splits:
+                      - dataset: example_value
+                        config: example_value
+                        split: example_value
+                        num_bytes_parquet_files: 10
+                        num_bytes_memory: 10
+                        num_rows: 10
+                        num_columns: 10
+                    partial: true
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getdatasetsize404Example:
+                  summary: Default getDatasetSize 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /statistics:
+    get:
+      summary: Get Dataset Statistics
+      description: Get descriptive statistics for columns in a dataset split including distributions, counts, means, and other summary metrics.
+      operationId: getStatistics
+      tags:
+      - Files & Metadata
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Column statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatisticsResponse'
+              examples:
+                Getstatistics200Example:
+                  summary: Default getStatistics 200 response
+                  x-microcks-default: true
+                  value:
+                    num_examples: 10
+                    statistics:
+                    - column_name: example_value
+                      column_type: example_value
+                      column_statistics:
+                        nan_count: 10
+                        nan_proportion: 42.5
+                        min: example_value
+                        max: example_value
+                        mean: 42.5
+                        median: 42.5
+                        std: 42.5
+                        histogram: {}
+                        frequencies: {}
+                    partial: true
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getstatistics400Example:
+                  summary: Default getStatistics 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /croissant:
+    get:
+      summary: Get Croissant Metadata
+      description: Get Croissant (schema.org/Dataset compatible) metadata for a dataset. Croissant is a metadata format for ML datasets based on schema.org.
+      operationId: getCroissantMetadata
+      tags:
+      - Files & Metadata
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: squad
+      responses:
+        '200':
+          description: Croissant metadata in JSON-LD format
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Croissant metadata following schema.org/Dataset vocabulary
+                properties:
+                  '@context':
+                    type: object
+                  '@type':
+                    type: string
+                    const: sc:Dataset
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+                  distribution:
+                    type: array
+                    items:
+                      type: object
+                  recordSet:
+                    type: array
+                    items:
+                      type: object
+              examples:
+                Getcroissantmetadata200Example:
+                  summary: Default getCroissantMetadata 200 response
+                  x-microcks-default: true
+                  value:
+                    '@context': example_value
+                    '@type': example_value
+                    name: Example Title
+                    description: A sample description.
+                    url: https://www.example.com
+                    distribution:
+                    - {}
+                    recordSet:
+                    - {}
+        '404':
+          description: Dataset not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getcroissantmetadata404Example:
+                  summary: Default getCroissantMetadata 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    StatisticsResponse:
+      type: object
+      properties:
+        num_examples:
+          type: integer
+          description: Total number of examples analyzed
+          example: 10
+        statistics:
+          type: array
+          items:
+            type: object
+            properties:
+              column_name:
+                type: string
+                description: Name of the column
+              column_type:
+                type: string
+                description: Data type of the column
+              column_statistics:
+                type: object
+                description: Statistics for the column
+                properties:
+                  nan_count:
+                    type: integer
+                  nan_proportion:
+                    type: number
+                    format: float
+                  min:
+                    oneOf:
+                    - type: number
+                    - type: string
+                  max:
+                    oneOf:
+                    - type: number
+                    - type: string
+                  mean:
+                    type: number
+                    format: float
+                  median:
+                    type: number
+                    format: float
+                  std:
+                    type: number
+                    format: float
+                  histogram:
+                    type: object
+                    properties:
+                      hist:
+                        type: array
+                        items:
+                          type: integer
+                      bin_edges:
+                        type: array
+                        items:
+                          type: number
+                  frequencies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                        count:
+                          type: integer
+                        proportion:
+                          type: number
+                          format: float
+          example: []
+        partial:
+          type: boolean
+          example: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        cause_exception:
+          type: string
+          description: Underlying exception type
+          example: example_value
+        cause_message:
+          type: string
+          description: Underlying exception message
+          example: example_value
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)
+          example: []
+    SizeResponse:
+      type: object
+      properties:
+        size:
+          type: object
+          properties:
+            dataset:
+              type: object
+              properties:
+                dataset:
+                  type: string
+                num_bytes_original_files:
+                  type: integer
+                  description: Original files size in bytes
+                num_bytes_parquet_files:
+                  type: integer
+                  description: Parquet files size in bytes
+                num_bytes_memory:
+                  type: integer
+                  description: Estimated in-memory size in bytes
+                num_rows:
+                  type: integer
+                  description: Total number of rows
+            configs:
+              type: array
+              items:
+                type: object
+                properties:
+                  dataset:
+                    type: string
+                  config:
+                    type: string
+                  num_bytes_original_files:
+                    type: integer
+                  num_bytes_parquet_files:
+                    type: integer
+                  num_bytes_memory:
+                    type: integer
+                  num_rows:
+                    type: integer
+                  num_columns:
+                    type: integer
+            splits:
+              type: array
+              items:
+                type: object
+                properties:
+                  dataset:
+                    type: string
+                  config:
+                    type: string
+                  split:
+                    type: string
+                  num_bytes_parquet_files:
+                    type: integer
+                  num_bytes_memory:
+                    type: integer
+                  num_rows:
+                    type: integer
+                  num_columns:
+                    type: integer
+          example: example_value
+        partial:
+          type: boolean
+          example: true
+    ParquetResponse:
+      type: object
+      properties:
+        parquet_files:
+          type: array
+          items:
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset name
+              split:
+                type: string
+                description: Split name
+              url:
+                type: string
+                format: uri
+                description: Direct download URL for the Parquet file
+              filename:
+                type: string
+                description: Parquet file name
+              size:
+                type: integer
+                description: File size in bytes
+          example: []
+        partial:
+          type: boolean
+          description: Whether only partial data was converted
+          example: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

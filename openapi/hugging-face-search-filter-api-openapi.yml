@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Search & Filter API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Search & Filter
+  description: Search and filter dataset contents
+paths:
+  /search:
+    get:
+      summary: Search Text in a Split
+      description: Full-text search within a dataset split. Searches across all text columns and returns matching rows.
+      operationId: searchRows
+      tags:
+      - Search & Filter
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
+      - name: query
+        in: query
+        required: true
+        description: Search query string
+        schema:
+          type: string
+        example: machine learning
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        example: 10
+      - name: length
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          maximum: 100
+        example: 10
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+              examples:
+                Searchrows200Example:
+                  summary: Default searchRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Searchrows400Example:
+                  summary: Default searchRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /filter:
+    get:
+      summary: Filter Rows in a Split
+      description: Filter rows in a dataset split using SQL-like WHERE and ORDER BY clauses. Supports comparison operators and logical operations.
+      operationId: filterRows
+      tags:
+      - Search & Filter
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        description: The dataset ID
+        schema:
+          type: string
+        example: example_value
+      - name: config
+        in: query
+        required: true
+        description: The subset (configuration) name
+        schema:
+          type: string
+        example: example_value
+      - name: split
+        in: query
+        required: true
+        description: The split name
+        schema:
+          type: string
+        example: example_value
+      - name: where
+        in: query
+        required: false
+        description: SQL-like WHERE clause for filtering (e.g., "label = 1" or "score > 0.5")
+        schema:
+          type: string
+        example: label = 1
+      - name: orderby
+        in: query
+        required: false
+        description: SQL-like ORDER BY clause for sorting
+        schema:
+          type: string
+        example: score DESC
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+        example: 10
+      - name: length
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          maximum: 100
+        example: 10
+      responses:
+        '200':
+          description: Filtered rows
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RowsResponse'
+              examples:
+                Filterrows200Example:
+                  summary: Default filterRows 200 response
+                  x-microcks-default: true
+                  value:
+                    features:
+                    - feature_idx: 10
+                      name: Example Title
+                      type:
+                        dtype: example_value
+                        _type: example_value
+                    rows:
+                    - row_idx: 10
+                      row: example_value
+                      truncated_cells:
+                      - {}
+                    num_rows_total: 10
+                    num_rows_per_page: 10
+                    partial: true
+        '400':
+          description: Bad request or invalid filter expression
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Filterrows400Example:
+                  summary: Default filterRows 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    cause_exception: example_value
+                    cause_message: example_value
+                    cause_traceback:
+                    - example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        cause_exception:
+          type: string
+          description: Underlying exception type
+          example: example_value
+        cause_message:
+          type: string
+          description: Underlying exception message
+          example: example_value
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)
+          example: []
+    SearchResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+              name:
+                type: string
+              type:
+                type: object
+          example: []
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+              row:
+                type: object
+                additionalProperties: true
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+          example: []
+        num_rows_total:
+          type: integer
+          description: Total number of matching rows
+          example: 10
+        num_rows_per_page:
+          type: integer
+          example: 10
+        partial:
+          type: boolean
+          example: true
+    RowsResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+                description: Feature index
+              name:
+                type: string
+                description: Column name
+              type:
+                type: object
+                description: Column data type information
+                properties:
+                  dtype:
+                    type: string
+                  _type:
+                    type: string
+          description: Column definitions and types
+          example: []
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+                description: Row index in the split
+              row:
+                type: object
+                additionalProperties: true
+                description: Row data as key-value pairs
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+                description: List of cell names that were truncated
+          description: Row data
+          example: []
+        num_rows_total:
+          type: integer
+          description: Total number of rows in the split
+          example: 10
+        num_rows_per_page:
+          type: integer
+          description: Number of rows per page
+          example: 10
+        partial:
+          type: boolean
+          description: Whether this is a partial result
+          example: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

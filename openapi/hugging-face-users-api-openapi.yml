@@ -1,0 +1,162 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Users API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Users
+  description: User account and organization management
+paths:
+  /whoami-v2:
+    get:
+      summary: Get Current User Information
+      description: Get information about the authenticated user, including their organizations and access tokens.
+      operationId: whoami
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Current user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+              examples:
+                Whoami200Example:
+                  summary: Default whoami 200 response
+                  x-microcks-default: true
+                  value:
+                    type: example_value
+                    id: abc123
+                    name: Example Title
+                    fullname: example_value
+                    email: user@example.com
+                    emailVerified: user@example.com
+                    plan: example_value
+                    canPay: true
+                    avatarUrl: https://www.example.com
+                    orgs:
+                    - name: Example Title
+                      fullname: example_value
+                      email: user@example.com
+                      plan: example_value
+                      avatarUrl: https://www.example.com
+                      isEnterprise: true
+                    auth:
+                      accessToken:
+                        displayName: example_value
+                        role: example_value
+        '401':
+          description: Invalid or missing authentication token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Whoami401Example:
+                  summary: Default whoami 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    UserInfo:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Account type (user or organization)
+          example: example_value
+        id:
+          type: string
+          example: abc123
+        name:
+          type: string
+          description: Username
+          example: Example Title
+        fullname:
+          type: string
+          description: Full display name
+          example: example_value
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        emailVerified:
+          type: boolean
+          example: user@example.com
+        plan:
+          type: string
+          description: Subscription plan
+          example: example_value
+        canPay:
+          type: boolean
+          example: true
+        avatarUrl:
+          type: string
+          format: uri
+          example: https://www.example.com
+        orgs:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              fullname:
+                type: string
+              email:
+                type: string
+              plan:
+                type: string
+              avatarUrl:
+                type: string
+                format: uri
+              isEnterprise:
+                type: boolean
+          example: []
+        auth:
+          type: object
+          properties:
+            accessToken:
+              type: object
+              properties:
+                displayName:
+                  type: string
+                role:
+                  type: string
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

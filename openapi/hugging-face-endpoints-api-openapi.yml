@@ -1,11 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Hugging Face Inference Endpoints API
-  description: >-
-    Deploy and scale machine learning models with dedicated, secure
-    infrastructure. Manage Inference Endpoints programmatically - create,
-    update, scale, pause, resume, and delete dedicated endpoints for serving ML
-    models with autoscaling and custom hardware configurations.
+  title: Hugging Face Dataset Viewer Audio Endpoints API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -15,22 +11,19 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://api.endpoints.huggingface.cloud/v2
-  description: Hugging Face Inference Endpoints management API
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
 security:
+- {}
 - bearerAuth: []
 tags:
 - name: Endpoints
   description: Manage dedicated inference endpoints
-- name: Providers
-  description: Available cloud providers and hardware
 paths:
   /endpoint/{namespace}:
     get:
       summary: List All Endpoints
-      description: >-
-        List all Inference Endpoints for a given namespace (user or
-        organization).
+      description: List all Inference Endpoints for a given namespace (user or organization).
       operationId: listEndpoints
       tags:
       - Endpoints
@@ -102,9 +95,7 @@ paths:
         dispatcher: FALLBACK
     post:
       summary: Create a New Endpoint
-      description: >-
-        Create a new Inference Endpoint with the specified model, hardware, and
-        configuration.
+      description: Create a new Inference Endpoint with the specified model, hardware, and configuration.
       operationId: createEndpoint
       tags:
       - Endpoints
@@ -318,9 +309,7 @@ paths:
         dispatcher: FALLBACK
     put:
       summary: Update an Endpoint
-      description: >-
-        Update the configuration of an existing Inference Endpoint including
-        model, hardware, and scaling settings.
+      description: Update the configuration of an existing Inference Endpoint including model, hardware, and scaling settings.
       operationId: updateEndpoint
       tags:
       - Endpoints
@@ -435,8 +424,7 @@ paths:
         dispatcher: FALLBACK
     delete:
       summary: Delete an Endpoint
-      description: >-
-        Permanently delete an Inference Endpoint and all associated resources.
+      description: Permanently delete an Inference Endpoint and all associated resources.
       operationId: deleteEndpoint
       tags:
       - Endpoints
@@ -475,9 +463,7 @@ paths:
   /endpoint/{namespace}/{endpoint_name}/pause:
     post:
       summary: Pause an Endpoint
-      description: >-
-        Pause an Inference Endpoint to stop incurring compute costs while
-        preserving the configuration. The endpoint can be resumed later.
+      description: Pause an Inference Endpoint to stop incurring compute costs while preserving the configuration. The endpoint can be resumed later.
       operationId: pauseEndpoint
       tags:
       - Endpoints
@@ -635,9 +621,7 @@ paths:
   /endpoint/{namespace}/{endpoint_name}/scale-to-zero:
     post:
       summary: Scale Endpoint to Zero
-      description: >-
-        Scale the endpoint to zero replicas. The endpoint will automatically
-        scale up when it receives traffic (if autoscaling is configured).
+      description: Scale the endpoint to zero replicas. The endpoint will automatically scale up when it receives traffic (if autoscaling is configured).
       operationId: scaleToZero
       tags:
       - Endpoints
@@ -764,9 +748,7 @@ paths:
   /endpoint/{namespace}/{endpoint_name}/metrics:
     get:
       summary: Get Endpoint Metrics
-      description: >-
-        Retrieve performance metrics for an Inference Endpoint including request
-        counts, latencies, and error rates.
+      description: Retrieve performance metrics for an Inference Endpoint including request counts, latencies, and error rates.
       operationId: getEndpointMetrics
       tags:
       - Endpoints
@@ -805,49 +787,7 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
-  /provider:
-    get:
-      summary: List Available Providers
-      description: >-
-        List available cloud providers and their regions for deploying Inference
-        Endpoints.
-      operationId: listProviders
-      tags:
-      - Providers
-      responses:
-        '200':
-          description: Available cloud providers
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Provider'
-              examples:
-                Listproviders200Example:
-                  summary: Default listProviders 200 response
-                  x-microcks-default: true
-                  value:
-                    items:
-                    - vendor: aws
-                      region: example_value
-                      status: available
-                      accelerators:
-                      - {}
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: HF Token
-      description: >-
-        Hugging Face user access token with Inference Endpoints permissions.
   schemas:
     Endpoint:
       type: object
@@ -983,6 +923,30 @@ components:
           format: uri
           description: Inference URL for the endpoint
           example: https://www.example.com
+    EndpointMetrics:
+      type: object
+      properties:
+        request_count:
+          type: integer
+          example: 10
+        request_duration_ms:
+          type: object
+          properties:
+            p50:
+              type: number
+            p90:
+              type: number
+            p99:
+              type: number
+          example: example_value
+        error_rate:
+          type: number
+          format: float
+          example: 42.5
+        tokens_per_second:
+          type: number
+          format: float
+          example: 42.5
     CreateEndpointRequest:
       type: object
       required:
@@ -1141,63 +1105,6 @@ components:
             task:
               type: string
           example: example_value
-    EndpointMetrics:
-      type: object
-      properties:
-        request_count:
-          type: integer
-          example: 10
-        request_duration_ms:
-          type: object
-          properties:
-            p50:
-              type: number
-            p90:
-              type: number
-            p99:
-              type: number
-          example: example_value
-        error_rate:
-          type: number
-          format: float
-          example: 42.5
-        tokens_per_second:
-          type: number
-          format: float
-          example: 42.5
-    Provider:
-      type: object
-      properties:
-        vendor:
-          type: string
-          enum:
-          - aws
-          - azure
-          - gcp
-          example: aws
-        region:
-          type: string
-          example: example_value
-        status:
-          type: string
-          enum:
-          - available
-          - unavailable
-          example: available
-        accelerators:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              instanceType:
-                type: string
-              instanceSizes:
-                type: array
-                items:
-                  type: string
-          example: []
     Error:
       type: object
       properties:
@@ -1209,3 +1116,9 @@ components:
           type: integer
           description: HTTP status code
           example: 10
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

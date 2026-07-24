@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Audio
+  description: Speech recognition, audio classification, and text-to-speech tasks
+paths:
+  /models/{model_id}/automatic-speech-recognition:
+    post:
+      summary: Automatic Speech Recognition Inference
+      description: Transcribe audio to text using a speech recognition model.
+      operationId: automaticSpeechRecognition
+      tags:
+      - Audio
+      parameters:
+      - name: model_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: openai/whisper-large-v3
+      requestBody:
+        required: true
+        content:
+          audio/flac:
+            schema:
+              type: string
+              format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
+          audio/wav:
+            schema:
+              type: string
+              format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
+          audio/mp3:
+            schema:
+              type: string
+              format: binary
+            examples:
+              AutomaticspeechrecognitionRequestExample:
+                summary: Default automaticSpeechRecognition request
+                x-microcks-default: true
+                value: example_value
+      responses:
+        '200':
+          description: Transcribed text
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpeechRecognitionResponse'
+              examples:
+                Automaticspeechrecognition200Example:
+                  summary: Default automaticSpeechRecognition 200 response
+                  x-microcks-default: true
+                  value:
+                    text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v1/audio/transcriptions:
+    post:
+      summary: Transcribe Audio
+      description: Transcribe audio to text using automatic speech recognition models.
+      operationId: createTranscription
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - model
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Audio file to transcribe
+                model:
+                  type: string
+                  description: Model ID to use for transcription
+                  example: openai/whisper-large-v3
+                language:
+                  type: string
+                  description: Language of the audio in ISO 639-1 format
+                prompt:
+                  type: string
+                  description: Optional text to guide transcription
+                response_format:
+                  type: string
+                  enum:
+                  - json
+                  - text
+                  - srt
+                  - verbose_json
+                  - vtt
+                  default: json
+                temperature:
+                  type: number
+                  format: float
+            examples:
+              CreatetranscriptionRequestExample:
+                summary: Default createTranscription request
+                x-microcks-default: true
+                value:
+                  file: example_value
+                  model: example_value
+                  language: example_value
+                  prompt: example_value
+                  response_format: json
+                  temperature: 42.5
+      responses:
+        '200':
+          description: Transcription result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                    description: Transcribed text
+              examples:
+                Createtranscription200Example:
+                  summary: Default createTranscription 200 response
+                  x-microcks-default: true
+                  value:
+                    text: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v1/audio/speech:
+    post:
+      summary: Generate Speech
+      description: Generate audio speech from text input.
+      operationId: createSpeech
+      tags:
+      - Audio
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - model
+              - input
+              properties:
+                model:
+                  type: string
+                  description: Model ID for speech generation
+                input:
+                  type: string
+                  description: Text to generate audio for
+                  maxLength: 4096
+                voice:
+                  type: string
+                  description: Voice to use for generation
+                response_format:
+                  type: string
+                  enum:
+                  - mp3
+                  - opus
+                  - aac
+                  - flac
+                  - wav
+                  default: mp3
+                speed:
+                  type: number
+                  format: float
+                  minimum: 0.25
+                  maximum: 4.0
+                  default: 1.0
+            examples:
+              CreatespeechRequestExample:
+                summary: Default createSpeech request
+                x-microcks-default: true
+                value:
+                  model: example_value
+                  input: example_value
+                  voice: example_value
+                  response_format: mp3
+                  speed: 42.5
+      responses:
+        '200':
+          description: Generated audio
+          content:
+            audio/mpeg:
+              schema:
+                type: string
+                format: binary
+              examples:
+                Createspeech200Example:
+                  summary: Default createSpeech 200 response
+                  x-microcks-default: true
+                  value: example_value
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    SpeechRecognitionResponse:
+      type: object
+      properties:
+        text:
+          type: string
+          description: The transcribed text
+          example: example_value
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

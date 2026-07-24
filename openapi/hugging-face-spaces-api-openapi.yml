@@ -1,0 +1,252 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Spaces API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Spaces
+  description: Operations for managing and querying Spaces on the Hub
+paths:
+  /spaces:
+    get:
+      summary: List Spaces on the Hub
+      description: List and search Spaces hosted on the Hugging Face Hub. Supports filtering by author, SDK, and full-text search.
+      operationId: listSpaces
+      tags:
+      - Spaces
+      security: []
+      parameters:
+      - name: search
+        in: query
+        description: Full-text search query
+        schema:
+          type: string
+        example: example_value
+      - name: author
+        in: query
+        description: Filter by Space author or organization
+        schema:
+          type: string
+        example: example_value
+      - name: filter
+        in: query
+        description: Filter by tags
+        schema:
+          type: string
+        example: example_value
+      - name: sort
+        in: query
+        description: Property to sort results by
+        schema:
+          type: string
+          enum:
+          - lastModified
+          - likes
+          - createdAt
+        example: lastModified
+      - name: direction
+        in: query
+        description: Sort direction
+        schema:
+          type: string
+          enum:
+          - '-1'
+          - '1'
+        example: '-1'
+      - name: limit
+        in: query
+        description: Number of results to return
+        schema:
+          type: integer
+          default: 30
+          maximum: 1000
+        example: 10
+      responses:
+        '200':
+          description: List of Spaces matching the query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SpaceSummary'
+              examples:
+                Listspaces200Example:
+                  summary: Default listSpaces 200 response
+                  x-microcks-default: true
+                  value:
+                  - _id: '500123'
+                    id: abc123
+                    author: example_value
+                    sha: example_value
+                    lastModified: '2026-01-15T10:30:00Z'
+                    private: true
+                    tags:
+                    - example_value
+                    likes: 10
+                    sdk: gradio
+                    runtime:
+                      stage: RUNNING
+                      hardware:
+                        current: example_value
+                        requested: example_value
+                    createdAt: '2026-01-15T10:30:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /spaces/{repo_id}:
+    get:
+      summary: Get Space Information
+      description: Get detailed information about a specific Space.
+      operationId: getSpace
+      tags:
+      - Spaces
+      security: []
+      parameters:
+      - name: repo_id
+        in: path
+        required: true
+        description: The Space repository ID
+        schema:
+          type: string
+        example: '500123'
+      responses:
+        '200':
+          description: Detailed Space information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpaceInfo'
+              examples:
+                Getspace200Example:
+                  summary: Default getSpace 200 response
+                  x-microcks-default: true
+                  value: {}
+        '404':
+          description: Space not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getspace404Example:
+                  summary: Default getSpace 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    SpaceInfo:
+      allOf:
+      - $ref: '#/components/schemas/SpaceSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
+              type: object
+              properties:
+                rfilename:
+                  type: string
+                size:
+                  type: integer
+          cardData:
+            type: object
+            description: Parsed Space card metadata
+    SpaceSummary:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: '500123'
+        id:
+          type: string
+          description: Space repository ID
+          example: abc123
+        author:
+          type: string
+          example: example_value
+        sha:
+          type: string
+          example: example_value
+        lastModified:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+        private:
+          type: boolean
+          example: true
+        tags:
+          type: array
+          items:
+            type: string
+          example: []
+        likes:
+          type: integer
+          example: 10
+        sdk:
+          type: string
+          description: SDK used by the Space
+          enum:
+          - gradio
+          - streamlit
+          - docker
+          - static
+          example: gradio
+        runtime:
+          type: object
+          properties:
+            stage:
+              type: string
+              enum:
+              - RUNNING
+              - STOPPED
+              - BUILDING
+              - PAUSED
+              - ERROR
+            hardware:
+              type: object
+              properties:
+                current:
+                  type: string
+                requested:
+                  type: string
+          example: example_value
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-01-15T10:30:00Z'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.

@@ -1,0 +1,286 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Dataset Viewer Audio Repos API
+  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://datasets-server.huggingface.co
+  description: Hugging Face Dataset Viewer production server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Repos
+  description: General repository management operations
+paths:
+  /repos/create:
+    post:
+      summary: Create a New Repository
+      description: Create a new model, dataset, or Space repository on the Hugging Face Hub.
+      operationId: createRepo
+      tags:
+      - Repos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRepoRequest'
+            examples:
+              CreaterepoRequestExample:
+                summary: Default createRepo request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: model
+                  organization: example_value
+                  private: true
+                  sdk: gradio
+      responses:
+        '200':
+          description: Repository created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoUrl'
+              examples:
+                Createrepo200Example:
+                  summary: Default createRepo 200 response
+                  x-microcks-default: true
+                  value:
+                    url: https://www.example.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createrepo401Example:
+                  summary: Default createRepo 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+        '409':
+          description: Repository already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createrepo409Example:
+                  summary: Default createRepo 409 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /repos/delete:
+    delete:
+      summary: Delete a Repository
+      description: Delete a model, dataset, or Space repository from the Hub.
+      operationId: deleteRepo
+      tags:
+      - Repos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - type
+              properties:
+                name:
+                  type: string
+                  description: Full repository name (e.g., username/repo-name)
+                type:
+                  type: string
+                  enum:
+                  - model
+                  - dataset
+                  - space
+                organization:
+                  type: string
+                  description: Organization name if applicable
+            examples:
+              DeleterepoRequestExample:
+                summary: Default deleteRepo request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: model
+                  organization: example_value
+      responses:
+        '200':
+          description: Repository deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Deleterepo401Example:
+                  summary: Default deleteRepo 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+        '403':
+          description: Forbidden - insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Deleterepo403Example:
+                  summary: Default deleteRepo 403 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /repos/{repo_type}/{repo_id}/settings:
+    put:
+      summary: Update Repository Settings
+      description: Update the settings (visibility, etc.) for a repository.
+      operationId: updateRepoSettings
+      tags:
+      - Repos
+      parameters:
+      - name: repo_type
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - models
+          - datasets
+          - spaces
+        example: models
+      - name: repo_id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: '500123'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                private:
+                  type: boolean
+                  description: Whether the repository should be private
+                gated:
+                  type: string
+                  enum:
+                  - auto
+                  - manual
+                  - 'false'
+                  description: Access gating configuration
+            examples:
+              UpdatereposettingsRequestExample:
+                summary: Default updateRepoSettings request
+                x-microcks-default: true
+                value:
+                  private: true
+                  gated: auto
+      responses:
+        '200':
+          description: Settings updated successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Updatereposettings401Example:
+                  summary: Default updateRepoSettings 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    RepoUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Full URL of the created repository
+          example: https://www.example.com
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    CreateRepoRequest:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+          description: Repository name
+          example: my-awesome-model
+        type:
+          type: string
+          description: Repository type
+          enum:
+          - model
+          - dataset
+          - space
+          example: model
+        organization:
+          type: string
+          description: Organization to create the repo under
+          example: example_value
+        private:
+          type: boolean
+          description: Whether the repo should be private
+          default: false
+          example: true
+        sdk:
+          type: string
+          description: SDK for Spaces (required when type is space)
+          enum:
+          - gradio
+          - streamlit
+          - docker
+          - static
+          example: gradio
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: Optional Hugging Face API token. Required for private and gated datasets.
