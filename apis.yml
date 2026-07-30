@@ -1,30 +1,37 @@
 name: Hugging Face
 description: The AI community building the future with open-source machine learning
   models, datasets, and applications.
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
 modified: '2026-05-19'
 specificationVersion: '0.18'
 apis:
-- name: Hugging Face Inference API
-  description: Run inference on 200,000+ machine learning models with a simple HTTP
-    request.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
+- aid: hugging-face:hugging-face-audio-api
+  name: Hugging Face Audio API
+  description: Speech recognition, audio classification, and text-to-speech tasks
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
-  - AI
-  - Inference
-  - Machine Learning
-  - Models
+  - Audio
   properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-audio-api-openapi.yml
   - type: Documentation
     url: https://huggingface.co/docs/api-inference/index
-  - type: OpenAPI
-    url: https://huggingface.co/api-inference/openapi.json
-  - type: OpenAPI
-    url: openapi/hugging-face-inference-api.yml
   - type: Authentication
     url: https://huggingface.co/docs/api-inference/quicktour#authentication
   - type: GettingStarted
@@ -33,29 +40,10 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - url: graphql/hugging-face-graphql.md
-    type: GraphQL
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
-- name: Hugging Face Hub API
-  description: Programmatically interact with the Hugging Face Hub - manage models,
-    datasets, and spaces.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
-  humanURL: https://huggingface.co/docs/hub/api
-  baseURL: https://huggingface.co/api
-  tags:
-  - Datasets
-  - Hub
-  - Models
-  - Repository Management
-  properties:
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
-  - type: OpenAPI
-    url: https://huggingface.co/.well-known/openapi.json
-  - type: OpenAPI
-    url: openapi/hugging-face-hub-api.yml
   - type: SDKs
     url: https://huggingface.co/docs/huggingface_hub/index
   - type: SDKs
@@ -64,49 +52,14 @@ apis:
     url: https://huggingface.co/docs/hub/security-tokens
   - type: RateLimits
     url: https://huggingface.co/docs/hub/en/rate-limits
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
-- name: Hugging Face Inference Endpoints API
-  description: Deploy and scale machine learning models with dedicated, secure infrastructure.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
-  humanURL: https://huggingface.co/docs/inference-endpoints/index
-  baseURL: https://api.endpoints.huggingface.cloud
-  tags:
-  - Deployment
-  - Enterprise
-  - Inference
-  - Managed Service
-  properties:
   - type: Documentation
     url: https://huggingface.co/docs/inference-endpoints/api_reference
-  - type: OpenAPI
-    url: openapi/hugging-face-inference-endpoints-api.yml
   - type: GettingStarted
     url: https://huggingface.co/docs/inference-endpoints/index
   - type: Pricing
     url: https://huggingface.co/pricing#inference-endpoints
-  - type: Authentication
-    url: https://huggingface.co/docs/hub/security-tokens
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
-- name: Hugging Face Inference Providers API
-  description: Unified proxy layer providing access to 15+ inference partners through
-    a single OpenAI-compatible endpoint.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
-  humanURL: https://huggingface.co/docs/inference-providers/en/index
-  baseURL: https://router.huggingface.co/v1
-  tags:
-  - AI
-  - Inference
-  - OpenAI Compatible
-  - Providers
-  properties:
   - type: Documentation
     url: https://huggingface.co/docs/inference-providers/en/index
-  - type: OpenAPI
-    url: openapi/hugging-face-inference-providers-api.yml
   - type: APIReference
     url: https://huggingface.co/docs/inference-providers/en/tasks/index
   - type: GettingStarted
@@ -115,49 +68,14 @@ apis:
     url: https://huggingface.co/docs/inference-providers/pricing
   - type: Models
     url: https://huggingface.co/inference/models
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
-- name: Hugging Face Dataset Viewer API
-  description: Query and visualize datasets stored on the Hugging Face Hub through
-    a lightweight REST API.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
-  humanURL: https://huggingface.co/docs/dataset-viewer/index
-  baseURL: https://datasets-server.huggingface.co
-  tags:
-  - Data
-  - Datasets
-  - Viewer
-  properties:
   - type: Documentation
     url: https://huggingface.co/docs/dataset-viewer/index
-  - type: OpenAPI
-    url: https://datasets-server.huggingface.co/openapi.json
-  - type: OpenAPI
-    url: openapi/hugging-face-dataset-viewer-api.yml
   - type: GettingStarted
     url: https://huggingface.co/docs/dataset-viewer/en/quick_start
   - type: GitHubRepository
     url: https://github.com/huggingface/dataset-viewer
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
-- name: Hugging Face Text Generation Inference API
-  description: High-performance toolkit for deploying and serving large language models
-    with optimized inference.
-  image: https://huggingface.co/front/assets/huggingface_logo.svg
-  humanURL: https://huggingface.co/docs/text-generation-inference/en/index
-  baseURL: https://api-inference.huggingface.co
-  tags:
-  - AI
-  - Inference
-  - LLM
-  - Text Generation
-  properties:
   - type: Documentation
     url: https://huggingface.co/docs/text-generation-inference/en/index
-  - type: OpenAPI
-    url: openapi/hugging-face-text-generation-inference-api.yml
   - type: APIReference
     url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
   - type: GettingStarted
@@ -166,9 +84,1286 @@ apis:
     url: https://huggingface.co/docs/text-generation-inference/en/messages_api
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
-  contact:
-  - type: Support
-    url: https://huggingface.co/support
+- aid: hugging-face:hugging-face-chat-api
+  name: Hugging Face Chat API
+  description: OpenAI-compatible chat completion endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-chat-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-chat-completions-api
+  name: Hugging Face Chat Completions API
+  description: OpenAI-compatible chat completion endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-chat-completions-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-computer-vision-api
+  name: Hugging Face Computer Vision API
+  description: Image classification, object detection, and segmentation tasks
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Computer Vision
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-computer-vision-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-data-access-api
+  name: Hugging Face Data Access API
+  description: Row-level data access and preview endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Data Access
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-data-access-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-dataset-info-api
+  name: Hugging Face Dataset Info API
+  description: Dataset validity and structure endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Dataset Info
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-dataset-info-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-datasets-api
+  name: Hugging Face Datasets API
+  description: Operations for managing and querying datasets on the Hub
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-embeddings-api
+  name: Hugging Face Embeddings API
+  description: Text embedding endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-endpoints-api
+  name: Hugging Face Endpoints API
+  description: Manage dedicated inference endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Endpoints
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-files-metadata-api
+  name: Hugging Face Files & Metadata API
+  description: Parquet files, size, statistics, and metadata
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Files & Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-files-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-image-generation-api
+  name: Hugging Face Image Generation API
+  description: Text-to-image generation
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Image Generation
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-image-generation-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-info-api
+  name: Hugging Face Info API
+  description: Server and model information
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-info-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-models-api
+  name: Hugging Face Models API
+  description: Operations for managing and querying models on the Hub
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-models-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-multimodal-api
+  name: Hugging Face Multimodal API
+  description: Tasks involving multiple modalities
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Multimodal
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-multimodal-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-natural-language-processing-api
+  name: Hugging Face Natural Language Processing API
+  description: NLP tasks including text generation, classification, and translation
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Natural Language Processing
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-natural-language-processing-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-providers-api
+  name: Hugging Face Providers API
+  description: Available cloud providers and hardware
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-providers-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-repos-api
+  name: Hugging Face Repos API
+  description: General repository management operations
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Repos
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-repos-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-search-filter-api
+  name: Hugging Face Search & Filter API
+  description: Search and filter dataset contents
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Search & Filter
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-search-filter-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-spaces-api
+  name: Hugging Face Spaces API
+  description: Operations for managing and querying Spaces on the Hub
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Spaces
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-spaces-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-text-generation-api
+  name: Hugging Face Text Generation API
+  description: Text generation endpoints
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Text Generation
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-text-generation-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
+- aid: hugging-face:hugging-face-users-api
+  name: Hugging Face Users API
+  description: User account and organization management
+  humanURL: https://huggingface.co/docs/api-inference/index
+  baseURL: https://api-inference.huggingface.co
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/hugging-face-users-api-openapi.yml
+  - type: Documentation
+    url: https://huggingface.co/docs/api-inference/index
+  - type: Authentication
+    url: https://huggingface.co/docs/api-inference/quicktour#authentication
+  - type: GettingStarted
+    url: https://huggingface.co/docs/api-inference/quicktour
+  - type: RateLimits
+    url: https://huggingface.co/docs/api-inference/en/rate-limits
+  - type: FAQ
+    url: https://huggingface.co/docs/api-inference/faq
+  - type: GraphQL
+    url: graphql/hugging-face-graphql.md
+  - type: Documentation
+    url: https://huggingface.co/docs/hub/api
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface_hub/index
+  - type: SDKs
+    url: https://huggingface.co/docs/huggingface.js/hub/README
+  - type: Authentication
+    url: https://huggingface.co/docs/hub/security-tokens
+  - type: RateLimits
+    url: https://huggingface.co/docs/hub/en/rate-limits
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-endpoints/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-endpoints/index
+  - type: Pricing
+    url: https://huggingface.co/pricing#inference-endpoints
+  - type: Documentation
+    url: https://huggingface.co/docs/inference-providers/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/inference-providers/en/tasks/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/inference-providers/en/guides/first-api-call
+  - type: Pricing
+    url: https://huggingface.co/docs/inference-providers/pricing
+  - type: Models
+    url: https://huggingface.co/inference/models
+  - type: Documentation
+    url: https://huggingface.co/docs/dataset-viewer/index
+  - type: GettingStarted
+    url: https://huggingface.co/docs/dataset-viewer/en/quick_start
+  - type: GitHubRepository
+    url: https://github.com/huggingface/dataset-viewer
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/index
+  - type: APIReference
+    url: https://huggingface.co/docs/text-generation-inference/en/reference/api_reference
+  - type: GettingStarted
+    url: https://huggingface.co/docs/text-generation-inference/quicktour
+  - type: Documentation
+    url: https://huggingface.co/docs/text-generation-inference/en/messages_api
+  - type: GitHubRepository
+    url: https://github.com/huggingface/text-generation-inference
 common:
 - type: AgenticAccess
   url: agentic-access/hugging-face-agentic-access.yml
