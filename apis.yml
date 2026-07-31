@@ -1534,6 +1534,8 @@ common:
 - name: Agent Skills
   url: https://github.com/huggingface/skills
   type: AgentSkills
+- type: AICatalog
+  url: ai-catalog/hugging-face-ai-catalog.yml
 integrations:
 - name: models 0
 - name: datasets 0

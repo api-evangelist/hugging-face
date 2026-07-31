@@ -1,0 +1,49 @@
+generated: '2026-07-31'
+method: probed
+source: https://huggingface.co/.well-known/ai-catalog.json
+description: 'AI Catalog manifest observed at /.well-known/ai-catalog.json on huggingface.co. The AI Catalog
+  Standard 1.0 is the publishing half of the Agentic Resource Discovery (ARD) v0.9 draft: a JSON manifest
+  listing the agentic resources a domain offers — MCP servers, agent cards, skills, APIs — each typed
+  by media type and identified by a domain-anchored urn:air: URN. Two verdicts are recorded: a structural
+  grade against the AI Catalog 1.0 data model, and the result of the ARD project''s own conformance CLI
+  run against this exact body. Provider-published by construction — served from the provider''s own host;
+  nothing here is derived or generated.'
+discovery:
+  path: /.well-known/ai-catalog.json
+  canonical: true
+  host: huggingface.co
+conformance:
+  spec: AI Catalog 1.0 / ARD v0.9 (Draft)
+  grade: near-conformant
+  spec_version_declared: '1.0'
+  hard_failures: []
+  soft_gaps:
+  - cors-not-wildcard
+  - entry-no-representativeQueries
+  - host-identifier-not-did-web
+  official_tool:
+    tool: ARD conformance-test v0.5.0 (ards-project/ard-spec)
+    status: PASS
+    critical_errors: 0
+    errors: []
+    warnings: []
+catalog:
+  host_display_name: Hugging Face
+  host_identifier: huggingface.co
+  entry_count: 1
+  types:
+    application/ai-registry+json: 1
+  representative_queries: 0
+  trust_manifests: 0
+  file: hugging-face-ai-catalog.json
+transport:
+  http_status: 200
+  content_type: application/json
+  access_control_allow_origin: https://huggingface.co
+  meets_publish_guide_requirements: false
+x-evidence:
+  fetched: '2026-07-31'
+  url: https://huggingface.co/.well-known/ai-catalog.json
+  http_status: 200
+  content_type: application/json
+  note: Verbatim body saved alongside this manifest. No field inferred.
