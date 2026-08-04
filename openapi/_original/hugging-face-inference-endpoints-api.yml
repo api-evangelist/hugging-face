@@ -1,0 +1,1211 @@
+openapi: 3.1.0
+info:
+  title: Hugging Face Inference Endpoints API
+  description: >-
+    Deploy and scale machine learning models with dedicated, secure
+    infrastructure. Manage Inference Endpoints programmatically - create,
+    update, scale, pause, resume, and delete dedicated endpoints for serving ML
+    models with autoscaling and custom hardware configurations.
+  version: 1.0.0
+  termsOfService: https://huggingface.co/terms-of-service
+  contact:
+    name: Hugging Face Support
+    url: https://huggingface.co/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+- url: https://api.endpoints.huggingface.cloud/v2
+  description: Hugging Face Inference Endpoints management API
+security:
+- bearerAuth: []
+tags:
+- name: Endpoints
+  description: Manage dedicated inference endpoints
+- name: Providers
+  description: Available cloud providers and hardware
+paths:
+  /endpoint/{namespace}:
+    get:
+      summary: List All Endpoints
+      description: >-
+        List all Inference Endpoints for a given namespace (user or
+        organization).
+      operationId: listEndpoints
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        description: User or organization namespace
+        schema:
+          type: string
+        example: my-organization
+      responses:
+        '200':
+          description: List of endpoints
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Endpoint'
+              examples:
+                Listendpoints200Example:
+                  summary: Default listEndpoints 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - name: Example Title
+                      type: public
+                      accountId: '500123'
+                      provider:
+                        vendor: aws
+                        region: example_value
+                      compute:
+                        accelerator: example_value
+                        instanceType: example_value
+                        instanceSize: example_value
+                        scaling: {}
+                      model:
+                        repository: example_value
+                        revision: example_value
+                        task: example_value
+                        framework: pytorch
+                        image: {}
+                      status:
+                        state: pending
+                        message: example_value
+                        createdAt: '2026-01-15T10:30:00Z'
+                        updatedAt: '2026-01-15T10:30:00Z'
+                        url: https://www.example.com
+                      url: https://www.example.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Listendpoints401Example:
+                  summary: Default listEndpoints 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      summary: Create a New Endpoint
+      description: >-
+        Create a new Inference Endpoint with the specified model, hardware, and
+        configuration.
+      operationId: createEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        description: User or organization namespace
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEndpointRequest'
+            examples:
+              CreateendpointRequestExample:
+                summary: Default createEndpoint request
+                x-microcks-default: true
+                value:
+                  name: Example Title
+                  type: public
+                  provider:
+                    vendor: aws
+                    region: example_value
+                  compute:
+                    accelerator: cpu
+                    instanceType: example_value
+                    instanceSize: example_value
+                    scaling:
+                      minReplica: 10
+                      maxReplica: 10
+                      scaleToZeroTimeout: 10
+                  model:
+                    repository: example_value
+                    revision: example_value
+                    task: example_value
+                    framework: pytorch
+                    image:
+                      huggingface: example_value
+                      custom:
+                        url: https://www.example.com
+                        health_route: example_value
+                        env: example_value
+      responses:
+        '201':
+          description: Endpoint created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Createendpoint201Example:
+                  summary: Default createEndpoint 201 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '400':
+          description: Bad request - invalid configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createendpoint400Example:
+                  summary: Default createEndpoint 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createendpoint401Example:
+                  summary: Default createEndpoint 401 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+        '409':
+          description: Endpoint name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Createendpoint409Example:
+                  summary: Default createEndpoint 409 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}:
+    get:
+      summary: Get Endpoint Details
+      description: Get detailed information about a specific Inference Endpoint.
+      operationId: getEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        description: Name of the endpoint
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Getendpoint200Example:
+                  summary: Default getEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getendpoint404Example:
+                  summary: Default getEndpoint 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    put:
+      summary: Update an Endpoint
+      description: >-
+        Update the configuration of an existing Inference Endpoint including
+        model, hardware, and scaling settings.
+      operationId: updateEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEndpointRequest'
+            examples:
+              UpdateendpointRequestExample:
+                summary: Default updateEndpoint request
+                x-microcks-default: true
+                value:
+                  type: public
+                  compute:
+                    accelerator: example_value
+                    instanceType: example_value
+                    instanceSize: example_value
+                    scaling:
+                      minReplica: 10
+                      maxReplica: 10
+                      scaleToZeroTimeout: 10
+                  model:
+                    repository: example_value
+                    revision: example_value
+                    task: example_value
+      responses:
+        '200':
+          description: Endpoint updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Updateendpoint200Example:
+                  summary: Default updateEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Updateendpoint400Example:
+                  summary: Default updateEndpoint 400 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Updateendpoint404Example:
+                  summary: Default updateEndpoint 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      summary: Delete an Endpoint
+      description: >-
+        Permanently delete an Inference Endpoint and all associated resources.
+      operationId: deleteEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint deleted successfully
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Deleteendpoint404Example:
+                  summary: Default deleteEndpoint 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}/pause:
+    post:
+      summary: Pause an Endpoint
+      description: >-
+        Pause an Inference Endpoint to stop incurring compute costs while
+        preserving the configuration. The endpoint can be resumed later.
+      operationId: pauseEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint paused successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Pauseendpoint200Example:
+                  summary: Default pauseEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Pauseendpoint404Example:
+                  summary: Default pauseEndpoint 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}/resume:
+    post:
+      summary: Resume an Endpoint
+      description: Resume a previously paused Inference Endpoint.
+      operationId: resumeEndpoint
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint resumed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Resumeendpoint200Example:
+                  summary: Default resumeEndpoint 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Resumeendpoint404Example:
+                  summary: Default resumeEndpoint 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}/scale-to-zero:
+    post:
+      summary: Scale Endpoint to Zero
+      description: >-
+        Scale the endpoint to zero replicas. The endpoint will automatically
+        scale up when it receives traffic (if autoscaling is configured).
+      operationId: scaleToZero
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint scaled to zero
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Endpoint'
+              examples:
+                Scaletozero200Example:
+                  summary: Default scaleToZero 200 response
+                  x-microcks-default: true
+                  value:
+                    name: Example Title
+                    type: public
+                    accountId: '500123'
+                    provider:
+                      vendor: aws
+                      region: example_value
+                    compute:
+                      accelerator: example_value
+                      instanceType: example_value
+                      instanceSize: example_value
+                      scaling:
+                        minReplica: 10
+                        maxReplica: 10
+                        scaleToZeroTimeout: 10
+                    model:
+                      repository: example_value
+                      revision: example_value
+                      task: example_value
+                      framework: pytorch
+                      image:
+                        huggingface: example_value
+                        custom:
+                          url: https://www.example.com
+                          port: 10
+                    status:
+                      state: pending
+                      message: example_value
+                      createdAt: '2026-01-15T10:30:00Z'
+                      updatedAt: '2026-01-15T10:30:00Z'
+                      url: https://www.example.com
+                    url: https://www.example.com
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Scaletozero404Example:
+                  summary: Default scaleToZero 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}/logs:
+    get:
+      summary: Get Endpoint Logs
+      description: Retrieve the runtime logs for an Inference Endpoint.
+      operationId: getEndpointLogs
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint logs
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                Getendpointlogs200Example:
+                  summary: Default getEndpointLogs 200 response
+                  x-microcks-default: true
+                  value: example_value
+        '404':
+          description: Endpoint not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                Getendpointlogs404Example:
+                  summary: Default getEndpointLogs 404 response
+                  x-microcks-default: true
+                  value:
+                    error: example_value
+                    statusCode: 10
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /endpoint/{namespace}/{endpoint_name}/metrics:
+    get:
+      summary: Get Endpoint Metrics
+      description: >-
+        Retrieve performance metrics for an Inference Endpoint including request
+        counts, latencies, and error rates.
+      operationId: getEndpointMetrics
+      tags:
+      - Endpoints
+      parameters:
+      - name: namespace
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      - name: endpoint_name
+        in: path
+        required: true
+        schema:
+          type: string
+        example: example_value
+      responses:
+        '200':
+          description: Endpoint metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointMetrics'
+              examples:
+                Getendpointmetrics200Example:
+                  summary: Default getEndpointMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    request_count: 10
+                    request_duration_ms:
+                      p50: 42.5
+                      p90: 42.5
+                      p99: 42.5
+                    error_rate: 42.5
+                    tokens_per_second: 42.5
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /provider:
+    get:
+      summary: List Available Providers
+      description: >-
+        List available cloud providers and their regions for deploying Inference
+        Endpoints.
+      operationId: listProviders
+      tags:
+      - Providers
+      responses:
+        '200':
+          description: Available cloud providers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Provider'
+              examples:
+                Listproviders200Example:
+                  summary: Default listProviders 200 response
+                  x-microcks-default: true
+                  value:
+                    items:
+                    - vendor: aws
+                      region: example_value
+                      status: available
+                      accelerators:
+                      - {}
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: HF Token
+      description: >-
+        Hugging Face user access token with Inference Endpoints permissions.
+  schemas:
+    Endpoint:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Endpoint name
+          example: my-text-gen-endpoint
+        type:
+          type: string
+          description: Endpoint type
+          enum:
+          - public
+          - protected
+          - private
+          example: public
+        accountId:
+          type: string
+          example: '500123'
+        provider:
+          type: object
+          properties:
+            vendor:
+              type: string
+              description: Cloud vendor
+              enum:
+              - aws
+              - azure
+              - gcp
+            region:
+              type: string
+              description: Cloud region
+              example: us-east-1
+          example: example_value
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+              description: GPU or accelerator type
+              example: gpu
+            instanceType:
+              type: string
+              description: Instance type identifier
+              example: nvidia-a10g
+            instanceSize:
+              type: string
+              description: Instance size
+              example: x1
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                  description: Minimum number of replicas
+                  example: 0
+                maxReplica:
+                  type: integer
+                  description: Maximum number of replicas
+                  example: 2
+                scaleToZeroTimeout:
+                  type: integer
+                  description: Minutes of inactivity before scaling to zero
+                  example: 15
+          example: example_value
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+              description: Model repository ID on the Hub
+              example: meta-llama/Llama-2-7b-chat-hf
+            revision:
+              type: string
+              description: Model revision or branch
+              example: main
+            task:
+              type: string
+              description: Inference task
+              example: text-generation
+            framework:
+              type: string
+              description: Serving framework
+              enum:
+              - pytorch
+              - custom
+            image:
+              type: object
+              properties:
+                huggingface:
+                  type: object
+                  description: Hugging Face optimized container settings
+                custom:
+                  type: object
+                  description: Custom container settings
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                    port:
+                      type: integer
+          example: example_value
+        status:
+          type: object
+          properties:
+            state:
+              type: string
+              description: Current endpoint state
+              enum:
+              - pending
+              - initializing
+              - running
+              - updating
+              - paused
+              - scaledToZero
+              - failed
+            message:
+              type: string
+              description: Human-readable status message
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            url:
+              type: string
+              format: uri
+              description: Inference URL for the running endpoint
+          example: example_value
+        url:
+          type: string
+          format: uri
+          description: Inference URL for the endpoint
+          example: https://www.example.com
+    CreateEndpointRequest:
+      type: object
+      required:
+      - name
+      - type
+      - provider
+      - compute
+      - model
+      properties:
+        name:
+          type: string
+          description: Unique endpoint name
+          example: my-text-gen-endpoint
+          pattern: ^[a-z0-9][a-z0-9-]{0,30}[a-z0-9]$
+        type:
+          type: string
+          description: Endpoint security type
+          enum:
+          - public
+          - protected
+          - private
+          default: protected
+          example: public
+        provider:
+          type: object
+          required:
+          - vendor
+          - region
+          properties:
+            vendor:
+              type: string
+              enum:
+              - aws
+              - azure
+              - gcp
+            region:
+              type: string
+              example: us-east-1
+          example: example_value
+        compute:
+          type: object
+          required:
+          - accelerator
+          - instanceType
+          - instanceSize
+          - scaling
+          properties:
+            accelerator:
+              type: string
+              enum:
+              - cpu
+              - gpu
+            instanceType:
+              type: string
+              example: nvidia-a10g
+            instanceSize:
+              type: string
+              example: x1
+            scaling:
+              type: object
+              required:
+              - minReplica
+              - maxReplica
+              properties:
+                minReplica:
+                  type: integer
+                  minimum: 0
+                  example: 0
+                maxReplica:
+                  type: integer
+                  minimum: 1
+                  example: 2
+                scaleToZeroTimeout:
+                  type: integer
+                  description: Minutes of inactivity before scaling to zero
+                  example: 15
+          example: example_value
+        model:
+          type: object
+          required:
+          - repository
+          - task
+          properties:
+            repository:
+              type: string
+              description: Hugging Face model repository ID
+              example: meta-llama/Llama-2-7b-chat-hf
+            revision:
+              type: string
+              description: Git revision to deploy
+              default: main
+            task:
+              type: string
+              description: Task type for the endpoint
+              example: text-generation
+            framework:
+              type: string
+              enum:
+              - pytorch
+              - custom
+              default: pytorch
+            image:
+              type: object
+              properties:
+                huggingface:
+                  type: object
+                custom:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                    health_route:
+                      type: string
+                    env:
+                      type: object
+                      additionalProperties:
+                        type: string
+          example: example_value
+    UpdateEndpointRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - public
+          - protected
+          - private
+          example: public
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+            instanceType:
+              type: string
+            instanceSize:
+              type: string
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                maxReplica:
+                  type: integer
+                scaleToZeroTimeout:
+                  type: integer
+          example: example_value
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+            revision:
+              type: string
+            task:
+              type: string
+          example: example_value
+    EndpointMetrics:
+      type: object
+      properties:
+        request_count:
+          type: integer
+          example: 10
+        request_duration_ms:
+          type: object
+          properties:
+            p50:
+              type: number
+            p90:
+              type: number
+            p99:
+              type: number
+          example: example_value
+        error_rate:
+          type: number
+          format: float
+          example: 42.5
+        tokens_per_second:
+          type: number
+          format: float
+          example: 42.5
+    Provider:
+      type: object
+      properties:
+        vendor:
+          type: string
+          enum:
+          - aws
+          - azure
+          - gcp
+          example: aws
+        region:
+          type: string
+          example: example_value
+        status:
+          type: string
+          enum:
+          - available
+          - unavailable
+          example: available
+        accelerators:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              instanceType:
+                type: string
+              instanceSizes:
+                type: array
+                items:
+                  type: string
+          example: []
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
