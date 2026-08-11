@@ -1365,6 +1365,19 @@ apis:
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
 common:
+- type: IssueTracker
+  url: https://github.com/huggingface/dataset-viewer/issues
+- type: Releases
+  url: https://github.com/huggingface/dataset-viewer/releases
+- type: SecurityPolicy
+  url: https://github.com/huggingface/dataset-viewer/blob/main/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/huggingface/dataset-viewer/blob/main/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/huggingface/dataset-viewer/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/huggingface/dataset-viewer/blob/main/LICENSE
 - type: AgenticAccess
   url: agentic-access/hugging-face-agentic-access.yml
 - type: VulnerabilityDisclosure
