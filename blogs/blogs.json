@@ -5,7 +5,7 @@
       "source": "https://huggingface.co/blog/feed.xml",
       "feed_url": "https://huggingface.co/blog/feed.xml",
       "title": "",
-      "saved": 1,
+      "saved": 9,
       "method": "feed"
     },
     {
@@ -13,9 +13,10 @@
       "feed_url": "https://huggingface.co/pricing",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     }
   ],
-  "post_count": 130,
-  "fetched": "2026-08-06T14:08:46Z"
+  "post_count": 139,
+  "fetched": "2026-08-15T12:11:08Z"
 }
