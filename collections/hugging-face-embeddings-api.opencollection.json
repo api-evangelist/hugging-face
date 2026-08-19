@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Embeddings API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Embeddings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/embeddings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create embedding vectors for input text. Returns dense vector representations useful for semantic search, clustering, and classification tasks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

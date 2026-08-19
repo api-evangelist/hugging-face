@@ -1,0 +1,359 @@
+{
+  "item": [
+    {
+      "id": "545dc854-ed8f-4eed-91fe-98abcd4f9d44",
+      "name": "Dataset Info",
+      "description": {
+        "content": "Dataset validity and structure endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "54a2c3f8-543a-42f8-a31a-bd5fa19e85d5",
+          "name": "Check Dataset Validity",
+          "request": {
+            "name": "Check Dataset Validity",
+            "description": {
+              "content": "Check whether a specific dataset is valid and processed by the Dataset Viewer. Returns availability status for preview, viewer, search, filter, and statistics features.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "is-valid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID on the Hugging Face Hub"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8cb26adb-6733-4cc1-8566-17b0df77685f",
+              "name": "Dataset validity status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "is-valid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "cornell-movie-review-data/rotten_tomatoes"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"preview\": true,\n  \"viewer\": true,\n  \"search\": true,\n  \"filter\": true,\n  \"statistics\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fee03866-c4ed-4e93-8c1b-b82010797275",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "is-valid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "cornell-movie-review-data/rotten_tomatoes"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b06287ee-972a-44af-ac47-8ba11b15d3da",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "is-valid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "cornell-movie-review-data/rotten_tomatoes"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c84eec4f-85f7-43db-8b2d-cb7b6770305d",
+          "name": "Get Dataset Splits",
+          "request": {
+            "name": "Get Dataset Splits",
+            "description": {
+              "content": "Get the list of subsets (configurations) and splits for a dataset. A dataset can have multiple subsets, each with different splits (e.g., train, test, validation).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "splits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID on the Hugging Face Hub"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b137fd79-e73a-4849-9df2-83299cfef2b3",
+              "name": "List of subsets and splits",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"splits\": [\n    {\n      \"dataset\": \"example_value\",\n      \"config\": \"example_value\",\n      \"split\": \"example_value\"\n    }\n  ],\n  \"pending\": [\n    {}\n  ],\n  \"failed\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80528def-8fee-4eb8-9474-b7a1378d4a08",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb45178b-0976-4194-87a1-4c2b82cada8f",
+              "name": "Processing error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "splits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "4290382e-173f-4471-9275-95464e3334eb",
+    "name": "Hugging Face Dataset Viewer Audio Dataset Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

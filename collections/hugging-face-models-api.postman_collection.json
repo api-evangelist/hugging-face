@@ -1,0 +1,836 @@
+{
+  "item": [
+    {
+      "id": "c8bff1ed-6a7d-4b76-801a-0c49d40ad532",
+      "name": "Models",
+      "description": {
+        "content": "Operations for managing and querying models on the Hub",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "07657224-5b1f-41cb-a8c3-f3d3e72e89b2",
+          "name": "List Models on the Hub",
+          "request": {
+            "name": "List Models on the Hub",
+            "description": {
+              "content": "List and search models hosted on the Hugging Face Hub. Supports filtering by author, task, library, tags, and full-text search.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Full-text search query to filter models"
+                },
+                {
+                  "disabled": false,
+                  "key": "author",
+                  "value": "<string>",
+                  "description": "Filter by model author or organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter by tags (comma-separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Property to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Sort direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of results to return (max 1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "false",
+                  "description": "Whether to return full model information including card data"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "false",
+                  "description": "Whether to return the model config"
+                },
+                {
+                  "disabled": false,
+                  "key": "pipeline_tag",
+                  "value": "<string>",
+                  "description": "Filter by pipeline task type"
+                },
+                {
+                  "disabled": false,
+                  "key": "library",
+                  "value": "<string>",
+                  "description": "Filter by ML library"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7977d1e4-94f0-4ddf-aedd-fdd9e5c80cb5",
+              "name": "List of models matching the query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "author",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "lastModified"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "full",
+                      "value": "true"
+                    },
+                    {
+                      "key": "config",
+                      "value": "true"
+                    },
+                    {
+                      "key": "pipeline_tag",
+                      "value": "text-generation"
+                    },
+                    {
+                      "key": "library",
+                      "value": "transformers"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"500123\",\n    \"id\": \"abc123\",\n    \"modelId\": \"500123\",\n    \"author\": \"example_value\",\n    \"sha\": \"example_value\",\n    \"lastModified\": \"2026-01-15T10:30:00Z\",\n    \"private\": true,\n    \"disabled\": true,\n    \"gated\": true,\n    \"pipeline_tag\": \"example_value\",\n    \"tags\": [\n      \"example_value\"\n    ],\n    \"downloads\": 10,\n    \"likes\": 10,\n    \"library_name\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1bdd79ee-dc3b-4528-8dec-5209b672c3b5",
+          "name": "Get Model Information",
+          "request": {
+            "name": "Get Model Information",
+            "description": {
+              "content": "Get detailed information about a specific model by its repository ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":repo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo_id",
+                  "description": "(Required) The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6816706-ea50-4a50-b79c-b4e55afbb784",
+              "name": "Detailed model information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e926072c-2cb0-422d-845e-c3a67f26689f",
+              "name": "Unauthorized - token required for private models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e76b9ae6-66c0-41a6-be4f-53a71b5337b6",
+              "name": "Model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38b547b4-063a-4847-bb05-8fb55117e6b4",
+          "name": "Get Model Information at a Specific Revision",
+          "request": {
+            "name": "Get Model Information at a Specific Revision",
+            "description": {
+              "content": "Get detailed information about a model at a specific Git revision (branch, tag, or commit SHA).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":repo_id",
+                "revision",
+                ":revision"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "revision",
+                  "description": "(Required) Git revision (branch name, tag, or commit SHA)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b46bc4ca-6670-4b2e-afb4-b9e575a6eb3d",
+              "name": "Model information at the specified revision",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":repo_id",
+                    "revision",
+                    ":revision"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "revision",
+                      "description": "(Required) Git revision (branch name, tag, or commit SHA)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a4f936a-973f-43fd-b909-f346743f714f",
+          "name": "List Available Metrics",
+          "request": {
+            "name": "List Available Metrics",
+            "description": {
+              "content": "Get the list of available evaluation metrics on the Hub.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a71a40d9-d15d-4fdc-ae77-582a62ce1284",
+              "name": "List of available metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"abc123\",\n    \"description\": \"A sample description.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f9778e9-b1d9-4eea-b5b8-038bae471b96",
+          "name": "List Model Tags Grouped by Type",
+          "request": {
+            "name": "List Model Tags Grouped by Type",
+            "description": {
+              "content": "Get all available model tags organized by type (pipeline_tag, library, language, license, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models-tags-by-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a599e7bb-2aee-49de-ae23-ab9bc3a00483",
+              "name": "Tags grouped by type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models-tags-by-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d4b6e23-7325-47f9-96ea-4a689ee76ca5",
+          "name": "List Available Models",
+          "request": {
+            "name": "List Available Models",
+            "description": {
+              "content": "List models available through inference providers. Returns model IDs and basic metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c16fd8c-390c-473c-b52c-20d9bcf71134",
+              "name": "List of available models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"example_value\",\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"object\": \"example_value\",\n      \"created\": 10,\n      \"owned_by\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfa55fa4-a66f-46aa-87ea-d5631b0e18a0",
+          "name": "Get Model Information",
+          "request": {
+            "name": "Get Model Information",
+            "description": {
+              "content": "Get information about a specific model available through inference providers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models",
+                ":model_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) The model ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c91153d-447e-4c84-b2c1-5cbdb4ace18b",
+              "name": "Model information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ":model_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) The model ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"object\": \"example_value\",\n  \"created\": 10,\n  \"owned_by\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4dff72d-e1db-4fbc-98b6-0ac36da12c73",
+              "name": "Model not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models",
+                    ":model_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) The model ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "b43770dd-64f7-4e24-8f48-0792d6ed1b70",
+    "name": "Hugging Face Dataset Viewer Audio Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

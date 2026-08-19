@@ -1,0 +1,623 @@
+{
+  "item": [
+    {
+      "id": "4fbd9351-a3a8-4847-8fec-9449d83eb75b",
+      "name": "Text Generation",
+      "description": {
+        "content": "Text generation endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d82ef6f9-ba41-4998-b616-0b13f386068e",
+          "name": "Create Text Completion",
+          "request": {
+            "name": "Create Text Completion",
+            "description": {
+              "content": "Create a text completion for a given prompt. Supports standard completion parameters compatible with the OpenAI API format.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"max_tokens\": 16,\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": false,\n  \"seed\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "595e2a2d-f8e2-4f35-bc91-77855b20daf1",
+              "name": "Text completion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"prompt\": \"example_value\",\n  \"max_tokens\": 10,\n  \"temperature\": 42.5,\n  \"top_p\": 42.5,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"seed\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"object\": \"example_value\",\n  \"created\": 10,\n  \"model\": \"example_value\",\n  \"choices\": [\n    {\n      \"text\": \"example_value\",\n      \"index\": 10,\n      \"finish_reason\": \"example_value\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 10,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2568f03-4793-430e-8765-8c99fc26a337",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"prompt\": \"example_value\",\n  \"max_tokens\": 10,\n  \"temperature\": 42.5,\n  \"top_p\": 42.5,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"seed\": 10\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7759f8d-f9e4-4cfb-8d05-a1101c1fc4d1",
+          "name": "Generate Text",
+          "request": {
+            "name": "Generate Text",
+            "description": {
+              "content": "Generate text from a prompt using the loaded model. Returns the full generated text in a single response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": 20,\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": false,\n    \"seed\": \"<integer>\",\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"watermark\": false,\n    \"return_full_text\": false,\n    \"decoder_input_details\": false,\n    \"details\": false,\n    \"truncate\": \"<integer>\",\n    \"typical_p\": \"<float>\",\n    \"best_of\": \"<integer>\",\n    \"grammar\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3be6b30e-1a50-44cc-8d63-cff9c197614c",
+              "name": "Generated text",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Compute backend used",
+                  "key": "x-compute-type",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of input characters",
+                  "key": "x-compute-characters",
+                  "value": "9117"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total inference time in milliseconds",
+                  "key": "x-total-time",
+                  "value": "6582.646027507867"
+                },
+                {
+                  "disabled": false,
+                  "description": "Input validation time in milliseconds",
+                  "key": "x-validation-time",
+                  "value": "6582.646027507867"
+                },
+                {
+                  "disabled": false,
+                  "description": "Queue wait time in milliseconds",
+                  "key": "x-queue-time",
+                  "value": "6582.646027507867"
+                },
+                {
+                  "disabled": false,
+                  "description": "Model inference time in milliseconds",
+                  "key": "x-inference-time",
+                  "value": "6582.646027507867"
+                },
+                {
+                  "disabled": false,
+                  "description": "Average time per generated token in milliseconds",
+                  "key": "x-time-per-token",
+                  "value": "6582.646027507867"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of prompt tokens",
+                  "key": "x-prompt-tokens",
+                  "value": "9117"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of generated tokens",
+                  "key": "x-generated-tokens",
+                  "value": "9117"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"generated_text\": \"example_value\",\n  \"details\": {\n    \"finish_reason\": \"length\",\n    \"generated_tokens\": 10,\n    \"seed\": 10,\n    \"prefill\": [\n      {\n        \"id\": \"abc123\",\n        \"text\": \"example_value\",\n        \"logprob\": 42.5\n      }\n    ],\n    \"tokens\": [\n      {\n        \"id\": \"abc123\",\n        \"text\": \"example_value\",\n        \"logprob\": 42.5,\n        \"special\": true\n      }\n    ],\n    \"best_of_sequences\": [\n      {}\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8da9f39c-7a47-44b0-a858-f24c51d8fe5f",
+              "name": "Invalid input - validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85d647b0-6288-4852-9589-398bb7619b25",
+              "name": "Generation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0acb0d9e-1f7c-49c5-8fcc-b01056fe9f65",
+              "name": "Model is overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "023cd415-ae4c-428f-a501-5d864d540d6d",
+          "name": "Generate Text With Streaming",
+          "request": {
+            "name": "Generate Text With Streaming",
+            "description": {
+              "content": "Generate text from a prompt using Server-Sent Events (SSE) streaming. Tokens are returned incrementally as they are generated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "generate_stream"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"max_new_tokens\": 20,\n    \"temperature\": \"<float>\",\n    \"top_p\": \"<float>\",\n    \"top_k\": \"<integer>\",\n    \"repetition_penalty\": \"<float>\",\n    \"do_sample\": false,\n    \"seed\": \"<integer>\",\n    \"stop\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"watermark\": false,\n    \"return_full_text\": false,\n    \"decoder_input_details\": false,\n    \"details\": false,\n    \"truncate\": \"<integer>\",\n    \"typical_p\": \"<float>\",\n    \"best_of\": \"<integer>\",\n    \"grammar\": {\n      \"type\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fcb71dca-1826-4b66-86f8-7f1b9775d576",
+              "name": "Stream of generated tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15c3f17e-5af4-4d55-8c51-bbd2fba23b20",
+              "name": "Invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af584b12-957a-4034-b33a-d3c4d68e7ebc",
+              "name": "Model is overloaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "generate_stream"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"max_new_tokens\": 10,\n    \"temperature\": 42.5,\n    \"top_p\": 42.5,\n    \"top_k\": 10,\n    \"repetition_penalty\": 42.5,\n    \"do_sample\": true,\n    \"seed\": 10,\n    \"stop\": [\n      \"example_value\"\n    ],\n    \"watermark\": true,\n    \"return_full_text\": true,\n    \"decoder_input_details\": true,\n    \"details\": true,\n    \"truncate\": 10,\n    \"typical_p\": 42.5,\n    \"best_of\": 10,\n    \"grammar\": {\n      \"type\": \"json\",\n      \"value\": \"example_value\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"error_type\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "2328b244-c470-485d-9702-6f054d433a04",
+    "name": "Hugging Face Dataset Viewer Audio Text Generation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Search & Filter API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search & Filter",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Text in a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/search",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "query",
+                "value": "machine learning",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Full-text search within a dataset split. Searches across all text columns and returns matching rows."
+        },
+        {
+          "info": {
+            "name": "Filter Rows in a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/filter",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "where",
+                "value": "label = 1",
+                "type": "query",
+                "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")"
+              },
+              {
+                "name": "orderby",
+                "value": "score DESC",
+                "type": "query",
+                "description": "SQL-like ORDER BY clause for sorting"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Filter rows in a dataset split using SQL-like WHERE and ORDER BY clauses. Supports comparison operators and logical operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Computer Vision API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Computer Vision",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Image Classification Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/models/:model_id/image-classification",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "google/vit-base-patch16-224",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Classify an image into predefined categories."
+        },
+        {
+          "info": {
+            "name": "Object Detection Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/models/:model_id/object-detection",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "facebook/detr-resnet-50",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Detect objects in an image and return bounding boxes with labels."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

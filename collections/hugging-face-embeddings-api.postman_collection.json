@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "98579364-8df8-46e3-84b1-48ffa7eb0c99",
+      "name": "Embeddings",
+      "description": {
+        "content": "Text embedding endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "be0fb4d2-0e06-4442-8209-6491a9633488",
+          "name": "Create Embeddings",
+          "request": {
+            "name": "Create Embeddings",
+            "description": {
+              "content": "Create embedding vectors for input text. Returns dense vector representations useful for semantic search, clustering, and classification tasks.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "embeddings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"encoding_format\": \"float\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0106f9c0-5118-4383-b56b-cd84900c9fe6",
+              "name": "Embedding response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"input\": \"example_value\",\n  \"encoding_format\": \"float\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"example_value\",\n  \"data\": [\n    {\n      \"object\": \"example_value\",\n      \"index\": 10,\n      \"embedding\": [\n        {}\n      ]\n    }\n  ],\n  \"model\": \"example_value\",\n  \"usage\": {\n    \"prompt_tokens\": 10,\n    \"total_tokens\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "942ff21c-e326-49cc-b53e-9d3cc2cfc81b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "embeddings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"input\": \"example_value\",\n  \"encoding_format\": \"float\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "3d211a92-7766-4999-98e9-efdffd0b8694",
+    "name": "Hugging Face Dataset Viewer Audio Embeddings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

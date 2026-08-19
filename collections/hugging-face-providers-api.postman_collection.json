@@ -1,0 +1,105 @@
+{
+  "item": [
+    {
+      "id": "3716967a-24f3-43ac-9073-b666320963df",
+      "name": "Providers",
+      "description": {
+        "content": "Available cloud providers and hardware",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30e1e0eb-ebd9-493f-b53c-820d522d4a86",
+          "name": "List Available Providers",
+          "request": {
+            "name": "List Available Providers",
+            "description": {
+              "content": "List available cloud providers and their regions for deploying Inference Endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "provider"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cdf5059d-d183-43a7-9f7f-21dda8567707",
+              "name": "Available cloud providers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "provider"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"vendor\": \"aws\",\n      \"region\": \"example_value\",\n      \"status\": \"available\",\n      \"accelerators\": [\n        {}\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "4581aad0-5580-4208-9cd1-ff141c4f4a73",
+    "name": "Hugging Face Dataset Viewer Audio Providers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

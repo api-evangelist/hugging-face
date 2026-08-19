@@ -1,0 +1,355 @@
+{
+  "item": [
+    {
+      "id": "13b64bdc-98a2-4068-b153-a107a77d6505",
+      "name": "Chat Completions",
+      "description": {
+        "content": "OpenAI-compatible chat completion endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c402c482-fdf3-48bf-b298-8354f0d76180",
+          "name": "Create Chat Completion",
+          "request": {
+            "name": "Create Chat Completion",
+            "description": {
+              "content": "Create a chat completion using an OpenAI-compatible API. Supports conversational LLMs and Vision-Language Models (VLMs). Requests are routed to the optimal inference provider automatically.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        },\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tool_calls\": [\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        },\n        {\n          \"id\": \"<string>\",\n          \"type\": \"<string>\",\n          \"function\": {\n            \"name\": \"<string>\",\n            \"arguments\": \"<string>\",\n            \"description\": \"<string>\"\n          }\n        }\n      ],\n      \"tool_call_id\": \"<string>\"\n    }\n  ],\n  \"frequency_penalty\": 0,\n  \"logprobs\": false,\n  \"max_tokens\": \"<integer>\",\n  \"presence_penalty\": 0,\n  \"reasoning_effort\": \"<string>\",\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"seed\": \"<integer>\",\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": false,\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"temperature\": 1,\n  \"tool_choice\": \"<string>\",\n  \"tool_prompt\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": \"<object>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": \"<object>\"\n      }\n    }\n  ],\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49318d39-bae1-4caf-86fa-5af8d5310aa0",
+              "name": "Chat completion response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"object\": \"example_value\",\n  \"created\": 10,\n  \"model\": \"example_value\",\n  \"system_fingerprint\": \"example_value\",\n  \"choices\": [\n    {\n      \"index\": 10,\n      \"message\": {\n        \"role\": \"example_value\",\n        \"content\": \"example_value\",\n        \"tool_calls\": {}\n      },\n      \"finish_reason\": \"stop\",\n      \"logprobs\": {\n        \"content\": {}\n      }\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 10,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 10\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9803a45a-4165-418a-98b1-f1a81b33e145",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca555ceb-0bda-4a0a-908b-c7471cebe6d2",
+              "name": "Unauthorized - invalid or missing API token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a267abf9-b382-4ef5-80ab-dbb70b9af32f",
+              "name": "Model not found or not available through any provider",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0eb134-3a23-4411-9fc3-f74333525524",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67022346-2a1c-46d7-9d48-c4e658df19b9",
+              "name": "Provider error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"example_value\",\n      \"name\": \"Example Title\",\n      \"tool_calls\": [\n        {}\n      ],\n      \"tool_call_id\": \"500123\"\n    }\n  ],\n  \"frequency_penalty\": 42.5,\n  \"logprobs\": true,\n  \"max_tokens\": 10,\n  \"presence_penalty\": 42.5,\n  \"reasoning_effort\": \"example_value\",\n  \"response_format\": \"example_value\",\n  \"seed\": 10,\n  \"stop\": [\n    \"example_value\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"temperature\": 42.5,\n  \"tool_choice\": \"example_value\",\n  \"tool_prompt\": \"example_value\",\n  \"tools\": [\n    {\n      \"type\": \"example_value\",\n      \"function\": {\n        \"name\": \"Example Title\",\n        \"description\": \"A sample description.\",\n        \"parameters\": \"example_value\"\n      }\n    }\n  ],\n  \"top_logprobs\": 10,\n  \"top_p\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "27648b8a-076d-441f-9583-4b5092c6e8c4",
+    "name": "Hugging Face Dataset Viewer Audio Chat Completions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

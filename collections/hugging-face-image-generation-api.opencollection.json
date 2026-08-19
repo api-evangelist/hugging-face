@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Image Generation API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Image Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/images/generations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate images from text prompts using diffusion models available through inference providers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

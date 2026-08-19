@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "ec47147b-670d-40ed-b78b-64edd5201128",
+      "name": "Datasets",
+      "description": {
+        "content": "Operations for managing and querying datasets on the Hub",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "433be8ad-8a74-42db-8b65-9de0147de72d",
+          "name": "List Datasets on the Hub",
+          "request": {
+            "name": "List Datasets on the Hub",
+            "description": {
+              "content": "List and search datasets hosted on the Hugging Face Hub. Supports filtering by author, tags, and full-text search.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Full-text search query to filter datasets"
+                },
+                {
+                  "disabled": false,
+                  "key": "author",
+                  "value": "<string>",
+                  "description": "Filter by dataset author or organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter by tags (comma-separated)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Property to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Sort direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of results to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "full",
+                  "value": "false",
+                  "description": "Whether to return full dataset information"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89cbb55c-d78f-47b1-9491-403f33f7efd5",
+              "name": "List of datasets matching the query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "author",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "lastModified"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "full",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"500123\",\n    \"id\": \"abc123\",\n    \"author\": \"example_value\",\n    \"sha\": \"example_value\",\n    \"lastModified\": \"2026-01-15T10:30:00Z\",\n    \"private\": true,\n    \"gated\": true,\n    \"disabled\": true,\n    \"tags\": [\n      \"example_value\"\n    ],\n    \"downloads\": 10,\n    \"likes\": 10,\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"description\": \"A sample description.\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5282a82a-3685-4901-b895-a6c1718e70ac",
+          "name": "Get Dataset Information",
+          "request": {
+            "name": "Get Dataset Information",
+            "description": {
+              "content": "Get detailed information about a specific dataset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasets",
+                ":repo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo_id",
+                  "description": "(Required) The dataset repository ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1d233f9-361d-433c-97d4-8fcc7f4429d5",
+              "name": "Detailed dataset information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasets",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The dataset repository ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "214f2972-a822-493d-8d9e-ab863afdbc91",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasets",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The dataset repository ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c0128c74-b7f5-4a97-ace6-c9c01203cf42",
+          "name": "Get Dataset Parquet Files",
+          "request": {
+            "name": "Get Dataset Parquet Files",
+            "description": {
+              "content": "Get the list of auto-converted Parquet files for a dataset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasets",
+                ":repo_id",
+                "parquet"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e993e94c-7dbe-47a6-a6e0-9e53e28aed82",
+              "name": "List of Parquet file URLs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasets",
+                    ":repo_id",
+                    "parquet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"parquet_files\": [\n    {\n      \"dataset\": \"example_value\",\n      \"config\": \"example_value\",\n      \"split\": \"example_value\",\n      \"url\": \"https://www.example.com\",\n      \"filename\": \"example_value\",\n      \"size\": 10\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66d31150-3822-4fbf-b32a-cc76c708fd2d",
+          "name": "List Dataset Tags Grouped by Type",
+          "request": {
+            "name": "List Dataset Tags Grouped by Type",
+            "description": {
+              "content": "Get all available dataset tags organized by type (task_categories, language, size_categories, etc.).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasets-tags-by-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b0d43e06-ebde-431f-9664-6867d4e7c37e",
+              "name": "Tags grouped by type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasets-tags-by-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "fd3210ee-7cda-40c2-8742-9e0602e8ece7",
+    "name": "Hugging Face Dataset Viewer Audio Datasets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "item": [
+    {
+      "id": "bed8a57b-45ed-40ec-acd8-126eef47b2d4",
+      "name": "Computer Vision",
+      "description": {
+        "content": "Image classification, object detection, and segmentation tasks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "00d1b493-c9e0-4e11-b0e9-eee7d713f198",
+          "name": "Image Classification Inference",
+          "request": {
+            "name": "Image Classification Inference",
+            "description": {
+              "content": "Classify an image into predefined categories.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":model_id",
+                "image-classification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a130349e-8954-465f-9869-6a5b8552104e",
+              "name": "Classification results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":model_id",
+                    "image-classification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"label\": \"Example Title\",\n    \"score\": 42.5\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb979499-111e-4c70-b6f2-74b63e197613",
+          "name": "Object Detection Inference",
+          "request": {
+            "name": "Object Detection Inference",
+            "description": {
+              "content": "Detect objects in an image and return bounding boxes with labels.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":model_id",
+                "object-detection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            }
+          },
+          "response": [
+            {
+              "id": "e5634505-d0bb-4805-b943-de663683d147",
+              "name": "Detected objects with bounding boxes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":model_id",
+                    "object-detection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"label\": \"Example Title\",\n    \"score\": 42.5,\n    \"box\": {\n      \"xmin\": 10,\n      \"ymin\": 10,\n      \"xmax\": 10,\n      \"ymax\": 10\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "6a3c01d5-dc94-4ea8-b296-761a9dd217e7",
+    "name": "Hugging Face Dataset Viewer Audio Computer Vision API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

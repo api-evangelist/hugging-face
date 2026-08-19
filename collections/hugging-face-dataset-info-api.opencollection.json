@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Dataset Info API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dataset Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check Dataset Validity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/is-valid",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "cornell-movie-review-data/rotten_tomatoes",
+                "type": "query",
+                "description": "The dataset ID on the Hugging Face Hub"
+              }
+            ]
+          },
+          "docs": "Check whether a specific dataset is valid and processed by the Dataset Viewer. Returns availability status for preview, viewer, search, filter, and statistics features."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Splits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/splits",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID on the Hugging Face Hub"
+              }
+            ]
+          },
+          "docs": "Get the list of subsets (configurations) and splits for a dataset. A dataset can have multiple subsets, each with different splits (e.g., train, test, validation)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

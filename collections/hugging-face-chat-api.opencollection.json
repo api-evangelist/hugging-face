@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Chat API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Chat Completion (openai Compatible)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/chat/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a chat completion using the OpenAI-compatible Messages API. Supports conversations, tool calling, structured output via JSON schema, and multi-modal inputs (text + images). Fully compatible with OpenAI client libraries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

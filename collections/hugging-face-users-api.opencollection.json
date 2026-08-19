@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Users API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Current User Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/whoami-v2"
+          },
+          "docs": "Get information about the authenticated user, including their organizations and access tokens."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

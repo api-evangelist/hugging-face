@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Multimodal API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Multimodal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Text to Image Generation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/models/:model_id/text-to-image",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "stabilityai/stable-diffusion-xl-base-1.0",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate an image from a text prompt using a diffusion model."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

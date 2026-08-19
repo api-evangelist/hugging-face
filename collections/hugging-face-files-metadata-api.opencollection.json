@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Files & Metadata API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Files & Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Parquet Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/parquet",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get the list of a dataset's files converted to Parquet format. Datasets are auto-converted to Parquet on the Hub for efficient data access."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/size",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get size information for a dataset including the number of rows and size in bytes for the full dataset and for each subset and split."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/statistics",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "example_value",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "example_value",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "example_value",
+                "type": "query",
+                "description": "The split name"
+              }
+            ]
+          },
+          "docs": "Get descriptive statistics for columns in a dataset split including distributions, counts, means, and other summary metrics."
+        },
+        {
+          "info": {
+            "name": "Get Croissant Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/croissant",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              }
+            ]
+          },
+          "docs": "Get Croissant (schema.org/Dataset compatible) metadata for a dataset. Croissant is a metadata format for ML datasets based on schema.org."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,406 @@
+{
+  "item": [
+    {
+      "id": "047c60a6-d2b9-4cfd-8efd-55dd49273cf3",
+      "name": "Audio",
+      "description": {
+        "content": "Speech recognition, audio classification, and text-to-speech tasks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26673b4f-fd62-4cdd-83ca-50d773fed25f",
+          "name": "Automatic Speech Recognition Inference",
+          "request": {
+            "name": "Automatic Speech Recognition Inference",
+            "description": {
+              "content": "Transcribe audio to text using a speech recognition model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":model_id",
+                "automatic-speech-recognition"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "audio/flac"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            }
+          },
+          "response": [
+            {
+              "id": "a6e9b0d2-61d2-41b0-8c97-5474bc13f033",
+              "name": "Transcribed text",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":model_id",
+                    "automatic-speech-recognition"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "example_value"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39ff2036-6960-4180-a2bf-73efe5a4b898",
+          "name": "Transcribe Audio",
+          "request": {
+            "name": "Transcribe Audio",
+            "description": {
+              "content": "Transcribe audio to text using automatic speech recognition models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "audio",
+                "transcriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) Audio file to transcribe"
+                },
+                {
+                  "key": "model",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Model ID to use for transcription"
+                },
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Language of the audio in ISO 639-1 format"
+                },
+                {
+                  "key": "prompt",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Optional text to guide transcription"
+                },
+                {
+                  "key": "response_format",
+                  "value": "json",
+                  "type": "text",
+                  "description": " (This can only be one of json,text,srt,verbose_json,vtt)"
+                },
+                {
+                  "key": "temperature",
+                  "value": "<float>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cc9cb84f-3d4b-4fda-9d86-cc7310ae1e47",
+              "name": "Transcription result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Audio file to transcribe",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "type": "file"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Model ID to use for transcription",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "example_value",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Language of the audio in ISO 639-1 format",
+                        "type": "text/plain"
+                      },
+                      "key": "language",
+                      "value": "example_value",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional text to guide transcription",
+                        "type": "text/plain"
+                      },
+                      "key": "prompt",
+                      "value": "example_value",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": " (This can only be one of json,text,srt,verbose_json,vtt)",
+                        "type": "text/plain"
+                      },
+                      "key": "response_format",
+                      "value": "json",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "temperature",
+                      "value": "42.5",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce995f35-aeea-44b6-bc49-5717855c72be",
+          "name": "Generate Speech",
+          "request": {
+            "name": "Generate Speech",
+            "description": {
+              "content": "Generate audio speech from text input.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "audio",
+                "speech"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "audio/mpeg"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"voice\": \"<string>\",\n  \"response_format\": \"mp3\",\n  \"speed\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ddafc189-f567-4a44-8a32-9d60195e5235",
+              "name": "Generated audio",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "audio",
+                    "speech"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "audio/mpeg"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"input\": \"example_value\",\n  \"voice\": \"example_value\",\n  \"response_format\": \"mp3\",\n  \"speed\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "audio/mpeg"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "ba35e5c5-a77f-4e23-8ef5-191aa8095a01",
+    "name": "Hugging Face Dataset Viewer Audio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

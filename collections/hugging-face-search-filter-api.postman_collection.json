@@ -1,0 +1,429 @@
+{
+  "item": [
+    {
+      "id": "b4fb4768-108e-44a3-ae7c-593f2d3284ae",
+      "name": "Search & Filter",
+      "description": {
+        "content": "Search and filter dataset contents",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbe31e4d-ce61-467e-8709-ccaa3e27f5ed",
+          "name": "Search Text in a Split",
+          "request": {
+            "name": "Search Text in a Split",
+            "description": {
+              "content": "Full-text search within a dataset split. Searches across all text columns and returns matching rows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<string>",
+                  "description": "(Required) The subset (configuration) name"
+                },
+                {
+                  "disabled": false,
+                  "key": "split",
+                  "value": "<string>",
+                  "description": "(Required) The split name"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "length",
+                  "value": "100"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44f42e76-5ffc-447c-8c07-b706d2418472",
+              "name": "Search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "query",
+                      "value": "machine learning"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": 10,\n      \"name\": \"Example Title\",\n      \"type\": \"example_value\"\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": 10,\n      \"row\": \"example_value\",\n      \"truncated_cells\": [\n        {}\n      ]\n    }\n  ],\n  \"num_rows_total\": 10,\n  \"num_rows_per_page\": 10,\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaa3326a-a7e6-4931-9f3f-2bba04d8abbc",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "query",
+                      "value": "machine learning"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7105f77-1c40-4412-989d-cfe7d890da19",
+          "name": "Filter Rows in a Split",
+          "request": {
+            "name": "Filter Rows in a Split",
+            "description": {
+              "content": "Filter rows in a dataset split using SQL-like WHERE and ORDER BY clauses. Supports comparison operators and logical operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "filter"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<string>",
+                  "description": "(Required) The subset (configuration) name"
+                },
+                {
+                  "disabled": false,
+                  "key": "split",
+                  "value": "<string>",
+                  "description": "(Required) The split name"
+                },
+                {
+                  "disabled": false,
+                  "key": "where",
+                  "value": "<string>",
+                  "description": "SQL-like WHERE clause for filtering (e.g., \"label = 1\" or \"score > 0.5\")"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderby",
+                  "value": "<string>",
+                  "description": "SQL-like ORDER BY clause for sorting"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "length",
+                  "value": "100"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33bd185f-5770-48ad-ab95-ab5c4903056e",
+              "name": "Filtered rows",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "where",
+                      "value": "label = 1"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "score DESC"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": 10,\n      \"name\": \"Example Title\",\n      \"type\": {\n        \"dtype\": \"example_value\",\n        \"_type\": \"example_value\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": 10,\n      \"row\": \"example_value\",\n      \"truncated_cells\": [\n        {}\n      ]\n    }\n  ],\n  \"num_rows_total\": 10,\n  \"num_rows_per_page\": 10,\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a87e3f4e-5449-43f8-812d-5502e7896af5",
+              "name": "Bad request or invalid filter expression",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "filter"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "where",
+                      "value": "label = 1"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "score DESC"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "621f5495-af40-4624-a565-355a07cdf957",
+    "name": "Hugging Face Dataset Viewer Audio Search & Filter API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "item": [
+    {
+      "id": "515d8b13-d65f-4e31-b166-d74b8e6af947",
+      "name": "Data Access",
+      "description": {
+        "content": "Row-level data access and preview endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "78a52596-d83b-4846-9739-10a827fda7a4",
+          "name": "Get First Rows of a Split",
+          "request": {
+            "name": "Get First Rows of a Split",
+            "description": {
+              "content": "Get the first 100 rows of a dataset split. Useful for previewing data structure and content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "first-rows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<string>",
+                  "description": "(Required) The subset (configuration) name"
+                },
+                {
+                  "disabled": false,
+                  "key": "split",
+                  "value": "<string>",
+                  "description": "(Required) The split name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6d74153-f53a-475a-b1d5-07da4ecf0e06",
+              "name": "First rows of the dataset split",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "first-rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    },
+                    {
+                      "key": "config",
+                      "value": "plain_text"
+                    },
+                    {
+                      "key": "split",
+                      "value": "train"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": 10,\n      \"name\": \"Example Title\",\n      \"type\": {\n        \"dtype\": \"example_value\",\n        \"_type\": \"example_value\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": 10,\n      \"row\": \"example_value\",\n      \"truncated_cells\": [\n        {}\n      ]\n    }\n  ],\n  \"num_rows_total\": 10,\n  \"num_rows_per_page\": 10,\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5781f022-2d82-4a8f-93b6-27ee78b75067",
+              "name": "Bad request - missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "first-rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    },
+                    {
+                      "key": "config",
+                      "value": "plain_text"
+                    },
+                    {
+                      "key": "split",
+                      "value": "train"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50276f5b-213c-4c1f-b8d9-a88d90d90d09",
+              "name": "Dataset, config, or split not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "first-rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    },
+                    {
+                      "key": "config",
+                      "value": "plain_text"
+                    },
+                    {
+                      "key": "split",
+                      "value": "train"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "642c5249-3922-413c-ba63-7dddffa90d4d",
+          "name": "Get a Slice of Rows",
+          "request": {
+            "name": "Get a Slice of Rows",
+            "description": {
+              "content": "Get a slice of rows from a dataset split with pagination support. Returns up to 100 rows per request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rows"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<string>",
+                  "description": "(Required) The subset (configuration) name"
+                },
+                {
+                  "disabled": false,
+                  "key": "split",
+                  "value": "<string>",
+                  "description": "(Required) The split name"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Row offset to start from"
+                },
+                {
+                  "disabled": false,
+                  "key": "length",
+                  "value": "100",
+                  "description": "Number of rows to return (max 100)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6e04677a-11ac-4de6-8b77-cf1328d60fca",
+              "name": "Slice of rows from the dataset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    },
+                    {
+                      "key": "config",
+                      "value": "plain_text"
+                    },
+                    {
+                      "key": "split",
+                      "value": "train"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"features\": [\n    {\n      \"feature_idx\": 10,\n      \"name\": \"Example Title\",\n      \"type\": {\n        \"dtype\": \"example_value\",\n        \"_type\": \"example_value\"\n      }\n    }\n  ],\n  \"rows\": [\n    {\n      \"row_idx\": 10,\n      \"row\": \"example_value\",\n      \"truncated_cells\": [\n        {}\n      ]\n    }\n  ],\n  \"num_rows_total\": 10,\n  \"num_rows_per_page\": 10,\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "908b7c92-599d-4c15-bab9-d51fec0eae51",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rows"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    },
+                    {
+                      "key": "config",
+                      "value": "plain_text"
+                    },
+                    {
+                      "key": "split",
+                      "value": "train"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "10"
+                    },
+                    {
+                      "key": "length",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "3bc9c053-3bb2-4dd3-9818-a73ee1a0671f",
+    "name": "Hugging Face Dataset Viewer Audio Data Access API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

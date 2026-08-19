@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Data Access API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data Access",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get First Rows of a Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/first-rows",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "plain_text",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "train",
+                "type": "query",
+                "description": "The split name"
+              }
+            ]
+          },
+          "docs": "Get the first 100 rows of a dataset split. Useful for previewing data structure and content."
+        },
+        {
+          "info": {
+            "name": "Get a Slice of Rows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/rows",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "squad",
+                "type": "query",
+                "description": "The dataset ID"
+              },
+              {
+                "name": "config",
+                "value": "plain_text",
+                "type": "query",
+                "description": "The subset (configuration) name"
+              },
+              {
+                "name": "split",
+                "value": "train",
+                "type": "query",
+                "description": "The split name"
+              },
+              {
+                "name": "offset",
+                "value": "10",
+                "type": "query",
+                "description": "Row offset to start from"
+              },
+              {
+                "name": "length",
+                "value": "10",
+                "type": "query",
+                "description": "Number of rows to return (max 100)"
+              }
+            ]
+          },
+          "docs": "Get a slice of rows from a dataset split with pagination support. Returns up to 100 rows per request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

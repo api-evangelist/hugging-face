@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "47db89b8-ec8b-43fa-8d9b-4844cddfd8bb",
+      "name": "Users",
+      "description": {
+        "content": "User account and organization management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ca4bd8fe-dafe-42c7-aa0e-64758c528a5b",
+          "name": "Get Current User Information",
+          "request": {
+            "name": "Get Current User Information",
+            "description": {
+              "content": "Get information about the authenticated user, including their organizations and access tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "whoami-v2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20aa9723-a94b-415a-b755-89512b3cff5f",
+              "name": "Current user information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whoami-v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"example_value\",\n  \"id\": \"abc123\",\n  \"name\": \"Example Title\",\n  \"fullname\": \"example_value\",\n  \"email\": \"user@example.com\",\n  \"emailVerified\": \"user@example.com\",\n  \"plan\": \"example_value\",\n  \"canPay\": true,\n  \"avatarUrl\": \"https://www.example.com\",\n  \"orgs\": [\n    {\n      \"name\": \"Example Title\",\n      \"fullname\": \"example_value\",\n      \"email\": \"user@example.com\",\n      \"plan\": \"example_value\",\n      \"avatarUrl\": \"https://www.example.com\",\n      \"isEnterprise\": true\n    }\n  ],\n  \"auth\": {\n    \"accessToken\": {\n      \"displayName\": \"example_value\",\n      \"role\": \"example_value\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de55aba4-0df7-4a02-9f1a-d8ab619c3ce1",
+              "name": "Invalid or missing authentication token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whoami-v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "501ecbe9-0564-4390-8da9-d5b82a9c27d3",
+    "name": "Hugging Face Dataset Viewer Audio Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

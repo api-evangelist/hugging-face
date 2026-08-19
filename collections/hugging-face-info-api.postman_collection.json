@@ -1,0 +1,425 @@
+{
+  "item": [
+    {
+      "id": "a5d71537-bd20-48a7-a66d-92bbfe15f549",
+      "name": "Info",
+      "description": {
+        "content": "Server and model information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "21bac5e7-47ad-48d7-a096-69f61ad45979",
+          "name": "List Available Models",
+          "request": {
+            "name": "List Available Models",
+            "description": {
+              "content": "Get information about the model currently loaded on this TGI server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ff74249-4f48-41e7-81ef-2fe43b6de80f",
+              "name": "Available models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"example_value\",\n  \"data\": [\n    {\n      \"id\": \"abc123\",\n      \"object\": \"example_value\",\n      \"created\": 10,\n      \"owned_by\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bc4d7a1-bf73-4157-88af-8aa6dd659703",
+          "name": "Get Server Information",
+          "request": {
+            "name": "Get Server Information",
+            "description": {
+              "content": "Get metadata about the TGI server including the loaded model, version, SHA, Docker label, and model-specific parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64c28ea8-9257-4ef8-a6a4-6e4b1ebe19ac",
+              "name": "Server and model information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"model_id\": \"500123\",\n  \"model_sha\": \"example_value\",\n  \"model_dtype\": \"float16\",\n  \"model_device_type\": \"example_value\",\n  \"model_pipeline_tag\": \"example_value\",\n  \"max_concurrent_requests\": 10,\n  \"max_best_of\": 10,\n  \"max_stop_sequences\": 10,\n  \"max_input_length\": 10,\n  \"max_total_tokens\": 10,\n  \"waiting_served_ratio\": 42.5,\n  \"max_batch_total_tokens\": 10,\n  \"max_waiting_tokens\": 10,\n  \"validation_workers\": 10,\n  \"max_client_batch_size\": 10,\n  \"version\": \"example_value\",\n  \"sha\": \"example_value\",\n  \"docker_label\": \"example_value\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41436c03-6986-42f4-9ec4-f00eacd5627e",
+          "name": "Health Check",
+          "request": {
+            "name": "Health Check",
+            "description": {
+              "content": "Check the health of the TGI server. Returns 200 if the model is loaded and ready to serve requests.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "health"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88857b37-e957-473f-9c8a-3304d4c4de26",
+              "name": "Server is healthy and ready",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d93ca0d-66d6-4706-9ed0-7630bbf749de",
+              "name": "Server is not ready (model still loading)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "health"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91034df3-8655-41eb-ad99-c8e029deda0f",
+          "name": "Get Prometheus Metrics",
+          "request": {
+            "name": "Get Prometheus Metrics",
+            "description": {
+              "content": "Get server metrics in Prometheus format including request counts, latencies, queue sizes, and token throughput.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4ced7d0-f2d1-40d6-bf41-ae787a13b9ca",
+              "name": "Prometheus-formatted metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "060c6f72-53d3-4da7-88e4-03400ebe3ee7",
+          "name": "Tokenize Text",
+          "request": {
+            "name": "Tokenize Text",
+            "description": {
+              "content": "Tokenize a string of text using the model's tokenizer. Returns the token IDs and their string representations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokenize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"add_special_tokens\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1de4b079-ec31-45e5-9f3c-2fa6ee37341b",
+              "name": "Tokenized result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokenize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"add_special_tokens\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"abc123\",\n    \"text\": \"example_value\",\n    \"start\": 10,\n    \"stop\": 10,\n    \"special\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "762b5ae5-4b35-42c7-821b-938406a7908c",
+    "name": "Hugging Face Dataset Viewer Audio Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

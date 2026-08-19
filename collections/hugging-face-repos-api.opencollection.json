@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Repos API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Repos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a New Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/repos/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new model, dataset, or Space repository on the Hugging Face Hub."
+        },
+        {
+          "info": {
+            "name": "Delete a Repository",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://datasets-server.huggingface.co/repos/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a model, dataset, or Space repository from the Hub."
+        },
+        {
+          "info": {
+            "name": "Update Repository Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://datasets-server.huggingface.co/repos/:repo_type/:repo_id/settings",
+            "params": [
+              {
+                "name": "repo_type",
+                "value": "models",
+                "type": "path"
+              },
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the settings (visibility, etc.) for a repository."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

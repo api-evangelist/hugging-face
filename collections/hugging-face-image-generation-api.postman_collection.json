@@ -1,0 +1,175 @@
+{
+  "item": [
+    {
+      "id": "c4fee290-f1dc-4dc5-8d84-687216e3f3a0",
+      "name": "Image Generation",
+      "description": {
+        "content": "Text-to-image generation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dcb05b09-45df-4bb4-8f23-84da9223db34",
+          "name": "Generate Images",
+          "request": {
+            "name": "Generate Images",
+            "description": {
+              "content": "Generate images from text prompts using diffusion models available through inference providers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "images",
+                "generations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"n\": 1,\n  \"size\": \"1024x1024\",\n  \"response_format\": \"url\",\n  \"negative_prompt\": \"<string>\",\n  \"num_inference_steps\": \"<integer>\",\n  \"guidance_scale\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7ac58e2d-4da4-4396-a91c-2dd69ac6a07b",
+              "name": "Generated images",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"prompt\": \"example_value\",\n  \"n\": 10,\n  \"size\": \"256x256\",\n  \"response_format\": \"url\",\n  \"negative_prompt\": \"example_value\",\n  \"num_inference_steps\": 10,\n  \"guidance_scale\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": 10,\n  \"data\": [\n    {\n      \"url\": \"https://www.example.com\",\n      \"b64_json\": \"example_value\",\n      \"revised_prompt\": \"example_value\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f504321-c456-4219-8595-9183a811f3cb",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"example_value\",\n  \"prompt\": \"example_value\",\n  \"n\": 10,\n  \"size\": \"256x256\",\n  \"response_format\": \"url\",\n  \"negative_prompt\": \"example_value\",\n  \"num_inference_steps\": 10,\n  \"guidance_scale\": 42.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"message\": \"example_value\",\n    \"type\": \"example_value\",\n    \"code\": \"example_value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "373509a8-d1b1-4316-80b2-a35cb5a5cd7b",
+    "name": "Hugging Face Dataset Viewer Audio Image Generation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

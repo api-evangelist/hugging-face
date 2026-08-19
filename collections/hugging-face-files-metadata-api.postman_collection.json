@@ -1,0 +1,551 @@
+{
+  "item": [
+    {
+      "id": "0ef11789-2d5d-4c4a-9053-bf13910cc3df",
+      "name": "Files & Metadata",
+      "description": {
+        "content": "Parquet files, size, statistics, and metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6972539c-d041-49df-a4bc-1d9a2cad4525",
+          "name": "List Parquet Files",
+          "request": {
+            "name": "List Parquet Files",
+            "description": {
+              "content": "Get the list of a dataset's files converted to Parquet format. Datasets are auto-converted to Parquet on the Hub for efficient data access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "parquet"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a2006c13-9861-4876-930b-42917f305b67",
+              "name": "List of Parquet files",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parquet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"parquet_files\": [\n    {\n      \"dataset\": \"example_value\",\n      \"config\": \"example_value\",\n      \"split\": \"example_value\",\n      \"url\": \"https://www.example.com\",\n      \"filename\": \"example_value\",\n      \"size\": 10\n    }\n  ],\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5db448bd-7dfb-44e3-b373-26d8bb247846",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "parquet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff59c9d0-ca2c-476b-92af-57ca069ba733",
+          "name": "Get Dataset Size",
+          "request": {
+            "name": "Get Dataset Size",
+            "description": {
+              "content": "Get size information for a dataset including the number of rows and size in bytes for the full dataset and for each subset and split.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "size"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8b48eab-8782-4f12-a75d-6a2ad0679019",
+              "name": "Dataset size information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "size"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"size\": {\n    \"dataset\": {\n      \"dataset\": \"example_value\",\n      \"num_bytes_original_files\": 10,\n      \"num_bytes_parquet_files\": 10,\n      \"num_bytes_memory\": 10,\n      \"num_rows\": 10\n    },\n    \"configs\": [\n      {\n        \"dataset\": \"example_value\",\n        \"config\": \"example_value\",\n        \"num_bytes_original_files\": 10,\n        \"num_bytes_parquet_files\": 10,\n        \"num_bytes_memory\": 10,\n        \"num_rows\": 10,\n        \"num_columns\": 10\n      }\n    ],\n    \"splits\": [\n      {\n        \"dataset\": \"example_value\",\n        \"config\": \"example_value\",\n        \"split\": \"example_value\",\n        \"num_bytes_parquet_files\": 10,\n        \"num_bytes_memory\": 10,\n        \"num_rows\": 10,\n        \"num_columns\": 10\n      }\n    ]\n  },\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bddb588-e8fb-472c-a809-df0eb787fb99",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "size"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43114862-76dc-41f1-b320-ebb1c225d838",
+          "name": "Get Dataset Statistics",
+          "request": {
+            "name": "Get Dataset Statistics",
+            "description": {
+              "content": "Get descriptive statistics for columns in a dataset split including distributions, counts, means, and other summary metrics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "statistics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "config",
+                  "value": "<string>",
+                  "description": "(Required) The subset (configuration) name"
+                },
+                {
+                  "disabled": false,
+                  "key": "split",
+                  "value": "<string>",
+                  "description": "(Required) The split name"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b663f380-14c0-4ad1-acad-3ed962acefb6",
+              "name": "Column statistics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"num_examples\": 10,\n  \"statistics\": [\n    {\n      \"column_name\": \"example_value\",\n      \"column_type\": \"example_value\",\n      \"column_statistics\": {\n        \"nan_count\": 10,\n        \"nan_proportion\": 42.5,\n        \"min\": \"example_value\",\n        \"max\": \"example_value\",\n        \"mean\": 42.5,\n        \"median\": 42.5,\n        \"std\": 42.5,\n        \"histogram\": {},\n        \"frequencies\": {}\n      }\n    }\n  ],\n  \"partial\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03dee07c-694d-4846-ae2f-4b7ca373af2b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "statistics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "config",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "split",
+                      "value": "example_value"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb804172-d36b-4075-bcff-b0d551cfde03",
+          "name": "Get Croissant Metadata",
+          "request": {
+            "name": "Get Croissant Metadata",
+            "description": {
+              "content": "Get Croissant (schema.org/Dataset compatible) metadata for a dataset. Croissant is a metadata format for ML datasets based on schema.org.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "croissant"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) The dataset ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd6c7e68-9a22-4a13-b56c-bf1f1455b5b0",
+              "name": "Croissant metadata in JSON-LD format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "croissant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"@context\": \"example_value\",\n  \"@type\": \"example_value\",\n  \"name\": \"Example Title\",\n  \"description\": \"A sample description.\",\n  \"url\": \"https://www.example.com\",\n  \"distribution\": [\n    {}\n  ],\n  \"recordSet\": [\n    {}\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c03d204f-f878-4d80-a7dd-791370732678",
+              "name": "Dataset not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "croissant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "squad"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"cause_exception\": \"example_value\",\n  \"cause_message\": \"example_value\",\n  \"cause_traceback\": [\n    \"example_value\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "6b6affca-e8fd-44ef-ab55-3259e0df3901",
+    "name": "Hugging Face Dataset Viewer Audio Files & Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

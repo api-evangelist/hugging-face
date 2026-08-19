@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Spaces API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Spaces on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/spaces",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by Space author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return"
+              }
+            ]
+          },
+          "docs": "List and search Spaces hosted on the Hugging Face Hub. Supports filtering by author, SDK, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Space Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/spaces/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path",
+                "description": "The Space repository ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific Space."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

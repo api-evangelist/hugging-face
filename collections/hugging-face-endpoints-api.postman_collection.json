@@ -1,0 +1,1725 @@
+{
+  "item": [
+    {
+      "id": "da8e7b4c-44dd-4f11-bde2-ae6953e9372e",
+      "name": "Endpoints",
+      "description": {
+        "content": "Manage dedicated inference endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "846d61b2-cffa-433b-8371-84763019f4fa",
+          "name": "List All Endpoints",
+          "request": {
+            "name": "List All Endpoints",
+            "description": {
+              "content": "List all Inference Endpoints for a given namespace (user or organization).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) User or organization namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e54767a2-93a9-43e9-8d37-7a284065c30f",
+              "name": "List of endpoints",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"name\": \"Example Title\",\n      \"type\": \"public\",\n      \"accountId\": \"500123\",\n      \"provider\": {\n        \"vendor\": \"aws\",\n        \"region\": \"example_value\"\n      },\n      \"compute\": {\n        \"accelerator\": \"example_value\",\n        \"instanceType\": \"example_value\",\n        \"instanceSize\": \"example_value\",\n        \"scaling\": {}\n      },\n      \"model\": {\n        \"repository\": \"example_value\",\n        \"revision\": \"example_value\",\n        \"task\": \"example_value\",\n        \"framework\": \"pytorch\",\n        \"image\": {}\n      },\n      \"status\": {\n        \"state\": \"pending\",\n        \"message\": \"example_value\",\n        \"createdAt\": \"2026-01-15T10:30:00Z\",\n        \"updatedAt\": \"2026-01-15T10:30:00Z\",\n        \"url\": \"https://www.example.com\"\n      },\n      \"url\": \"https://www.example.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5f9ff40-e49a-4af8-b7d0-eca6ab027247",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc219192-586a-4ce8-8ad1-30d1622129b6",
+          "name": "Create a New Endpoint",
+          "request": {
+            "name": "Create a New Endpoint",
+            "description": {
+              "content": "Create a new Inference Endpoint with the specified model, hardware, and configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) User or organization namespace"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"protected\",\n  \"provider\": {\n    \"vendor\": \"<string>\",\n    \"region\": \"<string>\"\n  },\n  \"compute\": {\n    \"accelerator\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"instanceSize\": \"<string>\",\n    \"scaling\": {\n      \"minReplica\": \"<integer>\",\n      \"maxReplica\": \"<integer>\",\n      \"scaleToZeroTimeout\": \"<integer>\"\n    }\n  },\n  \"model\": {\n    \"repository\": \"<string>\",\n    \"task\": \"<string>\",\n    \"revision\": \"main\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"<object>\",\n      \"custom\": {\n        \"url\": \"<uri>\",\n        \"health_route\": \"<string>\",\n        \"env\": {\n          \"key_0\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c186952-2116-4bdb-909d-2b924ea6a4a2",
+              "name": "Endpoint created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da92d252-1231-44e9-819b-322a3ac7b4ef",
+              "name": "Bad request - invalid configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76c29bf1-5e13-4eb6-9ef0-5e7c193c15e8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32459a3e-44a4-4b47-b56c-cbb78d8784e9",
+              "name": "Endpoint name already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) User or organization namespace"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"cpu\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"health_route\": \"example_value\",\n        \"env\": \"example_value\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f69d0fc2-47de-4b9b-93dc-18166cf794cd",
+          "name": "Get Endpoint Details",
+          "request": {
+            "name": "Get Endpoint Details",
+            "description": {
+              "content": "Get detailed information about a specific Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) Name of the endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa2e80c8-3a02-4175-8200-aec341699bb6",
+              "name": "Endpoint details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) Name of the endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a23c0d0d-5e50-4e55-abe6-fc438e2a68dd",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) Name of the endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fd8b2f6-2ee7-419f-8fce-6ad5f87e830f",
+          "name": "Update an Endpoint",
+          "request": {
+            "name": "Update an Endpoint",
+            "description": {
+              "content": "Update the configuration of an existing Inference Endpoint including model, hardware, and scaling settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"compute\": {\n    \"accelerator\": \"<string>\",\n    \"instanceType\": \"<string>\",\n    \"instanceSize\": \"<string>\",\n    \"scaling\": {\n      \"minReplica\": \"<integer>\",\n      \"maxReplica\": \"<integer>\",\n      \"scaleToZeroTimeout\": \"<integer>\"\n    }\n  },\n  \"model\": {\n    \"repository\": \"<string>\",\n    \"revision\": \"<string>\",\n    \"task\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "08104b72-7268-41d6-b34c-f4fdb963a29c",
+              "name": "Endpoint updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bc89c79-1fc8-4e8f-8438-b628b325c4e4",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4a67bbe-266f-4f65-8aa3-0c4ead952ea1",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"public\",\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01832e44-4cf5-481f-ac8b-79e2443d4303",
+          "name": "Delete an Endpoint",
+          "request": {
+            "name": "Delete an Endpoint",
+            "description": {
+              "content": "Permanently delete an Inference Endpoint and all associated resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c8bbe53-4c53-4230-b942-8e58ddb172ed",
+              "name": "Endpoint deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53210857-264d-4830-8683-305615cfc952",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "10344394-3aef-4058-9092-adf24cb71e69",
+          "name": "Pause an Endpoint",
+          "request": {
+            "name": "Pause an Endpoint",
+            "description": {
+              "content": "Pause an Inference Endpoint to stop incurring compute costs while preserving the configuration. The endpoint can be resumed later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "pause"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fbd12d1c-aa6d-4dee-9166-b3a58309fce2",
+              "name": "Endpoint paused successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35e7eb62-e129-4fc0-8637-1ccfcfbd119e",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "pause"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c1340286-7cf8-4438-8069-11483111d9c2",
+          "name": "Resume an Endpoint",
+          "request": {
+            "name": "Resume an Endpoint",
+            "description": {
+              "content": "Resume a previously paused Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee6b40c4-3d7e-4194-8802-d5f464da1560",
+              "name": "Endpoint resumed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b057404-2d07-4dfc-9f48-b5a6a694fe1b",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b554fd5b-88dc-4ce5-bbd3-1bda3cfb81e1",
+          "name": "Scale Endpoint to Zero",
+          "request": {
+            "name": "Scale Endpoint to Zero",
+            "description": {
+              "content": "Scale the endpoint to zero replicas. The endpoint will automatically scale up when it receives traffic (if autoscaling is configured).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "scale-to-zero"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a62cbeb7-26fb-46c0-9e5f-670d6b8d6995",
+              "name": "Endpoint scaled to zero",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "scale-to-zero"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Example Title\",\n  \"type\": \"public\",\n  \"accountId\": \"500123\",\n  \"provider\": {\n    \"vendor\": \"aws\",\n    \"region\": \"example_value\"\n  },\n  \"compute\": {\n    \"accelerator\": \"example_value\",\n    \"instanceType\": \"example_value\",\n    \"instanceSize\": \"example_value\",\n    \"scaling\": {\n      \"minReplica\": 10,\n      \"maxReplica\": 10,\n      \"scaleToZeroTimeout\": 10\n    }\n  },\n  \"model\": {\n    \"repository\": \"example_value\",\n    \"revision\": \"example_value\",\n    \"task\": \"example_value\",\n    \"framework\": \"pytorch\",\n    \"image\": {\n      \"huggingface\": \"example_value\",\n      \"custom\": {\n        \"url\": \"https://www.example.com\",\n        \"port\": 10\n      }\n    }\n  },\n  \"status\": {\n    \"state\": \"pending\",\n    \"message\": \"example_value\",\n    \"createdAt\": \"2026-01-15T10:30:00Z\",\n    \"updatedAt\": \"2026-01-15T10:30:00Z\",\n    \"url\": \"https://www.example.com\"\n  },\n  \"url\": \"https://www.example.com\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b8b3c56d-48b0-4125-a89c-432b95864c87",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "scale-to-zero"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19f6c2f7-4896-48d5-afbd-9e7236fd2c2a",
+          "name": "Get Endpoint Logs",
+          "request": {
+            "name": "Get Endpoint Logs",
+            "description": {
+              "content": "Retrieve the runtime logs for an Inference Endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9e3cb35-9265-4c39-89bf-fa6964b87adb",
+              "name": "Endpoint logs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "44f1c7f0-49e9-4320-82c2-fe660bc02441",
+              "name": "Endpoint not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32593d24-cb2b-41a0-9046-44f045fdf713",
+          "name": "Get Endpoint Metrics",
+          "request": {
+            "name": "Get Endpoint Metrics",
+            "description": {
+              "content": "Retrieve performance metrics for an Inference Endpoint including request counts, latencies, and error rates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "endpoint",
+                ":namespace",
+                ":endpoint_name",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "endpoint_name",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96075c10-58aa-479a-afce-8d478c206868",
+              "name": "Endpoint metrics",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "endpoint",
+                    ":namespace",
+                    ":endpoint_name",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "endpoint_name",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_count\": 10,\n  \"request_duration_ms\": {\n    \"p50\": 42.5,\n    \"p90\": 42.5,\n    \"p99\": 42.5\n  },\n  \"error_rate\": 42.5,\n  \"tokens_per_second\": 42.5\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "0486c14c-c514-4d05-a546-611b2bd67dc8",
+    "name": "Hugging Face Dataset Viewer Audio Endpoints API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

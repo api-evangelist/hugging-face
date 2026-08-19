@@ -1,0 +1,249 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Endpoints API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "my-organization",
+                "type": "path",
+                "description": "User or organization namespace"
+              }
+            ]
+          },
+          "docs": "List all Inference Endpoints for a given namespace (user or organization)."
+        },
+        {
+          "info": {
+            "name": "Create a New Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path",
+                "description": "User or organization namespace"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Inference Endpoint with the specified model, hardware, and configuration."
+        },
+        {
+          "info": {
+            "name": "Get Endpoint Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path",
+                "description": "Name of the endpoint"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific Inference Endpoint."
+        },
+        {
+          "info": {
+            "name": "Update an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the configuration of an existing Inference Endpoint including model, hardware, and scaling settings."
+        },
+        {
+          "info": {
+            "name": "Delete an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Permanently delete an Inference Endpoint and all associated resources."
+        },
+        {
+          "info": {
+            "name": "Pause an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name/pause",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Pause an Inference Endpoint to stop incurring compute costs while preserving the configuration. The endpoint can be resumed later."
+        },
+        {
+          "info": {
+            "name": "Resume an Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name/resume",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resume a previously paused Inference Endpoint."
+        },
+        {
+          "info": {
+            "name": "Scale Endpoint to Zero",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name/scale-to-zero",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Scale the endpoint to zero replicas. The endpoint will automatically scale up when it receives traffic (if autoscaling is configured)."
+        },
+        {
+          "info": {
+            "name": "Get Endpoint Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name/logs",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the runtime logs for an Inference Endpoint."
+        },
+        {
+          "info": {
+            "name": "Get Endpoint Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/endpoint/:namespace/:endpoint_name/metrics",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "example_value",
+                "type": "path"
+              },
+              {
+                "name": "endpoint_name",
+                "value": "example_value",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve performance metrics for an Inference Endpoint including request counts, latencies, and error rates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

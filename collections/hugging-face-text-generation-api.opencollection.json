@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Text Generation API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Text Generation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Text Completion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a text completion for a given prompt. Supports standard completion parameters compatible with the OpenAI API format."
+        },
+        {
+          "info": {
+            "name": "Generate Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate text from a prompt using the loaded model. Returns the full generated text in a single response."
+        },
+        {
+          "info": {
+            "name": "Generate Text With Streaming",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/generate_stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate text from a prompt using Server-Sent Events (SSE) streaming. Tokens are returned incrementally as they are generated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

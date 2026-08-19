@@ -1,0 +1,299 @@
+{
+  "item": [
+    {
+      "id": "6ca24baf-3e7b-4de3-bdae-bcc2074bfc44",
+      "name": "Spaces",
+      "description": {
+        "content": "Operations for managing and querying Spaces on the Hub",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4dfb2043-d757-4208-ae83-3e05eb8703d7",
+          "name": "List Spaces on the Hub",
+          "request": {
+            "name": "List Spaces on the Hub",
+            "description": {
+              "content": "List and search Spaces hosted on the Hugging Face Hub. Supports filtering by author, SDK, and full-text search.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Full-text search query"
+                },
+                {
+                  "disabled": false,
+                  "key": "author",
+                  "value": "<string>",
+                  "description": "Filter by Space author or organization"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter by tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Property to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Sort direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "30",
+                  "description": "Number of results to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4ec3ccb-7366-42b5-976d-ee95bd4d7b36",
+              "name": "List of Spaces matching the query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "author",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "example_value"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "lastModified"
+                    },
+                    {
+                      "key": "direction",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"500123\",\n    \"id\": \"abc123\",\n    \"author\": \"example_value\",\n    \"sha\": \"example_value\",\n    \"lastModified\": \"2026-01-15T10:30:00Z\",\n    \"private\": true,\n    \"tags\": [\n      \"example_value\"\n    ],\n    \"likes\": 10,\n    \"sdk\": \"gradio\",\n    \"runtime\": {\n      \"stage\": \"RUNNING\",\n      \"hardware\": {\n        \"current\": \"example_value\",\n        \"requested\": \"example_value\"\n      }\n    },\n    \"createdAt\": \"2026-01-15T10:30:00Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "450b59dd-c78a-4d12-8aad-5598467bab53",
+          "name": "Get Space Information",
+          "request": {
+            "name": "Get Space Information",
+            "description": {
+              "content": "Get detailed information about a specific Space.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":repo_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo_id",
+                  "description": "(Required) The Space repository ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dcdb7afb-29aa-4230-bf57-6bdfb987fe98",
+              "name": "Detailed Space information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The Space repository ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b9472e3-f06e-4228-8b24-9dd854cb549d",
+              "name": "Space not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":repo_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo_id",
+                      "description": "(Required) The Space repository ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"example_value\",\n  \"statusCode\": 10\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "8113d8d5-17d6-4e74-a4b6-1f1c7600a820",
+    "name": "Hugging Face Dataset Viewer Audio Spaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

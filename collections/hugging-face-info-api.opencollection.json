@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Info API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/v1/models"
+          },
+          "docs": "Get information about the model currently loaded on this TGI server."
+        },
+        {
+          "info": {
+            "name": "Get Server Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/info"
+          },
+          "docs": "Get metadata about the TGI server including the loaded model, version, SHA, Docker label, and model-specific parameters."
+        },
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/health"
+          },
+          "docs": "Check the health of the TGI server. Returns 200 if the model is loaded and ready to serve requests."
+        },
+        {
+          "info": {
+            "name": "Get Prometheus Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/metrics"
+          },
+          "docs": "Get server metrics in Prometheus format including request counts, latencies, queue sizes, and token throughput."
+        },
+        {
+          "info": {
+            "name": "Tokenize Text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/tokenize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Tokenize a string of text using the model's tokenizer. Returns the token IDs and their string representations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

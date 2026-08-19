@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Models API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Models on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/models",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query to filter models"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by model author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags (comma-separated)"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return (max 1000)"
+              },
+              {
+                "name": "full",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return full model information including card data"
+              },
+              {
+                "name": "config",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return the model config"
+              },
+              {
+                "name": "pipeline_tag",
+                "value": "text-generation",
+                "type": "query",
+                "description": "Filter by pipeline task type"
+              },
+              {
+                "name": "library",
+                "value": "transformers",
+                "type": "query",
+                "description": "Filter by ML library"
+              }
+            ]
+          },
+          "docs": "List and search models hosted on the Hugging Face Hub. Supports filtering by author, task, library, tags, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Model Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/models/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "bert-base-uncased",
+                "type": "path",
+                "description": "The model repository ID (e.g., bert-base-uncased or organization/model-name)"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific model by its repository ID."
+        },
+        {
+          "info": {
+            "name": "Get Model Information at a Specific Revision",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/models/:repo_id/revision/:revision",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              },
+              {
+                "name": "revision",
+                "value": "example_value",
+                "type": "path",
+                "description": "Git revision (branch name, tag, or commit SHA)"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a model at a specific Git revision (branch, tag, or commit SHA)."
+        },
+        {
+          "info": {
+            "name": "List Available Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/metrics"
+          },
+          "docs": "Get the list of available evaluation metrics on the Hub."
+        },
+        {
+          "info": {
+            "name": "List Model Tags Grouped by Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/models-tags-by-type"
+          },
+          "docs": "Get all available model tags organized by type (pipeline_tag, library, language, license, etc.)."
+        },
+        {
+          "info": {
+            "name": "List Available Models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/v1/models"
+          },
+          "docs": "List models available through inference providers. Returns model IDs and basic metadata."
+        },
+        {
+          "info": {
+            "name": "Get Model Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/v1/models/:model_id",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "meta-llama/Llama-3-70b-chat-hf",
+                "type": "path",
+                "description": "The model ID"
+              }
+            ]
+          },
+          "docs": "Get information about a specific model available through inference providers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

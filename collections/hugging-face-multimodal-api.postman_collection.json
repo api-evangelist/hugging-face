@@ -1,0 +1,146 @@
+{
+  "item": [
+    {
+      "id": "3a0abb59-661f-451f-a4f5-f1165ee0923d",
+      "name": "Multimodal",
+      "description": {
+        "content": "Tasks involving multiple modalities",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cc09dbb5-6935-4090-9c56-ad385eb3e356",
+          "name": "Text to Image Generation",
+          "request": {
+            "name": "Text to Image Generation",
+            "description": {
+              "content": "Generate an image from a text prompt using a diffusion model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "models",
+                ":model_id",
+                "text-to-image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "image/png"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": \"<string>\",\n  \"parameters\": {\n    \"negative_prompt\": \"<string>\",\n    \"height\": \"<integer>\",\n    \"width\": \"<integer>\",\n    \"num_inference_steps\": \"<integer>\",\n    \"guidance_scale\": \"<float>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36a7261f-80af-4d12-85df-de6b249a9b7d",
+              "name": "Generated image",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "models",
+                    ":model_id",
+                    "text-to-image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/png"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": \"example_value\",\n  \"parameters\": {\n    \"negative_prompt\": \"example_value\",\n    \"height\": 10,\n    \"width\": 10,\n    \"num_inference_steps\": 10,\n    \"guidance_scale\": 42.5\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/png"
+                }
+              ],
+              "body": "example_value",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://datasets-server.huggingface.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "02630d02-b4eb-418a-bfdc-c408afe5f8bc",
+    "name": "Hugging Face Dataset Viewer Audio Multimodal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.\n\nContact Support:\n Name: Hugging Face Support",
+      "type": "text/plain"
+    }
+  }
+}

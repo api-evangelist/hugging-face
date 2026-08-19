@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio Datasets API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Datasets on the Hub",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/datasets",
+            "params": [
+              {
+                "name": "search",
+                "value": "example_value",
+                "type": "query",
+                "description": "Full-text search query to filter datasets"
+              },
+              {
+                "name": "author",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by dataset author or organization"
+              },
+              {
+                "name": "filter",
+                "value": "example_value",
+                "type": "query",
+                "description": "Filter by tags (comma-separated)"
+              },
+              {
+                "name": "sort",
+                "value": "lastModified",
+                "type": "query",
+                "description": "Property to sort results by"
+              },
+              {
+                "name": "direction",
+                "value": "-1",
+                "type": "query",
+                "description": "Sort direction"
+              },
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "full",
+                "value": "true",
+                "type": "query",
+                "description": "Whether to return full dataset information"
+              }
+            ]
+          },
+          "docs": "List and search datasets hosted on the Hugging Face Hub. Supports filtering by author, tags, and full-text search."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/datasets/:repo_id",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "squad",
+                "type": "path",
+                "description": "The dataset repository ID"
+              }
+            ]
+          },
+          "docs": "Get detailed information about a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Parquet Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/datasets/:repo_id/parquet",
+            "params": [
+              {
+                "name": "repo_id",
+                "value": "500123",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the list of auto-converted Parquet files for a dataset."
+        },
+        {
+          "info": {
+            "name": "List Dataset Tags Grouped by Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://datasets-server.huggingface.co/datasets-tags-by-type"
+          },
+          "docs": "Get all available dataset tags organized by type (task_categories, language, size_categories, etc.)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

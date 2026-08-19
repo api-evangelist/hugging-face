@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hugging Face Dataset Viewer Audio API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Automatic Speech Recognition Inference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/models/:model_id/automatic-speech-recognition",
+            "params": [
+              {
+                "name": "model_id",
+                "value": "openai/whisper-large-v3",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Transcribe audio to text using a speech recognition model."
+        },
+        {
+          "info": {
+            "name": "Transcribe Audio",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/audio/transcriptions",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "model",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "language",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "prompt",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "response_format",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "temperature",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Transcribe audio to text using automatic speech recognition models."
+        },
+        {
+          "info": {
+            "name": "Generate Speech",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://datasets-server.huggingface.co/v1/audio/speech",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate audio speech from text input."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
