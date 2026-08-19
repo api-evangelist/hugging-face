@@ -18,7 +18,7 @@ image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
 modified: '2026-05-19'
-specificationVersion: '0.18'
+specificationVersion: '0.23'
 apis:
 - aid: hugging-face:hugging-face-audio-api
   name: Hugging Face Audio API
