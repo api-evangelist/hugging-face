@@ -218,6 +218,8 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
+  - Computer-Vision
+  tags_raw:
   - Computer Vision
   properties:
   - type: OpenAPI
@@ -537,7 +539,8 @@ apis:
   description: Manage dedicated inference endpoints
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
-  tags:
+  tags: []
+  tags_raw:
   - Endpoints
   properties:
   - type: OpenAPI
@@ -666,6 +669,8 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
+  - Image-Generation
+  tags_raw:
   - Image Generation
   properties:
   - type: OpenAPI
@@ -858,6 +863,8 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
+  - Multi-Modal
+  tags_raw:
   - Multimodal
   properties:
   - type: OpenAPI
@@ -1306,6 +1313,8 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
