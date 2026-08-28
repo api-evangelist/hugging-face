@@ -1,6 +1,20 @@
 name: Hugging Face
 description: The AI community building the future with open-source machine learning
   models, datasets, and applications.
+deliveryModel:
+  model: open-core
+  license: Apache-2.0
+  open_source: true
+  commercial: true
+  callable_host: true
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -1374,6 +1388,9 @@ apis:
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
 common:
+- type: CapabilityMap
+  url: capabilities/hugging-face-capability-edges.yml
+  name: Hugging Face Business Capability Map
 - type: IssueTracker
   url: https://github.com/huggingface/dataset-viewer/issues
 - type: Releases

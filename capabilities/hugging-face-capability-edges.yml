@@ -1,0 +1,81 @@
+slug: hugging-face
+provider: Hugging Face
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Natural Language Processing
+  spec_file: hugging-face-natural-language-processing-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /models/{model_id} runInference Run Inference on a Model; POST /models/{model_id}/summarization
+    summarization Text Summarization Inference
+  reason: Broad set of NLP model inference operations — clearly AI/ML model lifecycle/serving under Information
+    & Data Management.
+- tag: Embeddings
+  spec_file: hugging-face-embeddings-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /v1/embeddings createEmbeddings Create Embeddings
+  reason: Model inference producing embeddings — AI/ML capability delivery. Maps to Artificial Intelligence
+    Management, though it is model serving rather than full lifecycle.
+- tag: Endpoints
+  spec_file: hugging-face-endpoints-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /endpoint/{namespace} createEndpoint Create a New Endpoint; POST /endpoint/{namespace}/{endpoint_name}/scale-to-zero
+  reason: Lifecycle management of model inference endpoints (create, pause, resume, scale, logs, metrics)
+    — MLOps/model serving operations. Could also read as generic infrastructure ops, hence moderate confidence.
+- tag: Image Generation
+  spec_file: hugging-face-image-generation-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/images/generations createImageGeneration Generate Images
+  reason: Generative AI inference service. Fits AI/ML capability at L1/L2; no more specific business process
+    is evidenced.
+- tag: Models
+  spec_file: hugging-face-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: GET /models listModels List Models on the Hub; GET /models/{repo_id}/revision/{revision} Get
+    Model Information at a Specific Revision
+  reason: Model registry/catalogue with revisions — model inventory aspect of AI/ML lifecycle management.
+- tag: Multimodal
+  spec_file: hugging-face-multimodal-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /models/{model_id}/text-to-image textToImage Text to Image Generation
+  reason: Multimodal model inference — AI/ML model serving capability.
+- tag: Text Generation
+  spec_file: hugging-face-text-generation-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /generate generate Generate Text; POST /generate_stream generateStream Generate Text
+    With Streaming
+  reason: Operations perform LLM inference (completions and streaming text generation), i.e. serving/consumption
+    of AI models, which sits under Artificial Intelligence Management. Confidence tempered because the
+    surface is inference-only rather than full model lifecycle.
