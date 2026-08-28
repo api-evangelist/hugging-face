@@ -11,8 +11,11 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: hubApi
-  url: ../openapi/hugging-face-hub-api.yml
+- name: infoApi
+  url: ../openapi/hugging-face-info-api-openapi.yml
+  type: openapi
+- name: modelsApi
+  url: ../openapi/hugging-face-models-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: search-and-inspect-model

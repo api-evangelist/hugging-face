@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: inferenceProvidersApi
-  url: ../openapi/hugging-face-inference-providers-api.yml
+- name: embeddingsApi
+  url: ../openapi/hugging-face-embeddings-api-openapi.yml
+  type: openapi
+- name: infoApi
+  url: ../openapi/hugging-face-info-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: embeddings-pair

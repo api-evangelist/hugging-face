@@ -11,8 +11,11 @@ info:
     be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: datasetViewerApi
-  url: ../openapi/hugging-face-dataset-viewer-api.yml
+- name: dataAccessApi
+  url: ../openapi/hugging-face-data-access-api-openapi.yml
+  type: openapi
+- name: datasetInfoApi
+  url: ../openapi/hugging-face-dataset-info-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: dataset-validate-and-preview

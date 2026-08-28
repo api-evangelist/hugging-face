@@ -11,8 +11,14 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: inferenceProvidersApi
-  url: ../openapi/hugging-face-inference-providers-api.yml
+- name: chatCompletionsApi
+  url: ../openapi/hugging-face-chat-completions-api-openapi.yml
+  type: openapi
+- name: infoApi
+  url: ../openapi/hugging-face-info-api-openapi.yml
+  type: openapi
+- name: modelsApi
+  url: ../openapi/hugging-face-models-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: chat-completion-with-model-discovery

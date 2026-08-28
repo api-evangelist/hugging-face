@@ -11,8 +11,14 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: datasetViewerApi
-  url: ../openapi/hugging-face-dataset-viewer-api.yml
+- name: datasetInfoApi
+  url: ../openapi/hugging-face-dataset-info-api-openapi.yml
+  type: openapi
+- name: filesMetadataApi
+  url: ../openapi/hugging-face-files-metadata-api-openapi.yml
+  type: openapi
+- name: searchFilterApi
+  url: ../openapi/hugging-face-search-filter-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: dataset-search-and-statistics

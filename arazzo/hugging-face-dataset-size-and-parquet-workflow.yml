@@ -12,11 +12,11 @@ info:
     OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: hubApi
-  url: ../openapi/hugging-face-hub-api.yml
+- name: datasetsApi
+  url: ../openapi/hugging-face-datasets-api-openapi.yml
   type: openapi
-- name: datasetViewerApi
-  url: ../openapi/hugging-face-dataset-viewer-api.yml
+- name: filesMetadataApi
+  url: ../openapi/hugging-face-files-metadata-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: dataset-size-and-parquet
@@ -41,7 +41,7 @@ workflows:
     description: >-
       Confirm the dataset exists on the Hub before querying the viewer for its
       size and Parquet files.
-    operationId: $sourceDescriptions.hubApi.getDataset
+    operationId: $sourceDescriptions.datasetsApi.getDataset
     parameters:
     - name: repo_id
       in: path
@@ -60,7 +60,7 @@ workflows:
     description: >-
       Read the dataset's size profile including row counts and byte sizes for the
       full dataset and for each subset and split.
-    operationId: $sourceDescriptions.datasetViewerApi.getDatasetSize
+    operationId: $sourceDescriptions.filesMetadataApi.getDatasetSize
     parameters:
     - name: Authorization
       in: header
@@ -77,7 +77,7 @@ workflows:
     description: >-
       List the auto-converted Parquet files for the dataset so a consumer can
       plan efficient bulk access.
-    operationId: $sourceDescriptions.datasetViewerApi.getParquetFiles
+    operationId: $sourceDescriptions.filesMetadataApi.getParquetFiles
     parameters:
     - name: Authorization
       in: header

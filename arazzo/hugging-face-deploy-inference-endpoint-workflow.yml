@@ -12,8 +12,8 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: inferenceEndpointsApi
-  url: ../openapi/hugging-face-inference-endpoints-api.yml
+- name: endpointsApi
+  url: ../openapi/hugging-face-endpoints-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: deploy-inference-endpoint

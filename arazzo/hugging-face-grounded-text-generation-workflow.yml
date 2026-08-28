@@ -11,11 +11,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: hubApi
-  url: ../openapi/hugging-face-hub-api.yml
+- name: infoApi
+  url: ../openapi/hugging-face-info-api-openapi.yml
   type: openapi
-- name: inferenceApi
-  url: ../openapi/hugging-face-inference-api.yml
+- name: modelsApi
+  url: ../openapi/hugging-face-models-api-openapi.yml
+  type: openapi
+- name: naturalLanguageProcessingApi
+  url: ../openapi/hugging-face-natural-language-processing-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: grounded-text-generation
@@ -52,7 +55,7 @@ workflows:
     description: >-
       Search the Hub for text-generation models matching the query, sorted by
       downloads, and take the most popular match.
-    operationId: $sourceDescriptions.hubApi.listModels
+    operationId: $sourceDescriptions.infoApi.listModels
     parameters:
     - name: search
       in: query
@@ -82,7 +85,7 @@ workflows:
     description: >-
       Confirm the selected model exists and read its tags before issuing a paid
       inference request.
-    operationId: $sourceDescriptions.hubApi.getModel
+    operationId: $sourceDescriptions.modelsApi.getModel
     parameters:
     - name: repo_id
       in: path
@@ -96,7 +99,7 @@ workflows:
       Run a hosted text-generation inference request against the confirmed model.
       A 200 returns the generated text; a 503 indicates the model is still
       loading and the request may be retried.
-    operationId: $sourceDescriptions.inferenceApi.textGeneration
+    operationId: $sourceDescriptions.naturalLanguageProcessingApi.textGeneration
     parameters:
     - name: Authorization
       in: header
