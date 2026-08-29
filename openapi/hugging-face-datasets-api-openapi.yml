@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Datasets API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Hub Datasets API
+  description: Programmatically interact with the Hugging Face Hub to manage models, datasets, spaces, and repositories. Provides endpoints for listing, searching, creating, and managing resources on the Hub.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -11,10 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://huggingface.co/api
+  description: Hugging Face Hub API production server
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Datasets
@@ -247,17 +246,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     DatasetSummary:
       type: object
       properties:
@@ -305,6 +293,17 @@ components:
         description:
           type: string
           example: A sample description.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     DatasetInfo:
       allOf:
       - $ref: '#/components/schemas/DatasetSummary'
@@ -342,4 +341,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face user access token. Generate from https://huggingface.co/settings/tokens

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Search & Filter API
+  title: Hugging Face Dataset Viewer Search & Filter API
   description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
@@ -240,46 +240,6 @@ components:
             type: string
           description: Stack trace (only in development)
           example: []
-    SearchResponse:
-      type: object
-      properties:
-        features:
-          type: array
-          items:
-            type: object
-            properties:
-              feature_idx:
-                type: integer
-              name:
-                type: string
-              type:
-                type: object
-          example: []
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              row_idx:
-                type: integer
-              row:
-                type: object
-                additionalProperties: true
-              truncated_cells:
-                type: array
-                items:
-                  type: string
-          example: []
-        num_rows_total:
-          type: integer
-          description: Total number of matching rows
-          example: 10
-        num_rows_per_page:
-          type: integer
-          example: 10
-        partial:
-          type: boolean
-          example: true
     RowsResponse:
       type: object
       properties:
@@ -334,6 +294,46 @@ components:
         partial:
           type: boolean
           description: Whether this is a partial result
+          example: true
+    SearchResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+              name:
+                type: string
+              type:
+                type: object
+          example: []
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+              row:
+                type: object
+                additionalProperties: true
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+          example: []
+        num_rows_total:
+          type: integer
+          description: Total number of matching rows
+          example: 10
+        num_rows_per_page:
+          type: integer
+          example: 10
+        partial:
+          type: boolean
           example: true
   securitySchemes:
     bearerAuth:

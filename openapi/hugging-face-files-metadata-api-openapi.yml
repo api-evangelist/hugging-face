@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Files & Metadata API
+  title: Hugging Face Dataset Viewer Files & Metadata API
   description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
@@ -298,6 +298,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        cause_exception:
+          type: string
+          description: Underlying exception type
+          example: example_value
+        cause_message:
+          type: string
+          description: Underlying exception message
+          example: example_value
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)
+          example: []
     StatisticsResponse:
       type: object
       properties:
@@ -369,27 +390,6 @@ components:
         partial:
           type: boolean
           example: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        cause_exception:
-          type: string
-          description: Underlying exception type
-          example: example_value
-        cause_message:
-          type: string
-          description: Underlying exception message
-          example: example_value
-        cause_traceback:
-          type: array
-          items:
-            type: string
-          description: Stack trace (only in development)
-          example: []
     SizeResponse:
       type: object
       properties:

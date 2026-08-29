@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Providers API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Inference Endpoints Providers API
+  description: Deploy and scale machine learning models with dedicated, secure infrastructure. Manage Inference Endpoints programmatically - create, update, scale, pause, resume, and delete dedicated endpoints for serving ML models with autoscaling and custom hardware configurations.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -11,10 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://api.endpoints.huggingface.cloud/v2
+  description: Hugging Face Inference Endpoints management API
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Providers
@@ -93,4 +92,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face user access token with Inference Endpoints permissions.

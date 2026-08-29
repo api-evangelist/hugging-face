@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Embeddings API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Inference Providers Embeddings API
+  description: Unified proxy layer providing access to 15+ inference partners through a single OpenAI-compatible endpoint. Route requests to providers like AWS, Google, Azure, Together, Fireworks, and more through a consistent API with automatic model routing and provider selection.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -11,10 +11,9 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://router.huggingface.co
+  description: Hugging Face Inference Providers router
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Embeddings
@@ -83,6 +82,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
     EmbeddingRequest:
       type: object
       required:
@@ -108,22 +123,6 @@ components:
           - base64
           default: float
           example: float
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
     EmbeddingResponse:
       type: object
       properties:
@@ -163,4 +162,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face API token with Inference Providers permission. Generate from https://huggingface.co/settings/tokens

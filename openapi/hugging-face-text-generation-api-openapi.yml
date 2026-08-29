@@ -1,20 +1,23 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Text Generation API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Text Generation API
   version: 1.0.0
-  termsOfService: https://huggingface.co/terms-of-service
   contact:
     name: Hugging Face Support
     url: https://huggingface.co/support
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  termsOfService: https://huggingface.co/terms-of-service
+  description: 'Operations tagged Text Generation across 2 of this provider''s published API definitions: hugging-face-inference-providers-api.yml, hugging-face-text-generation-inference-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://router.huggingface.co
+  description: Hugging Face Inference Providers router
+- url: https://api-inference.huggingface.co
+  description: Hugging Face hosted TGI server
+- url: http://localhost:8080
+  description: Local TGI server (self-hosted)
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Text Generation
@@ -105,6 +108,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://router.huggingface.co
+      description: Hugging Face Inference Providers router
   /generate:
     post:
       summary: Generate Text
@@ -251,6 +257,11 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://api-inference.huggingface.co
+      description: Hugging Face hosted TGI server
+    - url: http://localhost:8080
+      description: Local TGI server (self-hosted)
   /generate_stream:
     post:
       summary: Generate Text With Streaming
@@ -341,8 +352,269 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://api-inference.huggingface.co
+      description: Hugging Face hosted TGI server
+    - url: http://localhost:8080
+      description: Local TGI server (self-hosted)
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt
+          example: 10
+        completion_tokens:
+          type: integer
+          description: Number of tokens in the completion
+          example: 10
+        total_tokens:
+          type: integer
+          description: Total tokens used
+          example: 10
+    CompletionStreamResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        object:
+          type: string
+          const: text_completion
+          example: example_value
+        created:
+          type: integer
+          example: 10
+        model:
+          type: string
+          example: example_value
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              index:
+                type: integer
+              finish_reason:
+                type: string
+          example: []
+    CompletionRequest:
+      type: object
+      required:
+      - model
+      - prompt
+      properties:
+        model:
+          type: string
+          description: Model ID to use
+          example: example_value
+        prompt:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: Prompt(s) to generate completions for
+          example: example_value
+        max_tokens:
+          type: integer
+          default: 16
+          example: 10
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 1.0
+          example: 42.5
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1.0
+          example: 42.5
+        stop:
+          type: array
+          items:
+            type: string
+          maxItems: 4
+          example: []
+        stream:
+          type: boolean
+          default: false
+          example: true
+        seed:
+          type: integer
+          example: 10
+    CompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        object:
+          type: string
+          const: text_completion
+          example: example_value
+        created:
+          type: integer
+          example: 10
+        model:
+          type: string
+          example: example_value
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              index:
+                type: integer
+              finish_reason:
+                type: string
+          example: []
+        usage:
+          $ref: '#/components/schemas/Usage'
+    Usage_2:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          example: 10
+        completion_tokens:
+          type: integer
+          example: 10
+        total_tokens:
+          type: integer
+          example: 10
+    GenerateResponse:
+      type: object
+      properties:
+        generated_text:
+          type: string
+          description: The generated text
+          example: example_value
+        details:
+          type: object
+          properties:
+            finish_reason:
+              type: string
+              enum:
+              - length
+              - eos_token
+              - stop_sequence
+              description: Reason generation stopped
+            generated_tokens:
+              type: integer
+              description: Number of generated tokens
+            seed:
+              type: integer
+              description: Sampling seed used
+            prefill:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  logprob:
+                    type: number
+              description: Prefill token details
+            tokens:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  logprob:
+                    type: number
+                  special:
+                    type: boolean
+              description: Generated token details
+            best_of_sequences:
+              type: array
+              items:
+                type: object
+              description: Best-of sequences details
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        error_type:
+          type: string
+          description: Error type classification
+          example: example_value
+    CompletionRequest_2:
+      type: object
+      required:
+      - model
+      - prompt
+      properties:
+        model:
+          type: string
+          example: example_value
+        prompt:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: example_value
+        max_tokens:
+          type: integer
+          default: 16
+          example: 10
+        temperature:
+          type: number
+          example: 42.5
+        top_p:
+          type: number
+          example: 42.5
+        stop:
+          type: array
+          items:
+            type: string
+          example: []
+        stream:
+          type: boolean
+          default: false
+          example: true
+        seed:
+          type: integer
+          example: 10
+        suffix:
+          type: string
+          description: Suffix to append after generated text
+          example: example_value
     GenerateRequest:
       type: object
       required:
@@ -435,137 +707,6 @@ components:
                   type: string
                   description: Grammar specification (JSON schema or regex)
           example: example_value
-    CompletionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        object:
-          type: string
-          const: text_completion
-          example: example_value
-        created:
-          type: integer
-          example: 10
-        model:
-          type: string
-          example: example_value
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              text:
-                type: string
-              index:
-                type: integer
-              finish_reason:
-                type: string
-          example: []
-        usage:
-          $ref: '#/components/schemas/Usage'
-    CompletionRequest:
-      type: object
-      required:
-      - model
-      - prompt
-      properties:
-        model:
-          type: string
-          description: Model ID to use
-          example: example_value
-        prompt:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: Prompt(s) to generate completions for
-          example: example_value
-        max_tokens:
-          type: integer
-          default: 16
-          example: 10
-        temperature:
-          type: number
-          minimum: 0
-          maximum: 2
-          default: 1.0
-          example: 42.5
-        top_p:
-          type: number
-          minimum: 0
-          maximum: 1
-          default: 1.0
-          example: 42.5
-        stop:
-          type: array
-          items:
-            type: string
-          maxItems: 4
-          example: []
-        stream:
-          type: boolean
-          default: false
-          example: true
-        seed:
-          type: integer
-          example: 10
-    Usage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-          description: Number of tokens in the prompt
-          example: 10
-        completion_tokens:
-          type: integer
-          description: Number of tokens in the completion
-          example: 10
-        total_tokens:
-          type: integer
-          description: Total tokens used
-          example: 10
-    CompletionStreamResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        object:
-          type: string
-          const: text_completion
-          example: example_value
-        created:
-          type: integer
-          example: 10
-        model:
-          type: string
-          example: example_value
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              text:
-                type: string
-              index:
-                type: integer
-              finish_reason:
-                type: string
-          example: []
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        error_type:
-          type: string
-          description: Error type classification
-          example: example_value
     StreamResponse:
       type: object
       properties:
@@ -596,80 +737,12 @@ components:
             seed:
               type: integer
           example: example_value
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
-    GenerateResponse:
-      type: object
-      properties:
-        generated_text:
-          type: string
-          description: The generated text
-          example: example_value
-        details:
-          type: object
-          properties:
-            finish_reason:
-              type: string
-              enum:
-              - length
-              - eos_token
-              - stop_sequence
-              description: Reason generation stopped
-            generated_tokens:
-              type: integer
-              description: Number of generated tokens
-            seed:
-              type: integer
-              description: Sampling seed used
-            prefill:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  text:
-                    type: string
-                  logprob:
-                    type: number
-              description: Prefill token details
-            tokens:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  text:
-                    type: string
-                  logprob:
-                    type: number
-                  special:
-                    type: boolean
-              description: Generated token details
-            best_of_sequences:
-              type: array
-              items:
-                type: object
-              description: Best-of sequences details
-          example: example_value
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face API token with Inference Providers permission. Generate from https://huggingface.co/settings/tokens
+x-refined-from:
+- hugging-face-inference-providers-api.yml
+- hugging-face-text-generation-inference-api.yml

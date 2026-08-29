@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Chat API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Text Generation Inference Chat API
+  description: High-performance toolkit for deploying and serving large language models with optimized inference. Provides both a custom TGI API and an OpenAI-compatible Messages API for chat completions. Supports streaming, tool calling, structured output, grammar constraints, and multi-modal inputs.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -11,10 +11,11 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://api-inference.huggingface.co
+  description: Hugging Face hosted TGI server
+- url: http://localhost:8080
+  description: Local TGI server (self-hosted)
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Chat
@@ -170,19 +171,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Usage:
+    ErrorResponse:
       type: object
       properties:
-        prompt_tokens:
-          type: integer
-          example: 10
-        completion_tokens:
-          type: integer
-          example: 10
-        total_tokens:
-          type: integer
-          example: 10
-    ChatCompletionStreamResponse:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        error_type:
+          type: string
+          description: Error type classification
+          example: example_value
+    ChatCompletionResponse:
       type: object
       properties:
         id:
@@ -190,7 +190,7 @@ components:
           example: abc123
         object:
           type: string
-          const: chat.completion.chunk
+          const: chat.completion
           example: example_value
         created:
           type: integer
@@ -208,7 +208,7 @@ components:
             properties:
               index:
                 type: integer
-              delta:
+              message:
                 type: object
                 properties:
                   role:
@@ -222,8 +222,6 @@ components:
                       properties:
                         id:
                           type: string
-                        index:
-                          type: integer
                         type:
                           type: string
                         function:
@@ -233,10 +231,16 @@ components:
                               type: string
                             arguments:
                               type: string
+                            description:
+                              type: string
                   tool_call_id:
                     type: string
               finish_reason:
                 type: string
+                enum:
+                - stop
+                - length
+                - tool_calls
               logprobs:
                 type: object
                 properties:
@@ -261,6 +265,18 @@ components:
           example: []
         usage:
           $ref: '#/components/schemas/Usage'
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          example: 10
+        completion_tokens:
+          type: integer
+          example: 10
+        total_tokens:
+          type: integer
+          example: 10
     ChatCompletionRequest:
       type: object
       required:
@@ -476,18 +492,7 @@ components:
           minimum: 0
           maximum: 1
           example: 42.5
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        error_type:
-          type: string
-          description: Error type classification
-          example: example_value
-    ChatCompletionResponse:
+    ChatCompletionStreamResponse:
       type: object
       properties:
         id:
@@ -495,7 +500,7 @@ components:
           example: abc123
         object:
           type: string
-          const: chat.completion
+          const: chat.completion.chunk
           example: example_value
         created:
           type: integer
@@ -513,7 +518,7 @@ components:
             properties:
               index:
                 type: integer
-              message:
+              delta:
                 type: object
                 properties:
                   role:
@@ -527,6 +532,8 @@ components:
                       properties:
                         id:
                           type: string
+                        index:
+                          type: integer
                         type:
                           type: string
                         function:
@@ -536,16 +543,10 @@ components:
                               type: string
                             arguments:
                               type: string
-                            description:
-                              type: string
                   tool_call_id:
                     type: string
               finish_reason:
                 type: string
-                enum:
-                - stop
-                - length
-                - tool_calls
               logprobs:
                 type: object
                 properties:
@@ -575,4 +576,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face API token or custom auth token for self-hosted instances.

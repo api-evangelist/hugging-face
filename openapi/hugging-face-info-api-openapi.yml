@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Info API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Text Generation Inference Info API
+  description: High-performance toolkit for deploying and serving large language models with optimized inference. Provides both a custom TGI API and an OpenAI-compatible Messages API for chat completions. Supports streaming, tool calling, structured output, grammar constraints, and multi-modal inputs.
   version: 1.0.0
   termsOfService: https://huggingface.co/terms-of-service
   contact:
@@ -11,10 +11,11 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://api-inference.huggingface.co
+  description: Hugging Face hosted TGI server
+- url: http://localhost:8080
+  description: Local TGI server (self-hosted)
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Info
@@ -291,4 +292,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face API token or custom auth token for self-hosted instances.

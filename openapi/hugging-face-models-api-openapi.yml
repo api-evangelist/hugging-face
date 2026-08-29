@@ -1,20 +1,21 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Hugging Face Dataset Viewer Audio Models API
-  description: Query and visualize datasets stored on the Hugging Face Hub through a lightweight REST API. Get dataset splits, preview rows, search and filter data, access Parquet files, retrieve size statistics, and obtain Croissant metadata - all without downloading the entire dataset.
+  title: Hugging Face Models API
   version: 1.0.0
-  termsOfService: https://huggingface.co/terms-of-service
   contact:
     name: Hugging Face Support
     url: https://huggingface.co/support
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
+  termsOfService: https://huggingface.co/terms-of-service
+  description: 'Operations tagged Models across 2 of this provider''s published API definitions: hugging-face-hub-api.yml, hugging-face-inference-providers-api.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://datasets-server.huggingface.co
-  description: Hugging Face Dataset Viewer production server
+- url: https://huggingface.co/api
+  description: Hugging Face Hub API production server
+- url: https://router.huggingface.co
+  description: Hugging Face Inference Providers router
 security:
-- {}
 - bearerAuth: []
 tags:
 - name: Models
@@ -155,6 +156,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://huggingface.co/api
+      description: Hugging Face Hub API production server
   /models/{repo_id}:
     get:
       summary: Get Model Information
@@ -212,6 +216,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://huggingface.co/api
+      description: Hugging Face Hub API production server
   /models/{repo_id}/revision/{revision}:
     get:
       summary: Get Model Information at a Specific Revision
@@ -248,6 +255,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://huggingface.co/api
+      description: Hugging Face Hub API production server
   /metrics:
     get:
       summary: List Available Metrics
@@ -280,6 +290,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://huggingface.co/api
+      description: Hugging Face Hub API production server
   /models-tags-by-type:
     get:
       summary: List Model Tags Grouped by Type
@@ -314,6 +327,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://huggingface.co/api
+      description: Hugging Face Hub API production server
   /v1/models:
     get:
       summary: List Available Models
@@ -363,6 +379,9 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://router.huggingface.co
+      description: Hugging Face Inference Providers router
   /v1/models/{model_id}:
     get:
       summary: Get Model Information
@@ -422,8 +441,76 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+    servers:
+    - url: https://router.huggingface.co
+      description: Hugging Face Inference Providers router
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    ModelInfo:
+      allOf:
+      - $ref: '#/components/schemas/ModelSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
+              type: object
+              properties:
+                rfilename:
+                  type: string
+                size:
+                  type: integer
+                lfs:
+                  type: object
+                  properties:
+                    sha256:
+                      type: string
+                    size:
+                      type: integer
+                    pointerSize:
+                      type: integer
+            description: Files in the repository
+          spaces:
+            type: array
+            items:
+              type: string
+            description: Spaces using this model
+          safetensors:
+            type: object
+            properties:
+              parameters:
+                type: object
+                additionalProperties:
+                  type: integer
+              total:
+                type: integer
+            description: Safetensors parameter information
+          config:
+            type: object
+            description: Model configuration
+          cardData:
+            type: object
+            description: Parsed model card metadata
+          transformersInfo:
+            type: object
+            properties:
+              auto_model:
+                type: string
+              pipeline_tag:
+                type: string
+              processor:
+                type: string
     ModelSummary:
       type: object
       properties:
@@ -504,74 +591,12 @@ components:
               type: string
               description: Error code
           example: example_value
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
-    ModelInfo:
-      allOf:
-      - $ref: '#/components/schemas/ModelSummary'
-      - type: object
-        properties:
-          siblings:
-            type: array
-            items:
-              type: object
-              properties:
-                rfilename:
-                  type: string
-                size:
-                  type: integer
-                lfs:
-                  type: object
-                  properties:
-                    sha256:
-                      type: string
-                    size:
-                      type: integer
-                    pointerSize:
-                      type: integer
-            description: Files in the repository
-          spaces:
-            type: array
-            items:
-              type: string
-            description: Spaces using this model
-          safetensors:
-            type: object
-            properties:
-              parameters:
-                type: object
-                additionalProperties:
-                  type: integer
-              total:
-                type: integer
-            description: Safetensors parameter information
-          config:
-            type: object
-            description: Model configuration
-          cardData:
-            type: object
-            description: Parsed model card metadata
-          transformersInfo:
-            type: object
-            properties:
-              auto_model:
-                type: string
-              pipeline_tag:
-                type: string
-              processor:
-                type: string
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: HF Token
-      description: Optional Hugging Face API token. Required for private and gated datasets.
+      description: Hugging Face user access token. Generate from https://huggingface.co/settings/tokens
+x-refined-from:
+- hugging-face-hub-api.yml
+- hugging-face-inference-providers-api.yml
