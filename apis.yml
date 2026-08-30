@@ -877,7 +877,7 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
-  - Multi-Modal
+  - Multimodal
   tags_raw:
   - Multimodal
   properties:
