@@ -23,7 +23,6 @@ conformance:
   spec_version_declared: '1.0'
   hard_failures: []
   soft_gaps:
-  - cors-not-wildcard
   - entry-no-representativeQueries
   - host-identifier-not-did-web
   official_tool:
@@ -53,7 +52,7 @@ catalog:
 transport:
   http_status: 200
   content_type: application/ai-catalog+json
-  access_control_allow_origin: https://huggingface.co
+  access_control_allow_origin: https://apis.io
 x-evidence:
   fetched: '2026-09-13'
   url: https://huggingface.co/.well-known/ai-catalog.json
