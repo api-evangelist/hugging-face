@@ -39,6 +39,7 @@ conformance:
       term, so the entry will not be found by search — it is a valid catalog entry but not a discoverable
       ARD entry.'
     informational: []
+  did_web: null
 catalog:
   host_display_name: Hugging Face
   host_identifier: huggingface.co
