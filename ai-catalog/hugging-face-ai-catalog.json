@@ -1,1 +1,31 @@
-{"specVersion":"1.0","host":{"displayName":"Hugging Face","identifier":"huggingface.co","documentationUrl":"https://github.com/huggingface/hf-discover"},"entries":[{"identifier":"urn:air:huggingface.co:registry:discover","displayName":"Hugging Face Discover Registry","type":"application/ai-registry+json","url":"https://huggingface-hf-discover.hf.space","description":"Search indexed Hugging Face Skills, Space skills and MCP-enabled Spaces.","tags":["huggingface","registry","search","skills","spaces","mcp-server"]}]}
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Hugging Face",
+    "identifier": "huggingface.co",
+    "documentationUrl": "https://github.com/huggingface/hf-discover"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:huggingface.co:registry:discover",
+      "displayName": "Hugging Face Discover Registry",
+      "type": "application/ai-registry+json",
+      "url": "https://huggingface-hf-discover.hf.space",
+      "description": "Search indexed Hugging Face Skills, Space skills and MCP-enabled Spaces.",
+      "tags": [
+        "huggingface",
+        "registry",
+        "search",
+        "skills",
+        "spaces",
+        "mcp-server"
+      ]
+    },
+    {
+      "identifier": "urn:air:huggingface.co:mcp:hub",
+      "displayName": "Hugging Face Hub MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://huggingface.co/mcp/server-card"
+    }
+  ]
+}
