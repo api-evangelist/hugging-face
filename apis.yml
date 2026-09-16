@@ -1389,6 +1389,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
 common:
+- type: Website
+  url: https://huggingface.co
 - type: CapabilityMap
   url: capabilities/hugging-face-capability-edges.yml
   name: Hugging Face Business Capability Map
