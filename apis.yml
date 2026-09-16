@@ -1,6 +1,6 @@
 name: Hugging Face
-description: The AI community building the future with open-source machine learning
-  models, datasets, and applications.
+description: The AI community building the future with open-source machine learning models, datasets,
+  and applications.
 deliveryModel:
   model: open-core
   license: Apache-2.0
@@ -32,7 +32,7 @@ accessModel:
 image: https://huggingface.co/front/assets/huggingface_logo.svg
 url: https://huggingface.co
 created: '2024'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: hugging-face:hugging-face-audio-api
@@ -1502,58 +1502,51 @@ common:
 - type: Features
   data:
   - name: Model Inference
-    description: Run inference on 200,000+ ML models with a simple HTTP request across
-      NLP, vision, audio, and multimodal tasks.
+    description: Run inference on 200,000+ ML models with a simple HTTP request across NLP, vision, audio,
+      and multimodal tasks.
   - name: Hub Repository Management
-    description: Programmatically manage models, datasets, and spaces including creation,
-      versioning, and access control.
+    description: Programmatically manage models, datasets, and spaces including creation, versioning,
+      and access control.
   - name: Dedicated Endpoints
-    description: Deploy models on dedicated infrastructure with autoscaling, custom
-      hardware, and private networking.
+    description: Deploy models on dedicated infrastructure with autoscaling, custom hardware, and private
+      networking.
   - name: Multi-Provider Routing
-    description: Unified OpenAI-compatible API routing to 15+ inference providers
-      with automatic model selection.
+    description: Unified OpenAI-compatible API routing to 15+ inference providers with automatic model
+      selection.
   - name: Dataset Exploration
-    description: Query, search, filter, and visualize datasets without downloading
-      via the Dataset Viewer API.
+    description: Query, search, filter, and visualize datasets without downloading via the Dataset Viewer
+      API.
   - name: Text Generation Inference
-    description: High-performance LLM serving with streaming, tool calling, structured
-      output, and grammar constraints.
+    description: High-performance LLM serving with streaming, tool calling, structured output, and grammar
+      constraints.
   - name: OpenAI Compatibility
-    description: Drop-in replacement for OpenAI API with chat completions, embeddings,
-      and image generation endpoints.
+    description: Drop-in replacement for OpenAI API with chat completions, embeddings, and image generation
+      endpoints.
 - type: UseCases
   data:
   - name: ML Model Prototyping
-    description: Rapidly prototype AI applications by running inference on pre-trained
-      models without infrastructure setup.
+    description: Rapidly prototype AI applications by running inference on pre-trained models without
+      infrastructure setup.
   - name: Production ML Deployment
-    description: Deploy and scale ML models for production workloads with dedicated
-      endpoints and autoscaling.
+    description: Deploy and scale ML models for production workloads with dedicated endpoints and autoscaling.
   - name: Dataset Curation
-    description: Explore, validate, and curate ML datasets programmatically for training
-      pipeline automation.
+    description: Explore, validate, and curate ML datasets programmatically for training pipeline automation.
   - name: AI Application Development
-    description: Build AI-powered applications using unified inference APIs with multi-provider
-      routing.
+    description: Build AI-powered applications using unified inference APIs with multi-provider routing.
   - name: Model Benchmarking
-    description: Compare model performance across providers and hardware configurations
-      for optimization.
+    description: Compare model performance across providers and hardware configurations for optimization.
 - type: Integrations
   data:
   - name: AWS
-    description: Deploy inference endpoints on AWS with SageMaker integration and
-      GPU instances.
+    description: Deploy inference endpoints on AWS with SageMaker integration and GPU instances.
   - name: Google Cloud
-    description: Route inference to Google Cloud TPUs and GPUs through the providers
-      API.
+    description: Route inference to Google Cloud TPUs and GPUs through the providers API.
   - name: Azure
     description: Deploy models on Azure infrastructure with managed endpoint support.
   - name: LangChain
     description: Use Hugging Face models as LangChain LLM and embedding providers.
   - name: Gradio
-    description: Build interactive ML demos with Gradio and deploy as Hugging Face
-      Spaces.
+    description: Build interactive ML demos with Gradio and deploy as Hugging Face Spaces.
 - type: JSONSchema
   url: json-schema/hugging-face-model-schema.json
 - type: JSONSchema
@@ -1583,3 +1576,8 @@ maintainers:
 - name: Kin Lane
   email: kin@apievangelist.com
   url: https://apievangelist.com
+tags:
+- Computer-Vision
+- Embeddings
+- Image-Generation
+- LLM
