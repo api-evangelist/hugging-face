@@ -1200,6 +1200,8 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
+  - Space
+  tags_raw:
   - Spaces
   properties:
   - type: OpenAPI
