@@ -10,6 +10,11 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: usage-other
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-09-20'
+  managed_tier: PRO
 published: true
 note: Single Hugging Face pricing page covering PRO/Team/Enterprise subscriptions, per-TB storage tiers,
   hourly Spaces hardware, and hourly Inference Endpoints instances. Only a representative subset of the
