@@ -1,84 +1,135 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: Hugging Face
-providerId: hugging-face
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Rate Limiting
-  - AI
-  - Inference
-  - Machine Learning
-description: Hugging Face does not publish a single account-wide requests-per-second number. Limits
-  are enforced per-account/per-token via monthly Inference Providers credits ($0.10 Free, $2 PRO,
-  $2/seat Team & Enterprise). Hub API and Inference Endpoints quotas are tracked as instance counts
-  (raise via support). Higher-throughput needs use Inference Endpoints (dedicated capacity) or
-  partner-provider keys directly. Rate limits scale with subscription tier.
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://huggingface.co/docs/hub/rate-limits
 sources:
-  - https://huggingface.co/docs/inference-providers/pricing
-  - https://huggingface.co/docs/inference-endpoints/pricing
-  - https://huggingface.co/docs/api-inference/index
-  - https://huggingface.co/pricing
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+- https://huggingface.co/docs/hub/rate-limits
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: All quotas are calculated over 5-minute fixed windows, a window not representable in the schema
+  enum, so window is set to "none". Table values are bare numbers per plan across three buckets (API,
+  Resolvers, Pages). For organizations, limits apply individually to each member. Granular user-action
+  limits are not documented numerically.
+limit_count: 19
 limits:
-  - name: Inference Providers monthly credits (Free)
-    scope: account
-    metric: USD_per_month
-    limit: 0.10
-    timeFrame: month
-    notes: Free users can purchase additional credits to continue past the monthly allotment.
-  - name: Inference Providers monthly credits (PRO)
-    scope: account
-    metric: USD_per_month
-    limit: 2.00
-    timeFrame: month
-    notes: PRO subscribers receive 20x the inference credits of Free users.
-  - name: Inference Providers monthly credits (Team / Enterprise)
-    scope: organization
-    metric: USD_per_seat_per_month
-    limit: 2.00
-    timeFrame: month
-    notes: Pooled across all organization members; bill via X-HF-Bill-To header.
-  - name: Inference Endpoints instance quota
-    scope: account
-    metric: concurrent_instances
-    limit: see https://ui.endpoints.huggingface.co quotas page
-    notes: Paused endpoints do not count; scaled-to-zero endpoints still count. Raise via support.
-  - name: Hub API rate limits
-    scope: api-key
-    metric: requests_per_minute
-    limit: not publicly published; scales with account tier (Free / PRO / Team / Enterprise)
-  - name: ZeroGPU quota (Free)
-    scope: account
-    metric: GPU_seconds_per_day
-    limit: dynamic; PRO users receive 8x the Free quota
-policies:
-  - name: Backoff Strategy
-    description: Honor 429 responses with exponential backoff and jitter. Use the Retry-After header
-      when present.
-  - name: Credit Exhaustion
-    description: After monthly credits are exhausted, requests can continue under pay-as-you-go by
-      purchasing additional credits via the billing settings page.
-  - name: Pass-Through Provider Limits
-    description: When routing through Inference Providers, partner-provider rate limits and content
-      policies also apply (e.g. Cerebras, Together, Replicate). Hugging Face does not add markup but
-      forwards provider-imposed throttling.
-  - name: Custom Provider Key
-    description: Users can supply their own provider key in HF settings to bypass HF billing/credit
-      limits and be billed directly by the provider.
-  - name: Organization Billing
-    description: Team / Enterprise organizations can centralize billing and set spending limits via
-      the X-HF-Bill-To header.
-  - name: Quota Increases
-    description: Inference Endpoints and Spaces hardware quotas can be raised by contacting api-enterprise@huggingface.co.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Anonymous user API requests
+  limit_text: '500'
+  limit: 500
+  scope: ip
+  plan: Anonymous user (per IP address)
+  endpoint: API
+- name: Anonymous user Resolvers
+  limit_text: 3,000
+  limit: 3000
+  scope: ip
+  plan: Anonymous user (per IP address)
+  endpoint: Resolvers
+- name: Anonymous user Pages
+  limit_text: '100'
+  limit: 100
+  scope: ip
+  plan: Anonymous user (per IP address)
+  endpoint: Pages
+- name: Free user API
+  limit_text: 1,000
+  limit: 1000
+  scope: user
+  plan: Free user
+  endpoint: API
+- name: Free user Resolvers
+  limit_text: 5,000
+  limit: 5000
+  scope: user
+  plan: Free user
+  endpoint: Resolvers
+- name: Free user Pages
+  limit_text: '200'
+  limit: 200
+  scope: user
+  plan: Free user
+  endpoint: Pages
+- name: PRO user API
+  limit_text: 2,500
+  limit: 2500
+  scope: user
+  plan: PRO user
+  endpoint: API
+- name: PRO user Resolvers
+  limit_text: 12,000
+  limit: 12000
+  scope: user
+  plan: PRO user
+  endpoint: Resolvers
+- name: PRO user Pages
+  limit_text: '400'
+  limit: 400
+  scope: user
+  plan: PRO user
+  endpoint: Pages
+- name: Team organization API
+  limit_text: 3,000
+  limit: 3000
+  scope: user
+  plan: Team organization
+  endpoint: API
+- name: Team organization Resolvers
+  limit_text: 20,000
+  limit: 20000
+  scope: user
+  plan: Team organization
+  endpoint: Resolvers
+- name: Enterprise organization API
+  limit_text: 6,000
+  limit: 6000
+  scope: user
+  plan: Enterprise organization
+  endpoint: API
+- name: Enterprise organization Resolvers
+  limit_text: 50,000
+  limit: 50000
+  scope: user
+  plan: Enterprise organization
+  endpoint: Resolvers
+- name: Enterprise organization Pages
+  limit_text: '600'
+  limit: 600
+  scope: user
+  plan: Enterprise organization
+  endpoint: Pages
+- name: Enterprise Plus API
+  limit_text: 10,000
+  limit: 10000
+  scope: user
+  plan: Enterprise Plus organization
+  endpoint: API
+- name: Enterprise Plus Resolvers
+  limit_text: 100,000
+  limit: 100000
+  scope: user
+  plan: Enterprise Plus organization
+  endpoint: Resolvers
+- name: Enterprise Plus Pages
+  limit_text: 1,000
+  limit: 1000
+  scope: user
+  plan: Enterprise Plus organization
+  endpoint: Pages
+- name: Enterprise Plus with Higher Hub Rate Limits Resolvers
+  limit_text: 500,000
+  limit: 500000
+  scope: user
+  plan: Enterprise Plus organization With “Higher Hub Rate Limits” enabled
+  endpoint: Resolvers
+- name: Enterprise Plus with Higher Hub Rate Limits Pages
+  limit_text: 10,000
+  limit: 10000
+  scope: user
+  plan: Enterprise Plus organization With “Higher Hub Rate Limits” enabled
+  endpoint: Pages
+headers:
+- RateLimit
+- RateLimit-Policy
+exceeded_status: 429
