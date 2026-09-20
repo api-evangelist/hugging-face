@@ -1391,6 +1391,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
 common:
+- type: Plans
+  url: plans/hugging-face-plans-pricing.yml
 - type: Website
   url: https://huggingface.co
 - type: CapabilityMap

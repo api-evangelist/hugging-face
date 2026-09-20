@@ -1,468 +1,152 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Hugging Face
-providerId: hugging-face
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - AI
-  - Machine Learning
-  - Inference
-  - Model Hub
-  - Datasets
-description: Hugging Face uses a hybrid pricing model. Account subscriptions (Free, PRO, Team, Enterprise)
-  layer on top of usage-based pricing for Inference Providers (pay-as-you-go), Inference Endpoints
-  (per-instance-hour), and Spaces hardware (per-hour). Storage is metered in TB/month with volume
-  discounts. Subscriptions include monthly inference credits that pass through provider rates with
-  no markup.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://huggingface.co/pricing#inference-endpoints
 sources:
-  - https://huggingface.co/pricing
-  - https://huggingface.co/docs/inference-providers/pricing
-  - https://huggingface.co/docs/inference-endpoints/pricing
+- https://huggingface.co/pricing#inference-endpoints
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: usage-other
+published: true
+note: Single Hugging Face pricing page covering PRO/Team/Enterprise subscriptions, per-TB storage tiers,
+  hourly Spaces hardware, and hourly Inference Endpoints instances. Only a representative subset of the
+  many hourly instance rows is listed; 'Custom' Spaces hardware and >500TB storage are contact-sales.
+plan_count: 19
+currency: USD
 plans:
-  - id: hugging-face-free
-    name: Free
-    type: freemium
-    description: Free Hub access for collaboration and learning. Includes $0.10/month in Inference
-      Providers credits.
-    entries:
-      - label: Inference Providers monthly credits
-        name: inference_credits
-        type: quota
-        metric: USD
-        limit: 0.10
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Hub access (models, datasets, Spaces)
-      - name: Community support
-      - name: Public repos
-      - name: ZeroGPU access (limited quota)
-  - id: hugging-face-pro
-    name: PRO
-    type: subscription
-    description: Individual professional tier with 10x private storage, 2x public storage, 20x inference
-      credits, 8x ZeroGPU quota, and Spaces Dev Mode.
-    entries:
-      - label: PRO subscription
-        name: pro_subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$9'
-        userMultiplied: false
-      - label: Inference Providers monthly credits
-        name: inference_credits
-        type: quota
-        metric: USD
-        limit: 2.00
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-    elements:
-      - name: 10x private storage vs Free
-      - name: 2x public storage vs Free
-      - name: 20x Inference Providers credits
-      - name: 8x ZeroGPU quota
-      - name: Spaces Dev Mode
-      - name: Higher rate limits
-  - id: hugging-face-team
-    name: Team
-    type: subscription
-    description: Per-seat plan for organizations with SSO, audit logs, storage regions, resource groups,
-      and analytics.
-    entries:
-      - label: Team seat
-        name: team_seat
-        type: subscription
-        metric: seat
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$20'
-        userMultiplied: true
-      - label: Inference Providers credits per seat
-        name: inference_credits_per_seat
-        type: quota
-        metric: USD
-        limit: 2.00
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: true
-    elements:
-      - name: SSO
-      - name: Storage regions (US, EU)
-      - name: Audit logs
-      - name: Resource groups
-      - name: Analytics
-      - name: Advanced compute
-  - id: hugging-face-enterprise
-    name: Enterprise Hub
-    type: enterprise
-    description: Enterprise per-seat plan with the highest limits, SCIM provisioning, dedicated support,
-      and contractual terms.
-    entries:
-      - label: Enterprise seat
-        name: enterprise_seat
-        type: subscription
-        metric: seat
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$50+'
-        userMultiplied: true
-      - label: Inference Providers credits per seat
-        name: inference_credits_per_seat
-        type: quota
-        metric: USD
-        limit: 2.00
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: true
-    elements:
-      - name: Highest rate limits
-      - name: SCIM provisioning
-      - name: Dedicated support
-      - name: Audit logs and compliance
-      - name: Storage regions
-  - id: hugging-face-inference-providers
-    name: Inference Providers (Pay-As-You-Go)
-    type: usage-based
-    description: Routed access to 200+ models across partner inference providers (Cerebras, Cohere,
-      Fireworks, Groq, Together, Replicate, fal, Sambanova, etc). Pass-through provider rates with
-      no Hugging Face markup.
-    entries:
-      - label: Inference request (routed)
-        name: inference_request
-        type: metered
-        metric: token
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: see provider rate card
-        userMultiplied: false
-    elements:
-      - name: 200+ models across multiple providers
-      - name: OpenAI-compatible chat completions endpoint
-      - name: Auto provider selection (fastest / cheapest / preferred)
-      - name: No additional Hugging Face markup
-  - id: hugging-face-inference-endpoints
-    name: Inference Endpoints
-    type: usage-based
-    description: Dedicated managed inference deployments billed per replica-hour by hardware tier.
-    entries:
-      - label: CPU - AWS Sapphire Rapids (1 vCPU)
-        name: cpu_aws_1vcpu
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.03
-        userMultiplied: false
-      - label: CPU - AWS Sapphire Rapids (16 vCPU)
-        name: cpu_aws_16vcpu
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.54
-        userMultiplied: false
-      - label: GPU - NVIDIA T4 (1x, 14GB)
-        name: gpu_t4
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.50
-        userMultiplied: false
-      - label: GPU - NVIDIA L40S (1x, 48GB)
-        name: gpu_l40s
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $1.80
-        userMultiplied: false
-      - label: GPU - NVIDIA A100 (1x, 80GB)
-        name: gpu_a100
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $2.50
-        userMultiplied: false
-      - label: GPU - NVIDIA H100 (1x, 80GB)
-        name: gpu_h100
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $4.50
-        userMultiplied: false
-      - label: GPU - NVIDIA H200 (1x, 141GB)
-        name: gpu_h200
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $5.00
-        userMultiplied: false
-      - label: GPU - NVIDIA B200 (1x, 179GB)
-        name: gpu_b200
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $9.25
-        userMultiplied: false
-      - label: GPU - NVIDIA A100 (8x, 640GB)
-        name: gpu_a100_8x
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $20.00
-        userMultiplied: false
-      - label: Accelerator - AWS Inf2 Neuron
-        name: accelerator_inf2
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.75
-        userMultiplied: false
-      - label: Accelerator - GCP TPU v5e (1x1)
-        name: accelerator_tpu_v5e
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $1.20
-        userMultiplied: false
-    elements:
-      - name: Auto-scaling and scale-to-zero
-      - name: Multi-cloud (AWS, Azure, GCP)
-      - name: Private VPC deployment options
-  - id: hugging-face-spaces
-    name: Spaces Hardware
-    type: usage-based
-    description: Hosted Gradio/Streamlit/Docker apps billed per hour by hardware. ZeroGPU is free with
-      dynamic allocation on H200.
-    entries:
-      - label: CPU Basic
-        name: spaces_cpu_basic
-        type: flat
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: CPU Upgrade (8 vCPU, 32GB)
-        name: spaces_cpu_upgrade
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.03
-        userMultiplied: false
-      - label: NVIDIA T4 small
-        name: spaces_t4_small
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.40
-        userMultiplied: false
-      - label: NVIDIA L4 (1x)
-        name: spaces_l4
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $0.80
-        userMultiplied: false
-      - label: NVIDIA A10G small
-        name: spaces_a10g_small
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $1.00
-        userMultiplied: false
-      - label: NVIDIA A100 large (1x, 80GB)
-        name: spaces_a100
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $2.50
-        userMultiplied: false
-      - label: 8x NVIDIA A100
-        name: spaces_a100_8x
-        type: metered
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: $20.00
-        userMultiplied: false
-      - label: ZeroGPU (H200, dynamic)
-        name: spaces_zerogpu
-        type: flat
-        metric: instance-hour
-        limit: -1
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Free CPU Basic and ZeroGPU tiers
-      - name: Persistent storage add-ons
-  - id: hugging-face-storage
-    name: Hub Storage
-    type: usage-based
-    description: Tiered TB/month storage pricing for repositories. Public repos cheaper than private;
-      volume discounts at 50TB, 200TB, 500TB.
-    entries:
-      - label: Public storage (0-50TB)
-        name: storage_public_base
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $12/TB
-        userMultiplied: false
-      - label: Public storage (50TB+)
-        name: storage_public_50tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $10/TB
-        userMultiplied: false
-      - label: Public storage (200TB+)
-        name: storage_public_200tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $9/TB
-        userMultiplied: false
-      - label: Public storage (500TB+)
-        name: storage_public_500tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $8/TB
-        userMultiplied: false
-      - label: Private storage (0-50TB)
-        name: storage_private_base
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $18/TB
-        userMultiplied: false
-      - label: Private storage (50TB+)
-        name: storage_private_50tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $16/TB
-        userMultiplied: false
-      - label: Private storage (200TB+)
-        name: storage_private_200tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $14/TB
-        userMultiplied: false
-      - label: Private storage (500TB+)
-        name: storage_private_500tb
-        type: tiered
-        metric: gb
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1000
-        price: $12/TB
-        userMultiplied: false
-    elements:
-      - name: Volume discounts at 50/200/500 TB
-      - name: Public vs private repo pricing
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: PRO Account
+  price_text: $9 /month
+  price: 9
+  currency: USD
+  period: month
+  unit: account
+  included_quota: 10× private storage capacity, 2× public storage capacity, 20× included inference credits,
+    8× ZeroGPU quota
+- name: Team
+  price_text: $20 /month per user
+  price: 20
+  currency: USD
+  period: month
+  unit: user
+  included_quota: SSO support, Storage Regions, Audit Logs, Resource Groups, Analytics
+- name: Enterprise
+  price_text: $50 /month per user
+  price: 50
+  currency: USD
+  period: month
+  unit: user
+  included_quota: All benefits from the Team plan, highest storage, bandwidth, and API rate limits
+- name: Storage Base - Public repositories
+  price_text: $12 /TB/mo
+  price: 12
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Public repositories
+- name: Storage Base - Private repositories
+  price_text: $18 /TB/mo
+  price: 18
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Private repositories
+- name: Storage 50TB+ public
+  price_text: $10 /TB/mo
+  price: 10
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Public repositories, 50TB+ -20%
+- name: Storage 50TB+ private
+  price_text: $16 /TB/mo
+  price: 16
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Private repositories
+- name: Storage 200TB+ public
+  price_text: $9 /TB/mo
+  price: 9
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Public repositories, 200TB+ -25%
+- name: Storage 200TB+ private
+  price_text: $14 /TB/mo
+  price: 14
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Private repositories
+- name: Storage 500TB+ public
+  price_text: $8 /TB/mo
+  price: 8
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Public repositories, 500TB+ -33%
+- name: Storage 500TB+ private
+  price_text: $12 /TB/mo
+  price: 12
+  currency: USD
+  period: month
+  unit: TB
+  included_quota: Private repositories
+- name: Spaces CPU Basic
+  price_text: FREE
+  period: per-use
+  unit: hour
+  included_quota: 2 vCPU, 16 GB
+- name: Spaces CPU Upgrade
+  price_text: $0.03
+  price: 0.03
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: 8 vCPU, 32 GB
+- name: Spaces Nvidia T4 - small
+  price_text: $0.40
+  price: 0.4
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: 4 vCPU, 15 GB, T4 16GB
+- name: Spaces Nvidia A100 - large
+  price_text: $2.50
+  price: 2.5
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: 12 vCPU, 142 GB, A100 80GB
+- name: Inference Endpoints (entry)
+  price_text: Dedicated inference, starting at $0.033/hour.
+  price: 0.033
+  currency: USD
+  period: per-use
+  unit: hour
+- name: Inference Endpoints CPU aws 1 vCPU 2GB
+  price_text: $0.03
+  price: 0.03
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: Intel Sapphire Rapids aws
+- name: Inference Endpoints NVIDIA H100 aws 1x80GB
+  price_text: $4.50
+  price: 4.5
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: 1 x 80GB
+- name: Inference Endpoints NVIDIA B200 aws 8x
+  price_text: $74.00
+  price: 74
+  currency: USD
+  period: per-use
+  unit: hour
+  included_quota: 8 x 1432GB
+rate_limit_statements:
+- Highest storage, bandwidth, and API rate limits
