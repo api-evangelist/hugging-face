@@ -240,6 +240,46 @@ components:
             type: string
           description: Stack trace (only in development)
           example: []
+    SearchResponse:
+      type: object
+      properties:
+        features:
+          type: array
+          items:
+            type: object
+            properties:
+              feature_idx:
+                type: integer
+              name:
+                type: string
+              type:
+                type: object
+          example: []
+        rows:
+          type: array
+          items:
+            type: object
+            properties:
+              row_idx:
+                type: integer
+              row:
+                type: object
+                additionalProperties: true
+              truncated_cells:
+                type: array
+                items:
+                  type: string
+          example: []
+        num_rows_total:
+          type: integer
+          description: Total number of matching rows
+          example: 10
+        num_rows_per_page:
+          type: integer
+          example: 10
+        partial:
+          type: boolean
+          example: true
     RowsResponse:
       type: object
       properties:
@@ -294,46 +334,6 @@ components:
         partial:
           type: boolean
           description: Whether this is a partial result
-          example: true
-    SearchResponse:
-      type: object
-      properties:
-        features:
-          type: array
-          items:
-            type: object
-            properties:
-              feature_idx:
-                type: integer
-              name:
-                type: string
-              type:
-                type: object
-          example: []
-        rows:
-          type: array
-          items:
-            type: object
-            properties:
-              row_idx:
-                type: integer
-              row:
-                type: object
-                additionalProperties: true
-              truncated_cells:
-                type: array
-                items:
-                  type: string
-          example: []
-        num_rows_total:
-          type: integer
-          description: Total number of matching rows
-          example: 10
-        num_rows_per_page:
-          type: integer
-          example: 10
-        partial:
-          type: boolean
           example: true
   securitySchemes:
     bearerAuth:

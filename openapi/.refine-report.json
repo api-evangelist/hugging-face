@@ -44,7 +44,8 @@
     "hugging-face-text-generation-inference-api.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "tag 'Models' spans 2 source specs (hugging-face-hub-api.yml, hugging-face-inference-providers-api.yml): per-path servers applied",
     "tag 'Audio' spans 2 source specs (hugging-face-inference-api.yml, hugging-face-inference-providers-api.yml): per-path servers applied",
-    "tag 'Text Generation' spans 2 source specs (hugging-face-inference-providers-api.yml, hugging-face-text-generation-inference-api.yml): per-path servers applied"
+    "tag 'Text Generation' spans 2 source specs (hugging-face-inference-providers-api.yml, hugging-face-text-generation-inference-api.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "hugging-face-audio-api-openapi.yml: previously refined output, superseded by openapi/_original/",

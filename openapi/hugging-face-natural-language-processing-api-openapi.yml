@@ -698,25 +698,112 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    QuestionAnsweringRequest:
+    ZeroShotClassificationRequest:
+      type: object
+      required:
+      - inputs
+      - parameters
+      properties:
+        inputs:
+          type: string
+          description: The text to classify
+          example: example_value
+        parameters:
+          type: object
+          required:
+          - candidate_labels
+          properties:
+            candidate_labels:
+              type: array
+              items:
+                type: string
+              description: Labels to classify against
+            multi_label:
+              type: boolean
+              default: false
+              description: Whether multiple labels can be true
+          example: example_value
+    TranslationRequest:
       type: object
       required:
       - inputs
       properties:
         inputs:
+          type: string
+          description: The text to translate
+          example: Hello, how are you?
+    SummarizationResponse:
+      type: object
+      properties:
+        summary_text:
+          type: string
+          description: The summarized text
+          example: example_value
+    QuestionAnsweringResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: The extracted answer
+          example: Paris
+        score:
+          type: number
+          format: float
+          description: Confidence score
+          example: 42.5
+        start:
+          type: integer
+          description: Start character position in context
+          example: 10
+        end:
+          type: integer
+          description: End character position in context
+          example: 10
+    TextGenerationResponse:
+      type: object
+      properties:
+        generated_text:
+          type: string
+          description: The generated text
+          example: example_value
+    FillMaskResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+          description: The complete text with filled mask
+          example: example_value
+        score:
+          type: number
+          format: float
+          description: Confidence score for the prediction
+          example: 42.5
+        token:
+          type: integer
+          description: Token ID of the predicted word
+          example: 10
+        token_str:
+          type: string
+          description: The predicted word
+          example: example_value
+    SummarizationRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: The text to summarize
+          example: example_value
+        parameters:
           type: object
-          required:
-          - question
-          - context
           properties:
-            question:
-              type: string
-              description: The question to answer
-              example: What is the capital of France?
-            context:
-              type: string
-              description: The context containing the answer
-              example: France is a country in Europe. Its capital is Paris.
+            min_length:
+              type: integer
+              description: Minimum length of the summary
+            max_length:
+              type: integer
+              description: Maximum length of the summary
           example: example_value
     SentenceSimilarityRequest:
       type: object
@@ -738,159 +825,12 @@ components:
                 type: string
               description: Target sentences to compare with
           example: example_value
-    SummarizationRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text to summarize
-          example: example_value
-        parameters:
-          type: object
-          properties:
-            min_length:
-              type: integer
-              description: Minimum length of the summary
-            max_length:
-              type: integer
-              description: Maximum length of the summary
-          example: example_value
-    ZeroShotClassificationResponse:
-      type: object
-      properties:
-        sequence:
-          type: string
-          example: example_value
-        labels:
-          type: array
-          items:
-            type: string
-          example: []
-        scores:
-          type: array
-          items:
-            type: number
-            format: float
-          example: []
-    FillMaskRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: Text with [MASK] token to fill
-          example: The capital of France is [MASK].
-    TextGenerationResponse:
-      type: object
-      properties:
-        generated_text:
-          type: string
-          description: The generated text
-          example: example_value
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        estimated_time:
-          type: number
-          format: float
-          description: Estimated time until availability (for loading errors)
-          example: 42.5
     TranslationResponse:
       type: object
       properties:
         translation_text:
           type: string
           description: The translated text
-          example: example_value
-    TextClassificationRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text to classify
-          example: I love this movie!
-    FillMaskResponse:
-      type: object
-      properties:
-        sequence:
-          type: string
-          description: The complete text with filled mask
-          example: example_value
-        score:
-          type: number
-          format: float
-          description: Confidence score for the prediction
-          example: 42.5
-        token:
-          type: integer
-          description: Token ID of the predicted word
-          example: 10
-        token_str:
-          type: string
-          description: The predicted word
-          example: example_value
-    FeatureExtractionRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: The text input(s) for embedding extraction
-          example: example_value
-    ClassificationResult:
-      type: object
-      properties:
-        label:
-          type: string
-          description: The predicted label
-          example: POSITIVE
-        score:
-          type: number
-          format: float
-          description: Confidence score for the label
-          example: 0.9998
-    InferenceRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-          description: The input data for inference
-          example: example_value
-        parameters:
-          type: object
-          description: Task-specific parameters
-          example: example_value
-        options:
-          type: object
-          properties:
-            use_cache:
-              type: boolean
-              default: true
-              description: Use cached results if available
-            wait_for_model:
-              type: boolean
-              default: false
-              description: Wait for the model to load instead of returning 503
           example: example_value
     TextGenerationRequest:
       type: object
@@ -951,68 +891,6 @@ components:
               type: boolean
               default: false
           example: example_value
-    ZeroShotClassificationRequest:
-      type: object
-      required:
-      - inputs
-      - parameters
-      properties:
-        inputs:
-          type: string
-          description: The text to classify
-          example: example_value
-        parameters:
-          type: object
-          required:
-          - candidate_labels
-          properties:
-            candidate_labels:
-              type: array
-              items:
-                type: string
-              description: Labels to classify against
-            multi_label:
-              type: boolean
-              default: false
-              description: Whether multiple labels can be true
-          example: example_value
-    TranslationRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: The text to translate
-          example: Hello, how are you?
-    InferenceResponse:
-      oneOf:
-      - type: array
-        items:
-          type: object
-      - type: object
-      - type: string
-      description: The inference result - format depends on the task
-    QuestionAnsweringResponse:
-      type: object
-      properties:
-        answer:
-          type: string
-          description: The extracted answer
-          example: Paris
-        score:
-          type: number
-          format: float
-          description: Confidence score
-          example: 42.5
-        start:
-          type: integer
-          description: Start character position in context
-          example: 10
-        end:
-          type: integer
-          description: End character position in context
-          example: 10
     ModelLoadingResponse:
       type: object
       properties:
@@ -1025,13 +903,135 @@ components:
           format: float
           description: Estimated time in seconds until the model is ready
           example: 42.5
-    SummarizationResponse:
+    InferenceRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The input data for inference
+          example: example_value
+        parameters:
+          type: object
+          description: Task-specific parameters
+          example: example_value
+        options:
+          type: object
+          properties:
+            use_cache:
+              type: boolean
+              default: true
+              description: Use cached results if available
+            wait_for_model:
+              type: boolean
+              default: false
+              description: Wait for the model to load instead of returning 503
+          example: example_value
+    ClassificationResult:
       type: object
       properties:
-        summary_text:
+        label:
           type: string
-          description: The summarized text
+          description: The predicted label
+          example: POSITIVE
+        score:
+          type: number
+          format: float
+          description: Confidence score for the label
+          example: 0.9998
+    QuestionAnsweringRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: object
+          required:
+          - question
+          - context
+          properties:
+            question:
+              type: string
+              description: The question to answer
+              example: What is the capital of France?
+            context:
+              type: string
+              description: The context containing the answer
+              example: France is a country in Europe. Its capital is Paris.
           example: example_value
+    FeatureExtractionRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The text input(s) for embedding extraction
+          example: example_value
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        estimated_time:
+          type: number
+          format: float
+          description: Estimated time until availability (for loading errors)
+          example: 42.5
+    FillMaskRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: Text with [MASK] token to fill
+          example: The capital of France is [MASK].
+    InferenceResponse:
+      oneOf:
+      - type: array
+        items:
+          type: object
+      - type: object
+      - type: string
+      description: The inference result - format depends on the task
+    ZeroShotClassificationResponse:
+      type: object
+      properties:
+        sequence:
+          type: string
+          example: example_value
+        labels:
+          type: array
+          items:
+            type: string
+          example: []
+        scores:
+          type: array
+          items:
+            type: number
+            format: float
+          example: []
+    TextClassificationRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: string
+          description: The text to classify
+          example: I love this movie!
   securitySchemes:
     bearerAuth:
       type: http

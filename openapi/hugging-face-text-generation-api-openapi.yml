@@ -359,22 +359,6 @@ paths:
       description: Local TGI server (self-hosted)
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
     Usage:
       type: object
       properties:
@@ -390,34 +374,6 @@ components:
           type: integer
           description: Total tokens used
           example: 10
-    CompletionStreamResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          example: abc123
-        object:
-          type: string
-          const: text_completion
-          example: example_value
-        created:
-          type: integer
-          example: 10
-        model:
-          type: string
-          example: example_value
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              text:
-                type: string
-              index:
-                type: integer
-              finish_reason:
-                type: string
-          example: []
     CompletionRequest:
       type: object
       required:
@@ -465,6 +421,22 @@ components:
         seed:
           type: integer
           example: 10
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
     CompletionResponse:
       type: object
       properties:
@@ -495,6 +467,34 @@ components:
           example: []
         usage:
           $ref: '#/components/schemas/Usage'
+    CompletionStreamResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: abc123
+        object:
+          type: string
+          const: text_completion
+          example: example_value
+        created:
+          type: integer
+          example: 10
+        model:
+          type: string
+          example: example_value
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              text:
+                type: string
+              index:
+                type: integer
+              finish_reason:
+                type: string
+          example: []
     Usage_2:
       type: object
       properties:
@@ -507,72 +507,6 @@ components:
         total_tokens:
           type: integer
           example: 10
-    GenerateResponse:
-      type: object
-      properties:
-        generated_text:
-          type: string
-          description: The generated text
-          example: example_value
-        details:
-          type: object
-          properties:
-            finish_reason:
-              type: string
-              enum:
-              - length
-              - eos_token
-              - stop_sequence
-              description: Reason generation stopped
-            generated_tokens:
-              type: integer
-              description: Number of generated tokens
-            seed:
-              type: integer
-              description: Sampling seed used
-            prefill:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  text:
-                    type: string
-                  logprob:
-                    type: number
-              description: Prefill token details
-            tokens:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  text:
-                    type: string
-                  logprob:
-                    type: number
-                  special:
-                    type: boolean
-              description: Generated token details
-            best_of_sequences:
-              type: array
-              items:
-                type: object
-              description: Best-of sequences details
-          example: example_value
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        error_type:
-          type: string
-          description: Error type classification
-          example: example_value
     CompletionRequest_2:
       type: object
       required:
@@ -736,6 +670,72 @@ components:
               type: integer
             seed:
               type: integer
+          example: example_value
+    GenerateResponse:
+      type: object
+      properties:
+        generated_text:
+          type: string
+          description: The generated text
+          example: example_value
+        details:
+          type: object
+          properties:
+            finish_reason:
+              type: string
+              enum:
+              - length
+              - eos_token
+              - stop_sequence
+              description: Reason generation stopped
+            generated_tokens:
+              type: integer
+              description: Number of generated tokens
+            seed:
+              type: integer
+              description: Sampling seed used
+            prefill:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  logprob:
+                    type: number
+              description: Prefill token details
+            tokens:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  logprob:
+                    type: number
+                  special:
+                    type: boolean
+              description: Generated token details
+            best_of_sequences:
+              type: array
+              items:
+                type: object
+              description: Best-of sequences details
+          example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        error_type:
+          type: string
+          description: Error type classification
           example: example_value
   securitySchemes:
     bearerAuth:

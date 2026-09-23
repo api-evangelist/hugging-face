@@ -788,175 +788,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UpdateEndpointRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - public
-          - protected
-          - private
-          example: public
-        compute:
-          type: object
-          properties:
-            accelerator:
-              type: string
-            instanceType:
-              type: string
-            instanceSize:
-              type: string
-            scaling:
-              type: object
-              properties:
-                minReplica:
-                  type: integer
-                maxReplica:
-                  type: integer
-                scaleToZeroTimeout:
-                  type: integer
-          example: example_value
-        model:
-          type: object
-          properties:
-            repository:
-              type: string
-            revision:
-              type: string
-            task:
-              type: string
-          example: example_value
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
-    CreateEndpointRequest:
-      type: object
-      required:
-      - name
-      - type
-      - provider
-      - compute
-      - model
-      properties:
-        name:
-          type: string
-          description: Unique endpoint name
-          example: my-text-gen-endpoint
-          pattern: ^[a-z0-9][a-z0-9-]{0,30}[a-z0-9]$
-        type:
-          type: string
-          description: Endpoint security type
-          enum:
-          - public
-          - protected
-          - private
-          default: protected
-          example: public
-        provider:
-          type: object
-          required:
-          - vendor
-          - region
-          properties:
-            vendor:
-              type: string
-              enum:
-              - aws
-              - azure
-              - gcp
-            region:
-              type: string
-              example: us-east-1
-          example: example_value
-        compute:
-          type: object
-          required:
-          - accelerator
-          - instanceType
-          - instanceSize
-          - scaling
-          properties:
-            accelerator:
-              type: string
-              enum:
-              - cpu
-              - gpu
-            instanceType:
-              type: string
-              example: nvidia-a10g
-            instanceSize:
-              type: string
-              example: x1
-            scaling:
-              type: object
-              required:
-              - minReplica
-              - maxReplica
-              properties:
-                minReplica:
-                  type: integer
-                  minimum: 0
-                  example: 0
-                maxReplica:
-                  type: integer
-                  minimum: 1
-                  example: 2
-                scaleToZeroTimeout:
-                  type: integer
-                  description: Minutes of inactivity before scaling to zero
-                  example: 15
-          example: example_value
-        model:
-          type: object
-          required:
-          - repository
-          - task
-          properties:
-            repository:
-              type: string
-              description: Hugging Face model repository ID
-              example: meta-llama/Llama-2-7b-chat-hf
-            revision:
-              type: string
-              description: Git revision to deploy
-              default: main
-            task:
-              type: string
-              description: Task type for the endpoint
-              example: text-generation
-            framework:
-              type: string
-              enum:
-              - pytorch
-              - custom
-              default: pytorch
-            image:
-              type: object
-              properties:
-                huggingface:
-                  type: object
-                custom:
-                  type: object
-                  properties:
-                    url:
-                      type: string
-                      format: uri
-                    health_route:
-                      type: string
-                    env:
-                      type: object
-                      additionalProperties:
-                        type: string
-          example: example_value
     Endpoint:
       type: object
       properties:
@@ -1091,6 +922,56 @@ components:
           format: uri
           description: Inference URL for the endpoint
           example: https://www.example.com
+    UpdateEndpointRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - public
+          - protected
+          - private
+          example: public
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+            instanceType:
+              type: string
+            instanceSize:
+              type: string
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                maxReplica:
+                  type: integer
+                scaleToZeroTimeout:
+                  type: integer
+          example: example_value
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+            revision:
+              type: string
+            task:
+              type: string
+          example: example_value
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     EndpointMetrics:
       type: object
       properties:
@@ -1115,6 +996,125 @@ components:
           type: number
           format: float
           example: 42.5
+    CreateEndpointRequest:
+      type: object
+      required:
+      - name
+      - type
+      - provider
+      - compute
+      - model
+      properties:
+        name:
+          type: string
+          description: Unique endpoint name
+          example: my-text-gen-endpoint
+          pattern: ^[a-z0-9][a-z0-9-]{0,30}[a-z0-9]$
+        type:
+          type: string
+          description: Endpoint security type
+          enum:
+          - public
+          - protected
+          - private
+          default: protected
+          example: public
+        provider:
+          type: object
+          required:
+          - vendor
+          - region
+          properties:
+            vendor:
+              type: string
+              enum:
+              - aws
+              - azure
+              - gcp
+            region:
+              type: string
+              example: us-east-1
+          example: example_value
+        compute:
+          type: object
+          required:
+          - accelerator
+          - instanceType
+          - instanceSize
+          - scaling
+          properties:
+            accelerator:
+              type: string
+              enum:
+              - cpu
+              - gpu
+            instanceType:
+              type: string
+              example: nvidia-a10g
+            instanceSize:
+              type: string
+              example: x1
+            scaling:
+              type: object
+              required:
+              - minReplica
+              - maxReplica
+              properties:
+                minReplica:
+                  type: integer
+                  minimum: 0
+                  example: 0
+                maxReplica:
+                  type: integer
+                  minimum: 1
+                  example: 2
+                scaleToZeroTimeout:
+                  type: integer
+                  description: Minutes of inactivity before scaling to zero
+                  example: 15
+          example: example_value
+        model:
+          type: object
+          required:
+          - repository
+          - task
+          properties:
+            repository:
+              type: string
+              description: Hugging Face model repository ID
+              example: meta-llama/Llama-2-7b-chat-hf
+            revision:
+              type: string
+              description: Git revision to deploy
+              default: main
+            task:
+              type: string
+              description: Task type for the endpoint
+              example: text-generation
+            framework:
+              type: string
+              enum:
+              - pytorch
+              - custom
+              default: pytorch
+            image:
+              type: object
+              properties:
+                huggingface:
+                  type: object
+                custom:
+                  type: object
+                  properties:
+                    url:
+                      type: string
+                      format: uri
+                    health_route:
+                      type: string
+                    env:
+                      type: object
+                      additionalProperties:
+                        type: string
+          example: example_value
   securitySchemes:
     bearerAuth:
       type: http

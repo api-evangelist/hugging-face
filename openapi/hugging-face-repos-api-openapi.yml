@@ -222,6 +222,25 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    RepoUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Full URL of the created repository
+          example: https://www.example.com
     CreateRepoRequest:
       type: object
       required:
@@ -258,25 +277,6 @@ components:
           - docker
           - static
           example: gradio
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
-    RepoUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Full URL of the created repository
-          example: https://www.example.com
   securitySchemes:
     bearerAuth:
       type: http
