@@ -55,8 +55,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -119,8 +117,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -183,8 +179,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -233,9 +227,10 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
-  - Computer-Vision
+  - Computer Vision
   tags_raw:
   - Computer Vision
+  - Computer-Vision
   properties:
   - type: OpenAPI
     url: openapi/hugging-face-computer-vision-api-openapi.yml
@@ -249,8 +244,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -313,8 +306,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -377,8 +368,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -441,8 +430,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -505,8 +492,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -570,8 +555,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -634,8 +617,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -684,9 +665,10 @@ apis:
   humanURL: https://huggingface.co/docs/api-inference/index
   baseURL: https://api-inference.huggingface.co
   tags:
-  - Image-Generation
+  - Image Generation
   tags_raw:
   - Image Generation
+  - Image-Generation
   properties:
   - type: OpenAPI
     url: openapi/hugging-face-image-generation-api-openapi.yml
@@ -700,8 +682,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -764,8 +744,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -828,8 +806,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -894,8 +870,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -958,8 +932,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1022,8 +994,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1086,8 +1056,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1150,8 +1118,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1216,8 +1182,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1280,8 +1244,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1346,8 +1308,6 @@ apis:
     url: https://huggingface.co/docs/api-inference/en/rate-limits
   - type: FAQ
     url: https://huggingface.co/docs/api-inference/faq
-  - type: GraphQL
-    url: graphql/hugging-face-graphql.md
   - type: Documentation
     url: https://huggingface.co/docs/hub/api
   - type: SDKs
@@ -1585,6 +1545,12 @@ maintainers:
   email: kin@apievangelist.com
   url: https://apievangelist.com
 tags:
+- Computer Vision
+- Embeddings
+- Image Generation
+- LLM
+- Hugging Face
+tags_raw:
 - Computer-Vision
 - Embeddings
 - Image-Generation
