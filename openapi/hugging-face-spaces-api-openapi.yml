@@ -152,17 +152,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     SpaceInfo:
       allOf:
       - $ref: '#/components/schemas/SpaceSummary'
@@ -180,6 +169,17 @@ components:
           cardData:
             type: object
             description: Parsed Space card metadata
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     SpaceSummary:
       type: object
       properties:

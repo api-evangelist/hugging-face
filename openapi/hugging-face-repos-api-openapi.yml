@@ -222,6 +222,14 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    RepoUrl:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Full URL of the created repository
+          example: https://www.example.com
     Error:
       type: object
       properties:
@@ -233,14 +241,6 @@ components:
           type: integer
           description: HTTP status code
           example: 10
-    RepoUrl:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Full URL of the created repository
-          example: https://www.example.com
     CreateRepoRequest:
       type: object
       required:

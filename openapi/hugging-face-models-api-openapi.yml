@@ -334,7 +334,7 @@ paths:
     get:
       summary: List Available Models
       description: List models available through inference providers. Returns model IDs and basic metadata.
-      operationId: listModels
+      operationId: getV1Models
       tags:
       - Models
       responses:
@@ -379,6 +379,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: listModels
     servers:
     - url: https://router.huggingface.co
       description: Hugging Face Inference Providers router
@@ -386,7 +388,7 @@ paths:
     get:
       summary: Get Model Information
       description: Get information about a specific model available through inference providers.
-      operationId: getModel
+      operationId: getV1ModelsByModelId
       tags:
       - Models
       parameters:
@@ -441,6 +443,8 @@ paths:
       x-microcks-operation:
         delay: 0
         dispatcher: FALLBACK
+      x-operation-id-source: normalized
+      x-operation-id-original: getModel
     servers:
     - url: https://router.huggingface.co
       description: Hugging Face Inference Providers router

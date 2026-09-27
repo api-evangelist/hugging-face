@@ -76,17 +76,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     UserInfo:
       type: object
       properties:
@@ -153,6 +142,17 @@ components:
                 role:
                   type: string
           example: example_value
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
   securitySchemes:
     bearerAuth:
       type: http

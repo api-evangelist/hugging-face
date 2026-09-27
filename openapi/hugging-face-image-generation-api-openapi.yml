@@ -82,22 +82,28 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Error:
+    ImageGenerationResponse:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
+        created:
+          type: integer
+          example: 10
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                description: URL of the generated image
+              b64_json:
+                type: string
+                description: Base64-encoded image data
+              revised_prompt:
+                type: string
+                description: Revised prompt used for generation
+          example: []
     ImageGenerationRequest:
       type: object
       required:
@@ -148,28 +154,22 @@ components:
           format: float
           description: Classifier-free guidance scale
           example: 42.5
-    ImageGenerationResponse:
+    Error:
       type: object
       properties:
-        created:
-          type: integer
-          example: 10
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              url:
-                type: string
-                format: uri
-                description: URL of the generated image
-              b64_json:
-                type: string
-                description: Base64-encoded image data
-              revised_prompt:
-                type: string
-                description: Revised prompt used for generation
-          example: []
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
   securitySchemes:
     bearerAuth:
       type: http
