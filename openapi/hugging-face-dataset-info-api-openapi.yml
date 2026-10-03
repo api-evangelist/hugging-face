@@ -159,6 +159,35 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    SplitsResponse:
+      type: object
+      properties:
+        splits:
+          type: array
+          items:
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset (configuration) name
+              split:
+                type: string
+                description: Split name
+                example: train
+          example: []
+        pending:
+          type: array
+          items:
+            type: object
+          example: []
+        failed:
+          type: array
+          items:
+            type: object
+          example: []
     ValidityResponse:
       type: object
       properties:
@@ -202,35 +231,6 @@ components:
           items:
             type: string
           description: Stack trace (only in development)
-          example: []
-    SplitsResponse:
-      type: object
-      properties:
-        splits:
-          type: array
-          items:
-            type: object
-            properties:
-              dataset:
-                type: string
-                description: Dataset ID
-              config:
-                type: string
-                description: Subset (configuration) name
-              split:
-                type: string
-                description: Split name
-                example: train
-          example: []
-        pending:
-          type: array
-          items:
-            type: object
-          example: []
-        failed:
-          type: array
-          items:
-            type: object
           example: []
   securitySchemes:
     bearerAuth:

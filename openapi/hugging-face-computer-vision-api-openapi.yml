@@ -129,6 +129,18 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ClassificationResult:
+      type: object
+      properties:
+        label:
+          type: string
+          description: The predicted label
+          example: POSITIVE
+        score:
+          type: number
+          format: float
+          description: Confidence score for the label
+          example: 0.9998
     ObjectDetectionResult:
       type: object
       properties:
@@ -153,18 +165,6 @@ components:
             ymax:
               type: integer
           example: example_value
-    ClassificationResult:
-      type: object
-      properties:
-        label:
-          type: string
-          description: The predicted label
-          example: POSITIVE
-        score:
-          type: number
-          format: float
-          description: Confidence score for the label
-          example: 0.9998
   securitySchemes:
     bearerAuth:
       type: http

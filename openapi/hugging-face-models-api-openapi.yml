@@ -450,17 +450,6 @@ paths:
       description: Hugging Face Inference Providers router
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     ModelInfo:
       allOf:
       - $ref: '#/components/schemas/ModelSummary'
@@ -515,6 +504,17 @@ components:
                 type: string
               processor:
                 type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     ModelSummary:
       type: object
       properties:

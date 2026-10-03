@@ -204,105 +204,21 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ChatCompletionResponse:
+    Usage:
       type: object
       properties:
-        id:
-          type: string
-          description: Unique completion identifier
-          example: abc123
-        object:
-          type: string
-          const: chat.completion
-          example: example_value
-        created:
+        prompt_tokens:
           type: integer
-          description: Unix timestamp
+          description: Number of tokens in the prompt
           example: 10
-        model:
-          type: string
-          description: Model used
-          example: example_value
-        system_fingerprint:
-          type: string
-          example: example_value
-        choices:
-          type: array
-          items:
-            type: object
-            properties:
-              index:
-                type: integer
-              message:
-                type: object
-                properties:
-                  role:
-                    type: string
-                  content:
-                    type: string
-                  tool_calls:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        type:
-                          type: string
-                        function:
-                          type: object
-                          properties:
-                            name:
-                              type: string
-                            arguments:
-                              type: string
-              finish_reason:
-                type: string
-                enum:
-                - stop
-                - length
-                - tool_calls
-                - content_filter
-              logprobs:
-                type: object
-                properties:
-                  content:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        token:
-                          type: string
-                        logprob:
-                          type: number
-                        top_logprobs:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              token:
-                                type: string
-                              logprob:
-                                type: number
-          example: []
-        usage:
-          $ref: '#/components/schemas/Usage'
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
+        completion_tokens:
+          type: integer
+          description: Number of tokens in the completion
+          example: 10
+        total_tokens:
+          type: integer
+          description: Total tokens used
+          example: 10
     ChatCompletionRequest:
       type: object
       required:
@@ -543,21 +459,89 @@ components:
           default: 1.0
           description: Nucleus sampling parameter
           example: 42.5
-    Usage:
+    ChatCompletionResponse:
       type: object
       properties:
-        prompt_tokens:
+        id:
+          type: string
+          description: Unique completion identifier
+          example: abc123
+        object:
+          type: string
+          const: chat.completion
+          example: example_value
+        created:
           type: integer
-          description: Number of tokens in the prompt
+          description: Unix timestamp
           example: 10
-        completion_tokens:
-          type: integer
-          description: Number of tokens in the completion
-          example: 10
-        total_tokens:
-          type: integer
-          description: Total tokens used
-          example: 10
+        model:
+          type: string
+          description: Model used
+          example: example_value
+        system_fingerprint:
+          type: string
+          example: example_value
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                type: object
+                properties:
+                  role:
+                    type: string
+                  content:
+                    type: string
+                  tool_calls:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                        function:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            arguments:
+                              type: string
+              finish_reason:
+                type: string
+                enum:
+                - stop
+                - length
+                - tool_calls
+                - content_filter
+              logprobs:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        token:
+                          type: string
+                        logprob:
+                          type: number
+                        top_logprobs:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              token:
+                                type: string
+                              logprob:
+                                type: number
+          example: []
+        usage:
+          $ref: '#/components/schemas/Usage'
     ChatCompletionStreamResponse:
       type: object
       properties:
@@ -635,6 +619,22 @@ components:
           example: []
         usage:
           $ref: '#/components/schemas/Usage'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
   securitySchemes:
     bearerAuth:
       type: http
