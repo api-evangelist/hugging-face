@@ -298,6 +298,27 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        cause_exception:
+          type: string
+          description: Underlying exception type
+          example: example_value
+        cause_message:
+          type: string
+          description: Underlying exception message
+          example: example_value
+        cause_traceback:
+          type: array
+          items:
+            type: string
+          description: Stack trace (only in development)
+          example: []
     StatisticsResponse:
       type: object
       properties:
@@ -369,38 +390,6 @@ components:
         partial:
           type: boolean
           example: true
-    ParquetResponse:
-      type: object
-      properties:
-        parquet_files:
-          type: array
-          items:
-            type: object
-            properties:
-              dataset:
-                type: string
-                description: Dataset ID
-              config:
-                type: string
-                description: Subset name
-              split:
-                type: string
-                description: Split name
-              url:
-                type: string
-                format: uri
-                description: Direct download URL for the Parquet file
-              filename:
-                type: string
-                description: Parquet file name
-              size:
-                type: integer
-                description: File size in bytes
-          example: []
-        partial:
-          type: boolean
-          description: Whether only partial data was converted
-          example: true
     SizeResponse:
       type: object
       properties:
@@ -466,27 +455,38 @@ components:
         partial:
           type: boolean
           example: true
-    Error:
+    ParquetResponse:
       type: object
       properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        cause_exception:
-          type: string
-          description: Underlying exception type
-          example: example_value
-        cause_message:
-          type: string
-          description: Underlying exception message
-          example: example_value
-        cause_traceback:
+        parquet_files:
           type: array
           items:
-            type: string
-          description: Stack trace (only in development)
+            type: object
+            properties:
+              dataset:
+                type: string
+                description: Dataset ID
+              config:
+                type: string
+                description: Subset name
+              split:
+                type: string
+                description: Split name
+              url:
+                type: string
+                format: uri
+                description: Direct download URL for the Parquet file
+              filename:
+                type: string
+                description: Parquet file name
+              size:
+                type: integer
+                description: File size in bytes
           example: []
+        partial:
+          type: boolean
+          description: Whether only partial data was converted
+          example: true
   securitySchemes:
     bearerAuth:
       type: http

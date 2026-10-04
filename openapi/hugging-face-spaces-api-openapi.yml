@@ -152,6 +152,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     SpaceSummary:
       type: object
       properties:
@@ -215,17 +226,6 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     SpaceInfo:
       allOf:
       - $ref: '#/components/schemas/SpaceSummary'

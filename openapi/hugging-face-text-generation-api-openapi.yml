@@ -359,21 +359,6 @@ paths:
       description: Local TGI server (self-hosted)
 components:
   schemas:
-    Usage:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-          description: Number of tokens in the prompt
-          example: 10
-        completion_tokens:
-          type: integer
-          description: Number of tokens in the completion
-          example: 10
-        total_tokens:
-          type: integer
-          description: Total tokens used
-          example: 10
     CompletionStreamResponse:
       type: object
       properties:
@@ -432,6 +417,37 @@ components:
           example: []
         usage:
           $ref: '#/components/schemas/Usage'
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message
+            type:
+              type: string
+              description: Error type
+            code:
+              type: string
+              description: Error code
+          example: example_value
+    Usage:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens in the prompt
+          example: 10
+        completion_tokens:
+          type: integer
+          description: Number of tokens in the completion
+          example: 10
+        total_tokens:
+          type: integer
+          description: Total tokens used
+          example: 10
     CompletionRequest:
       type: object
       required:
@@ -479,44 +495,97 @@ components:
         seed:
           type: integer
           example: 10
-    Error:
+    GenerateRequest:
       type: object
+      required:
+      - inputs
       properties:
-        error:
+        inputs:
+          type: string
+          description: Input prompt text
+          example: What is deep learning?
+        parameters:
           type: object
           properties:
-            message:
-              type: string
-              description: Error message
-            type:
-              type: string
-              description: Error type
-            code:
-              type: string
-              description: Error code
-          example: example_value
-    Usage_2:
-      type: object
-      properties:
-        prompt_tokens:
-          type: integer
-          example: 10
-        completion_tokens:
-          type: integer
-          example: 10
-        total_tokens:
-          type: integer
-          example: 10
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        error_type:
-          type: string
-          description: Error type classification
+            max_new_tokens:
+              type: integer
+              description: Maximum number of tokens to generate
+              default: 20
+              example: 100
+            temperature:
+              type: number
+              format: float
+              description: Sampling temperature (higher = more random)
+              minimum: 0
+              example: 0.7
+            top_p:
+              type: number
+              format: float
+              description: Nucleus sampling probability threshold
+              minimum: 0
+              maximum: 1
+              example: 0.95
+            top_k:
+              type: integer
+              description: Top-k sampling parameter
+              minimum: 0
+              example: 50
+            repetition_penalty:
+              type: number
+              format: float
+              description: Repetition penalty (1.0 = no penalty)
+              example: 1.1
+            do_sample:
+              type: boolean
+              description: Whether to use sampling vs greedy decoding
+              default: false
+            seed:
+              type: integer
+              description: Random seed for reproducibility
+            stop:
+              type: array
+              items:
+                type: string
+              description: Stop sequences
+            watermark:
+              type: boolean
+              description: Whether to add a watermark to generated text
+              default: false
+            return_full_text:
+              type: boolean
+              description: Include the input prompt in the response
+              default: false
+            decoder_input_details:
+              type: boolean
+              description: Return decoder input token details
+              default: false
+            details:
+              type: boolean
+              description: Return generation details (tokens, logprobs, etc.)
+              default: false
+            truncate:
+              type: integer
+              description: Truncate input to this many tokens
+            typical_p:
+              type: number
+              format: float
+              description: Typical decoding probability threshold
+            best_of:
+              type: integer
+              description: Generate this many sequences and return the best
+              minimum: 1
+            grammar:
+              type: object
+              description: Grammar constraints for generation
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - json
+                  - regex
+                value:
+                  type: string
+                  description: Grammar specification (JSON schema or regex)
           example: example_value
     StreamResponse:
       type: object
@@ -548,6 +617,29 @@ components:
             seed:
               type: integer
           example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        error_type:
+          type: string
+          description: Error type classification
+          example: example_value
+    Usage_2:
+      type: object
+      properties:
+        prompt_tokens:
+          type: integer
+          example: 10
+        completion_tokens:
+          type: integer
+          example: 10
+        total_tokens:
+          type: integer
+          example: 10
     CompletionRequest_2:
       type: object
       required:
@@ -644,98 +736,6 @@ components:
               items:
                 type: object
               description: Best-of sequences details
-          example: example_value
-    GenerateRequest:
-      type: object
-      required:
-      - inputs
-      properties:
-        inputs:
-          type: string
-          description: Input prompt text
-          example: What is deep learning?
-        parameters:
-          type: object
-          properties:
-            max_new_tokens:
-              type: integer
-              description: Maximum number of tokens to generate
-              default: 20
-              example: 100
-            temperature:
-              type: number
-              format: float
-              description: Sampling temperature (higher = more random)
-              minimum: 0
-              example: 0.7
-            top_p:
-              type: number
-              format: float
-              description: Nucleus sampling probability threshold
-              minimum: 0
-              maximum: 1
-              example: 0.95
-            top_k:
-              type: integer
-              description: Top-k sampling parameter
-              minimum: 0
-              example: 50
-            repetition_penalty:
-              type: number
-              format: float
-              description: Repetition penalty (1.0 = no penalty)
-              example: 1.1
-            do_sample:
-              type: boolean
-              description: Whether to use sampling vs greedy decoding
-              default: false
-            seed:
-              type: integer
-              description: Random seed for reproducibility
-            stop:
-              type: array
-              items:
-                type: string
-              description: Stop sequences
-            watermark:
-              type: boolean
-              description: Whether to add a watermark to generated text
-              default: false
-            return_full_text:
-              type: boolean
-              description: Include the input prompt in the response
-              default: false
-            decoder_input_details:
-              type: boolean
-              description: Return decoder input token details
-              default: false
-            details:
-              type: boolean
-              description: Return generation details (tokens, logprobs, etc.)
-              default: false
-            truncate:
-              type: integer
-              description: Truncate input to this many tokens
-            typical_p:
-              type: number
-              format: float
-              description: Typical decoding probability threshold
-            best_of:
-              type: integer
-              description: Generate this many sequences and return the best
-              minimum: 1
-            grammar:
-              type: object
-              description: Grammar constraints for generation
-              properties:
-                type:
-                  type: string
-                  enum:
-                  - json
-                  - regex
-                value:
-                  type: string
-                  description: Grammar specification (JSON schema or regex)
           example: example_value
   securitySchemes:
     bearerAuth:

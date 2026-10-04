@@ -788,6 +788,80 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    UpdateEndpointRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - public
+          - protected
+          - private
+          example: public
+        compute:
+          type: object
+          properties:
+            accelerator:
+              type: string
+            instanceType:
+              type: string
+            instanceSize:
+              type: string
+            scaling:
+              type: object
+              properties:
+                minReplica:
+                  type: integer
+                maxReplica:
+                  type: integer
+                scaleToZeroTimeout:
+                  type: integer
+          example: example_value
+        model:
+          type: object
+          properties:
+            repository:
+              type: string
+            revision:
+              type: string
+            task:
+              type: string
+          example: example_value
+    EndpointMetrics:
+      type: object
+      properties:
+        request_count:
+          type: integer
+          example: 10
+        request_duration_ms:
+          type: object
+          properties:
+            p50:
+              type: number
+            p90:
+              type: number
+            p99:
+              type: number
+          example: example_value
+        error_rate:
+          type: number
+          format: float
+          example: 42.5
+        tokens_per_second:
+          type: number
+          format: float
+          example: 42.5
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     CreateEndpointRequest:
       type: object
       required:
@@ -907,30 +981,6 @@ components:
                       additionalProperties:
                         type: string
           example: example_value
-    EndpointMetrics:
-      type: object
-      properties:
-        request_count:
-          type: integer
-          example: 10
-        request_duration_ms:
-          type: object
-          properties:
-            p50:
-              type: number
-            p90:
-              type: number
-            p99:
-              type: number
-          example: example_value
-        error_rate:
-          type: number
-          format: float
-          example: 42.5
-        tokens_per_second:
-          type: number
-          format: float
-          example: 42.5
     Endpoint:
       type: object
       properties:
@@ -1065,56 +1115,6 @@ components:
           format: uri
           description: Inference URL for the endpoint
           example: https://www.example.com
-    UpdateEndpointRequest:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - public
-          - protected
-          - private
-          example: public
-        compute:
-          type: object
-          properties:
-            accelerator:
-              type: string
-            instanceType:
-              type: string
-            instanceSize:
-              type: string
-            scaling:
-              type: object
-              properties:
-                minReplica:
-                  type: integer
-                maxReplica:
-                  type: integer
-                scaleToZeroTimeout:
-                  type: integer
-          example: example_value
-        model:
-          type: object
-          properties:
-            repository:
-              type: string
-            revision:
-              type: string
-            task:
-              type: string
-          example: example_value
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
   securitySchemes:
     bearerAuth:
       type: http

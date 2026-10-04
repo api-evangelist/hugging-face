@@ -450,71 +450,6 @@ paths:
       description: Hugging Face Inference Providers router
 components:
   schemas:
-    ModelInfo:
-      allOf:
-      - $ref: '#/components/schemas/ModelSummary'
-      - type: object
-        properties:
-          siblings:
-            type: array
-            items:
-              type: object
-              properties:
-                rfilename:
-                  type: string
-                size:
-                  type: integer
-                lfs:
-                  type: object
-                  properties:
-                    sha256:
-                      type: string
-                    size:
-                      type: integer
-                    pointerSize:
-                      type: integer
-            description: Files in the repository
-          spaces:
-            type: array
-            items:
-              type: string
-            description: Spaces using this model
-          safetensors:
-            type: object
-            properties:
-              parameters:
-                type: object
-                additionalProperties:
-                  type: integer
-              total:
-                type: integer
-            description: Safetensors parameter information
-          config:
-            type: object
-            description: Model configuration
-          cardData:
-            type: object
-            description: Parsed model card metadata
-          transformersInfo:
-            type: object
-            properties:
-              auto_model:
-                type: string
-              pipeline_tag:
-                type: string
-              processor:
-                type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     ModelSummary:
       type: object
       properties:
@@ -579,6 +514,71 @@ components:
           type: string
           format: date-time
           example: '2026-01-15T10:30:00Z'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
+    ModelInfo:
+      allOf:
+      - $ref: '#/components/schemas/ModelSummary'
+      - type: object
+        properties:
+          siblings:
+            type: array
+            items:
+              type: object
+              properties:
+                rfilename:
+                  type: string
+                size:
+                  type: integer
+                lfs:
+                  type: object
+                  properties:
+                    sha256:
+                      type: string
+                    size:
+                      type: integer
+                    pointerSize:
+                      type: integer
+            description: Files in the repository
+          spaces:
+            type: array
+            items:
+              type: string
+            description: Spaces using this model
+          safetensors:
+            type: object
+            properties:
+              parameters:
+                type: object
+                additionalProperties:
+                  type: integer
+              total:
+                type: integer
+            description: Safetensors parameter information
+          config:
+            type: object
+            description: Model configuration
+          cardData:
+            type: object
+            description: Parsed model card metadata
+          transformersInfo:
+            type: object
+            properties:
+              auto_model:
+                type: string
+              pipeline_tag:
+                type: string
+              processor:
+                type: string
     Error_2:
       type: object
       properties:

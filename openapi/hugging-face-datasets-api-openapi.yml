@@ -246,6 +246,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 10
     DatasetSummary:
       type: object
       properties:
@@ -293,17 +304,6 @@ components:
         description:
           type: string
           example: A sample description.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message
-          example: example_value
-        statusCode:
-          type: integer
-          description: HTTP status code
-          example: 10
     DatasetInfo:
       allOf:
       - $ref: '#/components/schemas/DatasetSummary'
