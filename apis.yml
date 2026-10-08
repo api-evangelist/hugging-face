@@ -1291,6 +1291,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/huggingface/text-generation-inference
 common:
+- type: FinOps
+  url: finops/hugging-face-finops.yml
 - type: RateLimits
   url: rate-limits/hugging-face-rate-limits.yml
 - type: Plans
