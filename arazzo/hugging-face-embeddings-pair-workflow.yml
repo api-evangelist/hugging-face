@@ -60,7 +60,7 @@ workflows:
     description: >-
       List the models available through the router to confirm the requested
       embedding model can be served before embedding.
-    operationId: listModels
+    operationId: getV1Models
     parameters:
     - name: Authorization
       in: header

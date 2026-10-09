@@ -646,6 +646,17 @@ components:
           type: string
           description: Error type classification
           example: example_value
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: example_value
+        error_type:
+          type: string
+          description: Error type classification
+          example: example_value
   securitySchemes:
     bearerAuth:
       type: http

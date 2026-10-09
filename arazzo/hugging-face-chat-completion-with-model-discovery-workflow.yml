@@ -66,7 +66,7 @@ workflows:
     description: >-
       List the models currently available through the inference providers router
       so the requested model can be confirmed before billing a completion.
-    operationId: listModels
+    operationId: getV1Models
     parameters:
     - name: Authorization
       in: header
@@ -79,7 +79,7 @@ workflows:
     description: >-
       Fetch the requested model record from the router to confirm it exists and
       is servable. Branches to the chat completion on success.
-    operationId: getModel
+    operationId: getV1ModelsByModelId
     parameters:
     - name: Authorization
       in: header

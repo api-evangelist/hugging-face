@@ -58,7 +58,7 @@ workflows:
     description: >-
       Run a full-text search against the Hub, returning the most relevant models
       with full card data so the top match can be resolved.
-    operationId: listModels
+    operationId: getV1Models
     parameters:
     - name: search
       in: query
@@ -92,7 +92,7 @@ workflows:
     description: >-
       Retrieve the detailed model record for the top search result using its
       repository id.
-    operationId: getModel
+    operationId: getV1ModelsByModelId
     parameters:
     - name: repo_id
       in: path
