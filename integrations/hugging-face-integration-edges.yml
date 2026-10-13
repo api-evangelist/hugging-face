@@ -1,0 +1,61 @@
+edges:
+- partner_name: Portkey
+  partner: portkey
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/Portkey-AI/gateway/tree/main/src/providers/huggingface
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: null
+      router_ids:
+      - huggingface
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: Cloudflare AI Gateway
+  partner: cloudflare-ai-gateway
+  partner_match: router
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/cloudflare/cloudflare-docs/blob/production/src/content/docs/ai-gateway/usage/providers/huggingface.mdx
+  coverage_role:
+  - provider
+  router_signals:
+    provider:
+      models: null
+      router_ids:
+      - huggingface
+  matched_by: verified-token-table
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+- partner_name: OpenAI
+  partner: openai
+  partner_match: domain
+  type: contract
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  evidence: https://github.com/api-evangelist/hugging-face/blob/main/openapi/hugging-face-chat-completions-api-openapi.yml#L4
+  contract_reference:
+    repo: hugging-face
+    spec_file: hugging-face-chat-completions-api-openapi.yml
+    property: description
+    value: OpenAI-compatible
+    note: 'hugging-face declares OpenAI compatibility: ''description: Unified proxy layer providing access to 15+
+      inference partners through a single OpenAI-compatible endpoint. Route requests to providers like AWS, G'''
+    detected_by: sweep-model-routing.py
+    detected: '2026-10-13'
+  detected_by: sweep-model-routing.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
+checked:
+- https://developers.cloudflare.com/ai-gateway/usage/providers/
+- https://github.com/Portkey-AI/gateway/tree/main/src/providers
