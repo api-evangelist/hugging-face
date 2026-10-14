@@ -54,8 +54,52 @@ edges:
     detected: '2026-10-13'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/sync-github-to-hugging-face-hub
+  listing_count: 3
+  apps:
+  - Sync GitHub to Hugging Face Hub
+  - Semver release @ Huggingface
+  - Helm Publish Action
+  publisher_name: Hugging Face
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/HuggingFace
+  listing_count: 2
+  apps:
+  - llm-vscode
+  - Hugging Face Provider for GitHub Copilot Chat
+  publisher_name: Hugging Face
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
+marketplace_apps: []
+source:
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
