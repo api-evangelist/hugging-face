@@ -1,4 +1,42 @@
 edges:
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/sync-github-to-hugging-face-hub
+  listing_count: 3
+  apps:
+  - Sync GitHub to Hugging Face Hub
+  - Semver release @ Huggingface
+  - Helm Publish Action
+  publisher_name: Hugging Face
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/HuggingFace
+  listing_count: 2
+  apps:
+  - llm-vscode
+  - Hugging Face Provider for GitHub Copilot Chat
+  publisher_name: Hugging Face
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 - partner_name: Portkey
   partner: portkey
   partner_match: router
@@ -51,47 +89,48 @@ edges:
     note: 'hugging-face declares OpenAI compatibility: ''description: Unified proxy layer providing access to 15+
       inference partners through a single OpenAI-compatible endpoint. Route requests to providers like AWS, G'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
-- partner_name: GitHub Marketplace (actions)
-  partner: github-actions
-  partner_match: aggregator
-  type: marketplace
-  marketplace: github-actions
+- partner_name: LlamaIndex
+  partner: llamaindex
+  partner_match: framework
   channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://github.com/marketplace/actions/sync-github-to-hugging-face-hub
-  listing_count: 3
-  apps:
-  - Sync GitHub to Hugging Face Hub
-  - Semver release @ Huggingface
-  - Helm Publish Action
-  publisher_name: Hugging Face
-  badges:
-  - Verified creator
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
-- partner_name: Visual Studio Code Marketplace
-  partner: vs-code-marketplace
-  partner_match: aggregator
-  type: marketplace
-  marketplace: vscode
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - llama-index-embeddings-huggingface
+    - llama-index-embeddings-huggingface-api
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: LangChain
+  partner: langchain
+  partner_match: framework
   channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://marketplace.visualstudio.com/publishers/HuggingFace
-  listing_count: 2
-  apps:
-  - llm-vscode
-  - Hugging Face Provider for GitHub Copilot Chat
-  publisher_name: Hugging Face
-  badges:
-  - Verified publisher
-  - Verified domain
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-huggingface
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
 - partner_name: qwen
   partner: qwen
   partner_match: domain
@@ -350,50 +389,47 @@ edges:
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
-- partner_name: LlamaIndex
-  partner: llamaindex
-  partner_match: framework
-  channel: partner-built
+- partner_name: CNCF (Cloud Native Landscape)
+  partner: cncf
+  partner_match: register
+  type: register
   direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
-  coverage_role:
-  - embeddings
-  framework_signals:
-    packages:
-    - llama-index-embeddings-huggingface
-    - llama-index-embeddings-huggingface-api
-    roles:
-    - embeddings
-    vendor_domain: huggingface.co
-  matched_by: verified-domain-table
-  detected_by: sweep-rag-vector.py
-  first_seen: '2026-10-15'
-- partner_name: LangChain
-  partner: langchain
-  partner_match: framework
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
-  coverage_role:
-  - embeddings
-  framework_signals:
-    packages:
-    - langchain-huggingface
-    roles:
-    - embeddings
-    vendor_domain: huggingface.co
-  matched_by: verified-domain-table
-  detected_by: sweep-rag-vector.py
+  category: Cloud native landscape
+  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    spec_file: null
+    standard: Cloud Native (CNCF)
+    role: landscape-listed
+    registered_name: text-generation-inference (TGI)
+    registered_names:
+    - text-generation-inference (TGI)
+    website: https://huggingface.co/docs/text-generation-inference/index
+    matched_domain: huggingface.co
+    matched_by: domain+verified
+    member_tier: null
+    joined: null
+    end_user: false
+    cncf_projects: []
+    landscape_categories:
+    - Inference / Runtime
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-cloud-native.py
+    detected: '2026-10-15'
+  detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
+- https://focus.finops.org/data-generators/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
+- https://github.com/cncf/k8s-conformance
+- https://github.com/cncf/landscape
 - https://github.com/langchain-ai/langchain/tree/master/libs/partners
 - https://github.com/marketplace?type=actions
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
