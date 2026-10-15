@@ -92,12 +92,312 @@ edges:
   - Verified domain
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: qwen
+  partner: qwen
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/Qwen
+  coverage_role:
+  - stt
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/Qwen
+    roles:
+    - stt
+    - tts
+    vendor_domain: qwen.ai
+    hub_org_models_in_top_1000: 9
+    hub_org_downloads: 6969917
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: resemble-ai
+  partner: resemble-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/ResembleAI
+  coverage_role:
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/ResembleAI
+    roles:
+    - tts
+    vendor_domain: resemble.ai
+    hub_org_models_in_top_1000: 3
+    hub_org_downloads: 1641445
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: fish-audio
+  partner: fish-audio
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/fishaudio
+  coverage_role:
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/fishaudio
+    roles:
+    - tts
+    vendor_domain: fish.audio
+    hub_org_models_in_top_1000: 5
+    hub_org_downloads: 44702
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: suno
+  partner: suno
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/suno
+  coverage_role:
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/suno
+    roles:
+    - tts
+    vendor_domain: suno.com
+    hub_org_models_in_top_1000: 2
+    hub_org_downloads: 37944
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: nvidia
+  partner: nvidia
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/nvidia
+  coverage_role:
+  - stt
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/nvidia
+    roles:
+    - stt
+    - tts
+    vendor_domain: nvidia.com
+    hub_org_models_in_top_1000: 35
+    hub_org_downloads: 2920841
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: cartesia-ai
+  partner: cartesia-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/cartesia
+  coverage_role:
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/cartesia
+    roles:
+    - tts
+    vendor_domain: cartesia.ai
+    hub_org_models_in_top_1000: 2
+    hub_org_downloads: 7310
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: neuphonic
+  partner: neuphonic
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/neuphonic
+  coverage_role:
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/neuphonic
+    roles:
+    - tts
+    vendor_domain: neuphonic.com
+    hub_org_models_in_top_1000: 14
+    hub_org_downloads: 19958
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: mistral
+  partner: mistral
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/mistralai
+  coverage_role:
+  - stt
+  - tts
+  framework_signals:
+    packages:
+    - huggingface.co/mistralai
+    roles:
+    - stt
+    - tts
+    vendor_domain: mistral.ai
+    hub_org_models_in_top_1000: 3
+    hub_org_downloads: 2007649
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: argmax
+  partner: argmax
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/argmaxinc
+  coverage_role:
+  - stt
+  framework_signals:
+    packages:
+    - huggingface.co/argmaxinc
+    roles:
+    - stt
+    vendor_domain: argmaxinc.com
+    hub_org_models_in_top_1000: 6
+    hub_org_downloads: 12198727
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: pyannoteai
+  partner: pyannoteai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/pyannote
+  coverage_role:
+  - stt
+  framework_signals:
+    packages:
+    - huggingface.co/pyannote
+    roles:
+    - stt
+    vendor_domain: pyannote.ai
+    hub_org_models_in_top_1000: 6
+    hub_org_downloads: 13336346
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: openai
+  partner: openai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/openai
+  coverage_role:
+  - stt
+  framework_signals:
+    packages:
+    - huggingface.co/openai
+    roles:
+    - stt
+    vendor_domain: openai.com
+    hub_org_models_in_top_1000: 12
+    hub_org_downloads: 16829049
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: systran
+  partner: systran
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://huggingface.co/Systran
+  coverage_role:
+  - stt
+  framework_signals:
+    packages:
+    - huggingface.co/Systran
+    roles:
+    - stt
+    vendor_domain: systran.net
+    hub_org_models_in_top_1000: 15
+    hub_org_downloads: 13155120
+  matched_by: verified-domain-table
+  detected_by: sweep-voice-ai.py
+  first_seen: '2026-10-15'
+- partner_name: LlamaIndex
+  partner: llamaindex
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - llama-index-embeddings-huggingface
+    - llama-index-embeddings-huggingface-api
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: LangChain
+  partner: langchain
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-huggingface
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
+- https://github.com/langchain-ai/langchain/tree/master/libs/partners
 - https://github.com/marketplace?type=actions
+- https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
+- https://huggingface.co/models?pipeline_tag=text-to-speech
 - https://marketplace.visualstudio.com/vscode
 marketplace_apps: []
 source:
