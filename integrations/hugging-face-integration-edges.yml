@@ -422,19 +422,107 @@ edges:
     detected: '2026-10-15'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
+- partner_name: LF AI & Data (Landscape)
+  partner: lf-ai-data
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: AI & data landscape
+  evidence: https://github.com/lfai/landscape/blob/95d361b8abfdd04a8c76bf38a012778d13621b5e/landscape.yml
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @95d361b8ab)
+    spec_file: null
+    standard: LF AI & Data
+    role: landscape-listed
+    registered_name: Text Generation Inference
+    registered_names:
+    - Text Generation Inference
+    website: https://huggingface.co/text-generation-inference
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    member_tier: null
+    hosting_company: false
+    lfai_projects: []
+    landscape_categories:
+    - Model / Inference
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-mlops.py
+    detected: '2026-10-15'
+  detected_by: sweep-mlops.py
+  first_seen: '2026-10-15'
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://zapier.com/apps/hugging-face/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Hugging Face
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: hugging-face
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
+- partner_name: Pipedream
+  partner: pipedream
+  partner_match: aggregator
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/hugging_face
+  category: null
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: hugging face
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: hugging_face
+    actions: true
+    sources: false
+    builder: Pipedream repo (component)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 generated: '2026-10-13'
 method: searched
 checked:
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
 - https://focus.finops.org/data-generators/
+- https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
 - https://github.com/cncf/k8s-conformance
 - https://github.com/cncf/landscape
+- https://github.com/kubeflow/website
 - https://github.com/langchain-ai/langchain/tree/master/libs/partners
+- https://github.com/lfai/landscape
 - https://github.com/marketplace?type=actions
+- https://github.com/mlcommons
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
 - https://huggingface.co/models?pipeline_tag=text-to-speech
 - https://marketplace.visualstudio.com/vscode
+- https://zapier.com/api/v4/apps/
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
