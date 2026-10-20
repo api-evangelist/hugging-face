@@ -37,6 +37,107 @@ edges:
   - Verified domain
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: LlamaIndex
+  partner: llamaindex
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - llama-index-embeddings-huggingface
+    - llama-index-embeddings-huggingface-api
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: LangChain
+  partner: langchain
+  partner_match: framework
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-huggingface
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: Airbyte
+  partner: airbyte
+  partner_match: aggregator
+  type: marketplace
+  marketplace: airbyte-registry
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://docs.airbyte.com/integrations/sources/hugging-face-datasets
+  category: null
+  contract_reference:
+    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
+    spec_file: null
+    role: elt-connector:airbyte-community
+    registered_name: Hugging Face - Datasets
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connectors:
+    - airbyte/source-hugging-face-datasets
+    support_level:
+    - community
+    release_stage:
+    - alpha
+    in_cloud: true
+    builder: unknown (community connector; contributor not in the record)
+  detected_by: sweep-data-integration.py
+  first_seen: '2026-10-18'
+- partner_name: LF AI & Data (Landscape)
+  partner: lf-ai-data
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: AI & data landscape
+  evidence: https://github.com/lfai/landscape/blob/3893e0631e1d12921a9b0ac25ffc78a2ac26239d/landscape.yml
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @3893e0631e)
+    spec_file: null
+    standard: LF AI & Data
+    role: landscape-listed
+    registered_name: Text Generation Inference
+    registered_names:
+    - Text Generation Inference
+    website: https://huggingface.co/text-generation-inference
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    member_tier: null
+    hosting_company: false
+    lfai_projects: []
+    landscape_categories:
+    - Model / Inference
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-mlops.py
+    detected: '2026-10-19'
+  detected_by: sweep-mlops.py
+  first_seen: '2026-10-15'
 - partner_name: Portkey
   partner: portkey
   partner_match: router
@@ -89,48 +190,9 @@ edges:
     note: 'hugging-face declares OpenAI compatibility: ''description: Unified proxy layer providing access to 15+
       inference partners through a single OpenAI-compatible endpoint. Route requests to providers like AWS, G'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
-- partner_name: LlamaIndex
-  partner: llamaindex
-  partner_match: framework
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
-  coverage_role:
-  - embeddings
-  framework_signals:
-    packages:
-    - llama-index-embeddings-huggingface
-    - llama-index-embeddings-huggingface-api
-    roles:
-    - embeddings
-    vendor_domain: huggingface.co
-  matched_by: verified-domain-table
-  detected_by: sweep-rag-vector.py
-  first_seen: '2026-10-15'
-- partner_name: LangChain
-  partner: langchain
-  partner_match: framework
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: system-coverage
-  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
-  coverage_role:
-  - embeddings
-  framework_signals:
-    packages:
-    - langchain-huggingface
-    roles:
-    - embeddings
-    vendor_domain: huggingface.co
-  matched_by: verified-domain-table
-  detected_by: sweep-rag-vector.py
-  first_seen: '2026-10-15'
 - partner_name: qwen
   partner: qwen
   partner_match: domain
@@ -150,7 +212,7 @@ edges:
     - tts
     vendor_domain: qwen.ai
     hub_org_models_in_top_1000: 9
-    hub_org_downloads: 6969917
+    hub_org_downloads: 7124440
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -171,7 +233,7 @@ edges:
     - tts
     vendor_domain: resemble.ai
     hub_org_models_in_top_1000: 3
-    hub_org_downloads: 1641445
+    hub_org_downloads: 1726057
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -192,7 +254,7 @@ edges:
     - tts
     vendor_domain: fish.audio
     hub_org_models_in_top_1000: 5
-    hub_org_downloads: 44702
+    hub_org_downloads: 55550
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -213,7 +275,7 @@ edges:
     - tts
     vendor_domain: suno.com
     hub_org_models_in_top_1000: 2
-    hub_org_downloads: 37944
+    hub_org_downloads: 32847
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -235,8 +297,8 @@ edges:
     - stt
     - tts
     vendor_domain: nvidia.com
-    hub_org_models_in_top_1000: 35
-    hub_org_downloads: 2920841
+    hub_org_models_in_top_1000: 34
+    hub_org_downloads: 2812347
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -257,7 +319,7 @@ edges:
     - tts
     vendor_domain: cartesia.ai
     hub_org_models_in_top_1000: 2
-    hub_org_downloads: 7310
+    hub_org_downloads: 7631
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -277,8 +339,8 @@ edges:
     roles:
     - tts
     vendor_domain: neuphonic.com
-    hub_org_models_in_top_1000: 14
-    hub_org_downloads: 19958
+    hub_org_models_in_top_1000: 12
+    hub_org_downloads: 19408
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -301,7 +363,7 @@ edges:
     - tts
     vendor_domain: mistral.ai
     hub_org_models_in_top_1000: 3
-    hub_org_downloads: 2007649
+    hub_org_downloads: 2174006
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -322,7 +384,7 @@ edges:
     - stt
     vendor_domain: argmaxinc.com
     hub_org_models_in_top_1000: 6
-    hub_org_downloads: 12198727
+    hub_org_downloads: 12195895
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -343,7 +405,7 @@ edges:
     - stt
     vendor_domain: pyannote.ai
     hub_org_models_in_top_1000: 6
-    hub_org_downloads: 13336346
+    hub_org_downloads: 12755449
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -364,7 +426,7 @@ edges:
     - stt
     vendor_domain: openai.com
     hub_org_models_in_top_1000: 12
-    hub_org_downloads: 16829049
+    hub_org_downloads: 16731793
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -385,7 +447,7 @@ edges:
     - stt
     vendor_domain: systran.net
     hub_org_models_in_top_1000: 15
-    hub_org_downloads: 13155120
+    hub_org_downloads: 13543487
   matched_by: verified-domain-table
   detected_by: sweep-voice-ai.py
   first_seen: '2026-10-15'
@@ -395,11 +457,11 @@ edges:
   type: register
   direction: partner-built
   category: Cloud native landscape
-  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  evidence: https://github.com/cncf/landscape/blob/42dd4cd91dad8ec8558ac02467a43f0805b9957a/landscape.yml
   channel: standard-directory
   relationship: standard-participant
   contract_reference:
-    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @42dd4cd91d)
     spec_file: null
     standard: Cloud Native (CNCF)
     role: landscape-listed
@@ -419,40 +481,8 @@ edges:
     signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
       categories, tier and projects are CONTEXT, never read (breadth is not credit)'
     detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
-  first_seen: '2026-10-15'
-- partner_name: LF AI & Data (Landscape)
-  partner: lf-ai-data
-  partner_match: register
-  type: register
-  direction: partner-built
-  category: AI & data landscape
-  evidence: https://github.com/lfai/landscape/blob/95d361b8abfdd04a8c76bf38a012778d13621b5e/landscape.yml
-  channel: standard-directory
-  relationship: standard-participant
-  contract_reference:
-    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @95d361b8ab)
-    spec_file: null
-    standard: LF AI & Data
-    role: landscape-listed
-    registered_name: Text Generation Inference
-    registered_names:
-    - Text Generation Inference
-    website: https://huggingface.co/text-generation-inference
-    matched_domain: huggingface.co
-    matched_by: domain+name-among-holders
-    member_tier: null
-    hosting_company: false
-    lfai_projects: []
-    landscape_categories:
-    - Model / Inference
-    landscape_entries: 1
-    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
-      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
-    detected_by: sweep-mlops.py
-    detected: '2026-10-15'
-  detected_by: sweep-mlops.py
   first_seen: '2026-10-15'
 - partner_name: Zapier
   partner: zapier
@@ -487,7 +517,7 @@ edges:
   channel: open-source-node
   relationship: ipaas-bridge
   direction: third-party
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/hugging_face
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/hugging_face
   category: null
   contract_reference:
     register: Pipedream components (PipedreamHQ/pipedream components/)
@@ -505,36 +535,6 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
-- partner_name: Airbyte
-  partner: airbyte
-  partner_match: aggregator
-  type: marketplace
-  marketplace: airbyte-registry
-  channel: elt-connector
-  relationship: ipaas-bridge
-  direction: third-party
-  evidence: https://docs.airbyte.com/integrations/sources/hugging-face-datasets
-  category: null
-  contract_reference:
-    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
-    spec_file: null
-    role: elt-connector:airbyte-community
-    registered_name: Hugging Face - Datasets
-    matched_domain: huggingface.co
-    matched_by: domain+name-among-holders
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connectors:
-    - airbyte/source-hugging-face-datasets
-    support_level:
-    - community
-    release_stage:
-    - alpha
-    in_cloud: true
-    builder: unknown (community connector; contributor not in the record)
-  detected_by: sweep-data-integration.py
-  first_seen: '2026-10-18'
 generated: '2026-10-13'
 method: searched
 checked:
@@ -543,6 +543,7 @@ checked:
 - https://developers.cloudflare.com/ai-gateway/usage/providers/
 - https://focus.finops.org/data-generators/
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
+- https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
 - https://github.com/cncf/k8s-conformance
 - https://github.com/cncf/landscape

@@ -27,6 +27,91 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: hugging-face-llamaindex
+  label: LlamaIndex
+  partner: llamaindex
+  partner_name: LlamaIndex
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
+- slug: hugging-face-langchain
+  label: LangChain
+  partner: langchain
+  partner_name: LangChain
+  type: coverage
+  channel: partner-built
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
+  source: edge
+  relationship: system-coverage
+  status: not-a-workflow
+  arazzo: null
+- slug: hugging-face-airbyte
+  label: Airbyte
+  partner: airbyte
+  partner_name: Airbyte
+  type: marketplace
+  marketplace: airbyte-registry
+  channel: elt-connector
+  evidence: https://docs.airbyte.com/integrations/sources/hugging-face-datasets
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
+    spec_file: null
+    role: elt-connector:airbyte-community
+    registered_name: Hugging Face - Datasets
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connectors:
+    - airbyte/source-hugging-face-datasets
+    support_level:
+    - community
+    release_stage:
+    - alpha
+    in_cloud: true
+    builder: unknown (community connector; contributor not in the record)
+  status: not-a-workflow
+  arazzo: null
+- slug: hugging-face-lf-ai-data-landscape
+  label: LF AI & Data (Landscape)
+  partner: lf-ai-data
+  partner_name: LF AI & Data (Landscape)
+  category: AI & data landscape
+  type: register
+  channel: standard-directory
+  evidence: https://github.com/lfai/landscape/blob/3893e0631e1d12921a9b0ac25ffc78a2ac26239d/landscape.yml
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @3893e0631e)
+    spec_file: null
+    standard: LF AI & Data
+    role: landscape-listed
+    registered_name: Text Generation Inference
+    registered_names:
+    - Text Generation Inference
+    website: https://huggingface.co/text-generation-inference
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    member_tier: null
+    hosting_company: false
+    lfai_projects: []
+    landscape_categories:
+    - Model / Inference
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-mlops.py
+    detected: '2026-10-19'
+  status: not-a-workflow
+  arazzo: null
 - slug: hugging-face-portkey
   label: Portkey
   partner: portkey
@@ -66,29 +151,7 @@
     note: 'hugging-face declares OpenAI compatibility: ''description: Unified proxy layer providing access to 15+
       inference partners through a single OpenAI-compatible endpoint. Route requests to providers like AWS, G'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
-- slug: hugging-face-llamaindex
-  label: LlamaIndex
-  partner: llamaindex
-  partner_name: LlamaIndex
-  type: coverage
-  channel: partner-built
-  evidence: https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-huggingface
-  source: edge
-  relationship: system-coverage
-  status: not-a-workflow
-  arazzo: null
-- slug: hugging-face-langchain
-  label: LangChain
-  partner: langchain
-  partner_name: LangChain
-  type: coverage
-  channel: partner-built
-  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
-  source: edge
-  relationship: system-coverage
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: hugging-face-qwen
@@ -230,11 +293,11 @@
   category: Cloud native landscape
   type: register
   channel: standard-directory
-  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  evidence: https://github.com/cncf/landscape/blob/42dd4cd91dad8ec8558ac02467a43f0805b9957a/landscape.yml
   source: edge
   relationship: standard-participant
   contract_reference:
-    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @42dd4cd91d)
     spec_file: null
     standard: Cloud Native (CNCF)
     role: landscape-listed
@@ -254,40 +317,7 @@
     signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
       categories, tier and projects are CONTEXT, never read (breadth is not credit)'
     detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
-  status: not-a-workflow
-  arazzo: null
-- slug: hugging-face-lf-ai-data-landscape
-  label: LF AI & Data (Landscape)
-  partner: lf-ai-data
-  partner_name: LF AI & Data (Landscape)
-  category: AI & data landscape
-  type: register
-  channel: standard-directory
-  evidence: https://github.com/lfai/landscape/blob/95d361b8abfdd04a8c76bf38a012778d13621b5e/landscape.yml
-  source: edge
-  relationship: standard-participant
-  contract_reference:
-    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @95d361b8ab)
-    spec_file: null
-    standard: LF AI & Data
-    role: landscape-listed
-    registered_name: Text Generation Inference
-    registered_names:
-    - Text Generation Inference
-    website: https://huggingface.co/text-generation-inference
-    matched_domain: huggingface.co
-    matched_by: domain+name-among-holders
-    member_tier: null
-    hosting_company: false
-    lfai_projects: []
-    landscape_categories:
-    - Model / Inference
-    landscape_entries: 1
-    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
-      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
-    detected_by: sweep-mlops.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: hugging-face-zapier
@@ -322,7 +352,7 @@
   type: marketplace
   marketplace: pipedream-components
   channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/hugging_face
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/hugging_face
   source: edge
   relationship: ipaas-bridge
   contract_reference:
@@ -339,35 +369,5 @@
     actions: true
     sources: false
     builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
-- slug: hugging-face-airbyte
-  label: Airbyte
-  partner: airbyte
-  partner_name: Airbyte
-  type: marketplace
-  marketplace: airbyte-registry
-  channel: elt-connector
-  evidence: https://docs.airbyte.com/integrations/sources/hugging-face-datasets
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Airbyte connector registry (connectors.airbyte.com cloud_registry.json + oss_registry.json)
-    spec_file: null
-    role: elt-connector:airbyte-community
-    registered_name: Hugging Face - Datasets
-    matched_domain: huggingface.co
-    matched_by: domain+name-among-holders
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connectors:
-    - airbyte/source-hugging-face-datasets
-    support_level:
-    - community
-    release_stage:
-    - alpha
-    in_cloud: true
-    builder: unknown (community connector; contributor not in the record)
   status: not-a-workflow
   arazzo: null
