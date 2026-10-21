@@ -535,6 +535,25 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: open-vsx
+  evidence: https://open-vsx.org/namespace/huggingface
+  mirror_of: eclipse/integrations/eclipse-integration-edges.yml
+  apps:
+  - llm-vscode
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified namespace
 generated: '2026-10-13'
 method: searched
 checked:
@@ -556,6 +575,7 @@ checked:
 - https://huggingface.co/models?pipeline_tag=text-to-speech
 - https://marketplace.visualstudio.com/vscode
 - https://zapier.com/api/v4/apps/
+- eclipse/integrations/eclipse-integration-edges.yml
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
