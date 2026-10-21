@@ -384,3 +384,66 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: hugging-face-sequoia-capital
+  label: Sequoia Capital
+  partner: sequoia-capital
+  partner_name: Sequoia Capital
+  category: vc portfolio participation
+  type: register
+  channel: standard-directory
+  evidence: https://sequoiacap.com/companies/hugging-face
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Sequoia Capital companies (sequoiacap.com/companies/<slug>, from the site's sitemap.xml)
+    standard: null
+    spec_file: null
+    role: vc-portfolio-company
+    registered_name: Hugging Face
+    register_id: https://sequoiacap.com/companies/hugging-face
+    register_country: null
+    register_website: https://huggingface.co/
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    signal_note: 'participation only: the venture firm''s own published portfolio lists the company (investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-vc-portfolios.py
+    detected: '2026-10-21'
+  status: not-a-workflow
+  arazzo: null
+- slug: hugging-face-github-secret-scanning-partner-program
+  label: GitHub secret scanning partner program
+  partner: github
+  partner_name: GitHub secret scanning partner program
+  category: GitHub platform partnership (security)
+  type: register
+  channel: standard-directory
+  evidence: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: GitHub secret scanning partner program (docs.github.com supported-secret-scanning-patterns, 'Partner'
+      column = isPublic in the page's own pattern data)
+    standard: GitHub secret scanning partner program
+    spec_file: null
+    role: secret-scanning-partner
+    registered_name: Hugging Face
+    register_id: https://docs.github.com/en/code-security/reference/secret-security/supported-secret-scanning-patterns#supported-provider-patterns
+    matched_domain: null
+    matched_by: register-name
+    register_name_note: register-name 'huggingface' = hugging-face; wikidata P856 huggingface.co agrees or unheld
+    token_types:
+    - hf_org_api_key
+    - hf_user_access_token <br/><a href="#token-versions">Token versions</a>
+    context:
+      push_protection: 2
+      validity_check: 1
+    signal_note: 'participation only: GitHub notifies the provider when its token leaks publicly (the provider runs
+      a verification endpoint for the programme); token types and counts are context, never counted'
+    detected_by: sweep-github-marketplace.py
+    detected: '2026-10-21'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
