@@ -663,6 +663,31 @@ edges:
   detected_by: sweep-raycast-store-extensions.py
   first_seen: '2026-10-22'
   direction: partner-built
+- partner_name: IFTTT
+  partner: ifttt
+  partner_match: aggregator
+  type: marketplace
+  marketplace: ifttt-services
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://ifttt.com/hugging_face
+  category: null
+  contract_reference:
+    register: IFTTT service directory (ifttt.com/explore/services; ifttt.com/<service>)
+    spec_file: null
+    role: ipaas-connector:ifttt
+    registered_name: Hugging Face
+    matched_domain: huggingface.co
+    matched_by: domain+name-among-holders
+    app_slug: hugging_face
+    ifttt_category: AI
+    builder: unknown (the service page does not say who built it)
+    detected_by: sweep-ifttt-services.py
+    detected: '2026-10-23'
+    signal_note: one edge per (provider, platform); triggers, actions and applet counts are context, never read
+  detected_by: sweep-ifttt-services.py
+  first_seen: '2026-10-23'
 generated: '2026-10-13'
 method: searched
 checked:
@@ -700,6 +725,9 @@ checked:
 - https://partner.github.com/
 - https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
 - https://www.raycast.com/api/v1/store_listings
+- https://ifttt.com/explore/services
+- https://ifttt.com/hugging_face
+- https://ifttt.com/sitemap_services.xml
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
